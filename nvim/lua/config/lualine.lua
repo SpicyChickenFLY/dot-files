@@ -18,38 +18,42 @@ require('lualine').setup {
     }
   },
   sections = {
-    lualine_a = {{'mode', fmt = function(mode_str)
-      local modeMap = {}
-        modeMap["NORMAL"] = " N "
-        modeMap["INSERT"] = " I "
-        modeMap["COMMAND"] = " C "
-        modeMap["REPLACE"] = " R "
-        modeMap["TERMINAL"] = " T "
-        modeMap["SELECT"] = " S "
-        modeMap["VISUAL"] = " V "
-        modeMap["V-LINE"] = "V-L"
-        modeMap["V-BLOCK"] = "V-B"
-        modeMap["SELECT"] = " S "
-        modeMap["S-LINE"] = "S-L"
-      return modeMap[mode_str]
-    end
-    } },
+    lualine_a = {
+      {
+        'mode',
+        fmt = function(mode_str)
+          local modeMap = {}
+            modeMap["NORMAL"] = " N "
+            modeMap["INSERT"] = " I "
+            modeMap["COMMAND"] = " C "
+            modeMap["REPLACE"] = " R "
+            modeMap["TERMINAL"] = " T "
+            modeMap["SELECT"] = " S "
+            modeMap["VISUAL"] = " V "
+            modeMap["V-LINE"] = "V-L"
+            modeMap["V-BLOCK"] = "V-B"
+            modeMap["SELECT"] = " S "
+            modeMap["S-LINE"] = "S-L"
+          return modeMap[mode_str]
+        end
+      }
+    },
     lualine_b = {
       'branch',
       {
         'diff',
-        symbols = { added = ' ', modified = ' ', removed = ' ', },
-      }
+        -- symbols = { added = ' ', modified = ' ', removed = ' ', },
+        -- symbols = { added = '+', modified = '~', removed = '-', },
+        symbols = { added = '', modified = '', removed = '', },
+      },
     },
     lualine_c = {
       'filename',
-      {
-        'diagnostics',
-        --[[ symbols = {error = '', warn = '', info = '', hint = ''} ]]
-      }
+      'diagnostics',
     },
-    lualine_x = {'filetype'},
-    lualine_y = {'encoding', 'fileformat'},
+    lualine_x = {
+    },
+    lualine_y = {'filetype', 'encoding', 'fileformat'},
     lualine_z = {'%l:%c', 'progress'}
   },
   inactive_sections = {

@@ -150,20 +150,20 @@ local leader_mapping = {
   },
   g = {
     name = "Git",
-    g = { ":lua require 'lvim.core.terminal'.lazygit_toggle()<cr>", "Lazygit" },
+    g = { ":Lazygit<cr>", "Lazygit" },
     j = { ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", "Next Hunk" },
-    k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev Hunk" },
+   k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev Hunk" },
     l = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
     p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
     r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
     R = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
     s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
     u = { ":lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+    d = { ":Gitsigns diffthis HEAD<cr>", "Git Diff" },
     o = { ":Telescope git_status<cr>", "Open changed file" },
     b = { ":Telescope git_branches<cr>", "Checkout branch" },
     c = { ":Telescope git_commits<cr>", "Checkout commit" },
     C = { ":Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
-    d = { ":Gitsigns diffthis HEAD<cr>", "Git Diff" },
   },
   p = {
     name = "Packer",
@@ -174,6 +174,21 @@ local leader_mapping = {
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
+  x = {
+    name = "Diagnostic",
+    x = { ":TroubleToggle<cr>", "Open" },
+    w = { ":TroubleToggle workspace_diagnostics<cr>", "workspace" },
+    d = { ":TroubleToggle document_diagnostics<cr>", "document" },
+    q = { ":TroubleToggle quickfix<cr>", "quickfix" },
+    l = { ":TroubleToggle loclist<cr>", "loclist" },
+  },
+  t = {
+    name = "Todo",
+    t = { ":TodoTrouble<cr>", "Open"},
+    q = { ":TodoQuickFix<cr>", "quickfix" },
+    l = { ":TodoLocList<cr>", "loclist" },
+    f = { ":TodoTelescope<cr>", "find in telescope" },
+  }
 }
 local wk = require("which-key")
 wk.register(leader_mapping, { prefix = "<leader>" })
