@@ -58,12 +58,12 @@ opt.listchars = {
 opt.mouse = 'a'
 opt.number = true
 opt.rnu = false
-opt.scrolloff = 18
+opt.scrolloff = 5 -- 当游标达到离顶部与底部还有N行时,继续移动会导致页面滚动
 opt.showmode = false
 opt.sidescrolloff = 3 -- Lines to scroll horizontally
 opt.signcolumn = 'yes'
-opt.splitbelow = true -- Open new split below
-opt.splitright = true -- Open new split to the right
+opt.splitbelow = false -- Open new split below
+opt.splitright = false -- Open new split to the right
 opt.wrap = true
 
 -- backups

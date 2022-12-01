@@ -43,11 +43,11 @@ dap.configurations.go = {
 -- You can customize the signs by setting them with the |sign_define()| function.
 -- For example:
 
-vim.fn.sign_define('DapBreakpoint', {text='', texthl='red'})
-vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='red'})
-vim.fn.sign_define('DapLogPoint', {text='', texthl='red'})
-vim.fn.sign_define('DapStopped', {text='', texthl='red'})
-vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='red'})
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapLogPoint', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='DapUIStop'})
 
 local dapui = require("dapui")
 dapui.setup({
