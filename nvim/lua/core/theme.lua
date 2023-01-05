@@ -23,8 +23,10 @@ end
 
 vim.o.background = 'light'
 vim.cmd('colorscheme catppuccin-latte')
--- TODO: add named color highlight
---
+-- TODO: load standard color from plugin configuration
+-- local C = require("catppuccin.palettes").get_palette()
+
+
 vim.cmd('hi Folded guibg=#d8ded9')
 vim.cmd('hi link UfoFoldedEllipsis ModeMsg')
 

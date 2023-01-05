@@ -33,6 +33,8 @@ opt.tabstop = indent
 opt.softtabstop = indent
 opt.shiftwidth = indent
 cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
+cmd([[ autocmd FileType python setlocal ts=4 sts=2 sw=2 noexpandtab ]])
+cmd([[ autocmd FileType java setlocal ts=4 sts=2 sw=2 noexpandtab ]])
 
 -- search
 opt.hlsearch = true

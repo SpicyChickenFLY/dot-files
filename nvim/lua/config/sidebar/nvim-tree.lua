@@ -4,6 +4,7 @@ local icons = require("core.icons")
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+
 -- set up args
 local args = {
   respect_buf_cwd = true,
@@ -25,7 +26,7 @@ local args = {
     enable = true,
   },
   view = {
-    width = 35,
+    width = 40,
     number = false,
     relativenumber = false,
     float = {
@@ -36,7 +37,7 @@ local args = {
     mappings = {
       list = {
         { key = { "<CR>", "l", "<2-LeftMouse>" }, action = "edit" },
-        { key = "<C-e>", action = "edit_in_place" },
+        -- { key = "<C-S-e>", action = "edit_in_place" },
         { key = "O", action = "edit_no_picker" },
         { key = { "<C-]>", "<2-RightMouse>" }, action = "cd" },
         { key = "<C-v>", action = "vsplit" },
@@ -99,6 +100,7 @@ local args = {
         folder = icons.folder,
       },
     },
+    group_empty = true,
   },
   actions = {
     open_file = {
@@ -117,3 +119,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 require("nvim-tree").setup(args)
+

@@ -1,3 +1,14 @@
+local function searchCount()
+    local search = vim.fn.searchcount({maxcount = 0}) -- maxcount = 0 makes the number not be capped at 99
+    local searchCurrent = search.current
+    local searchTotal = search.total
+    if searchCurrent > 0 and vim.v.hlsearch ~= 0 then
+        return vim.fn.getreg("/").." ["..searchCurrent.."/"..searchTotal.."]"
+    else
+        return ""
+    end
+end
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -6,7 +17,7 @@ require('lualine').setup {
     --[[ section_separators = { left = '', right = ''}, ]]
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
-    disabled_filetypes = { 'packer', 'mason', 'NvimTree', 'trouble'
+    disabled_filetypes = { 'packer', 'mason', 'NvimTree', 'trouble', 'Outline'
     },
     ignore_focus = {},
     always_divide_middle = false,
@@ -50,11 +61,11 @@ require('lualine').setup {
     lualine_c = {
       'filename',
       'diagnostics',
+      { searchCount },
     },
-    lualine_x = {
-    },
+    lualine_x = {'b:gitsigns_blame_line'},
     lualine_y = {'filetype', 'encoding', 'fileformat'},
-    lualine_z = {'%l:%c', 'progress'}
+    lualine_z = {'%l:%c', 'progress'},
   },
   inactive_sections = {
     lualine_a = {},
@@ -70,3 +81,4 @@ require('lualine').setup {
   globalstatus = true,
   extensions = {}
 }
+

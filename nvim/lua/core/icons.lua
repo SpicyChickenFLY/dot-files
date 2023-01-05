@@ -2,21 +2,21 @@ local icons = {
   rounded_left_filled = '', rounded_right_filled = '',
   arrow_left_filled = '', arrow_right_filled = '',
   arrow_left = '', arrow_right = '', sep = '|',
+  close = '',
+  dot = '●',
+  left = '',
+  right = '',
   ghost = '',
   cosmic = ' ',
   star = '★',
   search = ' ',
   scorpio = '♏︎',
   rocket = '🚀',
-  trace = '✎',
-  debug = ' ',
-  info = '',
-  warn = '',
-  error = '',
+  -- NOTE: level
+  trace = '✎', debug = ' ', info = '', warn = '', error = '', hint = '',
   --[[ info = '', ]]
   --[[ warn = '', ]]
   --[[ error = '', ]]
-  hint = '',
   perf = ' ',
   note = '',
   branch = '',
@@ -27,12 +27,15 @@ local icons = {
   line_number = '',
   flame = ' ',
   check = ' ',
+  cross = '',
   file1 = '',
   file2 = '',
   clock = '',
+  test = '',
   word = '',
   diff = { add = ' ', modified = ' ', remove = ' ', },
 
+  -- NOTE: git
   git = { unstaged = '✗', staged = '✓', unmerged = '',
     renamed = '➜', untracked = '★', deleted = '', ignored = '◌', },
 
@@ -40,15 +43,17 @@ local icons = {
     default = '', open = '', empty = '', empty_open = '',
     symlink = '', symlink_open = '', },
 
-  kind_icons = { Text = '', Method = 'm', Function = '',
-    Constructor = '', Field = '', Variable = '', Class = '',
-    Interface = '', Module = '', Property = '', Unit = '',
+  kind_icons = { Text = '', Constructor = '', Unit = '', Module = '',
     Value = '', Enum = '', Keyword = '', Snippet = '',
+
+    Method = 'm', Function = '', Field = '', Variable = '', Class = '',
+    Interface = '', Property = '',
     Color = '', File = '', Reference = '', Folder = '',
     EnumMember = '', Constant = '', Struct = '', Event = '',
     Operator = '', TypeParameter = '', },
 
-  unclassified = {
+
+  barbecue_icons = {
     File = "",
     Array = "",
     Object = "",
@@ -66,12 +71,42 @@ local icons = {
     TypeParameter = "",
     Variable = "",
     Operator = "",
+
     Null = "",
     Boolean = "",
     Number = "",
     String = "",
     Key = "",
-  }
+  },
+
+  new_kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = "",
+  },
+
 }
 
 return icons

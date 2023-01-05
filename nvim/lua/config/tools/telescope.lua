@@ -1,6 +1,6 @@
 local actions = require('telescope.actions')
 local icons = require('core.icons')
-local u = require('utils')
+local u = require('core.utils')
 
 local mappings = {
   n = {

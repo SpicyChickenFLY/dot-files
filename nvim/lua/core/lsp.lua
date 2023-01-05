@@ -3,8 +3,8 @@
 --
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", })
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", })
 
 -- To instead override globally
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -18,25 +18,6 @@ end
 local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  --[[ vim.keymap.set('n' , 'gd'         , vim.lsp.buf.definition                             , bufopts) ]]
-  --[[ vim.keymap.set('n' , 'gd'         , vim.lsp.buf.type_definition                        , bufopts) ]]
-  --[[ vim.keymap.set('n' , 'gh'          , vim.lsp.buf.hover                                  , bufopts) ]]
-  --[[ vim.keymap.set('n' , 'gi'         , vim.lsp.buf.implementation                         , bufopts) ]]
-  --[[ vim.keymap.set('n' , 'gr'         , vim.lsp.buf.references                             , bufopts) ]]
-  --[[]]
-  --[[ vim.keymap.set('n' , 'gs'         , vim.lsp.buf.document_symbol                        , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lsh' , vim.lsp.buf.signature_help                         , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lfn' , vim.lsp.buf.rename                                 , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lfm' , function() vim.lsp.buf.format { async = true } end , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lca' , vim.lsp.buf.code_action                            , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lwa' , vim.lsp.buf.add_workspace_folder                   , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lwr' , vim.lsp.buf.remove_workspace_folder                , bufopts) ]]
-  --[[ vim.keymap.set('n' , '<LEADER>lwl' , function() ]]
-  --[[   print(vim.inspect(vim.lsp.buf.list_workspace_folders())) ]]
-  --[[ end, bufopts) ]]
 end
 
 -- This is the default in Nvim 0.7+
@@ -165,10 +146,10 @@ require("lspconfig")["bashls"].setup({
 -- docker lsp
 -------------
 -- npm install -g dockerfile-language-server-nodejs
-require("lspconfig")["dockerls"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- require("lspconfig")["dockerls"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 -- ansible lsp
 -------------
@@ -288,13 +269,21 @@ require("lspconfig")["jsonls"].setup({
 
 -- java lsp
 -------------
+-- NOTE: java-language-server only support jdk(>=1.9)
 -- https://github.com/georgewfraser/java-language-server
---[[ require('lspconfig')['java_language_server'].setup({ ]]
---[[   cmd = {"~/softwares/java-language-server/dist//lang_server_linux.sh"}, ]]
---[[   on_attach = on_attach, ]]
---[[   flags = lsp_flags, ]]
---[[ }) ]]
+-- require('lspconfig')['java_language_server'].setup({
+--   cmd = {"/mnt/Mine/Code/java/java-language-server/dist/lang_server_linux.sh"},
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 --
+-- NOTE: jdtls should be setup by nvim-jdtls
+-- require('lspconfig')['jdtls'].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
+
+
 -- cmake lsp
 -------------
 -- pip install cmake-language-server

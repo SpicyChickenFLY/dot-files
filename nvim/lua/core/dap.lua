@@ -8,7 +8,6 @@ dap.adapters.delve = {
     args = { "dap", "-l", "127.0.0.1:${port}" },
   },
 }
-
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 dap.configurations.go = {
   {
@@ -34,6 +33,20 @@ dap.configurations.go = {
   },
 }
 
+-- You do not have to define dap.adapters.java yourself if you use nvim-jdtls
+-- dap.adapters.java = {}
+dap.configurations.java = {
+  {
+    javaExec = "/usr/bin/java",
+    mainClass = "${file}",
+    -- args = "${command:SpecifyProgramArgs}" ,
+
+    name = "Debug",
+    request = "launch",
+    type = "java"
+  },
+}
+
 -- `DapBreakpoint` for breakpoints (default: `B`)
 -- `DapBreakpointCondition` for conditional breakpoints (default: `C`)
 -- `DapLogPoint` for log points (default: `L`)
@@ -46,12 +59,12 @@ dap.configurations.go = {
 vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop'})
 vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop'})
 vim.fn.sign_define('DapLogPoint', {text='', texthl='DapUIStop'})
-vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
-vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='DapUIStop'})
 
 local dapui = require("dapui")
 dapui.setup({
-  icons = { expanded = "", collapsed = "", current_frame = "" },
+  icons = { expanded = "", collapsed = "", current_frame = "" },
   mappings = {
     -- Use a table to apply multiple mappings
     expand = { "<CR>", "<2-LeftMouse>" },

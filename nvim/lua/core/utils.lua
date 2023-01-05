@@ -2,6 +2,21 @@ local M = {}
 local augroup_name = 'CosmicNvimUtils'
 local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
 
+function M.log(type, msg, opts)
+  local ok, notify = pcall(require, 'notify')
+  if ok then
+    opts  = vim.tbl_deep_extend('force', { title = 'NeverVim', }, opts)
+    notify( msg, type, opts)
+  else
+    if vim.tbl_islist(msg) then -- regular vim.notify can't take tables of strings
+      local msg_str = ''
+      for _, v in pairs(msg) do msg_str = msg_str .. v end
+      msg = msg_str
+    end
+    vim.notify(msg, type)
+  end
+end
+
 function M.map(mode, lhs, rhs, opts)
   local defaults = {
     silent = true,
@@ -65,12 +80,11 @@ local function clear_cache()
 end
 
 function M.post_reload(msg)
-  local Logger = require('utils.logger')
-  unload('utils', true)
-  unload('theme', true)
-  unload('plugins.statusline', true)
+  -- unload('utils', true)
+  -- unload('theme', true)
+  -- unload('plugins.statusline', true)
   msg = msg or 'User config reloaded!'
-  Logger:log(msg)
+  M.log(vim.log.levels.INFO, msg)
 end
 
 function M.reload_user_config_sync()
@@ -110,7 +124,6 @@ end
 
 -- update instance of CosmicNvim
 function M.update()
-  local Logger = require('utils.logger')
   local Job = require('plenary.job')
   local path = M.get_install_dir()
   local errors = {}
@@ -119,18 +132,18 @@ function M.update()
       :new({
         command = 'git',
         args = { 'pull', '--ff-only' },
-        cwd = path,
+        cwd = path or '',
         on_start = function()
-          Logger:log('Updating...')
+          M.log(vim.log.levels.INFO, 'Updating...')
         end,
         on_exit = function()
           if vim.tbl_isempty(errors) then
-            Logger:log('Updated! Running CosmicReloadSync...')
+            M.log(vim.log.levels.INFO, 'Updated! Running CosmicReloadSync...')
             M.reload_user_config_sync()
           else
             table.insert(errors, 1, 'Something went wrong! Please pull changes manually.')
             table.insert(errors, 2, '')
-            Logger:error('Update failed!', { timeout = 30000 })
+            M.log(vim.log.levels.ERROR, 'Update failed!', { timeout = 30000 })
           end
         end,
         on_stderr = function(_, err)
