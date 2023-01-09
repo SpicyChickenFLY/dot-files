@@ -27,7 +27,7 @@ vim.cmd('colorscheme catppuccin-latte')
 -- local C = require("catppuccin.palettes").get_palette()
 
 
-vim.cmd('hi Folded guibg=#d8ded9')
+vim.cmd('hi Folded guibg=#dbdde1')
 vim.cmd('hi link UfoFoldedEllipsis ModeMsg')
 
 -- vim.cmd('hi link BufferInactive ')

@@ -87,7 +87,6 @@ opt.updatetime = 100
 opt.termguicolors = true
 
 -- fold
---[[ opt.fillchars = { eob= '', fold= '', foldopen='', foldsep= '', foldclose= '' } ]] -- syntax err
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldcolumn = '0' -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value

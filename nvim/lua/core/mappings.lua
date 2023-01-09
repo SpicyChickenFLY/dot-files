@@ -40,6 +40,8 @@ map("t", "<C-\\>", [[<C-\><C-n>]])
 -- NOTE: command <z> mapping
 map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
 map("n", "zM", ":lua require'ufo'.closeAllFolds()<CR>", { desc = "close all folds" })
+map("n", "zr", ":lua require('ufo').openFoldsExceptKinds()<CR>", { desc = "open next fold level"})
+map("n", "zm", ":lua require('ufo').closeFoldsWith()<CR>", { desc = "close next fold level"})
 map("n", "z1", ":lua require'ufo'.closeFoldsWith(1)<CR>", { desc = "close fold level 1" })
 map("n", "z2", ":lua require'ufo'.closeFoldsWith(2)<CR>", { desc = "close fold level 2" })
 map("n", "z3", ":lua require'ufo'.closeFoldsWith(3)<CR>", { desc = "close fold level 3" })
