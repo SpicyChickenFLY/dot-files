@@ -32,7 +32,6 @@ end
 -- [[ load other core modules ]]
 local modules = {
   'core.editor',
-  'core.theme',
   'core.plugins',
   'core.lsp',
   'core.dap',

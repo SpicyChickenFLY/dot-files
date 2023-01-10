@@ -24,6 +24,8 @@
 --   table.insert(newVirtText, { suffix, "MoreMsg" })
 --   return newVirtText
 -- end
+vim.cmd('hi Folded guibg=#dbdde1')
+vim.cmd('hi link UfoFoldedEllipsis ModeMsg')
 
 require("ufo").setup({
   --[[ provider_selector = function(bufnr, filetype, buftype) ]]

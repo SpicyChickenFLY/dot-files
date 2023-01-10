@@ -1,18 +1,36 @@
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
---
+-- set highlight for diagnostic
+local utils = require("core.utils")
+local statusline_colors = utils.get_highlight("StatusLine")
+local error_colors = utils.get_highlight("DiagnosticError")
+local warning_colors = utils.get_highlight("DiagnosticWarn")
+local hint_colors = utils.get_highlight("DiagnosticHint")
+local info_colors = utils.get_highlight("DiagnosticInfo")
+utils.set_highlight("DiagnosticErrorInv", { guibg = error_colors.guifg, guifg = statusline_colors.guibg })
+utils.set_highlight("DiagnosticWarnInv", { guibg = warning_colors.guifg, guifg = statusline_colors.guibg })
+utils.set_highlight("DiagnosticHintInv", { guibg = hint_colors.guifg, guifg = statusline_colors.guibg })
+utils.set_highlight("DiagnosticInfoInv", { guibg = info_colors.guifg, guifg = statusline_colors.guibg })
+
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" })
+vim.fn.sign_define( "DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" })
+
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", })
+local border = "rounded"
+vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border })
+vim.diagnostic.config({ float = { border = border } })
+require('lspconfig.ui.windows').default_options = { border = border }
 
 -- To instead override globally
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or 'rounded'
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--   opts = opts or {}
+--   opts.border = opts.border or 'rounded'
+--   return orig_util_open_floating_preview(contents, syntax, opts, ...)
+-- end
+
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -282,7 +300,6 @@ require("lspconfig")["jsonls"].setup({
 --   on_attach = on_attach,
 --   flags = lsp_flags,
 -- })
-
 
 -- cmake lsp
 -------------

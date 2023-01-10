@@ -14,3 +14,5 @@ local ok , err = pcall(require, 'core')
 if not ok then
   error(('Error loading core module...\n\n%s'):format(err))
 end
+
+vim.cmd('colorscheme catppuccin-latte')

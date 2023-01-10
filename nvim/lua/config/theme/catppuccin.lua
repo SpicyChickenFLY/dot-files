@@ -34,8 +34,8 @@ require("catppuccin").setup({
         gitsigns = true,
         nvimtree = true,
         telescope = true,
+        symbols_outline = true,
         notify = false,
-        mini = false,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })

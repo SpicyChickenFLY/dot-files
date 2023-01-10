@@ -85,6 +85,7 @@ opt.updatetime = 100
 
 -- theme
 opt.termguicolors = true
+opt.background = 'light'
 
 -- fold
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
