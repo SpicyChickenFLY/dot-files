@@ -90,9 +90,12 @@ local args = {
     ignore = true,
   },
   renderer = {
+    group_empty = true,
     highlight_git = true,
     special_files = {},
     icons = {
+      git_placement = "after",
+      show = { git = true },
       glyphs = {
         default = "",
         symlink = icons.symlink,
@@ -100,7 +103,6 @@ local args = {
         folder = icons.folder,
       },
     },
-    group_empty = true,
   },
   actions = {
     open_file = {

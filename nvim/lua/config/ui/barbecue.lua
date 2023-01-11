@@ -1,3 +1,4 @@
+local icons = require("core.icons")
 require("barbecue").setup({
   attach_navic = true,
   create_autocmd = true,
@@ -18,33 +19,5 @@ require("barbecue").setup({
     separator = ">",
   },
 
-  kinds = {
-    File = "",
-    Package = "",
-    Module = "",
-    Namespace = "",
-    Macro = "",
-    Class = "ﴯ",
-    Constructor = "",
-    Field = "",
-    Property = "ﰠ",
-    Method = "",
-    Struct = "ﴯ",
-    Event = "",
-    Interface = "",
-    Enum = "",
-    EnumMember = "",
-    Constant = "",
-    Function = "",
-    TypeParameter = "",
-    Variable = "",
-    Operator = "",
-    Null = "N",
-    Boolean = "",
-    Number = "",
-    String = "",
-    Key = "",
-    Array = "",
-    Object = "",
-  },
+  kinds = icons.kind_icons
 })

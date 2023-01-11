@@ -1,5 +1,7 @@
--- set highlight for diagnostic
 local utils = require("core.utils")
+local icons = require("core.icons")
+
+-- set highlight for diagnostic
 local statusline_colors = utils.get_highlight("StatusLine")
 local error_colors = utils.get_highlight("DiagnosticError")
 local warning_colors = utils.get_highlight("DiagnosticWarn")
@@ -22,6 +24,12 @@ vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {
 vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border })
 vim.diagnostic.config({ float = { border = border } })
 require('lspconfig.ui.windows').default_options = { border = border }
+
+local kinds = vim.lsp.protocol.CompletionItemKind
+for i, kind in ipairs(kinds) do
+  kinds[i] = icons.kind_icons[kind] or kind
+end
+
 
 -- To instead override globally
 -- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview

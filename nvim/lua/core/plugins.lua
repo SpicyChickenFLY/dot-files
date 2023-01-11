@@ -83,6 +83,9 @@ return packer.startup(function()
     run = ':TSUpdate',
     config = function() require('config.appearence.treesitter') end,
   }
+  -- use { "Jxstxs/conceal.nvim",
+  --   requires = "nvim-treesitter/nvim-treesitter"
+  -- } -- conceal test to icon
 
   -- NOTE: LSP stuff
   use { "williamboman/mason.nvim",
@@ -112,7 +115,6 @@ return packer.startup(function()
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      -- { 'windwp/nvim-autopairs', after = 'nvim-cmp' },
     },
     event = 'InsertEnter',
   } -- autocompletion
@@ -139,7 +141,8 @@ return packer.startup(function()
     event = 'VimEnter',
   } -- file explorer
   use { 'simrat39/symbols-outline.nvim',
-    config = function () require('symbols-outline').setup() end,
+    -- config = function () require('symbols-outline').setup() end,
+    config = function () require('config.sidebar.symbols-outline') end,
   }
   use { 'windwp/nvim-spectre',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -171,11 +174,11 @@ return packer.startup(function()
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function() require('trouble').setup() end,
   } -- show diagnostic list
+  use{ "kylechui/nvim-surround",
+    config = function() require("nvim-surround").setup({ }) end,
+  }
 
   -- NOTE: editor stuff
-  use { 'windwp/nvim-autopairs',
-    config = function() require('config.editor.auto-pairs') end,
-  } -- pair pathensis/tags
   use { 'kevinhwang91/nvim-ufo',
     requires = 'kevinhwang91/promise-async',
     config = function() require('config.editor.nvim-ufo') end,
@@ -187,9 +190,6 @@ return packer.startup(function()
   use { 'rmagatti/auto-session',
     config = function() require('config.editor.auto-session') end,
   } -- restore buffers
-
-  -- NOTE: others
-  use { 'ThePrimeagen/vim-be-good' }
 
   if packer.first_install then packer.sync() end
 end)

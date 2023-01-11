@@ -12,7 +12,6 @@ init.lua中实际上是通过调用neovim中的API来实现vimscript中的内容
 ### Session
 'rmagatti/auto-session'
 ### Editing support
-'windwp/nvim-autopairs'
 'p00f/nvim-ts-rainbow'
 'windwp/nvim-ts-autotag'
 'folke/which-key.nvim'
