@@ -1,6 +1,6 @@
 local map = require("core.utils").map
 
-map("n", "<ESC>", ":set nohls<CR>")
+map("n", "<ESC>", ":nohl<CR>")
 -- buffer navigation
 -- map("n", "<leader>j", ":BufferPrevious<CR>")
 -- map("n", "<leader>k", ":BufferNext<CR>")
@@ -20,8 +20,8 @@ map("n", "<leader>q", ":bdelete<CR>")
 -- resize window
 map("n", "-", ":resize -2<CR>")
 map("n", "=", ":resize +2<CR>")
-map("n", "_", ":vertical resize -2<CR>")
-map("n", "+", ":vertical resize +2<CR>")
+map("n", "_", ":vertical resize -5<CR>")
+map("n", "+", ":vertical resize +5<CR>")
 -- quick exit insert mode
 map("i", "jj", "<ESC>")
 map("i", "jk", "<ESC>:w<CR>")

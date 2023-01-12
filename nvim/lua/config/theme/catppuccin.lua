@@ -9,7 +9,7 @@ require("catppuccin").setup({
     dim_inactive = {
         enabled = true,
         shade = "dark",
-        percentage = 0.15,
+        percentage = 0.05,
     },
     no_italic = false, -- Force no italic
     no_bold = false, -- Force no bold
@@ -35,7 +35,36 @@ require("catppuccin").setup({
         nvimtree = true,
         telescope = true,
         symbols_outline = true,
-        notify = false,
+        noice = true,
+        notify = true,
+        treesitter = true,
+        treesitter_context = true,
+        ts_rainbow = true,
+        vim_sneak = true,
+        which_key = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        dap = {
+            enabled = false,
+            enable_ui = false,
+        },
+        indent_blankline = {
+            enabled = true,
+            colored_indent_levels = true,
+        },
+        native_lsp = {
+            enabled = true,
+            virtual_text = {
+                errors = { "italic" },
+                hints = { "italic" },
+                warnings = { "italic" },
+                information = { "italic" },
+            },
+            underlines = {
+                errors = { "undercurl" },
+                hints = { "undercurl" },
+                warnings = { "undercurl" },
+                information = { "undercurl" },
+            },
+        },
     },
 })
