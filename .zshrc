@@ -104,7 +104,8 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export NODE_HOME=/usr/local/node
 export PATH=$PATH:$NODE_HOME/bin
 
-export JAVA_HOME8=/usr/local/jdk8
+export JAVA_HOME=/usr/local/jdk8
+export PATH=$PATH:$JAVA_HOME/bin
 
 export MAVEN_HOME=/usr/local/maven
 export PATH=$PATH:$MAVEN_HOME/bin
