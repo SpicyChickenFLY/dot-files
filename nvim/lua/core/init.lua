@@ -33,8 +33,8 @@ end
 local modules = {
   'core.editor',
   'core.plugins',
-  'core.lsp',
   'core.dap',
+  'core.lsp',
   'core.mappings',
 }
 for _, mod in ipairs(modules) do

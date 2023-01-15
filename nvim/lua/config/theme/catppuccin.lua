@@ -1,5 +1,5 @@
 require("catppuccin").setup({
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "latte", -- latte, frappe, macchiato, mocha
     background = { -- :h background
         light = "latte",
         dark = "mocha",
@@ -31,6 +31,7 @@ require("catppuccin").setup({
     custom_highlights = {},
     integrations = {
         cmp = true,
+        bufferline = true,
         gitsigns = true,
         nvimtree = true,
         telescope = true,
@@ -40,12 +41,12 @@ require("catppuccin").setup({
         treesitter = true,
         treesitter_context = true,
         ts_rainbow = true,
-        vim_sneak = true,
+        vim_sneak = false,
         which_key = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         dap = {
-            enabled = false,
-            enable_ui = false,
+            enabled = true,
+            enable_ui = true,
         },
         indent_blankline = {
             enabled = true,

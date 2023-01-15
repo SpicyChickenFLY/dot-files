@@ -4,36 +4,36 @@ local icons = require("core.icons")
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-
--- set up args
-local args = {
-  respect_buf_cwd = true,
-  diagnostics = {
-    enable = true,
-    icons = {
-      hint = icons.hint,
-      info = icons.info,
-      warning = icons.warn,
-      error = icons.error,
-    },
-  },
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-  },
-  update_focused_file = {
-    enable = true,
-  },
+require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
+  auto_reload_on_write = true,
+  disable_netrw = true,
+  hijack_cursor = false,
+  hijack_netrw = true,
+  hijack_unnamed_buffer_when_opening = false,
+  ignore_buffer_on_setup = false,
+  open_on_setup = false,
+  open_on_setup_file = false,
+  sort_by = "name",
+  root_dirs = {},
+  prefer_startup_root = false,
+  sync_root_with_cwd = false,
+  reload_on_bufenter = false,
+  respect_buf_cwd = false,
+  on_attach = "disable",
+  remove_keymaps = false,
+  select_prompts = false,
   view = {
-    width = 40,
+    adaptive_size = false,
+    centralize_selection = false,
+    cursorline = true,
+    debounce_delay = 15,
+    width = 30,
+    hide_root_folder = false,
+    side = "left",
+    preserve_window_proportions = false,
     number = false,
     relativenumber = false,
-    float = {
-      enable = false,
-      quit_on_focus_loss = true,
-      open_win_config = { relative = "win", row = 3, col = 3, width = 30, height = 30 },
-    },
+    signcolumn = "yes",
     mappings = {
       list = {
         { key = { "<CR>", "l", "<2-LeftMouse>" }, action = "edit" },
@@ -84,41 +84,274 @@ local args = {
         { key = "bmv", action = "bulk_move" },
       },
     },
-  },
-  git = {
-    enable = false,
-    ignore = true,
-  },
-  renderer = {
-    group_empty = true,
-    highlight_git = true,
-    special_files = {},
-    icons = {
-      git_placement = "after",
-      show = { git = true },
-      glyphs = {
-        default = "",
-        symlink = icons.symlink,
-        git = icons.git,
-        folder = icons.folder,
+    float = {
+      enable = false,
+      quit_on_focus_loss = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 30,
+        height = 30,
+        row = 1,
+        col = 1,
       },
     },
   },
+  renderer = {
+    add_trailing = false,
+    group_empty = false,
+    highlight_git = true,
+    full_name = false,
+    highlight_opened_files = "none",
+    highlight_modified = "none",
+    root_folder_label = ":~:s?$?/..?",
+    indent_width = 2,
+    indent_markers = {
+      enable = true,
+      inline_arrows = true,
+      icons = {
+        corner = "└",
+        edge = "│",
+        item = "│",
+        bottom = "─",
+        none = " ",
+      },
+    },
+    icons = {
+      webdev_colors = true,
+      git_placement = "after",
+      modified_placement = "after",
+      padding = " ",
+      symlink_arrow = " ➛ ",
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = true,
+        modified = false,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        bookmark = "",
+        modified = "●",
+        folder = {
+          arrow_closed = "",
+          arrow_open = "",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+          symlink_open = "",
+        },
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "★",
+          deleted = "",
+          ignored = "◌",
+        },
+      },
+    },
+    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+    symlink_destination = true,
+  },
+  hijack_directories = {
+    enable = true,
+    auto_open = true,
+  },
+  update_focused_file = {
+    enable = false,
+    update_root = false,
+    ignore_list = {},
+  },
+  ignore_ft_on_setup = {},
+  system_open = {
+    cmd = "",
+    args = {},
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = false,
+    show_on_open_dirs = true,
+    debounce_delay = 50,
+    severity = {
+      min = vim.diagnostic.severity.HINT,
+      max = vim.diagnostic.severity.ERROR,
+    },
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  filters = {
+    dotfiles = false,
+    git_clean = false,
+    no_buffer = false,
+    custom = {},
+    exclude = {},
+  },
+  filesystem_watchers = {
+    enable = true,
+    debounce_delay = 50,
+    ignore_dirs = {},
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    show_on_dirs = true,
+    show_on_open_dirs = true,
+    timeout = 400,
+  },
+  modified = {
+    enable = false,
+    show_on_dirs = true,
+    show_on_open_dirs = true,
+  },
   actions = {
+    use_system_clipboard = true,
+    change_dir = {
+      enable = true,
+      global = false,
+      restrict_above_cwd = false,
+    },
+    expand_all = {
+      max_folder_discovery = 300,
+      exclude = {},
+    },
+    file_popup = {
+      open_win_config = {
+        col = 1,
+        row = 1,
+        relative = "cursor",
+        border = "shadow",
+        style = "minimal",
+      },
+    },
     open_file = {
-      quit_on_open = true,
-    }
-  }
-}
+      quit_on_open = false,
+      resize_window = true,
+      window_picker = {
+        enable = true,
+        picker = "default",
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+        exclude = {
+          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+          buftype = { "nofile", "terminal", "help" },
+        },
+      },
+    },
+    remove_file = {
+      close_window = true,
+    },
+  },
+  trash = {
+    cmd = "gio trash",
+  },
+  live_filter = {
+    prefix = "[FILTER]: ",
+    always_show_folders = true,
+  },
+  tab = {
+    sync = {
+      open = false,
+      close = false,
+      ignore = {},
+    },
+  },
+  notify = {
+    threshold = vim.log.levels.INFO,
+  },
+  ui = {
+    confirm = {
+      remove = true,
+      trash = true,
+    },
+  },
+  log = {
+    enable = false,
+    truncate = false,
+    types = {
+      all = false,
+      config = false,
+      copy_paste = false,
+      dev = false,
+      diagnostics = false,
+      git = false,
+      profile = false,
+      watcher = false,
+    },
+  },
+}) -- END_DEFAULT_OPTS
 
--- Autoclose nvim is nvim-tree is only buffer open
-local augroup_name = "MyNvimTree"
-local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
-  command = [[if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]],
-  group = group,
-  nested = true,
-})
-
-require("nvim-tree").setup(args)
-
+-- -- set up args
+-- local args = {
+--   respect_buf_cwd = true,
+--   diagnostics = {
+--     enable = true,
+--     icons = {
+--       hint = icons.hint,
+--       info = icons.info,
+--       warning = icons.warn,
+--       error = icons.error,
+--     },
+--   },
+--   ignore_ft_on_setup = {
+--     "startify",
+--     "dashboard",
+--     "alpha",
+--   },
+--   update_focused_file = {
+--     enable = true,
+--   },
+--   view = {
+--     width = 40,
+--     number = false,
+--     relativenumber = false,
+--     float = {
+--       enable = false,
+--       quit_on_focus_loss = true,
+--       open_win_config = { relative = "win", row = 3, col = 3, width = 30, height = 30 },
+--     },
+--   },
+--   git = {
+--     enable = false,
+--     ignore = true,
+--   },
+--   renderer = {
+--     group_empty = true,
+--     highlight_git = true,
+--     special_files = {},
+--     icons = {
+--       git_placement = "after",
+--       show = { git = true },
+--       glyphs = {
+--         default = "",
+--         symlink = icons.symlink,
+--         git = icons.git,
+--         folder = icons.folder,
+--       },
+--     },
+--   },
+--   actions = {
+--     open_file = {
+--       quit_on_open = true,
+--     },
+--   },
+-- }
+--
+-- -- Autoclose nvim is nvim-tree is only buffer open
+-- local augroup_name = "MyNvimTree"
+-- local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   command = [[if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]],
+--   group = group,
+--   nested = true,
+-- })
+--
+-- require("nvim-tree").setup(args)

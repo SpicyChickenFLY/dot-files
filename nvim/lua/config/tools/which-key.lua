@@ -29,8 +29,8 @@ require("which-key").setup {
     -- ["<tab>"] = "TAB",
   },
   icons = {
-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-    separator = "➜", -- symbol used between a key and it's label
+    breadcrumb = ">", -- symbol used in the command line area that shows your active key combo
+    separator = "-", -- symbol used between a key and it's label
     group = "+", -- symbol prepended to a group
   },
   popup_mappings = {
@@ -60,8 +60,8 @@ require("which-key").setup {
     -- list of mode / prefixes that should never be hooked by WhichKey
     -- this is mostly relevant for key maps that start with a native binding
     -- most people should not need to change this
-    i = { "j", "k", "v" },
-    v = { "j", "k" },
+    n = {"h", "j", "k", "l", "v" },
+    v = {"h", "j", "k", "l", "v" },
   },
   -- disable the WhichKey popup for certain buf types and file types.
   -- Disabled by deafult for Telescope
