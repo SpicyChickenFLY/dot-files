@@ -123,8 +123,9 @@ local leader_mapping = {
   },
   e = {
     name = "File Explorer",
-    e = { ":NvimTreeFocus<CR>", "Open" },
+    e = { ":Ranger<CR>", "Open" },
     f = { ":NvimTreeFindFile<CR>", "Find File" },
+    l = { ":NvimTreeFocus<CR>", "Open" },
   },
   f = {
     name = "Find",

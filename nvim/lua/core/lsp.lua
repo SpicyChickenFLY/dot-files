@@ -22,7 +22,12 @@ vim.fn.sign_define( "DiagnosticSignError", { text = "", texthl = "DiagnosticS
 local border = "rounded"
 -- vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
 -- vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border })
--- vim.diagnostic.config({ float = { border = border } })
+vim.diagnostic.config({
+  float = { border = border },
+  virtual_text = {
+    enable = false,
+  }
+})
 require('lspconfig.ui.windows').default_options = { border = border }
 
 local kinds = vim.lsp.protocol.CompletionItemKind
@@ -316,3 +321,18 @@ require("lspconfig")["jsonls"].setup({
 --[[   on_attach = on_attach, ]]
 --[[   flags = lsp_flags, ]]
 --[[ }) ]]
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end
+})

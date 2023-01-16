@@ -49,10 +49,10 @@ opt.laststatus = 2
 opt.lazyredraw = true
 opt.list = true
 opt.listchars = {
-  tab = '> ',
+  tab = '  →',
   trail = '·',
   space = ' ',
-  lead = ' ',
+  lead = '·',
   extends = '»',
   precedes = '«',
   nbsp = '×',
@@ -93,3 +93,13 @@ opt.foldcolumn = '0' -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
 opt.foldenable = true
+
+-- vim.o.statuscolumn = '%s%=%l %#FoldColumn#%{'
+--   .. 'foldlevel(v:lnum) > foldlevel(v:lnum - 1)'
+--     .. '? foldclosed(v:lnum) == -1'
+--       .. '? "-"'
+--       .. ': "+"'
+--     .. ': foldlevel(v:lnum) == 0'
+--       .. '? " "'
+--       .. ': "·"'
+--   ..'} '

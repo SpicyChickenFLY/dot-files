@@ -7,12 +7,41 @@
 
 # i3 config file (v4)
 #
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-client.focused "#77ffaa" "#77ffaa" "#0000ff"
-client.unfocused "#aaaaaa" "#aaaaaa" "#aaddff"
+set $rosewater #dc8a78
+set $flamingo  #dd7878
+set $pink      #ea76cb
+set $mauve     #8839ef
+set $red       #d20f39
+set $maroon    #e64553
+set $peach     #fe640b
+set $green     #40a02b
+set $teal      #179299
+set $sky       #04a5e5
+set $sapphire  #209fb5
+set $blue      #1e66f5
+set $lavender  #7287fd
+set $text      #4c4f69
+set $subtext1  #5c5f77
+set $subtext0  #6c6f85
+set $overlay2  #7c7f93
+set $overlay1  #8c8fa1
+set $overlay0  #9ca0b0
+set $surface2  #acb0be
+set $surface1  #bcc0cc
+set $surface0  #ccd0da
+set $base      #eff1f5
+set $mantle    #e6e9ef
+set $crust     #dce0e8 Please see https://i3wm.org/docs/userguide.html for a complete reference!
+# target                 title     bg    text   indicator  border
+client.focused           $pink     $base $text  $rosewater $pink
+client.focused_inactive  $mauve    $base $text  $rosewater $mauve
+client.unfocused         $mauve    $base $text  $rosewater $mauve
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
 
-default_border pixel 6
-default_floating_border pixel 6
+default_border pixel 4
+default_floating_border pixel 4
 title_align center
 
 set $mod Mod1
@@ -64,7 +93,7 @@ bindsym Ctrl+Mod4+Delete exec restart
 
 # start dmenu (a program launcher)
 # bindsym $mod+f exec --no-startup-id dmenu_run
-bindsym $mod+f exec --no-startup-id rofi -font "Sauce Code Pro Nerd Font 10" -show run
+bindsym $mod+f exec --no-startup-id rofi -combi-modi window#drun -show combi -modi combi -show-icons -font "Sauce Code Pro Nerd Font 10"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+f exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -161,10 +190,11 @@ bindsym $mod+Shift+r mode "resize"
 bar {
   status_command i3status
   colors {
-    background #FFFFFF
-    statusline #000000
-    separator #aaaaaa
-    focused_workspace #33aa33 #33aa33 #ffffff
-    inactive_workspace #5f676a #5f676a #ffffff
-  }
+    background $base
+    statusline $text
+    separator $pink
+    focused_workspace $pink $pink $base
+    inactive_workspace $surface1 $surface1 $base
+ }
 }
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh

@@ -13,8 +13,6 @@ return packer.startup(function()
     config = function() require('config.theme.tokyonight') end, }
   use { 'catppuccin/nvim',
     config = function() require('config.theme.catppuccin') end, }
-  use { 'marko-cerovac/material.nvim',
-    config = function() require('config.theme.material') end, }
 
   -- NOTE: UI stuff
   use { 'kyazdani42/nvim-web-devicons',
@@ -51,6 +49,9 @@ return packer.startup(function()
     commit = '894bd7a',
     config = function() require("config.ui.barbecue") end,
   } -- breadcrumbs
+  use { "petertriho/nvim-scrollbar",
+    config = function() require("config.ui.scrollbar") end,
+  } -- scroll bar
 
   -- NOTE: Appearence
   use { 'lukas-reineke/indent-blankline.nvim',
@@ -176,6 +177,19 @@ return packer.startup(function()
   } -- show diagnostic list
   use{ "kylechui/nvim-surround",
     config = function() require("nvim-surround").setup({ }) end,
+  }
+  use { "windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+  }
+  use { 'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  }
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v2',
+    config = function()
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
   }
 
   -- NOTE: editor stuff
