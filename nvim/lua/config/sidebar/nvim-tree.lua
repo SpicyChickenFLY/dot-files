@@ -205,7 +205,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     enable = true,
     ignore = true,
     show_on_dirs = true,
-    show_on_open_dirs = true,
+    show_on_open_dirs = false,
     timeout = 400,
   },
   modified = {
@@ -234,8 +234,8 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
       },
     },
     open_file = {
-      quit_on_open = false,
-      resize_window = true,
+      quit_on_open = true,
+      resize_window = false,
       window_picker = {
         enable = true,
         picker = "default",

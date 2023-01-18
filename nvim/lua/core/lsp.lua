@@ -15,8 +15,10 @@ utils.set_highlight("DiagnosticInfoInv", { guibg = info_colors.guifg, guifg = st
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" })
-vim.fn.sign_define( "DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" })
-
+vim.fn.sign_define(
+  "DiagnosticSignError",
+  { text = "", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
+)
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 local border = "rounded"
@@ -26,15 +28,14 @@ vim.diagnostic.config({
   float = { border = border },
   virtual_text = {
     enable = false,
-  }
+  },
 })
-require('lspconfig.ui.windows').default_options = { border = border }
+require("lspconfig.ui.windows").default_options = { border = border }
 
 local kinds = vim.lsp.protocol.CompletionItemKind
 for i, kind in ipairs(kinds) do
   kinds[i] = icons.kind_icons[kind] or kind
 end
-
 
 -- To instead override globally
 -- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -43,7 +44,6 @@ end
 --   opts.border = opts.border or 'rounded'
 --   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 -- end
-
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -121,14 +121,8 @@ require("lspconfig")["sumneko_lua"].setup({
   flags = lsp_flags,
   settings = {
     Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
-      },
+      runtime = { version = "LuaJIT", },
+      diagnostics = { globals = { "vim" }, },
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
@@ -240,25 +234,26 @@ require("lspconfig")["vuels"].setup({
   },
 }) ]]
 
--- javascript/typescript lsp
+-- javascript/typescript/html/css lsp
 -------------
 -- npm i -g vscode-langservers-extracted
 require("lspconfig")["eslint"].setup({
-  on_attach = on_attach,
+  on_attach = function (client, bufnr)
+    local group = vim.api.nvim_create_augroup("Eslint", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = group,
+      pattern = "<buffer>",
+      command = "EslintFixAll",
+      desc = "Run eslint when saving buffer.",
+    })
+    on_attach(client, bufnr) -- declared elsewhere
+  end,
   flags = lsp_flags,
 })
-
--- html lsp
--------------
--- npm i -g vscode-langservers-extracted
 require("lspconfig")["html"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
-
--- css lsp
--------------
--- npm i -g vscode-langservers-extracted
 require("lspconfig")["cssls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
@@ -328,11 +323,11 @@ vim.api.nvim_create_autocmd("CursorHold", {
     local opts = {
       focusable = false,
       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = 'rounded',
-      source = 'always',
-      prefix = ' ',
-      scope = 'cursor',
+      border = "rounded",
+      source = "always",
+      prefix = " ",
+      scope = "cursor",
     }
     vim.diagnostic.open_float(nil, opts)
-  end
+  end,
 })

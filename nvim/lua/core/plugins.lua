@@ -96,7 +96,7 @@ return packer.startup(function()
     requires = { 'b0o/schemastore.nvim' },
   } -- LSP server configuration
   use { 'jose-elias-alvarez/null-ls.nvim',
-    config = function() require('config.null-ls') end,
+    config = function() require('config.completion.null-ls') end,
     after = 'nvim-lspconfig',
   } -- bridge non-LSP sources to LSP client PERF: currently no use
   use { 'mfussenegger/nvim-jdtls' }
@@ -104,7 +104,7 @@ return packer.startup(function()
 
   -- NOTE: Completion stuff
   use { 'L3MON4D3/LuaSnip',
-    config = function() require('config.luasnip') end,
+    config = function() require('config.completion.luasnip') end,
     requires = { 'rafamadriz/friendly-snippets', },
   }
   use { 'hrsh7th/nvim-cmp',
