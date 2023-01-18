@@ -81,19 +81,14 @@ local leader_mapping = {
   ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
   ["W"] = { ":w !sudo tee %<cr>", "Save current buffer with super priv" },
   ["w"] = { ":w<cr>", "Save current buffer" },
-  l = {
-    name = "LSP",
+  l = { name = "LSP",
     r = { vim.lsp.buf.rename, "rename var/func/class" },
     s = { vim.lsp.buf.signature_help, "signature help" },
     a = { vim.lsp.buf.code_action, "action for err/warn" },
-    f = {
-      function()
-        vim.lsp.buf.format({ async = true })
-      end,
+    f = { function() vim.lsp.buf.format({ async = true }) end,
       "format file",
     },
-    w = {
-      name = "workspace",
+    w = { name = "workspace",
       a = { vim.lsp.buf.add_workspace_folder, "add" },
       r = { vim.lsp.buf.remove_workspace_folder, "remove" },
       l = {
@@ -103,32 +98,20 @@ local leader_mapping = {
         "list workspaces",
       },
     },
-    d = {
-      name = "diagnostic",
-      a = { vim.diagnostic.setqflist, "quick fix" },
-      e = {
-        function()
-          vim.diagnostic.setqflist({ severity = "E" })
-        end,
-        "error quick fix list",
-      },
-      w = {
-        function()
-          vim.diagnostic.setqflist({ severity = "W" })
-        end,
-        "warn quick fix list",
-      },
-      l = { vim.diagnostic.setloclist, "local list" },
+    d = { name = "diagnostic",
+      x = { ":TroubleToggle<cr>", "Open" },
+      w = { ":TroubleToggle workspace_diagnostics<cr>", "workspace" },
+      d = { ":TroubleToggle document_diagnostics<cr>", "document" },
+      q = { ":TroubleToggle quickfix<cr>", "quickfix" },
+      l = { ":TroubleToggle loclist<cr>", "loclist" },
     },
   },
-  e = {
-    name = "File Explorer",
+  e = { name = "File Explorer",
     e = { ":Ranger<CR>", "Open" },
     f = { ":NvimTreeFindFile<CR>", "Find File" },
     l = { ":NvimTreeFocus<CR>", "Open" },
   },
-  f = {
-    name = "Find",
+  f = { name = "Find",
     b = { ":Telescope git_branches<cr>", "Checkout branch" },
     f = { ":Telescope find_files<cr>", "Find File" },
     h = { ":Telescope help_tags<cr>", "Find Help" },
@@ -142,19 +125,16 @@ local leader_mapping = {
       "Colorscheme with Preview",
     },
   },
-  r = {
-    name = "Replacer",
+  r = { name = "Replacer",
     r = { '<cmd>lua require("spectre").open()<cr>', "open" },
     w = { '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', "open with current word" },
     f = { 'viw:lua require("spectre").open_file_search()<cr>', "open file search" },
   },
-  s = {
-    name = "Session",
+  s = { name = "Session",
     s = { "<cmd>SaveSession<cr>", "save session" },
     l = { "<cmd>silent RestoreSession<cr>", "load session" },
   },
-  d = {
-    name = "Debug",
+  d = { name = "Debug",
     d = { ":lua require'dapui'.toggle()<CR>", "Display debug UI" },
     t = { ":lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
     b = { ":lua require'dap'.step_back()<cr>", "Step Back" },
@@ -171,8 +151,7 @@ local leader_mapping = {
     q = { ":lua require'dap'.close()<cr>", "Quit" },
     U = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
   },
-  g = {
-    name = "Git",
+  g = { name = "Git",
     g = { ":Lazygit<cr>", "Lazygit" },
     j = { ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", "Next Hunk" },
     k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev Hunk" },
@@ -188,12 +167,10 @@ local leader_mapping = {
     c = { ":Telescope git_commits<cr>", "Checkout commit" },
     C = { ":Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
   },
-  o = {
-    name = "Outline",
+  o = { name = "Outline",
     o = { ":SymbolsOutline<CR>", "Open" },
   },
-  p = {
-    name = "Packer",
+  p = { name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
     r = { "<cmd>lua require('lvim.plugin-loader').recompile()<cr>", "Re-compile" },
@@ -201,16 +178,7 @@ local leader_mapping = {
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
-  x = {
-    name = "Diagnostic",
-    x = { ":TroubleToggle<cr>", "Open" },
-    w = { ":TroubleToggle workspace_diagnostics<cr>", "workspace" },
-    d = { ":TroubleToggle document_diagnostics<cr>", "document" },
-    q = { ":TroubleToggle quickfix<cr>", "quickfix" },
-    l = { ":TroubleToggle loclist<cr>", "loclist" },
-  },
-  t = {
-    name = "Todo",
+  t = { name = "Todo",
     t = { ":TodoTrouble<cr>", "Open" },
     q = { ":TodoQuickFix<cr>", "quickfix" },
     l = { ":TodoLocList<cr>", "loclist" },
