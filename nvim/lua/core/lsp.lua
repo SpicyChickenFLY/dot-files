@@ -12,23 +12,19 @@ utils.set_highlight("DiagnosticWarnInv", { guibg = warning_colors.guifg, guifg =
 utils.set_highlight("DiagnosticHintInv", { guibg = hint_colors.guifg, guifg = statusline_colors.guibg })
 utils.set_highlight("DiagnosticInfoInv", { guibg = info_colors.guifg, guifg = statusline_colors.guibg })
 
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" })
-vim.fn.sign_define(
-  "DiagnosticSignError",
-  { text = "", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
-)
+vim.fn.sign_define("DiagnosticSignHint",
+  { text = icons.hint, texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignInfo",
+  { text = icons.info, texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignWarn",
+  { text = icons.warn, texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" })
+vim.fn.sign_define( "DiagnosticSignError",
+  { text = icons.error, texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" })
 
--- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 local border = "rounded"
--- vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
--- vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border })
 vim.diagnostic.config({
   float = { border = border },
-  virtual_text = {
-    enable = false,
-  },
+  virtual_text = { enable = false, },
 })
 require("lspconfig.ui.windows").default_options = { border = border }
 
@@ -36,14 +32,6 @@ local kinds = vim.lsp.protocol.CompletionItemKind
 for i, kind in ipairs(kinds) do
   kinds[i] = icons.kind_icons[kind] or kind
 end
-
--- To instead override globally
--- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or {}
---   opts.border = opts.border or 'rounded'
---   return orig_util_open_floating_preview(contents, syntax, opts, ...)
--- end
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -124,14 +112,10 @@ require("lspconfig")["sumneko_lua"].setup({
       runtime = { version = "LuaJIT", },
       diagnostics = { globals = { "vim" }, },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
         checkThirdParty = false,
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+      telemetry = { enable = false },
     },
   },
 })
@@ -160,79 +144,12 @@ require("lspconfig")["bashls"].setup({
   flags = lsp_flags,
 })
 
--- awk lsp
--------------
--- npm install -g awk-language-server
--- require('lspconfig')['awk_ls'].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
-
--- docker lsp
--------------
--- npm install -g dockerfile-language-server-nodejs
--- require("lspconfig")["dockerls"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
-
--- ansible lsp
--------------
--- npm install -g @ansible/ansible-language-server
-require("lspconfig")["ansiblels"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
-
 -- vue lsp
 -------------
 require("lspconfig")["vuels"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
---[[ require("lspconfig")["volar"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-  cmd = { "vue-language-server", "--stdio" },
-  init_options = {
-    documentFeatures = {
-      documentColor = false,
-      documentFormatting = {
-        defaultPrintWidth = 100,
-      },
-      documentSymbol = true,
-      foldingRange = true,
-      linkedEditingRange = true,
-      selectionRange = true,
-    },
-    languageFeatures = {
-      callHierarchy = true,
-      codeAction = true,
-      codeLens = true,
-      completion = {
-        defaultAttrNameCase = "kebabCase",
-        defaultTagNameCase = "both",
-      },
-      definition = true,
-      diagnostics = true,
-      documentHighlight = true,
-      documentLink = true,
-      hover = true,
-      implementation = true,
-      references = true,
-      rename = true,
-      renameFileRefactoring = true,
-      schemaRequestService = true,
-      semanticTokens = false,
-      signatureHelp = true,
-      typeDefinition = true,
-    },
-    typescript = {
-      tsdk = "",
-    },
-  },
-}) ]]
 
 -- javascript/typescript/html/css lsp
 -------------
@@ -293,29 +210,7 @@ require("lspconfig")["jsonls"].setup({
   flags = lsp_flags,
 })
 
--- java lsp
--------------
--- NOTE: java-language-server only support jdk(>=1.9)
--- https://github.com/georgewfraser/java-language-server
--- require('lspconfig')['java_language_server'].setup({
---   cmd = {"/mnt/Mine/Code/java/java-language-server/dist/lang_server_linux.sh"},
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
---
--- NOTE: jdtls should be setup by nvim-jdtls
--- require('lspconfig')['jdtls'].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
-
--- cmake lsp
--------------
--- pip install cmake-language-server
---[[ require('lspconfig')['cmake'].setup({ ]]
---[[   on_attach = on_attach, ]]
---[[   flags = lsp_flags, ]]
---[[ }) ]]
+-- java lsp  NOTE: jdtls should be setup by nvim-jdtls
 
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
