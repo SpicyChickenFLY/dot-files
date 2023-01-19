@@ -12,29 +12,7 @@ require('gitsigns').setup({
   numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-
-    -- TODO: can i move it to mapping?
-    ['n ]c'] = { expr = true, "&diff ? ']c' : ':Gitsigns next_hunk<CR>'" },
-    ['n [c'] = { expr = true, "&diff ? '[c' : ':Gitsigns prev_hunk<CR>'" },
-
-    ['n <leader>hs'] = ':Gitsigns stage_hunk<CR>',
-    ['v <leader>hs'] = ':Gitsigns stage_hunk<CR>',
-    ['n <leader>hu'] = ':Gitsigns undo_stage_hunk<CR>',
-    ['n <leader>hr'] = ':Gitsigns reset_hunk<CR>',
-    ['v <leader>hr'] = ':Gitsigns reset_hunk<CR>',
-    ['n <leader>hR'] = ':Gitsigns reset_buffer<CR>',
-    ['n <leader>hp'] = ':Gitsigns preview_hunk<CR>',
-    ['n <leader>hb'] = ':lua require"gitsigns".blame_line{full=true}<CR>',
-    ['n <leader>hS'] = ':Gitsigns stage_buffer<CR>',
-    ['n <leader>hU'] = ':Gitsigns reset_buffer_index<CR>',
-
-    -- Text objects
-    ['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
-    ['x ih'] = ':<C-U>Gitsigns select_hunk<CR>',
-  },
+  keymaps = { noremap = true, },
   watch_gitdir = {
     interval = 1000,
     follow_files = true,

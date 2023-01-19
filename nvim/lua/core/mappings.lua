@@ -5,8 +5,8 @@ map("n", "<ESC>", ":nohl<CR>")
 -- map("n", "<leader>j", ":BufferPrevious<CR>")
 -- map("n", "<leader>k", ":BufferNext<CR>")
 -- map("n", "<leader>d", ":BufferClose<CR>")
-map("n", "<Tab>", ":BufferLineCyclePrev<CR>")
-map("n", "<S-Tab>", ":BufferLineCycleNext<CR>")
+map("n", "<leader>j", ":BufferLineCyclePrev<CR>")
+map("n", "<leader>k", ":BufferLineCycleNext<CR>")
 map("n", "<leader>q", ":bdelete<CR>")
 -- move around windows & split window
 -- map("n", "<C-h>", "<C-w>h")
@@ -153,17 +153,22 @@ local leader_mapping = {
   },
   g = { name = "Git",
     g = { ":Lazygit<cr>", "Lazygit" },
-    j = { ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", "Next Hunk" },
-    k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev Hunk" },
+    h = { name = "Hunk",
+      j = { ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", "Next" },
+      k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev" },
+      p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
+      s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
+      u = { ":lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage" },
+      r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
+    },
+    b = { name = "Buffer",
+      r = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset" },
+      s = { ":lua require 'gitsigns'.stage_buffer()<cr>", "Stage" },
+    },
     l = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-    p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-    r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-    R = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-    s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-    u = { ":lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
     d = { ":Gitsigns diffthis HEAD<cr>", "Git Diff" },
-    o = { ":Telescope git_status<cr>", "Open changed file" },
-    b = { ":Telescope git_branches<cr>", "Checkout branch" },
+    s = { ":Telescope git_status<cr>", "Open changed file" },
+    B = { ":Telescope git_branches<cr>", "Checkout branch" },
     c = { ":Telescope git_commits<cr>", "Checkout commit" },
     C = { ":Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
   },
@@ -185,10 +190,15 @@ local leader_mapping = {
     f = { ":TodoTelescope<cr>", "find in telescope" },
   },
 }
+
+local visual_leader_mapping = {
+  g = { name= "Git",
+    s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
+    r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
+  }
+}
 local wk = require("which-key")
 wk.register(leader_mapping, { prefix = "<leader>" })
+wk.register(visual_leader_mapping, { prefix = "<leader>", mode="v" })
 
 --[[ map('n', '<C-E>', ':Vifm<CR>') ]]
-
--- file explorer
-map("n", "<leader>tm", '<cmd>lua require("nvim-tree.api").marks.navigate.select()<cr>')

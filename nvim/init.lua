@@ -16,3 +16,4 @@ if not ok then
 end
 
 vim.cmd('colorscheme catppuccin-latte')
+vim.cmd('colorscheme catppuccin-latte')

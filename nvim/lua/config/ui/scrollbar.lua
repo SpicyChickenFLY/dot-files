@@ -1,3 +1,4 @@
+return
 require("scrollbar").setup({
     show = true,
     show_in_active_only = false,

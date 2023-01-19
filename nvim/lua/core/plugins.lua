@@ -49,9 +49,9 @@ return packer.startup(function()
     commit = '894bd7a',
     config = function() require("config.ui.barbecue") end,
   } -- breadcrumbs
-  use { "petertriho/nvim-scrollbar",
-    config = function() require("config.ui.scrollbar") end,
-  } -- scroll bar
+  -- use { "petertriho/nvim-scrollbar",
+  --   config = function() require("config.ui.scrollbar") end,
+  -- } -- scroll bar
 
   -- NOTE: Appearence
   use { 'lukas-reineke/indent-blankline.nvim',
@@ -180,9 +180,6 @@ return packer.startup(function()
   }
   use { "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
-  }
-  use { 'sindrets/diffview.nvim',
-    requires = 'nvim-lua/plenary.nvim'
   }
   use {
     'phaazon/hop.nvim',
