@@ -1,7 +1,11 @@
+local jdk8_path = '/usr/local/jdk17'
+local jdk17_path = '/usr/lib/jvm/java-17-openjdk'
+local jdtls_path = '/home/chow/.local/share/jdtls'
+local jdtls_cache_path = '/home/chow/.cache/jdtls'
+
 local config = {
   cmd = {
-    '/usr/lib/jvm/java-17-openjdk/bin/java',
-
+    jdk17_path .. '/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -11,10 +15,10 @@ local config = {
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-    '-javaagent:/home/chow/.local/share/jdtls/plugins/lombok.jar',
-    '-jar', '/home/chow/.local/share/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-    '-configuration', '/home/chow/.local/share/jdtls/config_linux',
-    '-data', '/home/chow/.cache/jdtls/jdtls-' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t'),
+    '-javaagent:' .. jdtls_path .. '/plugins/lombok.jar',
+    '-jar', jdtls_path .. '/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+    '-configuration', jdtls_path .. '/config_linux',
+    '-data', jdtls_cache_path .. '/jdtls-' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t'),
   },
 
   -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -26,10 +30,10 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      -- runtimes = {
-      --   name = "javaSE-8",
-      --   path = "/usr/local/jdk8/"
-      -- }
+      runtimes = {
+        name = "javaSE-8",
+        path = jdk8_path
+      }
     }
   },
 

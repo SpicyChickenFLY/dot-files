@@ -1,5 +1,5 @@
 local M = {}
-local augroup_name = 'CosmicNvimUtils'
+local augroup_name = 'NeverVimUtils'
 local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
 
 function M.log(type, msg, opts)
