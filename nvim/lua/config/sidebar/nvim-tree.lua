@@ -4,6 +4,8 @@ local icons = require("core.icons")
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- vim.g.nvim_tree_group_empty = 1
+
 require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = true,
@@ -99,7 +101,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
   },
   renderer = {
     add_trailing = false,
-    group_empty = false,
+    group_empty = true,
     highlight_git = true,
     full_name = false,
     highlight_opened_files = "none",
