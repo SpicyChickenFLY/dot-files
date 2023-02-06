@@ -3,6 +3,7 @@ local opt = vim.opt
 local g = vim.g
 
 cmd([[ filetype plugin indent on ]])
+cmd([[ au BufRead,BufNewFile *.i3.config set filetype=i3config ]])
 
 local augroup_name = 'CosmicNvimEditor'
 local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
