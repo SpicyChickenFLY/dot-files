@@ -9,7 +9,7 @@
 general {
   colors = true
   color_good = "#55aa00"
-  color_degraded = "#bbbb55"
+  color_degraded = "#ffbb55"
   color_bad = "#ff5555"
   interval = 5
 }
@@ -45,7 +45,7 @@ battery all {
   hide_seconds = true
   status_chr = "⚡"
   status_bat = " "
-  status_unk = " "
+  status_unk = "󱟩 "
   status_full = " "
 }
 
