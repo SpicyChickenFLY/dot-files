@@ -47,6 +47,6 @@ require('gitsigns').setup({
 })
 
 vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg='#91b859' })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg='#6182b8' })
+vim.api.nvim_set_hl(0, 'GitSignsChange', { fg='#1e66f5' })
 vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg='#e53935' })
 

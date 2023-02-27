@@ -34,17 +34,7 @@ require('bufferline').setup {
     diagnostics = "nvim_lsp",-- false | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
     -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-    diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      return " "..count
-      -- local s = " "
-      -- for e, n in pairs(diagnostics_dict) do
-      --   local sym = e == "error" and icons.error
-      --     or (e == "warning" and icons.warn )
-      --     or (e == "info" and icons.info or icons.hint)
-      --   s = s .. sym .. " " .. n
-      -- end
-      -- return s
-    end,
+    diagnostics_indicator = function(count, level, diagnostics_dict, context) return " "..count end,
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = function(buf_number, buf_numbers)
         -- filter out filetypes you don't want to see
