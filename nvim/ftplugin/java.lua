@@ -3,6 +3,12 @@ local jdk17_path = '/usr/lib/jvm/java-17-openjdk'
 local jdtls_path = '/home/chow/.local/share/jdtls'
 local jdtls_cache_path = '/home/chow/.cache/jdtls'
 
+local bundles = {
+  vim.fn.glob("/home/chow/.local/share/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
+}
+vim.list_extend(bundles, vim.split(vim.fn.glob("/usr/local/java-decompiler/server/*.jar", 1), "\n"))
+
+
 local config = {
   cmd = {
     jdk17_path .. '/bin/java',
@@ -33,7 +39,8 @@ local config = {
       runtimes = {
         name = "javaSE-8",
         path = jdk8_path
-      }
+      },
+      contentProvider = { preferred = 'fernflower' },
     }
   },
 
@@ -45,10 +52,7 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {
-      vim.fn.glob(
-        "/home/chow/.local/share/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
-    }
+    bundles = bundles
   },
 }
 
