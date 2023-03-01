@@ -113,6 +113,7 @@ local leader_mapping = {
   },
   f = { name = "Find",
     b = { ":Telescope git_branches<cr>", "Checkout branch" },
+    e = { ":Telescope emoji<cr>", "Checkout branch" },
     f = { ":Telescope find_files<cr>", "Find File" },
     h = { ":Telescope help_tags<cr>", "Find Help" },
     H = { ":Telescope highlights<cr>", "Find highlight groups" },

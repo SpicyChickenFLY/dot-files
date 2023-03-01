@@ -156,6 +156,7 @@ return packer.startup(function()
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', },
+      'xiyaowong/telescope-emoji.nvim',
     },
     config = function() require('config.tools.telescope') end,
     event = 'BufWinEnter',

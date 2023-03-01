@@ -12,6 +12,12 @@ local mappings = {
     ['s'] = actions.file_split,
     ['<cr>'] = actions.file_edit,
   },
+  i = {
+    ['<c-h>'] = actions.smart_send_to_qflist + actions.open_qflist,
+    ['<c-j>'] = actions.move_selection_next,
+    ['<c-k>'] = actions.move_selection_previous,
+    ['<c-l>'] = actions.file_edit,
+  }
 }
 
 local opts_cursor = {
@@ -75,6 +81,18 @@ require('telescope').setup({
       case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
     },
+    emoji = {
+      action = function(emoji)
+        -- argument emoji is a table.
+        -- {name="", value="", cagegory="", description=""}
+
+        vim.fn.setreg("*", emoji.value)
+        print([[Press p or "*p to paste this emoji]] .. emoji.value)
+
+        -- insert emoji when picked
+        -- vim.api.nvim_put({ emoji.value }, 'c', false, true)
+      end,
+    },
   },
   pickers = {
     buffers = u.merge(opts_flex,
@@ -109,3 +127,4 @@ require('telescope').setup({
 })
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('emoji')
