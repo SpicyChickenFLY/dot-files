@@ -1,20 +1,15 @@
 
 local defaults = {
   ensure_installed = {
-    'c',
-    'cpp',
-    'css',
-    'html',
+    'c', 'cpp',
     'go',
-    'javascript',
     'jsdoc',
     'json',
     'lua',
     'markdown',
     'python',
-    'scss',
     'tsx',
-    'typescript',
+    'scss', 'css', 'html', 'http', 'javascript', 'typescript',
   },
   highlight = {
     enable = true,

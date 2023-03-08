@@ -161,6 +161,10 @@ return packer.startup(function()
     config = function() require('config.tools.telescope') end,
     event = 'BufWinEnter',
   } -- fuzzy finder
+  use {"ziontee113/icon-picker.nvim",
+    requires = {'stevearc/dressing.nvim'},
+    config = function() require("icon-picker").setup{ disable_legacy_commands = true } end,
+  }
   use { 'voldikss/vim-floaterm',
     opt = true,
     event = 'BufWinEnter',
@@ -182,12 +186,12 @@ return packer.startup(function()
   use { "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
   }
-  use {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    config = function()
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    end
+  use { 'phaazon/hop.nvim', branch = 'v2',
+    config = function() require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' } end
+  }
+  use { 'rest-nvim/rest.nvim',
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function() require("config.tools.rest") end
   }
 
   -- NOTE: editor stuff
