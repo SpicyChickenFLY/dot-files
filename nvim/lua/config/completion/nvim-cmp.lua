@@ -75,6 +75,7 @@ local default_cmp_opts = {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = "vim-dadbod-completion" },
   }),
   formatting = {
     format = function(entry, vim_item)
@@ -86,6 +87,7 @@ local default_cmp_opts = {
         buffer = '[buf]',
         path = '[path]',
         nvim_lua = '[nvim_api]',
+        ['vim-dadbod-completion'] = '[DB]',
       })[entry.source.name]
       return vim_item
     end,
@@ -124,3 +126,9 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
+
+cmp.event:on(
+  'confirm_done',
+  require('nvim-autopairs.completion.cmp').on_confirm_done()
+)
+

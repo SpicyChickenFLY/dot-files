@@ -192,7 +192,14 @@ return packer.startup(function()
   use { 'rest-nvim/rest.nvim',
     requires = { "nvim-lua/plenary.nvim" },
     config = function() require("config.tools.rest") end
-  }
+  } -- rest client
+use { "tpope/vim-dadbod",
+      requires = {
+       "kristijanhusak/vim-dadbod-ui",
+       "kristijanhusak/vim-dadbod-completion"
+      },
+      config = function() require("config.tools.dadbod") end,
+}
 
   -- NOTE: editor stuff
   use { 'kevinhwang91/nvim-ufo',
