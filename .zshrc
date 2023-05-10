@@ -93,7 +93,8 @@ export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 
 # path
-export GOPATH=/usr/local/go
+export GOROOT=/usr/local/go
+export GOPATH=/home/chow/Code/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 export NODE_HOME=/usr/local/node
