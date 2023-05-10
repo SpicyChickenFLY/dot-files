@@ -68,6 +68,7 @@ PROMPT="
 
 
 # alias
+alias ssh="TERM=xterm-256color ssh"
 alias ls='ls --color=auto'
 alias ff="firefox"
 alias ll="ls -l"
@@ -80,22 +81,19 @@ alias lzd="lazydocker"
 alias vi="nvim"
 alias vim="nvim"
 
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
+# export GTK_IM_MODULE=fcitx
+# export QT_IM_MODULE=fcitx
+# export XMODIFIERS=@im=fcitx
 
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:zh_CN
-
-# windows manager
 
 # proxy
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 
 # path
-# export GOROOT=/usr/local/go
-export GOPATH=$HOME/Code/go
+export GOPATH=/usr/local/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 export NODE_HOME=/usr/local/node
