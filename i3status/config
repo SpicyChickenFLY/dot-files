@@ -70,10 +70,10 @@ battery all {
   low_threshold = 30
   threshold_type = percentage
   hide_seconds = true
-  status_chr = "⚡"
-  status_bat = " "
-  status_unk = "󱟩 "
-  status_full = " "
+  status_chr = "󰂄"
+  status_bat = "󰁿"
+  status_unk = "󰂑"
+  status_full = "󰁹"
 }
 
 cpu_usage {
@@ -81,7 +81,7 @@ cpu_usage {
 }
 
 disk "/" {
-  format = " %avail"
+  format = "󰋊 %avail"
   on_click 1 = "exec dolphin /"
   # prefix_type = "decimal"
 }
@@ -91,14 +91,14 @@ load {
 }
 
 memory {
-  format = " %available"
+  format = "󰍛 %available"
   threshold_degraded = "1G"
-  format_degraded = " <%available"
+  format_degraded = "󰍛 <%available"
 }
 
 tztime local {
   color = "color_sky"
-  format = " %m-%d %H:%M"
+  format = " %m-%d %H:%M"
 }
 
 volume master {
