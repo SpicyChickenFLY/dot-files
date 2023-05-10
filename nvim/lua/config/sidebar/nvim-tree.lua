@@ -6,15 +6,12 @@ vim.g.loaded_netrwPlugin = 1
 
 -- vim.g.nvim_tree_group_empty = 1
 
-require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
+require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = true,
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  ignore_buffer_on_setup = false,
-  open_on_setup = false,
-  open_on_setup_file = false,
   sort_by = "name",
   root_dirs = {},
   prefer_startup_root = false,
@@ -25,7 +22,6 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
   remove_keymaps = false,
   select_prompts = false,
   view = {
-    adaptive_size = false,
     centralize_selection = false,
     cursorline = true,
     debounce_delay = 15,
@@ -37,28 +33,46 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     relativenumber = false,
     signcolumn = "yes",
     mappings = {
+      custom_only = false,
       list = {
+        -- open
         { key = { "<CR>", "l", "<2-LeftMouse>" }, action = "edit" },
-        -- { key = "<C-S-e>", action = "edit_in_place" },
-        { key = "O", action = "edit_no_picker" },
-        { key = { "<C-]>", "<2-RightMouse>" }, action = "cd" },
-        { key = "<C-v>", action = "vsplit" },
-        { key = "<C-x>", action = "split" },
-        { key = "<C-t>", action = "tabnew" },
-        { key = "K", action = "prev_sibling" },
-        { key = "J", action = "next_sibling" },
-        { key = "h", action = "parent_node" },
-        { key = "<BS>", action = "close_node" },
+        { key = "s", action = "system_open" },
+        { key = ".", action = "run_file_command" },
         { key = "<Tab>", action = "preview" },
-        -- { key = "",                              action = "first_sibling" },
-        -- { key = "",                              action = "last_sibling" },
+        { key = "zm", action = "collapse_all" },
+        { key = "zr", action = "expand_all" },
+        -- { key = { "<C-]>", "<2-RightMouse>" }, action = "cd" },
+        -- { key = "<C-v>", action = "vsplit" },
+        -- { key = "<C-x>", action = "split" },
+        -- { key = "<C-t>", action = "tabnew" },
+
+        -- move and hit
+        { key = "H", action = "dir_up" },
+        { key = "h", action = "parent_node" },
+        { key = "J", action = "next_sibling" },
+        { key = "K", action = "prev_sibling" },
+
+        { key = "]e", action = "next_diag_item" },
+        { key = "]c", action = "next_git_item" },
+        { key = "[e", action = "prev_diag_item" },
+        { key = "[c", action = "prev_git_item" },
+
+        { key = "f", action = "live_filter" },
+        { key = "F", action = "clear_live_filter" },
+
+        -- display
+        { key = "R", action = "refresh" },
+        { key = "g?", action = "toggle_help" },
         { key = "I", action = "toggle_git_ignored" },
         { key = "<C-h>", action = "toggle_dotfiles" },
         { key = "U", action = "toggle_custom" },
-        { key = "R", action = "refresh" },
+        { key = "m", action = "toggle_mark" },
+        { key = "<C-k>", action = "toggle_file_info" },
+
+        -- operation
         { key = "a", action = "create" },
         { key = "d", action = "remove" },
-        { key = "D", action = "trash" },
         { key = "r", action = "rename" },
         { key = "<C-r>", action = "full_rename" },
         { key = "x", action = "cut" },
@@ -67,23 +81,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
         { key = "y", action = "copy_name" },
         { key = "Y", action = "copy_path" },
         { key = "gy", action = "copy_absolute_path" },
-        { key = "[e", action = "prev_diag_item" },
-        { key = "[c", action = "prev_git_item" },
-        { key = "]e", action = "next_diag_item" },
-        { key = "]c", action = "next_git_item" },
-        { key = "H", action = "dir_up" },
-        { key = "s", action = "system_open" },
-        { key = "f", action = "live_filter" },
-        { key = "F", action = "clear_live_filter" },
-        { key = { "<C-E>", "<esc>" }, action = "close" },
-        { key = "W", action = "collapse_all" },
-        { key = "E", action = "expand_all" },
-        { key = "S", action = "search_node" },
-        { key = ".", action = "run_file_command" },
-        { key = "<C-k>", action = "toggle_file_info" },
-        { key = "g?", action = "toggle_help" },
-        { key = "m", action = "toggle_mark" },
-        { key = "bmv", action = "bulk_move" },
+
       },
     },
     float = {
@@ -170,7 +168,6 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     update_root = false,
     ignore_list = {},
   },
-  ignore_ft_on_setup = {},
   system_open = {
     cmd = "",
     args = {},
@@ -207,7 +204,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     enable = true,
     ignore = true,
     show_on_dirs = true,
-    show_on_open_dirs = false,
+    show_on_open_dirs = true,
     timeout = 400,
   },
   modified = {
@@ -237,7 +234,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     },
     open_file = {
       quit_on_open = true,
-      resize_window = false,
+      resize_window = true,
       window_picker = {
         enable = true,
         picker = "default",
@@ -275,6 +272,11 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
       trash = true,
     },
   },
+  experimental = {
+    git = {
+      async = true,
+    },
+  },
   log = {
     enable = false,
     truncate = false,
@@ -289,5 +291,5 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
       watcher = false,
     },
   },
-}) -- END_DEFAULT_OPTS
+} -- END_DEFAULT_OPTS
 
