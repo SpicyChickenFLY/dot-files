@@ -197,17 +197,33 @@ return packer.startup(function()
     requires = { "nvim-lua/plenary.nvim" },
     config = function() require("config.tools.rest") end
   } -- rest client
-use { "tpope/vim-dadbod",
-      requires = {
-       "kristijanhusak/vim-dadbod-ui",
-       "kristijanhusak/vim-dadbod-completion"
-      },
-      config = function() require("config.tools.dadbod") end,
-}
+  use { "tpope/vim-dadbod",
+    requires = {
+     "kristijanhusak/vim-dadbod-ui",
+     "kristijanhusak/vim-dadbod-completion"
+    },
+    config = function() require("config.tools.dadbod") end,
+  }
 
   -- NOTE: editor stuff
   use { 'kevinhwang91/nvim-ufo',
-    requires = 'kevinhwang91/promise-async',
+    requires = {
+      'kevinhwang91/promise-async',
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup({
+            relculright = true,
+            segments = {
+              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+              { text = { "%s" }, click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            },
+          })
+        end,
+      }
+    },
     config = function() require('config.editor.nvim-ufo') end,
   } -- fold block
   use { 'numToStr/Comment.nvim',
