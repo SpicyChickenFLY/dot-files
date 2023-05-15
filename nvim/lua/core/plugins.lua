@@ -31,10 +31,6 @@ return packer.startup(function()
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('config.ui.lualine') end,
   } -- statusline
-  -- use { 'romgrk/barbar.nvim',
-  --   requires = { 'kyazdani42/nvim-web-devicons' },
-  --   config = function() require('config.ui.barbar') end,
-  -- } -- tabline
   use {'akinsho/bufferline.nvim',
     tag = "v3.*",
     requires = 'nvim-tree/nvim-web-devicons',
@@ -46,7 +42,7 @@ return packer.startup(function()
       "neovim/nvim-lspconfig",
       "smiteshp/nvim-navic",
     },
-    commit = '894bd7a',
+    -- commit = '894bd7a',
     config = function() require("config.ui.barbecue") end,
   } -- breadcrumbs
   -- use { "petertriho/nvim-scrollbar",
@@ -54,6 +50,10 @@ return packer.startup(function()
   -- } -- scroll bar
 
   -- NOTE: Appearence
+  use {
+    'nmac427/guess-indent.nvim',
+    config = function() require('guess-indent').setup {} end,
+  } -- guess what indent should be like
   use { 'lukas-reineke/indent-blankline.nvim',
     config = function() require('config.appearence.indent-blankline') end,
   } -- indent line
@@ -68,7 +68,7 @@ return packer.startup(function()
     config = function() require('config.appearence.todo-comments') end,
     event = 'BufWinEnter',
   } -- todo highlights
-  use { 'norcalli/nvim-colorizer.lua',
+  use { 'NvChad/nvim-colorizer.lua',
     opt = true,
     cmd = { 'ColorizerToggle' },
     config = function() require('colorizer').setup() end,
@@ -77,7 +77,7 @@ return packer.startup(function()
   use { 'nvim-treesitter/nvim-treesitter',
     requires = {
       'windwp/nvim-ts-autotag',
-      'p00f/nvim-ts-rainbow',
+      'HiPhish/nvim-ts-rainbow2',
       'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/nvim-treesitter-refactor',
     },
@@ -120,12 +120,16 @@ return packer.startup(function()
     event = 'InsertEnter',
   } -- autocompletion
 
+
   -- NOTE: Debugger
   use { 'mfussenegger/nvim-dap'
   } -- dap client
   use { "rcarriga/nvim-dap-ui",
     requires = {"mfussenegger/nvim-dap"},
   } -- dap ui
+  use { "theHamsta/nvim-dap-virtual-text",
+    config = function () require("nvim-dap-virtual-text").setup() end,
+  } -- dap virtual text
 
 
   -- NOTE: Sidebar

@@ -33,9 +33,8 @@ opt.expandtab = true
 opt.tabstop = indent
 opt.softtabstop = indent
 opt.shiftwidth = indent
-cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
-cmd([[ autocmd FileType python setlocal ts=4 sts=2 sw=2 noexpandtab ]])
-cmd([[ autocmd FileType java setlocal ts=4 sts=2 sw=2 noexpandtab ]])
+-- 如果不希望通过guess-indent算法自动检测缩进的话可以通过下述内容进行文件类型的固定
+-- cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
 
 -- search
 opt.hlsearch = true
@@ -95,12 +94,3 @@ opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrea
 opt.foldlevelstart = 99
 opt.foldenable = true
 
--- vim.o.statuscolumn = '%s%=%l %#FoldColumn#%{'
---   .. 'foldlevel(v:lnum) > foldlevel(v:lnum - 1)'
---     .. '? foldclosed(v:lnum) == -1'
---       .. '? "-"'
---       .. ': "+"'
---     .. ': foldlevel(v:lnum) == 0'
---       .. '? " "'
---       .. ': "·"'
---   ..'} '

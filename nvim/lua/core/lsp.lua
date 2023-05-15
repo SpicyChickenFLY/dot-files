@@ -1,30 +1,23 @@
 local utils = require("core.utils")
 local icons = require("core.icons")
 
--- set highlight for diagnostic
+-- set highlight and icon for diagnostic
 local statusline_colors = utils.get_highlight("StatusLine")
-local error_colors = utils.get_highlight("DiagnosticError")
-local warning_colors = utils.get_highlight("DiagnosticWarn")
-local hint_colors = utils.get_highlight("DiagnosticHint")
-local info_colors = utils.get_highlight("DiagnosticInfo")
-utils.set_highlight("DiagnosticErrorInv", { guibg = error_colors.guifg, guifg = statusline_colors.guibg })
-utils.set_highlight("DiagnosticWarnInv", { guibg = warning_colors.guifg, guifg = statusline_colors.guibg })
-utils.set_highlight("DiagnosticHintInv", { guibg = hint_colors.guifg, guifg = statusline_colors.guibg })
-utils.set_highlight("DiagnosticInfoInv", { guibg = info_colors.guifg, guifg = statusline_colors.guibg })
+local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
+local diagnostic_icon_map = { Error = icons.error, Warn = icons.warn, Info = icons.info, Hint = icons.hint }
+for _, value in ipairs(diagnostic_type) do
+  local color = utils.get_highlight("Diagnostic" .. value)
+  utils.set_highlight("Diagnostic" .. value .. "Inv", { guibg = color.guifg, guifg = statusline_colors.guibg })
+  local diag_sign_key = "DiagnosticSign" .. value
+  local icon = diagnostic_icon_map[value]
+  vim.fn.sign_define( diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
+end
 
-vim.fn.sign_define("DiagnosticSignHint",
-  { text = icons.hint, texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" })
-vim.fn.sign_define("DiagnosticSignInfo",
-  { text = icons.info, texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignWarn",
-  { text = icons.warn, texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" })
-vim.fn.sign_define( "DiagnosticSignError",
-  { text = icons.error, texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" })
-
+-- set lsp-config
 local border = "rounded"
 vim.diagnostic.config({
   float = { border = border },
-  virtual_text = { enable = false, },
+  virtual_text = { enable = false },
 })
 require("lspconfig.ui.windows").default_options = { border = border }
 
@@ -109,8 +102,8 @@ require("lspconfig")["lua_ls"].setup({
   flags = lsp_flags,
   settings = {
     Lua = {
-      runtime = { version = "LuaJIT", },
-      diagnostics = { globals = { "vim" }, },
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
         checkThirdParty = false,
@@ -155,7 +148,7 @@ require("lspconfig")["vuels"].setup({
 -------------
 -- npm i -g vscode-langservers-extracted
 require("lspconfig")["eslint"].setup({
-  on_attach = function (client, bufnr)
+  on_attach = function(client, bufnr)
     local group = vim.api.nvim_create_augroup("Eslint", {})
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = group,

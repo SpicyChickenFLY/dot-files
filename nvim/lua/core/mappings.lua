@@ -34,6 +34,14 @@ map("i", "<C-p>", "<Up>")
 map("n", "<C-\\>", ":FloatermToggle<CR>")
 map("t", "<C-\\>", [[<C-\><C-n>]])
 
+-- NOTE: command <f> mapping
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+map('n', 'f', function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true }) end)
+map('n', 'F', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end)
+map('n', 't', function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end)
+map('n', 'T', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
+
 -- NOTE: command <z> mapping
 map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
 map("n", "zM", ":lua require'ufo'.closeAllFolds()<CR>", { desc = "close all folds" })
@@ -183,8 +191,8 @@ local leader_mapping = {
     f = { 'viw:lua require("spectre").open_file_search()<cr>', "open file search" },
   },
   s = { name = "Session",
-    s = { "<cmd>SaveSession<cr>", "save session" },
-    l = { "<cmd>silent RestoreSession<cr>", "load session" },
+    s = { "<cmd>SessionSave<cr>", "save session" },
+    l = { "<cmd>silent SessionRestore<cr>", "load session" },
   },
   t = { name = "Todo",
     t = { ":TodoTrouble<cr>", "Open" },
