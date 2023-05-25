@@ -191,7 +191,7 @@ return packer.startup(function()
     config = function() require("nvim-autopairs").setup {} end
   }
   use { 'phaazon/hop.nvim', branch = 'v2',
-    config = function() require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' } end
+    config = function() require'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
   }
   use { 'rest-nvim/rest.nvim',
     requires = { "nvim-lua/plenary.nvim" },
