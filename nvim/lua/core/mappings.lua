@@ -1,15 +1,11 @@
 local map = require("core.utils").map
 
 map("n", "<ESC>", ":nohl<CR>")
--- buffer navigation
--- map("n", "<leader>j", ":BufferPrevious<CR>")
--- map("n", "<leader>k", ":BufferNext<CR>")
--- map("n", "<leader>d", ":BufferClose<CR>")
 -- move around windows & split window
--- map("n", "<C-h>", "<C-w>h")
--- map("n", "<C-j>", "<C-w>j")
--- map("n", "<C-k>", "<C-w>k")
--- map("n", "<C-l>", "<C-w>l")
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+map("n", "<C-l>", "<C-w>l")
 -- map("n", "<C-H>", ":vsp<CR>:bprevious<CR><C-w>h")
 -- map("n", "<C-J>", ":sp<CR>:bprevious<CR><C-w>j")
 -- map("n", "<C-K>", ":sp<CR>:bprevious<CR><C-w>k")
@@ -32,15 +28,19 @@ map("i", "<C-n>", "<Down>")
 map("i", "<C-p>", "<Up>")
 -- Terminal
 map("n", "<C-\\>", ":FloatermToggle<CR>")
-map("t", "<C-\\>", [[<C-\><C-n>]])
+map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
 
 -- NOTE: command <f> mapping
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
-map('n', 'f', function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true }) end)
-map('n', 'F', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end)
-map('n', 't', function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end)
-map('n', 'T', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
+map('n', 'f', function() hop.hint_char1(
+  { direction = directions.AFTER_CURSOR, current_line_only = true }) end)
+map('n', 'F', function() hop.hint_char1(
+  { direction = directions.BEFORE_CURSOR, current_line_only = true }) end)
+map('n', 't', function() hop.hint_char1(
+  { direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end)
+map('n', 'T', function() hop.hint_char1(
+  { direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
 
 -- NOTE: command <z> mapping
 map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
@@ -107,7 +107,6 @@ local leader_mapping = {
     r = { ":Ranger<CR>", "Open" },
   },
   f = { name = "Find",
-    b = { ":Telescope git_branches<cr>", "Checkout branch" },
     e = { ":Telescope emoji<cr>", "Checkout branch" },
     f = { ":Telescope find_files<cr>", "Find File" },
     h = { ":Telescope help_tags<cr>", "Find Help" },
@@ -119,27 +118,18 @@ local leader_mapping = {
     C = { ":Telescope commands<cr>", "Commands" },
     p = { ":lua require('telescope.builtin').colorscheme({enable_preview=true})<cr>",
       "Colorscheme with Preview", },
+    -- B = { ":Telescope git_branches<cr>", "Find & Checkout branch" },
+    -- c = { ":Telescope git_commits<cr>", "Find & Checkout commit" },
+    -- C = { ":Telescope git_bcommits<cr>", "Find & Checkout commit(for current file)" },
   },
   g = { name = "Git",
-    g = { ":Lazygit<cr>", "Lazygit" },
-    h = { name = "Hunk",
-      j = { ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", "Next" },
-      k = { ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", "Prev" },
-      p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
-      s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
-      u = { ":lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage" },
-      r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
-    },
-    b = { name = "Buffer",
-      r = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset" },
-      s = { ":lua require 'gitsigns'.stage_buffer()<cr>", "Stage" },
-    },
-    l = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+    b = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
     d = { ":Gitsigns diffthis HEAD<cr>", "Git Diff" },
-    s = { ":Telescope git_status<cr>", "Open changed file" },
-    B = { ":Telescope git_branches<cr>", "Checkout branch" },
-    c = { ":Telescope git_commits<cr>", "Checkout commit" },
-    C = { ":Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
+    g = { ":Telescope git_status<cr>", "Open changed file" },
+    l = { ":Lazygit<cr>", "Lazygit" },
+    s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
+    r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
+    p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
   },
   h = { name = "Http",
     h = { '<Plug>RestNvim', 'run the request under the cursor' },
