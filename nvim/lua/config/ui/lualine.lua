@@ -13,8 +13,6 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    --[[ component_separators = { left = '', right = ''}, ]]
-    --[[ section_separators = { left = '', right = ''}, ]]
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = { 'packer', 'mason', 'NvimTree', 'trouble', 'Outline'
@@ -34,32 +32,30 @@ require('lualine').setup {
         'mode',
         fmt = function(mode_str)
           local modeMap = {}
-            modeMap["NORMAL"] = " N "
-            modeMap["INSERT"] = " I "
-            modeMap["COMMAND"] = " C "
-            modeMap["REPLACE"] = " R "
-            modeMap["TERMINAL"] = " T "
-            modeMap["SELECT"] = " S "
-            modeMap["VISUAL"] = " V "
-            modeMap["V-LINE"] = "V-L"
-            modeMap["V-BLOCK"] = "V-B"
-            modeMap["SELECT"] = " S "
-            modeMap["S-LINE"] = "S-L"
+          modeMap["NORMAL"] = " N "
+          modeMap["INSERT"] = " I "
+          modeMap["COMMAND"] = " C "
+          modeMap["REPLACE"] = " R "
+          modeMap["TERMINAL"] = " T "
+          modeMap["VISUAL"] = " V "
+          modeMap["V-LINE"] = "V-L"
+          modeMap["V-BLOCK"] = "V-B"
+          modeMap["SELECT"] = " S "
+          modeMap["S-LINE"] = "S-L"
           return modeMap[mode_str]
         end
       }
     },
     lualine_b = {
       'branch',
-      {
-        'diff',
-        -- symbols = { added = ' ', modified = ' ', removed = ' ', },
-        -- symbols = { added = '+', modified = '~', removed = '-', },
-        symbols = { added = '', modified = '', removed = '', },
-      },
+      -- {
+      --   'diff',
+      --   -- symbols = { added = ' ', modified = ' ', removed = ' ', },
+      --   symbols = { added = '', modified = '', removed = '', },
+      -- },
     },
     lualine_c = {
-      'filename',
+      -- 'filename',
       'diagnostics',
       { searchCount },
     },
