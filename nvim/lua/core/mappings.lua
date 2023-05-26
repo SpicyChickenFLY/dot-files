@@ -45,8 +45,8 @@ map('n', 'T', function() hop.hint_char1(
 -- NOTE: command <z> mapping
 map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
 map("n", "zM", ":lua require'ufo'.closeAllFolds()<CR>", { desc = "close all folds" })
-map("n", "zr", ":lua require('ufo').openFoldsExceptKinds()<CR>", { desc = "open next fold level"})
-map("n", "zm", ":lua require('ufo').closeFoldsWith()<CR>", { desc = "close next fold level"})
+map("n", "zr", ":lua require'ufo'.openFoldsExceptKinds()<CR>", { desc = "open next fold level"})
+map("n", "zm", ":lua require'ufo'.closeFoldsWith()<CR>", { desc = "close next fold level"})
 map("n", "z1", ":lua require'ufo'.closeFoldsWith(1)<CR>", { desc = "close fold level 1" })
 map("n", "z2", ":lua require'ufo'.closeFoldsWith(2)<CR>", { desc = "close fold level 2" })
 map("n", "z3", ":lua require'ufo'.closeFoldsWith(3)<CR>", { desc = "close fold level 3" })
@@ -73,7 +73,7 @@ map("n", "<F12>", ":lua require'dap'.run_last()<CR>")
 map("n", "<S-F12>", ":lua require'dap'.terminate()<CR>")
 -- map("n", "",     ":lua require'dap'.repl.toggle()<CR>")
 
--- NOTE: command goto with [, ]
+-- NOTE: command goto with [ and ]
 map("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "goto prev" })
 map("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "goto_next" })
 map("n", "[c", ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", { desc = "Prev Hunk" })
@@ -210,4 +210,3 @@ local wk = require("which-key")
 wk.register(leader_mapping, { prefix = "<leader>" })
 wk.register(visual_leader_mapping, { prefix = "<leader>", mode="v" })
 
---[[ map('n', '<C-E>', ':Vifm<CR>') ]]
