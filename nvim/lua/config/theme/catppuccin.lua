@@ -9,7 +9,7 @@ require("catppuccin").setup({
     dim_inactive = {
         enabled = true,
         shade = "dark",
-        percentage = 0.05,
+        percentage = 0.08,
     },
     no_italic = false, -- Force no italic
     no_bold = false, -- Force no bold
@@ -19,7 +19,7 @@ require("catppuccin").setup({
         loops = {},
         functions = {},
         keywords = {},
-        strings = {},
+        strings = {"italic"},
         variables = {},
         numbers = {},
         booleans = {},
