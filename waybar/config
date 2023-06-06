@@ -4,10 +4,7 @@
     // -------------------------------------------------------------------------
 
     "layer": "bottom",
-
     "position": "bottom",
-
-    // If height property would be not present, it'd be calculated dynamically
     "height": 25,
 
     "modules-left": [
@@ -18,6 +15,7 @@
     "modules-center": [
     ],
     "modules-right": [
+       "bluetooth",
         "network",
         "idle_inhibitor",
         // "memory",
@@ -35,29 +33,33 @@
     // -------------------------------------------------------------------------
 
     "backlight": {
-        "format": " {percent}",
+        "format": "{icon}",
+        "format-icons": [
+            "☼ ",  // Icon: light-none
+            "滛", // Icon: light-quarter
+            " ", // Icon: light-half
+            " " // Icon: light-three-quarters
+        ],
         "interval": 2,
-        /* "on-click": "bightnessctl ", */
-        "on-scroll-up": "sudo xbacklight -inc 2",
-        "on-scroll-down": "sudo xbacklight -dec 2"
+        "on-click": "if [ `xbacklight -get` -eq 100 ]; then xbacklight -set 0; else xbacklight -inc 10; fi",
+        "on-scroll-up": "xbacklight -inc 2",
+        "on-scroll-down": "xbacklight -dec 2"
     },
 
     "battery": {
         "interval": 10,
         "states": {
-            "warning": 25,
-            "critical": 15
+            "warning": 35,
+            "critical": 20
         },
-        // Connected to AC
         "format": "{capacity}", // Icon: bolt
-        // Not connected to AC
         "format-discharging": "{icon} {capacity}",
         "format-icons": [
-            " ", // Icon: battery-full
-            " ", // Icon: battery-three-quarters
-            " ", // Icon: battery-half
+            " ",  // Icon: battery-empty
             " ", // Icon: battery-quarter
-            " "  // Icon: battery-empty
+            " ", // Icon: battery-half
+            " ", // Icon: battery-three-quarters
+            " " // Icon: battery-full
         ],
         "tooltip": true
     },
@@ -65,8 +67,8 @@
     "bluetooth": {
       // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
       "format": " {status}",
-      "format-disabled": "", // an empty format will hide the module
-      "format-connected": " {num_connections} connected",
+      "format-disabled": "", // an empty format will hide the module
+      "format-connected": "",
       "tooltip-format": "{controller_alias}\t{controller_address}",
       "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
       "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
@@ -110,7 +112,8 @@
         "format-wifi": "直 ", // Icon: wifi
         "format-ethernet": "  ", // Icon: ethernet
         "format-disconnected": "睊 ",
-        "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}"
+        "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}",
+        "on-click": "sudo iwctl station wlan0 scan",
     },
 
     "pulseaudio": {
@@ -161,7 +164,7 @@
 
     "tray": {
         "icon-size": 22,
-        "spacing": 10
+        "spacing": 8
     }
 
 }
