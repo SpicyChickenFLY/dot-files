@@ -5,6 +5,9 @@
 
     "layer": "bottom",
     "position": "bottom",
+    "height": 30,
+    // "width": 30,
+    "spacing" 4,
 
     "modules-left": [
         "sway/workspaces",
@@ -33,7 +36,7 @@
 
     "backlight": {
         "format": "{icon}",
-        "format-icons": [ "☼ ", "滛 ", " ", " " ],
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
         "interval": 2,
         "on-click": "if [ `xbacklight -get` -eq 100 ]; then xbacklight -set 0; else xbacklight -inc 10; fi",
         "on-scroll-up": "xbacklight -inc 2",
