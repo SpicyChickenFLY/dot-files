@@ -11,27 +11,14 @@
  * -------------------------------------------------------------------------- */
 
 @keyframes blink-warning {
-    70% {
-        color: white;
-    }
-
-    to {
-        color: white;
-        background-color: orange;
-    }
+    70% { color: white; }
+    to { color: white; background-color: orange; }
 }
 
 @keyframes blink-critical {
-    70% {
-      color: white;
-    }
-
-    to {
-        color: white;
-        background-color: red;
-    }
+    70% { color: white; }
+    to { color: white; background-color: red; }
 }
-
 
 /* -----------------------------------------------------------------------------
  * Base styles
@@ -52,7 +39,7 @@
     color: #222222; /* Sway palette: focused/text */
     /* font-family: system-ui, sans-serif; */
     font-family: 'SauceCodePro Nerd Font';
-    font-size: 16px;
+    font-size: 22px;
 }
 
 /* -----------------------------------------------------------------------------
@@ -83,15 +70,14 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    color: green;
 }
 
 #battery.warning {
-    color: orange;
+    color: #FF4500;
 }
 
 #battery.critical {
-    color: red;
+    color: #FF0000;
 }
 
 #battery.warning.discharging {
@@ -106,7 +92,7 @@
 
 #clock {
     /* No styles */
-  color: blue;
+  color: #222222;
 }
 
 #clock.time {
@@ -160,7 +146,7 @@
 }
 
 #network.disconnected {
-    color: orange;
+    color: #D3D3D3;
 }
 
 #pulseaudio {
@@ -169,7 +155,7 @@
 
 #pulseaudio.muted {
     /* No styles */
-    color: red;
+    color: #D3D3D3;
 }
 
 #temperature {
