@@ -112,7 +112,7 @@ export PATH=$PATH:$HOME/.local/bin
 # sudo /etc/rc.local
 
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-     exec sway
+     # exec sway
      # startx
 fi
 
