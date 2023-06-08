@@ -84,8 +84,33 @@ return packer.startup(function()
     run = ':TSUpdate',
     config = function() require('config.appearence.treesitter') end,
   }
+  use { 'kevinhwang91/nvim-ufo',
+    requires = {
+      'kevinhwang91/promise-async',
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup({
+            relculright = true,
+            segments = {
+              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+              { text = { "%s" }, click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            },
+          })
+        end,
+      }
+    },
+    config = function() require('config.appearence.nvim-ufo') end,
+  } -- fold block
+  use { 'numToStr/Comment.nvim',
+    config = function() require('Comment').setup() end,
+    event = 'BufWinEnter',
+  } -- quick comment
   -- use { "Jxstxs/conceal.nvim",
-  --   requires = "nvim-treesitter/nvim-treesitter"
+  --   requires = "nvim-treesitter/nvim-treesitter",
+  --   config = function() require('config.appearence.conceal') end,
   -- } -- conceal test to icon
 
   -- NOTE: LSP stuff
@@ -206,30 +231,6 @@ return packer.startup(function()
   }
 
   -- NOTE: editor stuff
-  use { 'kevinhwang91/nvim-ufo',
-    requires = {
-      'kevinhwang91/promise-async',
-      {
-        "luukvbaal/statuscol.nvim",
-        config = function()
-          local builtin = require("statuscol.builtin")
-          require("statuscol").setup({
-            relculright = true,
-            segments = {
-              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-              { text = { "%s" }, click = "v:lua.ScSa" },
-              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-            },
-          })
-        end,
-      }
-    },
-    config = function() require('config.editor.nvim-ufo') end,
-  } -- fold block
-  use { 'numToStr/Comment.nvim',
-    config = function() require('Comment').setup() end,
-    event = 'BufWinEnter',
-  } -- quick comment
   use { 'rmagatti/auto-session',
     config = function() require('config.editor.auto-session') end,
   } -- restore buffers
