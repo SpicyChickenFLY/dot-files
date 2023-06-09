@@ -45,7 +45,8 @@ opt.wildmenu = true
 
 -- ui
 opt.cursorline = true
-opt.laststatus = 2
+opt.laststatus = 3
+opt.splitkeep = "screen"
 opt.lazyredraw = true
 opt.list = true
 opt.listchars = {

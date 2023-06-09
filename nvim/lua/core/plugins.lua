@@ -36,6 +36,9 @@ return packer.startup(function()
     requires = 'nvim-tree/nvim-web-devicons',
     config = function() require("config.ui.bufferline") end,
   } -- tabline
+  -- use { "folke/edgy.nvim",
+  --   config = function() require("config.ui.edgy") end,
+  -- } -- window layout
   use { "utilyre/barbecue.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons", -- optional
@@ -229,9 +232,9 @@ return packer.startup(function()
     },
     config = function() require("config.tools.dadbod") end,
   }
-  use { 'rmagatti/auto-session',
-    config = function() require('config.tools.auto-session') end,
-  } -- restore buffers
+  -- use { 'rmagatti/auto-session',
+  --   config = function() require('config.tools.auto-session') end,
+  -- } -- restore buffers
 
   if packer.first_install then packer.sync() end
 end)
