@@ -111,7 +111,8 @@
         "format-ethernet": "  ", // Icon: ethernet
         "format-disconnected": "睊 ",
         "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}",
-        "on-click": "sudo iwctl station wlan0 scan",
+        // "on-click": "sudo iwctl station wlan0 scan",
+        "on-click": "exec iwgtk",
     },
 
     "pulseaudio": {
@@ -127,7 +128,8 @@
             "car": " ", // Icon: car
             "default": ["奄", " ", " "] // Icons: volume-down, volume-up
         },
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        // "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click": "pavucontrol",
         "on-click-right": "alacritty --title='Sound Mixer' --command='pulsemixer'",
         "tooltip": true
     },
