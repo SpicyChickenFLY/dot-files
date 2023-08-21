@@ -6,6 +6,8 @@ gui:
   expandFocusedSidePanel: false
   mainPanelSplitMode: 'flexible' # one of 'horizontal' | 'flexible' | 'vertical'
   language: 'auto' # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl'
+  timeFormat: '06-01-02'
+  shortTimeFormat: '15:04'
   theme:
     lightTheme: false
     activeBorderColor:
