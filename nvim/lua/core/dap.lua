@@ -71,7 +71,7 @@ dap.configurations.java = {
 vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop'})
 vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop'})
 vim.fn.sign_define('DapLogPoint', {text='', texthl='DapUIStop'})
-vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
+vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
 vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='DapUIStop'})
 
 local dapui = require("dapui")
