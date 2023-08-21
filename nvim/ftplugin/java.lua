@@ -42,10 +42,7 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      runtimes = {
-        name = "javaSE-8",
-        path = jdk8_path,
-      },
+      runtimes = { name = "javaSE-8", path = jdk8_path },
       contentProvider = { preferred = "fernflower" },
     },
   },

@@ -37,13 +37,25 @@ dap.configurations.go = {
 -- dap.adapters.java = {}
 dap.configurations.java = {
   {
+    type = "java",
+    name = "Debug(Attach) - Host",
+    request = "attach",
+    hostName = "127.0.0.1",
+    port = 5005,
+  },
+  {
+    type = "java",
+    name = "Debug(Attach) - Process",
+    request = "attach",
+    processId = "${command:PickJavaProcess}",
+  },
+  {
+    type = "java",
+    name = "Debug(Launch)",
+    request = "launch",
     javaExec = "/usr/bin/java",
     mainClass = "${file}",
     -- args = "${command:SpecifyProgramArgs}" ,
-
-    name = "Debug",
-    request = "launch",
-    type = "java"
   },
 }
 
