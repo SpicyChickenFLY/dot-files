@@ -9,10 +9,13 @@
 
     "modules-left": [
         "sway/workspaces",
+        "custom/float",
+        "custom/close",
+        "custom/app"
     ],
     "modules-center": [
         "sway/mode",
-        "sway/window"
+        "sway/window",
     ],
     "modules-right": [
        "bluetooth",
@@ -31,6 +34,19 @@
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
+
+    "custom/app": {
+        "format": " ",
+        "on-click": "rofi -combi-modi drun#run -show combi",
+    },
+    "custom/close": {
+        "format": " ",
+        "on-click": "swaymsg kill",
+    },
+    "custom/float": {
+        "format": " ",
+        "on-click": "swaymsg floating toggle",
+    },
 
     "backlight": {
         "format": "{icon}",

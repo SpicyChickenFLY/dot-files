@@ -58,6 +58,9 @@
 #network,
 #pulseaudio,
 #temperature,
+#custom-close,
+#custom-float,
+#custom-app,
 #tray {
     margin-left: 18px;
 }
@@ -158,16 +161,14 @@
     color: #D3D3D3;
 }
 
-#temperature {
-    /* No styles */
-}
-
-#temperature.critical {
-    color: red;
-}
+#custom-float { }
+#custom-close { }
 
 #tray {
-    /* No styles */
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10;
+    background-color: #D3D3D3;
 }
 
 #window {
