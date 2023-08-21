@@ -116,7 +116,7 @@ return packer.startup(function()
   --   config = function() require('config.appearence.conceal') end,
   -- } -- conceal test to icon
 
-  -- NOTE: LSP stuff
+  -- NOTE: LSP & Language stuff
   use { "williamboman/mason.nvim",
     config = function() require('mason').setup() end,
   } -- LSP server collection installer
@@ -128,6 +128,7 @@ return packer.startup(function()
     after = 'nvim-lspconfig',
   } -- bridge non-LSP sources to LSP client PERF: currently no use
   use { 'mfussenegger/nvim-jdtls' }
+  use { 'stevearc/vim-arduino' }
 
 
   -- NOTE: Completion stuff
@@ -182,7 +183,10 @@ return packer.startup(function()
     config = function() require('config.sidebar.nvim-spectre') end,
   } -- replacer
 
-  -- NOTE: Tool stuff
+  -- NOTE: Tool stu-- Packer
+  use { "sindrets/diffview.nvim",
+    config = function() require("config.tools.diffview") end
+  } -- git diffview/mergetool
   use { 'nvim-telescope/telescope.nvim',
     requires = {
       'nvim-lua/popup.nvim',
