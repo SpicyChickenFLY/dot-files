@@ -1,62 +1,14 @@
 local icons = require("core.icons")
+local keymaps = require("core.mappings")
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
--- vim.g.nvim_tree_group_empty = 1
 
 local function on_attach(bufnr)
-  local api = require('nvim-tree.api')
-
-  local function opts(desc)
-    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  local map = vim.keymap.set
-
-  -- node navigation
-  map('n', 'h', api.node.navigate.parent, opts('Parent Directory'))
-  map('n', 'J', api.node.navigate.sibling.next, opts('Next Sibling'))
-  map('n', 'K', api.node.navigate.sibling.prev, opts('Previous Sibling'))
-  map('n', ']e', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
-  map('n', ']c', api.node.navigate.git.next, opts('Next Git'))
-  map('n', '[e', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
-  map('n', '[c', api.node.navigate.git.prev, opts('Prev Git'))
-  -- filter
-  map('n', 'f', api.live_filter.start, opts('Filter'))
-  map('n', 'F', api.live_filter.clear, opts('Clean Filter'))
-  -- node operation
-  map('n', '<CR>', api.node.open.edit, opts('Open'))
-  map('n', 'l', api.node.open.edit, opts('Open'))
-  map('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
-  map('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
-  map('n', 's', api.node.run.system, opts('Run System'))
-  map('n', '.', api.node.run.cmd, opts('Run Command'))
-  map('n', 'gh', api.node.show_info_popup, opts('Info'))
-  -- tree operation
-  map('n', 'q', api.tree.close, opts('Close'))
-  map('n', 'zm', api.tree.collapse_all, opts('Collapse'))
-  map('n', 'zr', api.tree.expand_all, opts('Expand All'))
-  map('n', 'H', api.tree.change_root_to_parent, opts('Up'))
-  map('n', 'R', api.tree.reload, opts('Refresh'))
-  map('n', 'g?', api.tree.toggle_help, opts('Help'))
-  -- toggle display
-  map('n', 'tg', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
-  map('n', 'th', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-  map('n', 'tf', api.tree.toggle_custom_filter, opts('Toggle Hidden'))
-  map('n', 'tm', api.marks.toggle, opts('Toggle Bookmark'))
-  -- file operation
-  map('n', 'a', api.fs.create, opts('Create'))
-  map('n', 'd', api.fs.remove, opts('Delete'))
-  map('n', 'c', api.fs.copy.node, opts('Copy'))
-  map('n', 'x', api.fs.cut, opts('Cut'))
-  map('n', 'p', api.fs.paste, opts('Paste'))
-  map('n', 'r', api.fs.rename, opts('Rename'))
-  map('n', '<C-r>', api.fs.rename_sub, opts('Rename: Omit Filename'))
-  map('n', 'y', api.fs.copy.filename, opts('Copy Name'))
-  map('n', 'gy', api.fs.copy.relative_path, opts('Copy Relative Path'))
-  map('n', 'gY', api.fs.copy.absolute_path, opts('Copy Absolute Path'))
+  keymaps.nvim_tree_keymap(bufnr)
 end
+
 
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
@@ -64,14 +16,16 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  sort_by = "name",
+  sort = {
+    sorter = "name",
+    folders_first = true,
+  },
   root_dirs = {},
   prefer_startup_root = false,
   sync_root_with_cwd = false,
   reload_on_bufenter = false,
   respect_buf_cwd = false,
   on_attach = on_attach,
-  remove_keymaps = false,
   select_prompts = false,
   view = {
     centralize_selection = false,
@@ -84,9 +38,6 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
     number = false,
     relativenumber = false,
     signcolumn = "yes",
-    mappings = {
-      custom_only = false,
-    },
     float = {
       enable = false,
       quit_on_focus_loss = true,
@@ -113,10 +64,10 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
       enable = true,
       inline_arrows = true,
       icons = {
-        corner = "└",
-        edge = "│",
-        item = "│",
-        bottom = "─",
+        corner = icons.border.corner,
+        edge = icons.border.long_sep,
+        item = icons.border.long_sep,
+        bottom = icons.border.bottom,
         none = " ",
       },
     },
@@ -134,29 +85,12 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
         modified = false,
       },
       glyphs = {
-        default = "",
-        symlink = "",
-        bookmark = "",
-        modified = "●",
-        folder = {
-          arrow_closed = "",
-          arrow_open = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
-        },
-        git = {
-          unstaged = "✗",
-          staged = "✓",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "★",
-          deleted = "",
-          ignored = "◌",
-        },
+        default = icons.file,
+        symlink = icons.symlink,
+        bookmark = icons.bookmark,
+        modified = icons.dot,
+        folder = icons.folder,
+        git = icons.git,
       },
     },
     special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
@@ -185,13 +119,14 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
       max = vim.diagnostic.severity.ERROR,
     },
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = icons.hint,
+      info = icons.info,
+      warning = icons.warning,
+      error = icons.error,
     },
   },
   filters = {
+    git_ignored = true,
     dotfiles = false,
     git_clean = false,
     no_buffer = false,
@@ -205,9 +140,9 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   },
   git = {
     enable = true,
-    ignore = true,
     show_on_dirs = true,
     show_on_open_dirs = true,
+    disable_for_dirs = {},
     timeout = 400,
   },
   modified = {
@@ -237,6 +172,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
     },
     open_file = {
       quit_on_open = true,
+      eject = true,
       resize_window = true,
       window_picker = {
         enable = true,
@@ -268,6 +204,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   },
   notify = {
     threshold = vim.log.levels.INFO,
+    absolute_path = true,
   },
   ui = {
     confirm = {

@@ -206,7 +206,62 @@ local visual_leader_mapping = {
     r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
   }
 }
+
 local wk = require("which-key")
 wk.register(leader_mapping, { prefix = "<leader>" })
 wk.register(visual_leader_mapping, { prefix = "<leader>", mode="v" })
 
+local M = {}
+
+function M.nvim_tree_keymap(bufnr)
+  local _api = require('nvim-tree.api')
+
+  local function _opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  local _map = vim.keymap.set
+  _map('n', 'h', _api.node.navigate.parent, _opts('Parent Directory'))
+  _map('n', 'J', _api.node.navigate.sibling.next, _opts('Next Sibling'))
+  _map('n', 'K', _api.node.navigate.sibling.prev, _opts('Previous Sibling'))
+  _map('n', ']e', _api.node.navigate.diagnostics.next, _opts('Next Diagnostic'))
+  _map('n', ']c', _api.node.navigate.git.next, _opts('Next Git'))
+  _map('n', '[e', _api.node.navigate.diagnostics.prev, _opts('Prev Diagnostic'))
+  _map('n', '[c', _api.node.navigate.git.prev, _opts('Prev Git'))
+  -- filter
+  _map('n', 'f', _api.live_filter.start, _opts('Filter'))
+  _map('n', 'F', _api.live_filter.clear, _opts('Clean Filter'))
+  -- node operation
+  _map('n', '<CR>', _api.node.open.edit, _opts('Open'))
+  _map('n', 'l', _api.node.open.edit, _opts('Open'))
+  _map('n', '<2-LeftMouse>', _api.node.open.edit, _opts('Open'))
+  _map('n', '<Tab>', _api.node.open.preview, _opts('Open Preview'))
+  _map('n', 's', _api.node.run.system, _opts('Run System'))
+  _map('n', '.', _api.node.run.cmd, _opts('Run Command'))
+  _map('n', 'gh', _api.node.show_info_popup, _opts('Info'))
+  -- tree operation
+  _map('n', 'q', _api.tree.close, _opts('Close'))
+  _map('n', 'zm', _api.tree.collapse_all, _opts('Collapse'))
+  _map('n', 'zr', _api.tree.expand_all, _opts('Expand All'))
+  _map('n', 'H', _api.tree.change_root_to_parent, _opts('Up'))
+  _map('n', 'R', _api.tree.reload, _opts('Refresh'))
+  _map('n', 'g?', _api.tree.toggle_help, _opts('Help'))
+  -- toggle display
+  _map('n', 'tg', _api.tree.toggle_gitignore_filter, _opts('Toggle Git Ignore'))
+  _map('n', 'th', _api.tree.toggle_hidden_filter, _opts('Toggle Dotfiles'))
+  _map('n', 'tf', _api.tree.toggle_custom_filter, _opts('Toggle Hidden'))
+  _map('n', 'tm', _api.marks.toggle, _opts('Toggle Bookmark'))
+  -- file operation
+  _map('n', 'a', _api.fs.create, _opts('Create'))
+  _map('n', 'd', _api.fs.remove, _opts('Delete'))
+  _map('n', 'c', _api.fs.copy.node, _opts('Copy'))
+  _map('n', 'x', _api.fs.cut, _opts('Cut'))
+  _map('n', 'p', _api.fs.paste, _opts('Paste'))
+  _map('n', 'r', _api.fs.rename, _opts('Rename'))
+  _map('n', '<C-r>', _api.fs.rename_sub, _opts('Rename: Omit Filename'))
+  _map('n', 'y', _api.fs.copy.filename, _opts('Copy Name'))
+  _map('n', 'gy', _api.fs.copy.relative_path, _opts('Copy Relative Path'))
+  _map('n', 'gY', _api.fs.copy.absolute_path, _opts('Copy Absolute Path'))
+end
+
+return M

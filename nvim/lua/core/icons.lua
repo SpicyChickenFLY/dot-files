@@ -8,10 +8,11 @@ local icons = {
     arrow_left = "",
     arrow_right = "",
     sep = "|",
+    long_sep = "│",
+    corner = "└",
+    bottom = "─",
   },
 
-  close = "󰅖",
-  dot = "●",
 
   left = "", right = "",
 
@@ -19,21 +20,26 @@ local icons = {
   vim = " ",
   star = "★",
   search = " ",
+  symlink = "",
+  symlink_arrow = "➛",
+  bookmark = "",
+  close = "󰅖",
+  dot = "●",
 
   -- NOTE: level
-  info = "", warn = "󰀪", error = "", hint = "",
+  info = "", warn = "󰀪", error = "", hint = "",
   trace = "✎", note = "", debug = " ",
   flame = " ", test = "", perf = "󱫍 ",
 
   branch = "󰘬",
   dotdotdot = "…",
   information = "",
-  symlink = "",
   line_number = "",
   check = " ",
   cross = "",
 
-  file = "",
+  empty_file = "",
+  file = "",
   file1 = "",
   file2 = "",
   clock = "",
