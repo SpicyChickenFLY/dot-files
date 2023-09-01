@@ -97,6 +97,7 @@ dapui.setup({
   -- Expand lines larger than the window
   -- Requires >= 0.7
   expand_lines = vim.fn.has("nvim-0.7") == 1,
+  force_buffers = true,
   -- Layouts define sections of the screen to place windows.
   -- The position can be "left", "right", "top" or "bottom".
   -- The size specifies the height/width depending on position. It can be an Int
@@ -116,14 +117,14 @@ dapui.setup({
       size = 40, -- 40 columns
       position = "left",
     },
-    {
-      elements = {
-        "repl",
-        "console",
-      },
-      size = 0.25, -- 25% of total lines
-      position = "bottom",
-    },
+    -- {
+    --   elements = {
+    --     "repl",
+    --     "console",
+    --   },
+    --   size = 0.25, -- 25% of total lines
+    --   position = "bottom",
+    -- },
   },
   controls = {
     -- Requires Neovim nightly (or 0.8 when released)
@@ -151,6 +152,7 @@ dapui.setup({
   },
   windows = { indent = 1 },
   render = {
+    indent = 2,
     max_type_length = nil, -- Can be integer or nil.
     max_value_lines = 100, -- Can be integer or nil.
   },

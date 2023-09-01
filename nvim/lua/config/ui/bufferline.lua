@@ -2,6 +2,8 @@ local icons = require('core.icons')
 require('bufferline').setup {
   options = {
     mode = "buffers", -- set to "tabs" to only show tabpages instead
+    themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
+    -- highlights = require('catppuccin.groups.integrations.bufferline').get(),
     numbers = "none", -- "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -64,6 +66,12 @@ require('bufferline').setup {
         }
     },
     color_icons = true, -- whether or not to add the filetype icon highlights
+    get_element_icon = function(element)
+      -- element consists of {filetype: string, path: string, extension: string, directory: string}
+      -- This can be used to change how bufferline fetches the icon
+      local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
+      return icon, hl
+    end,
     show_buffer_icons = true, -- disable filetype icons for buffers
     show_buffer_close_icons = true,
     show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon

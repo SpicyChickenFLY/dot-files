@@ -17,16 +17,16 @@ return packer.startup(function()
   -- NOTE: UI stuff
   use { 'kyazdani42/nvim-web-devicons',
   } -- character icons
-  use { "rcarriga/nvim-notify",
-    -- config = function () require('config.ui.nvim-notify') end,
-  }
-  use { "folke/noice.nvim",
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    config = function() require('config.ui.noice') end,
-  } -- intergrate Notify/CmdLine/UI
+  -- use { "rcarriga/nvim-notify",
+  --   -- config = function () require('config.ui.nvim-notify') end,
+  -- }
+  -- use { "folke/noice.nvim",
+  --   requires = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  --   config = function() require('config.ui.noice') end,
+  -- } -- intergrate Notify/CmdLine/UI
   use { 'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('config.ui.lualine') end,
@@ -48,6 +48,9 @@ return packer.startup(function()
     -- commit = '894bd7a',
     config = function() require("config.ui.barbecue") end,
   } -- breadcrumbs
+  -- use { "Bekaboo/dropbar.nvim",
+  --   config = function () require("config.ui.dropbar") end
+  -- } -- WARN: another breadcrumbs(need neovim-nightly)
   -- use { "petertriho/nvim-scrollbar",
   --   config = function() require("config.ui.scrollbar") end,
   -- } -- scroll bar
@@ -217,7 +220,7 @@ return packer.startup(function()
     config = function() require('trouble').setup() end,
   } -- show diagnostic list
   use{ "kylechui/nvim-surround",
-    config = function() require("nvim-surround").setup({ }) end,
+    config = function() require("nvim-surround").setup({}) end,
   }
   use { "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
