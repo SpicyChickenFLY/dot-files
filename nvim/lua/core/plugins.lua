@@ -18,15 +18,15 @@ return packer.startup(function()
   use { 'kyazdani42/nvim-web-devicons',
   } -- character icons
   -- use { "rcarriga/nvim-notify",
-  --   -- config = function () require('config.ui.nvim-notify') end,
+  --   config = function () require('config.ui.nvim-notify') end,
   -- }
-  -- use { "folke/noice.nvim",
-  --   requires = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  --   config = function() require('config.ui.noice') end,
-  -- } -- intergrate Notify/CmdLine/UI
+  use { "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function() require('config.ui.noice') end,
+  } -- intergrate Notify/CmdLine/UI
   use { 'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('config.ui.lualine') end,
@@ -77,7 +77,7 @@ return packer.startup(function()
   use { 'NvChad/nvim-colorizer.lua',
     opt = true,
     cmd = { 'ColorizerToggle' },
-    config = function() require('colorizer').setup() end,
+    config = function() require('colorizer').setup({}) end,
     event = 'BufWinEnter',
   } -- colorized hex codes
   use { 'nvim-treesitter/nvim-treesitter',
