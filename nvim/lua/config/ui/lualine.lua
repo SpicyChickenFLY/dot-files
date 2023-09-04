@@ -40,10 +40,10 @@ local function todoCount()
   local out = {}
   for keyword, count in vim.spairs(todoCommentStat) do
     local icon = todoCommentMap[keyword].icon
-    local formatStr = '%%#TODOFg%s#%s %d '
+    local formatStr = '%%#TODOFg%s#%s %d'
     table.insert(out, (formatStr):format(keyword, icon, count))
   end
-  return table.concat(out)
+  return table.concat(out, ' ')
 end
 
 local modeMap = {}
@@ -78,8 +78,18 @@ require("lualine").setup({
       },
     },
     lualine_b = { "branch" },
-    lualine_c = { "diagnostics", { searchCount }, { todoCount } },
-    lualine_x = { },
+    lualine_c = {
+      {
+        "diagnostics" ,
+        symbols={
+          error = icons.error .. ' ',
+          warn = icons.warn .. ' ',
+          info = icons.info .. ' ',
+          hint = icons.hint .. ' '
+        }
+      },
+      { searchCount }, },
+    lualine_x = { { todoCount } },
     -- lualine_x = {'b:gitsigns_blame_line'},
     lualine_y = { "filetype", "encoding", "fileformat" },
     lualine_z = { "%l:%c", "progress" },

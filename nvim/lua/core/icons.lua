@@ -22,12 +22,11 @@ local icons = {
 
   -- NOTE: level
   info = "", warn = "󰀪", error = "", hint = "",
-  trace = "✎", note = "", debug = "",
+  information = "", trace = "✎", note = "", debug = "",
   flame = "", test = "", perf = "󱫍",
 
   branch = "󰘬",
   dotdotdot = "…",
-  information = "",
   line_number = "",
   check = "",
   cross = "",
