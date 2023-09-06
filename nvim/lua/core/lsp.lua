@@ -30,6 +30,21 @@ end
 local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = "rounded",
+        source = "always",
+        prefix = " ",
+        scope = "cursor",
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end,
+  })
 end
 
 -- This is the default in Nvim 0.7+
@@ -64,10 +79,7 @@ require("lspconfig")["gopls"].setup({
       unusedwrite = true,
       fieldalignment = true,
     },
-    codelenses = {
-      gc_details = true,
-      tidy = true,
-    },
+    codelenses = { gc_details = true, tidy = true, },
   },
 })
 
@@ -79,9 +91,7 @@ require("lspconfig")["rust_analyzer"].setup({
   flags = lsp_flags,
   settings = {
     ["rust-analyzer"] = {
-      checkOnSave = {
-        command = "clippy",
-      },
+      checkOnSave = { command = "clippy", },
     },
   },
 })
@@ -116,10 +126,10 @@ require("lspconfig")["lua_ls"].setup({
 -- vim lsp
 -------------
 -- npm install -g vim-language-server
-require("lspconfig")["vimls"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- require("lspconfig")["vimls"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 -- typescript lsp
 -------------
@@ -149,73 +159,59 @@ require("lspconfig")["vuels"].setup({
 -- npm i -g vscode-langservers-extracted
 require("lspconfig")["eslint"].setup({
   on_attach = function(client, bufnr)
-    local group = vim.api.nvim_create_augroup("Eslint", {})
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = group,
-      pattern = "<buffer>",
-      command = "EslintFixAll",
-      desc = "Run eslint when saving buffer.",
-    })
+    -- local group = vim.api.nvim_create_augroup("Eslint", {})
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --   group = group,
+    --   pattern = "<buffer>",
+    --   command = "EslintFixAll",
+    --   desc = "Run eslint when saving buffer.",
+    -- })
     on_attach(client, bufnr) -- declared elsewhere
   end,
   flags = lsp_flags,
 })
-require("lspconfig")["html"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
-require("lspconfig")["cssls"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- require("lspconfig")["html"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
+-- require("lspconfig")["cssls"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 -- yaml lsp
 -------------
 -- -- yarn global add yaml-language-server
--- require('lspconfig')['yamlls'].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
---   settings = {
---     yaml = {
---       schemas = require('schemastore').json.schemas(),
---     },
---   },
--- })
+require('lspconfig')['yamlls'].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+  settings = {
+    yaml = {
+      schemas = require('schemastore').json.schemas(),
+    },
+  },
+})
 
 -- json lsp
 -------------
 -- npm i -g vscode-langservers-extracted
--- require('lspconfig')['jsonls'].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
---   settings = {
---     json = {
---       schemas = require('schemastore').json.schemas(),
---     },
---   },
--- })
+require('lspconfig')['jsonls'].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+    },
+  },
+})
 
 -- sql lsp
 -------------
 -- npm i -g sql-language-server
-require("lspconfig")["jsonls"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- require("lspconfig")["sqls"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 -- java lsp  NOTE: jdtls should be setup by nvim-jdtls
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  buffer = bufnr,
-  callback = function()
-    local opts = {
-      focusable = false,
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = "rounded",
-      source = "always",
-      prefix = " ",
-      scope = "cursor",
-    }
-    vim.diagnostic.open_float(nil, opts)
-  end,
-})
