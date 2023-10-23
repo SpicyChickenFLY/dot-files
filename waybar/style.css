@@ -1,14 +1,3 @@
-/* =============================================================================
- *
- * Waybar styles
- *
- * Styles reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
-
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
 
 @keyframes blink-warning {
     70% { color: white; }
@@ -20,33 +9,23 @@
     to { color: white; background-color: red; }
 }
 
-/* -----------------------------------------------------------------------------
- * Base styles
- * -------------------------------------------------------------------------- */
 
-/* Reset all styles */
 * {
     border: none;
     border-radius: 0;
+    font-family: 'SauceCodePro Nerd Font';
+    font-size: 22px;
     min-height: 0;
     margin: 0;
     padding: 0;
 }
 
-/* The whole bar */
 #waybar {
-    background-color: #ffffff; /* Sway palette: unfocused/background */
-    color: #222222; /* Sway palette: focused/text */
-    /* font-family: system-ui, sans-serif; */
-    font-family: 'SauceCodePro Nerd Font';
+    background-color: #ffffff;
+    color: #222222;
     font-size: 22px;
 }
 
-/* -----------------------------------------------------------------------------
- * Module styles
- * -------------------------------------------------------------------------- */
-
-/* Each module */
 #backlight,
 #battery,
 #clock,
@@ -168,6 +147,7 @@
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 10;
+    margin-right: 15px;
     background-color: #D3D3D3;
 }
 
@@ -208,4 +188,18 @@
     border-color: #2f343a; /* Sway palette: urgent/border */
     color: #ffffff; /* Sway palette: urgent/text */
     background-color: #900000; /* Sway palette: urgent/background */
+}
+
+#taskbar {
+    background-color: #eeeeee; /* Sway palette: urgent/background */
+}
+
+#taskbar button:hover {
+    background: #dddddd;
+    box-shadow: inset 0 3px #ffffff
+}
+
+#taskbar button:hover {
+    background: #64727d;
+    box-shadow: inset 0 3px #ffffff
 }

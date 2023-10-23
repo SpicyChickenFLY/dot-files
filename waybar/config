@@ -1,186 +1,182 @@
-{
-    // -------------------------------------------------------------------------
-    // Global configuration
-    // -------------------------------------------------------------------------
+[
+    {
+        "layer": "top",
+        "position": "top",
+        "height": 30,
+        "modules-left": [
+            "sway/workspaces",
+        ],
+        "modules-center": [
+            "sway/mode",
+            "sway/window",
+        ],
+        "modules-right": [
+            "custom/float",
+            "custom/close",
+        ],
 
-    "layer": "bottom",
-    "position": "bottom",
-    "height": 25,
-
-    "modules-left": [
-        "sway/workspaces",
-        "custom/float",
-        "custom/close",
-        "custom/app"
-    ],
-    "modules-center": [
-        "sway/mode",
-        "sway/window",
-    ],
-    "modules-right": [
-       "bluetooth",
-        "network",
-        "idle_inhibitor",
-        // "memory",
-        // "cpu",
-        "backlight",
-        "pulseaudio",
-        "battery",
-        "tray",
-        "clock#time"
-    ],
-
-
-    // -------------------------------------------------------------------------
-    // Modules
-    // -------------------------------------------------------------------------
-
-    "custom/app": {
-        "format": " ",
-        "on-click": "rofi -combi-modi drun#run -show combi",
-    },
-    "custom/close": {
-        "format": " ",
-        "on-click": "swaymsg kill",
-    },
-    "custom/float": {
-        "format": " ",
-        "on-click": "swaymsg floating toggle",
-    },
-
-    "backlight": {
-        "format": "{icon}",
-        "format-icons": [ " ", " ", " ", " ", " ", " ", " ", " ", " " ],
-        "interval": 2,
-        "on-click": "if [ `xbacklight -get` -eq 100 ]; then xbacklight -set 0; else xbacklight -inc 10; fi",
-        "on-scroll-up": "xbacklight -inc 2",
-        "on-scroll-down": "xbacklight -dec 2",
-        "tooltip-format": "{percent}%"
-    },
-
-    "battery": {
-        "interval": 10,
-        "states": {
-            "warning": 35,
-            "critical": 20
+        "sway/workspaces": {
+            "all-outputs": false,
+            "disable-scroll": true,
+            "format": "{icon} {name}",
+            "format-icons": {
+                "1:WWW": "󰖟", // Icon: firefox-browser
+                "2:Editor": "", // Icon: code
+                "3:Terminals": "", // Icon: terminal
+                "4:Mail": "", // Icon: mail
+                "8:Documents": "", // Icon: book
+                "9:Multimedia": "", // Icon: music
+                "10:Torrent": "", // Icon: cloud-download-alt
+                "urgent": "",
+                "focused": "",
+                "default": ""
+            }
         },
-        "format": "??{icon}",
-        "format-discharging": "{icon}",
-        "format-charging": "{icon}",
-        "format-plugged": "",
-        "format-full": "󰁹",
-        "format-icons": {
-            "discharging": [ "󰂎 ","󰁻 ","󰁼 ","󰁽 ","󰁾 ","󰁿 ","󰂀 ","󰂁 ","󰂂 ","󰁹 " ],
-            "charging": [ "󰢜 ", "󰂆 ", "󰂇 ", "󰂈 ", "󰢝 ", "󰂉 ", "󰢞 ", "󰂊 ", "󰂋 ", "󰂅 " ]
+        "sway/mode": { "format": " {}", "tooltip": false },
+        "sway/window": { "format": "{}", "max-length": 120 },
+        "custom/close": { "format": "󱎘 ", "on-click": "swaymsg kill", },
+        "custom/float": { "format": " ", "on-click": "swaymsg floating toggle", }
+    },
+    {
+        "layer": "bottom",
+        "position": "bottom",
+        "height": 30,
+
+        "modules-left": [
+            "custom/app",
+            "wlr/taskbar",
+        ],
+        "modules-center": [
+            "cpu",
+            "memory",
+            "disk",
+        ],
+        "modules-right": [
+            "tray",
+            "bluetooth",
+            "network",
+            "idle_inhibitor",
+            "backlight",
+            "pulseaudio",
+            "battery",
+            "clock#time",
+            "custom/power",
+        ],
+
+        "custom/app": { "format": "  ", "on-click": "rofi -combi-modi drun#run -show combi", },
+        "wlr/taskbar": {
+            "format": "{icon}",
+            "icon-size": 22,
+            "on-click": "activate",
+            "on-click-middle": "close",
         },
-        "tooltip": true,
-        "tooltip-format": "{capacity}%"
-    },
 
-    "bluetooth": {
-      // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
-      "format": " {status}",
-      "format-disabled": " ", // an empty format will hide the module
-      "format-on": " ",
-      "format-connected": " ",
-      "tooltip-format": "{controller_alias}\t{controller_address}",
-      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-    },
-
-    "clock#time": {
-        "interval": 1,
-        "format": "{:  %m-%d %H:%M}",
-        "tooltip": false
-    },
-
-    "cpu": {
-        "interval": 3,
-        "format": " {usage}% ({load})", // Icon: microchip
-        "states": {
-          "warning": 70,
-          "critical": 90
-        }
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": " ",
-            "deactivated": " "
-        }
-    },
-
-    "memory": {
-        "interval": 3,
-        "format": " {}%", // Icon: memory
-        "states": {
-            "warning": 70,
-            "critical": 90
-        }
-    },
-
-    "network": {
-        "interval": 3,
-        // "format-wifi": "直 {ipaddr}", // Icon: wifi
-        "format-wifi": "直 ", // Icon: wifi
-        "format-ethernet": "  ", // Icon: ethernet
-        "format-disconnected": "睊 ",
-        "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}",
-        // "on-click": "sudo iwctl station wlan0 scan",
-        "on-click": "exec iwgtk",
-    },
-
-    "pulseaudio": {
-        "scroll-step": 2,
-        "format": "{icon}{volume}",
-        "format-muted": " ", // Icon: volume-mute
-        "format-icons": {
-            "headphones": " ", // Icon: headphones
-            "handsfree": "", // Icon: headset
-            "headset": "", // Icon: headset
-            "phone": "", // Icon: phone
-            "portable": "", // Icon: phone
-            "car": " ", // Icon: car
-            "default": ["奄", " ", " "] // Icons: volume-down, volume-up
+        "cpu": {
+            "interval": 5,
+            "format": " {usage}%", // Icon: microchip
+            "states": {
+              "warning": 70,
+              "critical": 90
+            }
         },
-        // "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click": "pavucontrol",
-        "on-click-right": "alacritty --title='Sound Mixer' --command='pulsemixer'",
-        "tooltip": true
-    },
+        "memory": {
+            "interval": 5,
+            "format": "󰍛 {}% ", // Icon: memory
+            "states": {
+                "warning": 70,
+                "critical": 90
+            }
+        },
+        "disk": {
+            "interval": 30,
+            "format": "󰋊 {used}", // Icon: memory
+            "path": "/",
+            "states": {
+                "warning": 70,
+                "critical": 90
+            }
+        },
 
-    "sway/mode": {
-        "format": " {}", // Icon: expand-arrows-alt
-        "tooltip": false
-    },
+        "backlight": {
+            "format": "{icon}",
+            "format-icons": [ " ", " ", " ", " ", " ", " ", " ", " ", " " ],
+            "interval": 2,
+            "on-click": "if [ `xbacklight -get` -eq 100 ]; then xbacklight -set 0; else xbacklight -inc 10; fi",
+            "on-scroll-up": "xbacklight -inc 2",
+            "on-scroll-down": "xbacklight -dec 2",
+            "tooltip-format": "{percent}%"
+        },
+        "battery": {
+            "interval": 5,
+            "states": {
+                "warning": 35,
+                "critical": 20
+            },
+            "format": "??{icon}",
+            "format-discharging": "{icon}",
+            "format-charging": "{icon}",
+            "format-plugged": "",
+            "format-full": "󰁹",
+            "format-icons": {
+                "discharging": [ "󰂎 ","󰁻 ","󰁼 ","󰁽 ","󰁾 ","󰁿 ","󰂀 ","󰂁 ","󰂂 ","󰁹 " ],
+                "charging": [ "󰢜 ", "󰂆 ", "󰂇 ", "󰂈 ", "󰢝 ", "󰂉 ", "󰢞 ", "󰂊 ", "󰂋 ", "󰂅 " ]
+            },
+            "tooltip": true,
+            "tooltip-format": "{capacity}%"
+        },
 
-    "sway/window": {
-        "format": "{}",
-        "max-length": 120
-    },
+        "bluetooth": {
+          "format": " {status}",
+          "format-disabled": " ",
+          "format-on": " ",
+          "format-connected": " ",
+          "tooltip-format": "{controller_alias}\t{controller_address}",
+          "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+          "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+        },
 
-    "sway/workspaces": {
-        "all-outputs": false,
-        "disable-scroll": true,
-        "format": "{icon} {name}",
-        "format-icons": {
-            "1:WWW": "", // Icon: firefox-browser
-            "2:Editor": "", // Icon: code
-            "3:Terminals": "", // Icon: terminal
-            "4:Mail": "", // Icon: mail
-            "8:Documents": "", // Icon: book
-            "9:Multimedia": "", // Icon: music
-            "10:Torrent": "", // Icon: cloud-download-alt
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
 
-    "tray": {
-        "icon-size": 22,
-        "spacing": 8
+        "idle_inhibitor": {
+            "format": "{icon}",
+            "format-icons": {
+                "activated": " ",
+                "deactivated": " "
+            }
+        },
+
+        "network": {
+            "interval": 3,
+            // "format-wifi": "直 {ipaddr}", // Icon: wifi
+            "format-wifi": "直 ", // Icon: wifi
+            "format-ethernet": "  ", // Icon: ethernet
+            "format-disconnected": "睊 ",
+            "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}",
+            // "on-click": "sudo iwctl station wlan0 scan",
+            "on-click": "exec iwgtk",
+        },
+
+        "pulseaudio": {
+            "scroll-step": 2,
+            "format": "{icon}{volume}",
+            "format-muted": " ", // Icon: volume-mute
+            "format-icons": {
+                "headphones": " ", // Icon: headphones
+                "handsfree": "", // Icon: headset
+                "headset": "", // Icon: headset
+                "phone": "", // Icon: phone
+                "portable": "", // Icon: phone
+                "car": " ", // Icon: car
+                "default": ["奄", " ", " "] // Icons: volume-down, volume-up
+            },
+            // "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+            "on-click": "pavucontrol",
+            "on-click-right": "alacritty --title='Sound Mixer' --command='pulsemixer'",
+            "tooltip": true
+        },
+
+        "tray": { "icon-size": 22, "spacing": 8 },
+        "clock#time": { "interval": 1, "format": "{: %m-%d %H:%M}", "tooltip": false },
+        "custom/power": {"format": "󰤆 ", "on-click": "bash $HOME/.config/waybar/scripts/power_cmd.sh"},
+
     }
-
-}
+]
