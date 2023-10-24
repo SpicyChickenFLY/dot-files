@@ -8,6 +8,7 @@ client.focused "#000000" "#77ffaa" "#0000ff"
 client.unfocused "#ff0000" "#cceecc" "#aaddff"
 
 default_border pixel 5
+gaps inner 5
 
 # set $opacity 0.90
 set $opacity 0.95
@@ -30,11 +31,8 @@ set $term WAYLAND_DISPLAY=alacritty alacritty
 set $menu rofi --combi-modi drun-run -show combi --show-icons
 
 ### Output configuration - You can get the names of your outputs by running: swaymsg -t get_outputs
-# output * bg /home/chow/Pictures/arch_white_2048x1280.jpg fill
-# output * bg /home/chow/Pictures/arch_white_2_1920x1080.jpg fill
 output * bg /home/chow/Pictures/arch_white_3_1920x1080.jpg fill
-# output * bg /home/chow/Pictures/arch_grey_1_1920x1080.jpg fill
-# output * bg #aaa solid_color
+# output * bg #ffffff solid_color
 output eDP-1 resolution 1920x1080 position 1920,0
 # output DP-1 resolution 1920x1080 position 1920,0
 ### Idle configuration
@@ -53,13 +51,18 @@ exec swayidle -w \
 input "1267:10994:ELAN2514:00_04F3:2AF2" map_to_output eDP-1
 ### Key bindings
 # System:
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && $refresh_i3status
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && $refresh_i3status
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Keyboard pointer
+bindsym Mod4+Mod1+z exec warpd --hint
+bindsym Mod4+Mod1+x exec warpd --normal
+bindsym Mod4+Mod1+c exec warpd --grid
 
 # Basics:
 bindsym Ctrl+Mod1+Delete exec swaymsg exit
@@ -68,10 +71,6 @@ bindsym $mod+f exec $menu
 bindsym $mod+Return fullscreen
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
-# Keyboard pointer
-bindsym Mod4+Mod1+z exec warpd --hint
-bindsym Mod4+Mod1+x exec warpd --normal
-bindsym Mod4+Mod1+c exec warpd --grid
 # Layout stuff:
 bindsym $mod+minus splitv
 bindsym $mod+equal splith
@@ -113,41 +112,30 @@ bindsym $mod+Shift+$right move right
 bindsym $mod+tab workspace next_on_output
 bindsym $mod+Shift+tab workspace prev_on_output
 bindsym Mod1+tab workspace back_and_forth
-bindsym $mod+1 workspace Main
-bindsym $mod+2 workspace Zwei
-bindsym $mod+3 workspace Gabe
-bindsym $mod+4 workspace ....-
-bindsym $mod+5 workspace 五
-bindsym $mod+6 workspace James
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace ∞
-bindsym $mod+9 workspace ⑨
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace Main
-bindsym $mod+Shift+2 move container to workspace Zwei
-bindsym $mod+Shift+3 move container to workspace Gabe
-bindsym $mod+Shift+4 move container to workspace ....-
-bindsym $mod+Shift+5 move container to workspace 五
-bindsym $mod+Shift+6 move container to workspace James
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace ∞
-bindsym $mod+Shift+9 move container to workspace ⑨
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
 
 # Status Bar:
 # Read `man 5 sway-bar` for more information about this section.
 bar {
 	swaybar_command waybar
-# status_command waybar
-		position top
-		colors {
-			statusline #ffffff
-				background #00ff00
-				active_workspace #323232 #ff0000 #5c5c5c
-				inactive_workspace #32323200 #32323200 #5c5c5c
-
-		}
-# status_command while date +'%Y-%m-%d %H:%M:%S %a'; do sleep 1; done
-# status_command i3status
 }
 
 exec --no-startup-id fcitx5 -d

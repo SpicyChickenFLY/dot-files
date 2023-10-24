@@ -1,205 +1,107 @@
-
-@keyframes blink-warning {
-    70% { color: white; }
-    to { color: white; background-color: orange; }
-}
-
-@keyframes blink-critical {
-    70% { color: white; }
-    to { color: white; background-color: red; }
-}
-
-
 * {
     border: none;
     border-radius: 0;
     font-family: 'SauceCodePro Nerd Font';
     font-size: 22px;
     min-height: 0;
-    margin: 0;
-    padding: 0;
 }
 
-#waybar {
+window#waybar {
     background-color: #ffffff;
-    color: #222222;
-    font-size: 22px;
+    color: #64727d;
+    transition-property: background-color;
+    transition-duration: .5s;
 }
 
-#backlight,
-#battery,
-#clock,
-#cpu,
-#custom-keyboard-layout,
-#idle_inhibitor,
-#memory,
-#mode,
-#network,
-#pulseaudio,
-#temperature,
-#custom-close,
-#custom-float,
-#custom-app,
-#tray {
-    margin-left: 18px;
+window#waybar.empty {
+    color: rgba(0,0,0,0);
 }
 
-#backlight {
-    /* No styles */
+.topbar {
+    border-bottom: 3px solid rgba(100, 114, 125, 1);
 }
 
-#battery {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#battery.warning {
-    color: #FF4500;
-}
-
-#battery.critical {
-    color: #FF0000;
-}
-
-#battery.warning.discharging {
-    animation-name: blink-warning;
-    animation-duration: 3s;
-}
-
-#battery.critical.discharging {
-    animation-name: blink-critical;
-    animation-duration: 2s;
-}
-
-#clock {
-    /* No styles */
-  color: #222222;
-}
-
-#clock.time {
-    margin-left: 12px;
-    margin-right: 12px;
-    min-width: 60px;
-}
-
-#cpu {
-  /* No styles */
-}
-
-#cpu.warning {
-    color: orange;
-}
-
-#cpu.critical {
-    color: red;
-}
-
-#custom-keyboard-layout {
-    margin-left: 22px;
-}
-
-#memory {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#memory.warning {
-    color: orange;
-}
-
-#memory.critical {
-    color: red;
-    animation-name: blink-critical;
-    animation-duration: 2s;
-}
-
-#mode {
-    color: #ffffff; /* Sway palette: urgent/text */
-    background-color: #900000; /* Sway palette: urgent/background */
-    margin-left: 0;
-    /* To compensate for the top border and still have vertical centering */
-    padding: 0 16px;
-}
-
-#network {
-    /* No styles */
-}
-
-#network.disconnected {
-    color: #D3D3D3;
-}
-
-#pulseaudio {
-    /* No styles */
-}
-
-#pulseaudio.muted {
-    /* No styles */
-    color: #D3D3D3;
-}
-
-#custom-float { }
-#custom-close { }
-
-#tray {
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 10;
-    margin-right: 15px;
-    background-color: #D3D3D3;
-}
-
-#window {
-    margin-left: 32px;
-    margin-right: 32px;
+.bottombar {
+    border-top: 3px solid rgba(100, 114, 125, 1);
 }
 
 #workspaces button {
-    border-top: 2px solid transparent;
-    /* To compensate for the top border and still have vertical centering */
-    padding-bottom: 2px;
-    padding-left: 15px;
-    padding-right: 18px;
-    color: #888888; /* Sway palette: unfocused/text */
+    padding: 0 5px;
+    background-color: transparent;
+    color: #64727d;
 }
 
 #workspaces button:hover {
-    /* Reset all hover styles */
-    background: inherit;
-    box-shadow: inherit;
-    text-shadow: inherit;
-}
-
-#workspaces button.visible {
-    border-color: #333333; /* Sway palette focused_inactive/border */
-    color: #ffffff; /* Sway palette: focused_inactive/text */
-    background-color: #5f676a; /* Sway palette focused_inactive/background */
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 3px #64727d;
 }
 
 #workspaces button.focused {
-    border-color: #4c7899; /* Sway palette: focused/border */
-    color: #ffffff; /* Sway palette: focused/text */
-    background-color: #33aa33; /* Sway palette: focused/background */
+    background-color: #ffffff;
+    box-shadow: inset 0 3px #64727d;
 }
 
 #workspaces button.urgent {
-    border-color: #2f343a; /* Sway palette: urgent/border */
-    color: #ffffff; /* Sway palette: urgent/text */
-    background-color: #900000; /* Sway palette: urgent/background */
+    background-color: #eb4d4b;
 }
 
-#taskbar {
-    background-color: #eeeeee; /* Sway palette: urgent/background */
+#mode {
+    background-color: #ffffff;
+    border-top: 3px solid #64727d;
+}
+
+#backlight,
+#battery.bat1,
+#battery.bat2,
+#clock,
+#cpu,
+#custom-mail,
+#custom-poweroff,
+#custom-weather,
+#disk,
+#idle_inhibitor,
+#memory,
+#mode,
+#network.vpn,
+#network.wifi,
+#network.ethernet,
+#network.disconnected,
+#pulseaudio,
+#taskbar,
+#temperature,
+#tray {
+    padding: 0 6px;
+    margin: 0 0px;
+    color: #64727d;
+}
+
+@keyframes blink {
+    to {
+        background-color: #64727d;
+        color: #000000;
+    }
+}
+
+#battery.bat2.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #64727d;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
 }
 
 #taskbar button:hover {
-    background: #dddddd;
-    box-shadow: inset 0 3px #ffffff
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 3px #64727d;
 }
 
-#taskbar button:hover {
-    background: #64727d;
-    box-shadow: inset 0 3px #ffffff
+#taskbar button.active {
+    background-color: #ffffff;
+    box-shadow: inset 0 3px #64727d;
 }

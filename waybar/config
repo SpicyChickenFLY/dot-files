@@ -4,7 +4,9 @@
         "position": "top",
         "height": 30,
         "modules-left": [
-            "sway/workspaces",
+            "cpu",
+            "memory",
+            "disk",
         ],
         "modules-center": [
             "sway/mode",
@@ -15,25 +17,25 @@
             "custom/close",
         ],
 
-        "sway/workspaces": {
-            "all-outputs": false,
-            "disable-scroll": true,
-            "format": "{icon} {name}",
-            "format-icons": {
-                "1:WWW": "󰖟", // Icon: firefox-browser
-                "2:Editor": "", // Icon: code
-                "3:Terminals": "", // Icon: terminal
-                "4:Mail": "", // Icon: mail
-                "8:Documents": "", // Icon: book
-                "9:Multimedia": "", // Icon: music
-                "10:Torrent": "", // Icon: cloud-download-alt
-                "urgent": "",
-                "focused": "",
-                "default": ""
-            }
+
+        "cpu": {
+            "interval": 5,
+            "format": " ",
+            "states": { "warning": 70, "critical": 90 }
+        },
+        "memory": {
+            "interval": 5,
+            "format": "󰍛 ",
+            "states": { "warning": 70, "critical": 90 }
+        },
+        "disk": {
+            "interval": 30,
+            "format": "󰋊 ",
+            "path": "/",
+            "states": { "warning": 70, "critical": 90 }
         },
         "sway/mode": { "format": " {}", "tooltip": false },
-        "sway/window": { "format": "{}", "max-length": 120 },
+        "sway/window": { "format": "{}", "max-length": 100 },
         "custom/close": { "format": "󱎘 ", "on-click": "swaymsg kill", },
         "custom/float": { "format": " ", "on-click": "swaymsg floating toggle", }
     },
@@ -44,12 +46,10 @@
 
         "modules-left": [
             "custom/app",
-            "wlr/taskbar",
+            "sway/workspaces",
         ],
         "modules-center": [
-            "cpu",
-            "memory",
-            "disk",
+            "wlr/taskbar",
         ],
         "modules-right": [
             "tray",
@@ -64,37 +64,16 @@
         ],
 
         "custom/app": { "format": "  ", "on-click": "rofi -combi-modi drun#run -show combi", },
+        "sway/workspaces": {
+            "all-outputs": false,
+            "disable-scroll": true,
+            "format": "{name}",
+        },
         "wlr/taskbar": {
             "format": "{icon}",
             "icon-size": 22,
             "on-click": "activate",
             "on-click-middle": "close",
-        },
-
-        "cpu": {
-            "interval": 5,
-            "format": " {usage}%", // Icon: microchip
-            "states": {
-              "warning": 70,
-              "critical": 90
-            }
-        },
-        "memory": {
-            "interval": 5,
-            "format": "󰍛 {}% ", // Icon: memory
-            "states": {
-                "warning": 70,
-                "critical": 90
-            }
-        },
-        "disk": {
-            "interval": 30,
-            "format": "󰋊 {used}", // Icon: memory
-            "path": "/",
-            "states": {
-                "warning": 70,
-                "critical": 90
-            }
         },
 
         "backlight": {
@@ -126,7 +105,6 @@
         },
 
         "bluetooth": {
-          "format": " {status}",
           "format-disabled": " ",
           "format-on": " ",
           "format-connected": " ",
@@ -146,26 +124,24 @@
 
         "network": {
             "interval": 3,
-            // "format-wifi": "直 {ipaddr}", // Icon: wifi
-            "format-wifi": "直 ", // Icon: wifi
-            "format-ethernet": "  ", // Icon: ethernet
+            "format-wifi": "直 ",
+            "format-ethernet": "  ",
             "format-disconnected": "睊 ",
             "tooltip-format": "{ifname}: {essid} (signal: {signalStrength}%) {ipaddr}",
-            // "on-click": "sudo iwctl station wlan0 scan",
-            "on-click": "exec iwgtk",
+            "on-click": "iwctl station wlan0 scan; exec iwgtk",
         },
 
         "pulseaudio": {
             "scroll-step": 2,
             "format": "{icon}{volume}",
-            "format-muted": " ", // Icon: volume-mute
+            "format-muted": " ",
             "format-icons": {
-                "headphones": " ", // Icon: headphones
-                "handsfree": "", // Icon: headset
-                "headset": "", // Icon: headset
-                "phone": "", // Icon: phone
-                "portable": "", // Icon: phone
-                "car": " ", // Icon: car
+                "headphones": " ",
+                "handsfree": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": " ",
                 "default": ["奄", " ", " "] // Icons: volume-down, volume-up
             },
             // "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
