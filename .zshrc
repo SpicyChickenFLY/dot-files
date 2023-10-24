@@ -1,5 +1,5 @@
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/catppuccin_latte-zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -112,7 +112,7 @@ export PATH=$PATH:$HOME/.local/bin
 # sudo /etc/rc.local
 
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-     # exec sway
+     exec sway
      # startx
 fi
 
