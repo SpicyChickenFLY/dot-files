@@ -18,27 +18,16 @@
         ],
 
 
-        "cpu": {
-            "interval": 5,
-            "format": " ",
-            "states": { "warning": 70, "critical": 90 }
-        },
-        "memory": {
-            "interval": 5,
-            "format": "󰍛 ",
-            "states": { "warning": 70, "critical": 90 }
-        },
-        "disk": {
-            "interval": 30,
-            "format": "󰋊 ",
-            "path": "/",
-            "states": { "warning": 70, "critical": 90 }
-        },
+        "cpu": { "interval": 5, "format": " ", "states": { "warning": 70, "critical": 90 } },
+        "memory": { "interval": 5, "format": "󰍛 ", "states": { "warning": 70, "critical": 90 } },
+        "disk": { "interval": 30, "format": "󰋊 ", "path": "/", "states": { "warning": 70, "critical": 90 } },
+
         "sway/mode": { "format": " {}", "tooltip": false },
         "sway/window": { "format": "{}", "max-length": 100 },
         "custom/close": { "format": "󱎘 ", "on-click": "swaymsg kill", },
         "custom/float": { "format": " ", "on-click": "swaymsg floating toggle", }
     },
+
     {
         "layer": "bottom",
         "position": "bottom",
@@ -64,17 +53,8 @@
         ],
 
         "custom/app": { "format": "  ", "on-click": "rofi -combi-modi drun#run -show combi", },
-        "sway/workspaces": {
-            "all-outputs": false,
-            "disable-scroll": true,
-            "format": "{name}",
-        },
-        "wlr/taskbar": {
-            "format": "{icon}",
-            "icon-size": 22,
-            "on-click": "activate",
-            "on-click-middle": "close",
-        },
+        "sway/workspaces": { "all-outputs": false, "disable-scroll": true, "format": "{name}", },
+        "wlr/taskbar": { "format": "{icon}", "icon-size": 22, "on-click": "activate", "on-click-middle": "close", },
 
         "backlight": {
             "format": "{icon}",
