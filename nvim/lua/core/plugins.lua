@@ -20,13 +20,13 @@ return packer.startup(function()
   -- use { "rcarriga/nvim-notify",
   --   config = function () require('config.ui.nvim-notify') end,
   -- }
-  -- use { "folke/noice.nvim",
-  --   requires = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  --   config = function() require('config.ui.noice') end,
-  -- } -- intergrate Notify/CmdLine/UI
+  use { "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function() require('config.ui.noice') end,
+  } -- intergrate Notify/CmdLine/UI
   use { 'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('config.ui.lualine') end,
