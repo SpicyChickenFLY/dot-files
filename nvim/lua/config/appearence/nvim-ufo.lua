@@ -34,5 +34,3 @@ require("ufo").setup({
   end,
   fold_virt_text_handler = handler
 })
-
-vim.cmd('hi Folded guibg=#dbdde1')

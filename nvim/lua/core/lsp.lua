@@ -123,22 +123,6 @@ require("lspconfig")["lua_ls"].setup({
   },
 })
 
--- vim lsp
--------------
--- npm install -g vim-language-server
--- require("lspconfig")["vimls"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
-
--- typescript lsp
--------------
--- npm install -g typescript typescript-language-server
---[[ require('lspconfig')['tsserver'].setup({ ]]
---[[   on_attach = on_attach, ]]
---[[   flags = lsp_flags, ]]
---[[ }) ]]
-
 -- bash lsp
 -------------
 -- npm i -g bash-language-server
@@ -154,30 +138,27 @@ require("lspconfig")["vuels"].setup({
   flags = lsp_flags,
 })
 
+require("lspconfig")["stylelint_lsp"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
+
 -- javascript/typescript/html/css lsp
 -------------
 -- npm i -g vscode-langservers-extracted
 require("lspconfig")["eslint"].setup({
   on_attach = function(client, bufnr)
-    -- local group = vim.api.nvim_create_augroup("Eslint", {})
-    -- vim.api.nvim_create_autocmd("BufWritePre", {
-    --   group = group,
-    --   pattern = "<buffer>",
-    --   command = "EslintFixAll",
-    --   desc = "Run eslint when saving buffer.",
-    -- })
+    local group = vim.api.nvim_create_augroup("Eslint", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = group,
+      pattern = "<buffer>",
+      command = "EslintFixAll",
+      desc = "Run eslint when saving buffer.",
+    })
     on_attach(client, bufnr) -- declared elsewhere
   end,
   flags = lsp_flags,
 })
--- require("lspconfig")["html"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
--- require("lspconfig")["cssls"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
 
 -- yaml lsp
 -------------
@@ -208,10 +189,10 @@ require('lspconfig')['jsonls'].setup({
 -- sql lsp
 -------------
 -- npm i -g sql-language-server
--- require("lspconfig")["sqls"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
+require("lspconfig")["sqlls"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
 
 -- java lsp  NOTE: jdtls should be setup by nvim-jdtls
 

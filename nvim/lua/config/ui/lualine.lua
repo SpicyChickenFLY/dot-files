@@ -1,5 +1,10 @@
 local icons = require("core.icons")
 
+local function fileSpace()
+  local indicator = vim.o.expandtab and "s:" or "t:"
+  return indicator .. vim.o.tabstop
+end
+
 local function searchCount()
   local search = vim.fn.searchcount({ maxcount = 0 }) -- maxcount = 0 makes the number not be capped at 99
   local searchCurrent = search.current
@@ -91,7 +96,7 @@ require("lualine").setup({
       { searchCount }, },
     lualine_x = { { todoCount } },
     -- lualine_x = {'b:gitsigns_blame_line'},
-    lualine_y = { "filetype", "encoding", "fileformat" },
+    lualine_y = { "filetype", "encoding", "fileformat", fileSpace },
     lualine_z = { "%l:%c", "progress" },
   },
   inactive_sections = {

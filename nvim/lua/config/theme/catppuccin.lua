@@ -46,6 +46,7 @@ require("catppuccin").setup({
         symbols_outline = true,
         telescope = true,
         lsp_trouble = true,
+        ufo = true,
         vim_sneak = false,
         which_key = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)

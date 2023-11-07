@@ -148,6 +148,7 @@ local leader_mapping = {
     },
     l = { ":LspLog<CR>", "open LSP log" },
     i = { ":LspInfo<CR>", "show LSP info" },
+    R = { ":LspRestart<CR>", "restart LSP" },
     m = { ":Mason<CR>", "open Mason" },
     w = { name = "workspace",
       a = { vim.lsp.buf.add_workspace_folder, "add" },

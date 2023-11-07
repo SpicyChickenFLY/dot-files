@@ -22,17 +22,19 @@ opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
 opt.syntax = 'enable'
 
--- indention
+-- autoindent 开启自动缩进
+-- smartindent 开启智能缩进,首先需要开启自动缩进
+-- shiftwidth 自动缩进长度
+local indent = 4
 opt.autoindent = true
 opt.smartindent = true
+opt.shiftwidth = indent
 -- tabstop 选项只修改 tab 字符的显示宽度，不修改按 Tab 键的行为
 -- softtabstop 选项修改按 Tab 键的行为，不修改 tab 字符的显示宽度。具体行为跟 tabstop 选项值有关
 -- expandtab 选项把插入的 tab 字符替换成特定数目的空格。具体空格数目跟 tabstop 选项值有关
-local indent = 2
 opt.expandtab = true
 opt.tabstop = indent
 opt.softtabstop = indent
-opt.shiftwidth = indent
 -- 如果不希望通过guess-indent算法自动检测缩进的话可以通过下述内容进行文件类型的固定
 -- cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
 
