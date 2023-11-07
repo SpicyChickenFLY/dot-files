@@ -27,13 +27,15 @@ $prompt_indicator "
 # alias
 alias ls='ls --color=auto'
 alias ll="ls -lh"
+alias la="ls -la"
 alias ..="cd .."
 alias ...="cd ../.."
+alias ....="cd ../../.."
 alias docker="sudo docker"
 alias lzg="lazygit"
 alias lzd="lazydocker"
-
-alias nv="nvim"
+alias rr="ranger"
+alias vi="nvim"
 
 # proxy
 export http_proxy=http://127.0.0.1:7890
