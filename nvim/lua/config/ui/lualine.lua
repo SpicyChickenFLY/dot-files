@@ -1,7 +1,7 @@
 local icons = require("core.icons")
 
 local function fileSpace()
-  local indicator = vim.o.expandtab and "s:" or "t:"
+  local indicator = vim.o.expandtab and "S:" or "T:"
   return indicator .. vim.o.tabstop
 end
 

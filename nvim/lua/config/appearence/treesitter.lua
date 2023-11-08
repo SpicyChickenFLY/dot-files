@@ -4,12 +4,12 @@ local defaults = {
     'c', 'cpp',
     'go',
     'jsdoc',
-    'json',
     'lua',
     'markdown',
     'python',
-    'tsx',
-    'scss', 'css', 'html', 'http', 'javascript', 'typescript',
+    'sql',
+    'scss', 'css', 'html', 'http', 'javascript', 'typescript', 'tsx',
+    'json', 'xml', 'yaml'
   },
   highlight = {
     enable = true,

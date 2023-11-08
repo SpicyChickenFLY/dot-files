@@ -10,7 +10,7 @@ for _, value in ipairs(diagnostic_type) do
   utils.set_highlight("Diagnostic" .. value .. "Inv", { guibg = color.guifg, guifg = statusline_colors.guibg })
   local diag_sign_key = "DiagnosticSign" .. value
   local icon = diagnostic_icon_map[value]
-  vim.fn.sign_define( diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
+  vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
 end
 
 -- set lsp-config
@@ -79,7 +79,7 @@ require("lspconfig")["gopls"].setup({
       unusedwrite = true,
       fieldalignment = true,
     },
-    codelenses = { gc_details = true, tidy = true, },
+    codelenses = { gc_details = true, tidy = true },
   },
 })
 
@@ -91,7 +91,7 @@ require("lspconfig")["rust_analyzer"].setup({
   flags = lsp_flags,
   settings = {
     ["rust-analyzer"] = {
-      checkOnSave = { command = "clippy", },
+      checkOnSave = { command = "clippy" },
     },
   },
 })
@@ -133,10 +133,10 @@ require("lspconfig")["bashls"].setup({
 
 -- vue lsp
 -------------
-require("lspconfig")["vuels"].setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- require("lspconfig")["vuels"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 require("lspconfig")["stylelint_lsp"].setup({
   on_attach = on_attach,
@@ -163,12 +163,12 @@ require("lspconfig")["eslint"].setup({
 -- yaml lsp
 -------------
 -- -- yarn global add yaml-language-server
-require('lspconfig')['yamlls'].setup({
+require("lspconfig")["yamlls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
     yaml = {
-      schemas = require('schemastore').json.schemas(),
+      schemas = require("schemastore").json.schemas(),
     },
   },
 })
@@ -176,14 +176,21 @@ require('lspconfig')['yamlls'].setup({
 -- json lsp
 -------------
 -- npm i -g vscode-langservers-extracted
-require('lspconfig')['jsonls'].setup({
+require("lspconfig")["jsonls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
     json = {
-      schemas = require('schemastore').json.schemas(),
+      schemas = require("schemastore").json.schemas(),
     },
   },
+})
+
+-- xml lsp
+-------------
+require("lspconfig")["lemminx"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
 })
 
 -- sql lsp
@@ -195,4 +202,3 @@ require("lspconfig")["sqlls"].setup({
 })
 
 -- java lsp  NOTE: jdtls should be setup by nvim-jdtls
-
