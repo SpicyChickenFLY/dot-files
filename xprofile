@@ -1,0 +1,17 @@
+dbus-launch --sh-syntax --exit-with-session > /dev/null
+export $(dbus-launch)
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export XIM=fcitx
+export XIM_PROGRAM=fcitx
+export INPUT_METHOD=fcitx
+export SDL_IM_MODULE=fcitx
+export GDK_BACKEND=x11
+fcitx5 -d
+
+xclip
+xsetroot -solid "#ffffff"
+
+exec i3
