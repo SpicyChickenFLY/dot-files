@@ -2,7 +2,7 @@
 
 dot_files_dir=$HOME/.config/dot-files
 
-create_dir_arr=("i3" "i3status" "rofi" "alacritty" "lazygit" "nvim")
+create_dir_arr=("i3" "i3status" "rofi" "alacritty" "lazygit" "nvim" "fcitx5")
 for dir in ${create_dir_arr[@]}; do
     ln -s "${dot_files_dir}/${dir}" "$HOME/.config/${dir}"
 done
