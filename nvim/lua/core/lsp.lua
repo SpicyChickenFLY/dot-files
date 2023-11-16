@@ -133,10 +133,11 @@ require("lspconfig")["bashls"].setup({
 
 -- vue lsp
 -------------
--- require("lspconfig")["vuels"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
+require("lspconfig")["vuels"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+  filetypes = {"javascript", "typescript", "vue"}
+})
 
 require("lspconfig")["stylelint_lsp"].setup({
   on_attach = on_attach,
