@@ -23,23 +23,23 @@ require("formatter").setup {
     -- any filetype
     ["*"] = {
       function()
-        print('filetype:', vim.bo.filetype)
         local formatters = require("formatter.util").get_available_formatters_for_ft(vim.bo.filetype)
         if #formatters > 0 then
-          print('available outside formatters')
+          print('found ' .. #formatters ..  ' available formatters')
           return
         end
         -- check if there are any LSP formatters
         local lsp_clients = vim.lsp.buf_get_clients()
-        for cli_id, client in pairs(lsp_clients) do
+        local lsp_fmt_flag = false
+        for client_id, client in pairs(lsp_clients) do
           if client.server_capabilities.documentFormattingProvider then
-            print('will use formattor inside lsp:' .. cli_id)
-            vim.lsp.buf.format({ async = true })
-            return
+            print('found formattors inside lsp: ' .. client.name .. '[' .. client_id .. ']')
+            lsp_fmt_flag = true
           end
         end
+        if lsp_fmt_flag then vim.lsp.buf.format({ async = true }) return end
         return
-        print('no available formatters')
+        print('no available formatter found')
       end,
     },
   }
