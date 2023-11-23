@@ -54,11 +54,12 @@ map("n", "z4", ":lua require'ufo'.closeFoldsWith(4)<CR>", { desc = "close fold l
 
 -- NOTE: command <g> mapping
 map("n", "gd", vim.lsp.buf.definition, { desc = "goto func def" })
-map("n", "gD", vim.lsp.buf.type_definition, { desc = "goto type def" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "goto func def" })
+map("n", "gh", vim.lsp.buf.hover, { desc = "show hover info" })
 map("n", "gi", vim.lsp.buf.implementation, { desc = "goto if impl" })
 map("n", "gr", vim.lsp.buf.references, { desc = "goto refer" })
 map("n", "gs", vim.lsp.buf.document_symbol, { desc = "show document symbol " })
-map("n", "gh", vim.lsp.buf.hover, { desc = "show hover info" })
+map("n", "gt", vim.lsp.buf.type_definition, { desc = "goto type def" })
 
 map("n", "<F5>", ":lua require'dap'.continue()<CR>")
 map("n", "<S-F5>", ":lua require'dap'.run_to_cursor()<CR>")
@@ -143,8 +144,7 @@ local leader_mapping = {
     r = { vim.lsp.buf.rename, "rename var/func/class" },
     s = { vim.lsp.buf.signature_help, "signature help" },
     a = { vim.lsp.buf.code_action, "action for err/warn" },
-    f = { ":Format<CR>", "format file",
-    },
+    f = { ":Format<CR>", "format file" },
     l = { ":LspLog<CR>", "open LSP log" },
     i = { ":LspInfo<CR>", "show LSP info" },
     R = { ":LspRestart<CR>", "restart LSP" },
