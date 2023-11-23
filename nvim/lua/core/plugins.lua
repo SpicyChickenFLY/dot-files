@@ -126,10 +126,6 @@ return packer.startup(function()
   use { 'neovim/nvim-lspconfig',
     requires = { 'b0o/schemastore.nvim' },
   } -- LSP server configuration
-  -- use { 'jose-elias-alvarez/null-ls.nvim',
-  --   config = function() require('config.completion.null-ls') end,
-  --   after = 'nvim-lspconfig',
-  -- } -- bridge non-LSP sources to LSP client PERF: currently no use
   use { 'mfussenegger/nvim-jdtls' }
   -- use { 'stevearc/vim-arduino' }
   use { 'mfussenegger/nvim-lint',
