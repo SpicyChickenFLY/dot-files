@@ -91,7 +91,7 @@ opt.termguicolors = true
 opt.background = 'light'
 
 -- fold
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
 opt.foldcolumn = '1' -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
