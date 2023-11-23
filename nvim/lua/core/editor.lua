@@ -5,13 +5,7 @@ local g = vim.g
 cmd([[ filetype plugin indent on ]])
 cmd([[ au BufRead,BufNewFile *.i3.config set filetype=i3config ]])
 
-local augroup_name = 'CosmicNvimEditor'
-local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
-vim.api.nvim_create_autocmd('BufWritePre', {
-  command = [[%s/\s\+$//e]],
-  group = group,
-})
-
+g.skip_ts_context_commentstring_module = true
 g.mapleader = ' '
 
 -- misc
@@ -22,19 +16,16 @@ opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
 opt.syntax = 'enable'
 
--- autoindent 开启自动缩进
--- smartindent 开启智能缩进,首先需要开启自动缩进
--- shiftwidth 自动缩进长度
+-- Indent ans Tab
 local indent = 4
-opt.autoindent = true
-opt.smartindent = true
-opt.shiftwidth = indent
--- tabstop 选项只修改 tab 字符的显示宽度，不修改按 Tab 键的行为
--- softtabstop 选项修改按 Tab 键的行为，不修改 tab 字符的显示宽度。具体行为跟 tabstop 选项值有关
--- expandtab 选项把插入的 tab 字符替换成特定数目的空格。具体空格数目跟 tabstop 选项值有关
-opt.expandtab = true
-opt.tabstop = indent
-opt.softtabstop = indent
+opt.autoindent = true -- 开启自动缩进
+opt.smartindent = true -- 开启智能缩进,首先需要开启自动缩进
+opt.shiftwidth = indent -- 自动缩进长度
+
+opt.tabstop = indent -- 只修改Tab字符的显示宽度
+opt.softtabstop = indent -- 修改按 Tab 键的行为, 具体行为跟 tabstop 有关
+opt.expandtab = true -- 按 tab 键替换成特定数目的空格。数目跟 tabstop 有关
+
 -- 如果不希望通过guess-indent算法自动检测缩进的话可以通过下述内容进行文件类型的固定
 -- cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
 
@@ -93,7 +84,7 @@ opt.background = 'light'
 -- fold
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
 opt.foldcolumn = '1' -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevel = 99 -- Using ufo provider need a large value
 opt.foldlevelstart = 99
 opt.foldenable = true
 
