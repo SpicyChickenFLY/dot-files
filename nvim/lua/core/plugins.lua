@@ -60,6 +60,10 @@ return packer.startup(function()
     'nmac427/guess-indent.nvim',
     config = function() require('guess-indent').setup {} end,
   } -- guess what indent should be like
+  use {
+    'Maan2003/lsp_lines.nvim',
+    config = function() require('lsp_lines').setup {} end,
+  } -- show lsp diagnostic in separate line
   use { 'lukas-reineke/indent-blankline.nvim',
     config = function() require('config.appearence.indent-blankline') end,
   } -- indent line
