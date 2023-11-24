@@ -4,11 +4,6 @@ require("edgy").setup({
     --   title = "File Explorer",
     --   ft = "nvim-tree",
     -- }
-    {
-      ft = "Outline",
-      pinned = true,
-      open = "SymbolsOutline"
-    }
   }, ---@type (Edgy.View.Opts|string)[]
   bottom = {
     "Trouble",
