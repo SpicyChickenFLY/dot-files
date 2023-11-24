@@ -1,30 +1,7 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/chow/.config/dot-files
-- /home/chow/.config/dot-files/nvim
-- /home/chow/.config/nvim
-- /home/chow/Code/nodejs/obdc-frontend
-- /home/chow/Code/go/src/github.com/zetatez/ob-cdc-bypass
-- /mnt/Mine/Code/nodejs/obdc-frontend
-- /mnt/Mine/Code/go/src/github.com/zetatez/ob-cdc-bypass
-- /mnt/Mine/Code/lua/NvChad
-- /home/chow/Code/c_c++/miniob-2022
-- /home/chow/Code/go/src/github.com/SpicyChickenFLY/das
-- /home/chow/Code/c_c++/miniob
-- /mnt/Mine/Code/c_c++/miniob
-- /home/chow/.local/share/lunarvim/site/pack/packer/start/nvim-autopairs
-- /home/chow/.local/share/lunarvim/site/pack/packer/start/onedarkpro.nvim
-- /home/chow/Code/lua/LunarVim
-- /home/chow/miniob
-- /mnt/Mine/Code/go/src/github.com/zetatez/obdc
-- /home/chow/Code/go/src/github.com/zetatez/obdc
-- /home/chow/Code/go/src/github.com/SpicyChickenFLY/ob-checker
-- /mnt/Mine/Code/go/src/github.com/zetatez/obdynamicchecker
-- /home/chow/Code/go/src/github.com/zetatez/obdynamicchecker
 startuppopupversion: 5
-customcommandshistory:
-- q
-- ""
-- w
-- git rebase --abort
+customcommandshistory: []
 hidecommandlog: false
+ignorewhitespaceindiffview: false
