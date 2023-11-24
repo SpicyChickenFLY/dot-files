@@ -194,6 +194,9 @@ local leader_mapping = {
     l = { ":TodoLocList<cr>", "loclist" },
     f = { ":TodoTelescope<cr>", "find in telescope" },
   },
+  u = { name = "UI",
+    v = { ":lua require 'lsp_lines'.toggle()<cr>", "toggle virtual text"}
+  },
   w = { ":w<cr>", "Save current buffer" },
   W = { ":w !sudo tee %<cr>", "Save current buffer with super priv" },
   x = { name = "Database",

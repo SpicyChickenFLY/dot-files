@@ -45,15 +45,8 @@ return packer.startup(function()
       "neovim/nvim-lspconfig",
       "smiteshp/nvim-navic",
     },
-    -- commit = '894bd7a',
     config = function() require("config.ui.barbecue") end,
   } -- breadcrumbs
-  -- use { "Bekaboo/dropbar.nvim",
-  --   config = function () require("config.ui.dropbar") end
-  -- } -- WARN: another breadcrumbs(need neovim-nightly)
-  -- use { "petertriho/nvim-scrollbar",
-  --   config = function() require("config.ui.scrollbar") end,
-  -- } -- scroll bar
 
   -- NOTE: Appearence
   use {
@@ -62,7 +55,7 @@ return packer.startup(function()
   } -- guess what indent should be like
   use {
     'Maan2003/lsp_lines.nvim',
-    config = function() require('lsp_lines').setup {} end,
+    config = function() require('lsp_lines').setup() end,
   } -- show lsp diagnostic in separate line
   use { 'lukas-reineke/indent-blankline.nvim',
     config = function() require('config.appearence.indent-blankline') end,
@@ -142,11 +135,10 @@ return packer.startup(function()
 
   -- NOTE: Completion stuff
   use { 'L3MON4D3/LuaSnip',
-    config = function() require('config.completion.luasnip') end,
     requires = { 'rafamadriz/friendly-snippets', },
+    config = function() require('config.completion.luasnip') end,
   }
   use { 'hrsh7th/nvim-cmp',
-    config = function() require('config.completion.nvim-cmp') end,
     requires = {
       { 'L3MON4D3/LuaSnip' },
       { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
@@ -155,6 +147,7 @@ return packer.startup(function()
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
     },
+    config = function() require('config.completion.nvim-cmp') end,
     event = 'InsertEnter',
   } -- autocompletion
 
@@ -183,16 +176,12 @@ return packer.startup(function()
     },
     event = 'VimEnter',
   } -- file explorer
-  use { 'simrat39/symbols-outline.nvim',
-    -- config = function () require('symbols-outline').setup() end,
-    config = function () require('config.sidebar.symbols-outline') end,
-  }
   use { 'windwp/nvim-spectre',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function() require('config.sidebar.nvim-spectre') end,
   } -- replacer
 
-  -- NOTE: Tool stu-- Packer
+  -- NOTE: Tool stuff
   use { "sindrets/diffview.nvim",
     config = function() require("config.tools.diffview") end
   } -- git diffview/mergetool
