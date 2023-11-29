@@ -85,6 +85,14 @@ map("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Pr
 -- NOTE: leader mapping
 local leader_mapping = {
   ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
+  b = { name = "Buffer",
+    n = { ":BufferLineCycleNext<CR>", "prev buffer" },
+    p = { ":BufferLineCyclePrev<CR>", "next buffer" },
+    s = { name = "Sort Buffers",
+      e = { ":BufferLineSortByExtension<CR>", "By Extenstion"},
+      d = { ":BufferLineSortByDirectory<CR>", "By Directory"},
+    },
+  },
   d = { name = "Debug",
     d = { ":lua require'dapui'.toggle()<CR>", "Display debug UI" },
     t = { ":lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
@@ -119,9 +127,6 @@ local leader_mapping = {
     C = { ":Telescope commands<cr>", "Commands" },
     p = { ":lua require('telescope.builtin').colorscheme({enable_preview=true})<cr>",
       "Colorscheme with Preview", },
-    -- B = { ":Telescope git_branches<cr>", "Find & Checkout branch" },
-    -- c = { ":Telescope git_commits<cr>", "Find & Checkout commit" },
-    -- C = { ":Telescope git_bcommits<cr>", "Find & Checkout commit(for current file)" },
   },
   g = { name = "Git",
     b = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
@@ -139,7 +144,9 @@ local leader_mapping = {
     l = { '<Plug>RestNvimLast', 're-run the last request' },
   },
   j = { ":BufferLineCyclePrev<CR>", "next buffer" },
+  J = { ":tabprevious<CR>", "next buffer" },
   k = { ":BufferLineCycleNext<CR>", "prev buffer" },
+  K = { ":tabnext<CR>", "prev buffer" },
   l = { name = "LSP",
     r = { vim.lsp.buf.rename, "rename var/func/class" },
     s = { vim.lsp.buf.signature_help, "signature help" },
@@ -195,7 +202,7 @@ local leader_mapping = {
     f = { ":TodoTelescope<cr>", "find in telescope" },
   },
   u = { name = "UI",
-    v = { ":lua require 'lsp_lines'.toggle()<cr>", "toggle virtual text"}
+    u = { ":lua require 'lsp_lines'.toggle()<cr>", "toggle virtual text"}
   },
   w = { ":w<cr>", "Save current buffer" },
   W = { ":w !sudo tee %<cr>", "Save current buffer with super priv" },
@@ -269,6 +276,83 @@ function M.nvim_tree_keymap(bufnr)
   _map('n', 'y', _api.fs.copy.filename, _opts('Copy Name'))
   _map('n', 'gy', _api.fs.copy.relative_path, _opts('Copy Relative Path'))
   _map('n', 'gY', _api.fs.copy.absolute_path, _opts('Copy Absolute Path'))
+end
+
+function M.nvim_spectre_keymap()
+  local mapping={
+    ['toggle_line'] = {
+        map = "dd",
+        cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
+        desc = "toggle current item"
+    },
+    ['enter_file'] = {
+        map = "<cr>",
+        cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
+        desc = "goto current file"
+    },
+    ['send_to_qf'] = {
+        map = "<leader>q",
+        cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+        desc = "send all item to quickfix"
+    },
+    ['replace_cmd'] = {
+        map = "<leader>c",
+        cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
+        desc = "input replace vim command"
+    },
+    ['show_option_menu'] = {
+        map = "<leader>o",
+        cmd = "<cmd>lua require('spectre').show_options()<CR>",
+        desc = "show option"
+    },
+    ['run_current_replace'] = {
+      map = "<leader>rc",
+      cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
+      desc = "replace current line"
+    },
+    ['run_replace'] = {
+        map = "<leader>R",
+        cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
+        desc = "replace all"
+    },
+    ['change_view_mode'] = {
+        map = "<leader>v",
+        cmd = "<cmd>lua require('spectre').change_view()<CR>",
+        desc = "change result view mode"
+    },
+    ['change_replace_sed'] = {
+      map = "trs",
+      cmd = "<cmd>lua require('spectre').change_engine_replace('sed')<CR>",
+      desc = "use sed to replace"
+    },
+    ['change_replace_oxi'] = {
+      map = "tro",
+      cmd = "<cmd>lua require('spectre').change_engine_replace('oxi')<CR>",
+      desc = "use oxi to replace"
+    },
+    ['toggle_live_update']={
+      map = "tu",
+      cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
+      desc = "update change when vim write file."
+    },
+    ['toggle_ignore_case'] = {
+      map = "ti",
+      cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
+      desc = "toggle ignore case"
+    },
+    ['toggle_ignore_hidden'] = {
+      map = "th",
+      cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
+      desc = "toggle search hidden"
+    },
+    ['resume_last_search'] = {
+      map = "<leader>l",
+      cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
+      desc = "resume last search before close"
+    },
+
+  }
+  return mapping
 end
 
 return M

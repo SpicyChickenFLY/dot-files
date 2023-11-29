@@ -79,10 +79,11 @@ return packer.startup(function()
   } -- colorized hex codes
   use { 'nvim-treesitter/nvim-treesitter',
     requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'theHamsta/crazy-node-movement',
       'windwp/nvim-ts-autotag',
       'HiPhish/nvim-ts-rainbow2',
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/nvim-treesitter-refactor',
     },
     run = ':TSUpdate',
     config = function() require('config.appearence.treesitter') end,
@@ -111,10 +112,6 @@ return packer.startup(function()
     config = function() require('Comment').setup() end,
     event = 'BufWinEnter',
   } -- quick comment
-  -- use { "Jxstxs/conceal.nvim",
-  --   requires = "nvim-treesitter/nvim-treesitter",
-  --   config = function() require('config.appearence.conceal') end,
-  -- } -- conceal test to icon
 
   -- NOTE: LSP & Language stuff
   use { "williamboman/mason.nvim",

@@ -59,6 +59,33 @@ dap.configurations.java = {
   },
 }
 
+dap.adapters.bashdb = {
+  type = 'executable';
+  command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter';
+  name = 'bashdb';
+}
+dap.configurations.sh = {
+  {
+    type = 'bashdb';
+    request = 'launch';
+    name = "Launch file";
+    showDebugOutput = true;
+    pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb';
+    pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir';
+    trace = true;
+    file = "${file}";
+    program = "${file}";
+    cwd = '${workspaceFolder}';
+    pathCat = "cat";
+    pathBash = "/bin/bash";
+    pathMkfifo = "mkfifo";
+    pathPkill = "pkill";
+    args = {};
+    env = {};
+    terminalKind = "integrated";
+  }
+}
+
 -- `DapBreakpoint` for breakpoints (default: `B`)
 -- `DapBreakpointCondition` for conditional breakpoints (default: `C`)
 -- `DapLogPoint` for log points (default: `L`)
@@ -117,14 +144,14 @@ dapui.setup({
       size = 40, -- 40 columns
       position = "left",
     },
-    -- {
-    --   elements = {
-    --     "repl",
-    --     "console",
-    --   },
-    --   size = 0.25, -- 25% of total lines
-    --   position = "bottom",
-    -- },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.25, -- 25% of total lines
+      position = "bottom",
+    },
   },
   controls = {
     -- Requires Neovim nightly (or 0.8 when released)
