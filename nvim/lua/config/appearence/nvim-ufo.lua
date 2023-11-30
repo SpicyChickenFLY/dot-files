@@ -30,7 +30,7 @@ require("ufo").setup({
   close_fold_kinds = {'imports', 'comment'},
   --[[ provider_selector = function(bufnr, filetype, buftype) ]]
   provider_selector = function(_, _, _)
-    return { "treesitter" }
+    return { "lsp" }
   end,
   fold_virt_text_handler = handler
 })
