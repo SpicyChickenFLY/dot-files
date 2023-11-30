@@ -14,7 +14,7 @@ opt.backspace = { 'eol', 'start', 'indent' }
 opt.clipboard = 'unnamedplus'
 opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
-opt.syntax = 'enable'
+opt.syntax = 'disable'
 
 -- Indent ans Tab
 local indent = 4
