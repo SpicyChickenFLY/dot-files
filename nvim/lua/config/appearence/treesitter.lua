@@ -56,15 +56,15 @@ local defaults = {
         enable_autocmd = false,
     },
     node_movement = {
-        enable = true,
+        enable = false,
         keymaps = {
-            -- move_up = "<a-k>",
-            -- move_down = "<a-j>",
-            -- move_left = "<a-h>",
-            -- move_right = "<a-l>",
-            -- swap_left = "<s-a-h>", -- will only swap when one of "swappable_textobjects" is selected
-            -- swap_right = "<s-a-l>",
-            -- select_current_node = "<leader><Cr>",
+            move_up = "<a-k>",
+            move_down = "<a-j>",
+            move_left = "<a-h>",
+            move_right = "<a-l>",
+            swap_left = "<s-a-h>", -- will only swap when one of "swappable_textobjects" is selected
+            swap_right = "<s-a-l>",
+            select_current_node = "<leader><Cr>",
         },
         swappable_textobjects = { "@function.outer", "@parameter.inner", "@statement.outer" },
         allow_switch_parents = true, -- more craziness by switching parents while staying on the same level, false prevents you from accidentally jumping out of a function
