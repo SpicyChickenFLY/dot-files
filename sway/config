@@ -138,6 +138,8 @@ bar {
 	swaybar_command waybar
 }
 
+exec --no-startup-id xclip
+exec --no-startup-id greenclip daemon 
 exec --no-startup-id fcitx5 -d
 xwayland enable
 
