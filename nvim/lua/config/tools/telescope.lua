@@ -43,6 +43,7 @@ require('telescope').setup({
   defaults = {
     prompt_prefix = icons.search .. ' ',
     selection_caret = icons.folder.arrow_closed,
+    path_display={"smart"},
     file_ignore_patterns = {
       '.git/',
     },
