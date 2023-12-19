@@ -9,11 +9,29 @@ local function on_attach(bufnr)
   keymaps.nvim_tree_keymap(bufnr)
 end
 
+local function open_win_config()
+  local screen_w = vim.opt.columns:get()
+  local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+  local window_w = screen_w * 0.8
+  local window_h = screen_h * 0.5
+  local window_w_int = math.floor(window_w)
+  local window_h_int = math.floor(window_h)
+  local center_x = (screen_w - window_w) / 2
+  local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+  return {
+    border = "rounded",
+    relative = "editor",
+    row = center_y,
+    col = center_x,
+    width = window_w_int,
+    height = window_h_int,
+  }
+end
 
-require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
+require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = true,
-  hijack_cursor = false,
+  hijack_cursor = true,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   sort = {
@@ -38,16 +56,9 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
     relativenumber = false,
     signcolumn = "yes",
     float = {
-      enable = false,
+      enable = true,
       quit_on_focus_loss = true,
-      open_win_config = {
-        relative = "editor",
-        border = "rounded",
-        width = 30,
-        height = 30,
-        row = 1,
-        col = 1,
-      },
+      open_win_config = open_win_config,
     },
   },
   renderer = {
@@ -230,5 +241,4 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
       watcher = false,
     },
   },
-} -- END_DEFAULT_OPTS
-
+}) -- END_DEFAULT_OPTS
