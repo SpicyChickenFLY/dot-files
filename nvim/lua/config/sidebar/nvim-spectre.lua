@@ -13,7 +13,7 @@ require('spectre').setup({
       search = "DiffChange",
       replace = "DiffDelete"
   },
-  mappings = keymaps.nvim_spectre_keymap(),
+  mapping = keymaps.nvim_spectre_keymap(),
   find_engine = {
     -- rg is map with finder_cmd
     ['rg'] = {
