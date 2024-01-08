@@ -30,6 +30,13 @@ local icons = {
   close = "󰅖",
   dot = "●",
 
+  lazy = {
+    ft = "",
+    lazy = "󰂠 ",
+    loaded = "",
+    not_loaded = "",
+  },
+
   -- NOTE: level
   info = "", warn = "󰀪", error = "", hint = "",
   information = "", trace = "✎", note = "", debug = "",

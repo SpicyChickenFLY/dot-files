@@ -1,3 +1,5 @@
+local icons = require('core.icons')
+
 local plugins = {
   'nvim-lua/plenary.nvim', -- basic algorithms
   'nvim-tree/nvim-web-devicons', -- character icons
@@ -93,7 +95,9 @@ local plugins = {
   { 'neovim/nvim-lspconfig',
     init = function() require("core.utils").lazy_load "nvim-lspconfig" end,
     dependencies = { 'b0o/schemastore.nvim' },
-    config = function() require('plugins.lsp.lspconfig').setup() end,
+    config = function()
+      require('plugins.lsp.lspconfig')
+    end,
   }, -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
   { 'mfussenegger/nvim-lint',
@@ -207,12 +211,7 @@ local config = {
   install = { colorscheme = { "nvchad" } },
 
   ui = {
-    icons = {
-      ft = "",
-      lazy = "󰂠 ",
-      loaded = "",
-      not_loaded = "",
-    },
+    icons = icons.lazy,
   },
 
   performance = {
