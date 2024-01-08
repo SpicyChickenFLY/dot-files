@@ -1,50 +1,53 @@
 local map = require("core.utils").map
 
-map("n", "<ESC>", ":nohl<CR>")
--- move around windows & split window
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
--- map("n", "<C-H>", ":vsp<CR>:bprevious<CR><C-w>h")
--- map("n", "<C-J>", ":sp<CR>:bprevious<CR><C-w>j")
--- map("n", "<C-K>", ":sp<CR>:bprevious<CR><C-w>k")
--- map("n", "<C-L>", ":vsp<CR>:bprevious<CR><C-w>l")
--- resize window
-map("n", "-", ":resize -2<CR>")
-map("n", "=", ":resize +2<CR>")
-map("n", "_", ":vertical resize -5<CR>")
-map("n", "+", ":vertical resize +5<CR>")
--- quick exit insert mode
-map("i", "jj", "<ESC>")
-map("i", "jk", "<ESC>:w<CR>")
-map("i", "<C-v>", "<ESC>pi")
--- Emacs
-map("i", "<C-a>", "<Home>")
-map("i", "<C-e>", "<End>")
-map("i", "<C-b>", "<Left>")
-map("i", "<C-f>", "<Right>")
-map("i", "<C-n>", "<Down>")
-map("i", "<C-p>", "<Up>")
--- Terminal
-map("n", "<C-\\>", ":FloatermToggle<CR>")
-map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
+local M = {}
+
+M.load_general_mappings = function ()
+  map("n", "<ESC>", ":nohl<CR>")
+  -- Move around windows & split window
+  map("n", "<C-h>", "<C-w>h")
+  map("n", "<C-j>", "<C-w>j")
+  map("n", "<C-k>", "<C-w>k")
+  map("n", "<C-l>", "<C-w>l")
+  -- Resize window
+  map("n", "-", ":resize -2<CR>")
+  map("n", "=", ":resize +2<CR>")
+  map("n", "_", ":vertical resize -5<CR>")
+  map("n", "+", ":vertical resize +5<CR>")
+  -- Terminal
+  map("n", "<C-\\>", ":FloatermToggle<CR>")
+
+  -- Quick exit insert mode
+  map("i", "jj", "<ESC>")
+  map("i", "jk", "<ESC>:w<CR>")
+  -- Emacs-like navigation
+  map("i", "<C-a>", "<Home>")
+  map("i", "<C-e>", "<End>")
+  map("i", "<C-b>", "<Left>")
+  map("i", "<C-f>", "<Right>")
+  map("i", "<C-n>", "<Down>")
+  map("i", "<C-p>", "<Up>")
+  -- Content operation
+  map("i", "<C-v>", "<ESC>pi")
+
+  map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
+end
 
 -- NOTE: command <f> mapping
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
-map("n", "f", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end)
-map("n", "F", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end)
-map("n", "t", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-end)
-map("n", "T", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-end)
+-- local hop = require("hop")
+-- local directions = require("hop.hint").HintDirection
+-- map("n", "f", function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+-- end)
+-- map("n", "F", function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+-- end)
+-- map("n", "t", function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+-- end)
+-- map("n", "T", function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+-- end)
 
 -- NOTE: command <z> mapping
 map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
@@ -56,35 +59,34 @@ map("n", "z2", ":lua require'ufo'.closeFoldsWith(2)<CR>", { desc = "close fold l
 map("n", "z3", ":lua require'ufo'.closeFoldsWith(3)<CR>", { desc = "close fold level 3" })
 map("n", "z4", ":lua require'ufo'.closeFoldsWith(4)<CR>", { desc = "close fold level 4" })
 
--- NOTE: command <g> mapping
-map("n", "gd", vim.lsp.buf.definition, { desc = "goto func def" })
-map("n", "gD", vim.lsp.buf.declaration, { desc = "goto func def" })
-map("n", "gh", vim.lsp.buf.hover, { desc = "show hover info" })
-map("n", "gi", vim.lsp.buf.implementation, { desc = "goto if impl" })
-map("n", "gr", vim.lsp.buf.references, { desc = "goto refer" })
-map("n", "gs", vim.lsp.buf.document_symbol, { desc = "show document symbol " })
-map("n", "gt", vim.lsp.buf.type_definition, { desc = "goto type def" })
+M.load_lsp_mappings = function ()
+  map("n", "gd", vim.lsp.buf.definition, { desc = "goto func def" })
+  map("n", "gD", vim.lsp.buf.declaration, { desc = "goto func def" })
+  map("n", "gh", vim.lsp.buf.hover, { desc = "show hover info" })
+  map("n", "gi", vim.lsp.buf.implementation, { desc = "goto if impl" })
+  map("n", "gr", vim.lsp.buf.references, { desc = "goto refer" })
+  map("n", "gs", vim.lsp.buf.document_symbol, { desc = "show document symbol " })
+  map("n", "gt", vim.lsp.buf.type_definition, { desc = "goto type def" })
+  map("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "goto prev" })
+  map("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "goto_next" })
+end
 
-map("n", "<F5>", ":lua require'dap'.continue()<CR>")
-map("n", "<S-F5>", ":lua require'dap'.run_to_cursor()<CR>")
-map("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
-map("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-map("n", "<S-F8>", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-map("n", "<F10>", ":lua require'dap'.step_over()<CR>")
-map("n", "<F11>", ":lua require'dap'.step_into()<CR>")
-map("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
--- map("n", "",  ":lua require'dap'.pause()<cr>" )
-map("n", "<F12>", ":lua require'dap'.run_last()<CR>")
-map("n", "<S-F12>", ":lua require'dap'.terminate()<CR>")
--- map("n", "",     ":lua require'dap'.repl.toggle()<CR>")
+M.load_dap_mappings = function ()
+  map("n", "<F5>", ":lua require'dap'.continue()<CR>")
+  map("n", "<S-F5>", ":lua require'dap'.run_to_cursor()<CR>")
+  map("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
+  map("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+  map("n", "<S-F8>", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
+  map("n", "<F10>", ":lua require'dap'.step_over()<CR>")
+  map("n", "<F11>", ":lua require'dap'.step_into()<CR>")
+  map("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
+  -- map("n", "",  ":lua require'dap'.pause()<cr>" )
+  map("n", "<F12>", ":lua require'dap'.run_last()<CR>")
+  map("n", "<S-F12>", ":lua require'dap'.terminate()<CR>")
+  -- map("n", "",     ":lua require'dap'.repl.toggle()<CR>")
+end
 
 -- NOTE: command goto with [ and ]
-map("n", "[d", function()
-  vim.diagnostic.goto_prev()
-end, { desc = "goto prev" })
-map("n", "]d", function()
-  vim.diagnostic.goto_next()
-end, { desc = "goto_next" })
 map("n", "[c", ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", { desc = "Prev Hunk" })
 map("n", "]c", ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", { desc = "Next Hunk" })
 map("n", "]t", function()
@@ -96,16 +98,9 @@ end, { desc = "Previous todo comment" })
 
 -- NOTE: leader mapping
 local leader_mapping = {
-  ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
   b = {
     name = "Buffer",
-    n = { ":BufferLineCycleNext<CR>", "prev buffer" },
-    p = { ":BufferLineCyclePrev<CR>", "next buffer" },
-    s = {
-      name = "Sort Buffers",
-      e = { ":BufferLineSortByExtension<CR>", "By Extenstion" },
-      d = { ":BufferLineSortByDirectory<CR>", "By Directory" },
-    },
+    s = { name = "Sort Buffers" },
   },
   e = {
     name = "File Explorer",
@@ -252,8 +247,6 @@ local wk = require("which-key")
 wk.register(leader_mapping, { prefix = "<leader>" })
 wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
 
-local M = {}
-
 function M.nvim_tree_keymap(bufnr)
   local _api = require("nvim-tree.api")
 
@@ -265,10 +258,10 @@ function M.nvim_tree_keymap(bufnr)
   _map("n", "h", _api.node.navigate.parent, _opts("Parent Directory"))
   _map("n", "J", _api.node.navigate.sibling.next, _opts("Next Sibling"))
   _map("n", "K", _api.node.navigate.sibling.prev, _opts("Previous Sibling"))
-  _map("n", "]e", _api.node.navigate.diagnostics.next, _opts("Next Diagnostic"))
+  _map("n", "[c", _api.node.navigate.git.prev, _opts("Prev Git"))
   _map("n", "]c", _api.node.navigate.git.next, _opts("Next Git"))
   _map("n", "[e", _api.node.navigate.diagnostics.prev, _opts("Prev Diagnostic"))
-  _map("n", "[c", _api.node.navigate.git.prev, _opts("Prev Git"))
+  _map("n", "]e", _api.node.navigate.diagnostics.next, _opts("Next Diagnostic"))
   -- filter
   _map("n", "f", _api.live_filter.start, _opts("Filter"))
   _map("n", "F", _api.live_filter.clear, _opts("Clean Filter"))

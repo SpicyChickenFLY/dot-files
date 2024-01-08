@@ -1,6 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/chow/.config/dot-files
+- /home/chow/Code/lua/NeverVim
+- /home/chow/Code/lua/NvChad
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

@@ -1,5 +1,15 @@
 local icons = {
 
+  listchars = {
+    tab = '  →',
+    trail = '·',
+    space = ' ',
+    lead = '·',
+    extends = '»',
+    precedes = '«',
+    nbsp = '×',
+  },
+
   border= {
     rounded_left_filled = "", rounded_right_filled = "",
     arrow_left_filled = "", arrow_right_filled = "",

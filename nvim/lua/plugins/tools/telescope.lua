@@ -50,15 +50,13 @@ require('telescope').setup({
     dynamic_preview_title = true,
     vimgrep_arguments = {
       'rg',
-      '--ignore',
-      '--hidden',
+      '-L',
       '--color=never',
       '--no-heading',
       '--with-filename',
       '--line-number',
       '--column',
       '--smart-case',
-      '--trim',
     },
   },
   extensions = {

@@ -1,90 +1,112 @@
-local cmd = vim.cmd
-local opt = vim.opt
+local icons = require("core.icons")
+
+---------------------------- Path ------------------------------
+-- add binaries installed by mason.nvim to path
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
+
+
+---------------------------- Global ------------------------------
 local g = vim.g
-
-cmd([[ filetype plugin indent on ]])
-cmd([[ au BufRead,BufNewFile *.i3.config set filetype=i3config ]])
-
 g.skip_ts_context_commentstring_module = true
 g.mapleader = ' '
+-- disable netrw at the very start of your init.lua (strongly advised)
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+-- disable some default providers
+for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
+  vim.g["loaded_" .. provider .. "_provider"] = 0
+end
 
--- misc
-opt.background = 'light'
-opt.backspace = { 'eol', 'start', 'indent' }
-opt.clipboard = 'unnamedplus'
+---------------------------- Options ------------------------------
+local opt = vim.opt
+-- Misc
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
 opt.encoding = 'utf-8'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
-opt.syntax = 'disable'
+opt.backspace = { 'eol', 'start', 'indent' }
+opt.shortmess:append "sI" -- 禁用开头介绍
 
--- Indent ans Tab
+-- UI
+opt.background = 'light'
+opt.termguicolors = true
+opt.syntax = 'disable'
+-- opt.showmode = false
+opt.laststatus = 3 -- global statusline
+opt.cursorline = true
+opt.list = true
+opt.listchars = icons.listchars
+opt.signcolumn = "yes"
+opt.scrolloff = 5 -- 当游标离上下N行时滚动
+opt.sidescrolloff = 5 -- 当游标离左右N列时滚动
+opt.wrap = true -- 开启折行显示
+opt.whichwrap:append "<>[]hl" -- 允许hl移动换行
+
+-- Numbers
+opt.number = true
+opt.numberwidth = 2
+opt.relativenumber = false
+opt.ruler = false
+
+-- Spliting
+opt.splitkeep = "screen"
+opt.splitbelow = false -- Open new split below
+opt.splitright = false -- Open new split to the right
+
+-- Indenting
 local indent = 4
 opt.autoindent = true -- 开启自动缩进
 opt.smartindent = true -- 开启智能缩进,首先需要开启自动缩进
 opt.shiftwidth = indent -- 自动缩进长度
+opt.tabstop = indent -- 只修改制表符的显示宽度
+opt.softtabstop = indent -- 按Tab键的行为, 行为跟tabstop有关
+opt.expandtab = true -- 按Tab键替换成空格。数目跟tabstop有关
 
-opt.tabstop = indent -- 只修改Tab字符的显示宽度
-opt.softtabstop = indent -- 修改按 Tab 键的行为, 具体行为跟 tabstop 有关
-opt.expandtab = true -- 按 tab 键替换成特定数目的空格。数目跟 tabstop 有关
-
--- 如果不希望通过guess-indent算法自动检测缩进的话可以通过下述内容进行文件类型的固定
--- cmd([[ autocmd FileType go setlocal ts=4 sts=2 sw=2 noexpandtab ]])
-
--- search
+-- Searching
 opt.hlsearch = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.wildignore = opt.wildignore + { '*/node_modules/*', '*/.git/*', '*/vendor/*' }
 opt.wildmenu = true
 
--- ui
-opt.cursorline = true
-opt.laststatus = 3
-opt.splitkeep = "screen"
-opt.lazyredraw = true
-opt.list = true
-opt.listchars = {
-  tab = '  →',
-  trail = '·',
-  space = ' ',
-  lead = '·',
-  extends = '»',
-  precedes = '«',
-  nbsp = '×',
-}
-opt.mouse = 'a'
-opt.number = true
-opt.rnu = false
-opt.scrolloff = 5 -- 当游标达到离顶部与底部还有N行时,继续移动会导致页面滚动
-opt.showmode = false
-opt.sidescrolloff = 3 -- Lines to scroll horizontally
-opt.signcolumn = 'yes'
-opt.splitbelow = false -- Open new split below
-opt.splitright = false -- Open new split to the right
-opt.wrap = true
-
--- backups
-opt.backup = false
-opt.swapfile = false
-opt.writebackup = false
-
--- autocomplete
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
-opt.shortmess = opt.shortmess + { c = true }
-
--- perfomance
-opt.redrawtime = 1500
-opt.timeoutlen = 250
-opt.ttimeoutlen = 10
-opt.updatetime = 100
-
--- theme
-opt.termguicolors = true
-opt.background = 'light'
-
--- fold
+-- Folding
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
 opt.foldcolumn = '1' -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value
 opt.foldlevelstart = 99
 opt.foldenable = true
 
+-- Backups
+opt.backup = false
+opt.swapfile = false
+opt.writebackup = false
+
+-- Autocomplete
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+-- Perfomance
+opt.lazyredraw = true
+opt.redrawtime = 1500
+opt.timeoutlen = 400
+opt.ttimeoutlen = 10
+opt.updatetime = 250
+opt.undofile = true
+
+-- theme
+opt.termguicolors = true
+opt.background = 'light'
+
+---------------------------- Commands ------------------------------
+local cmd = vim.api.nvim_create_user_command
+-- cmd([[ filetype plugin indent on ]])
+
+---------------------------- AutoCommands ------------------------------
+local autocmd = vim.api.nvim_create_autocmd
+-- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
+autocmd({"BufRead","BufNewFile"}, {
+  pattern = "*.i3.config",
+  callback = function ()
+    cmd([[set filetype=i3config]])
+  end
+})

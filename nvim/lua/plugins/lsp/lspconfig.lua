@@ -28,7 +28,11 @@ for i, kind in ipairs(kinds) do
 end
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+  -- 允许使用LSP内置的Formatter
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
+
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -48,24 +52,11 @@ local on_attach = function(_, bufnr)
     })
 end
 
--- This is the default in Nvim 0.7+
-local lsp_flags = {
-    debounce_text_changes = 150,
-}
-
--- c/c++ lsp
--------------
-require("lspconfig")["ccls"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
-
 -- go lsp
 -------------
 -- go install golang.org/x/tools/gopls@latest
 require("lspconfig")["gopls"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     init_options = {
         gofumpt = true,
         usePlaceholders = true,
@@ -89,7 +80,6 @@ require("lspconfig")["gopls"].setup({
 -- sudo pacman -S rust-analyzer
 require("lspconfig")["rust_analyzer"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         ["rust-analyzer"] = {
             checkOnSave = { command = "clippy" },
@@ -97,39 +87,28 @@ require("lspconfig")["rust_analyzer"].setup({
     },
 })
 
--- python lsp
--------------
--- npm i -g pyright
-require("lspconfig")["pyright"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
-
 -- lua lsp
 -------------
 -- sudo pacman -S lua-language-server
 require("lspconfig")["lua_ls"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         Lua = {
             runtime = { version = "LuaJIT" },
             diagnostics = { globals = { "vim" } },
             workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = {
+                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                  [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+                  [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
+                  [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+                -- library = vim.api.nvim_get_runtime_file("", true),
+                },
                 checkThirdParty = "Disable",
             },
             telemetry = { enable = false },
         },
     },
-})
-
--- bash lsp
--------------
--- npm i -g bash-language-server
-require("lspconfig")["bashls"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
 })
 
 -- vue lsp
@@ -153,7 +132,6 @@ end
 
 require("lspconfig")["volar"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     filetypes = { "javascript", "typescript", "vue" },
     on_new_config = function(new_config, new_root_dir)
         local ts_server_path = get_typescript_server_path(new_root_dir)
@@ -163,7 +141,6 @@ require("lspconfig")["volar"].setup({
 
 require("lspconfig")["stylelint_lsp"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
 })
 
 -- javascript/typescript/html/css lsp
@@ -180,7 +157,6 @@ require("lspconfig")["eslint"].setup({
         })
         on_attach(client, bufnr) -- declared elsewhere
     end,
-    flags = lsp_flags,
 })
 
 -- yaml lsp
@@ -188,7 +164,6 @@ require("lspconfig")["eslint"].setup({
 -- -- yarn global add yaml-language-server
 require("lspconfig")["yamlls"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         yaml = {
             schemas = require("schemastore").json.schemas(),
@@ -201,7 +176,6 @@ require("lspconfig")["yamlls"].setup({
 -- npm i -g vscode-langservers-extracted
 require("lspconfig")["jsonls"].setup({
     on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         json = {
             schemas = require("schemastore").json.schemas(),
@@ -209,19 +183,15 @@ require("lspconfig")["jsonls"].setup({
     },
 })
 
--- xml lsp
--------------
-require("lspconfig")["lemminx"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
-
--- sql lsp
--------------
--- npm i -g sql-language-server
-require("lspconfig")["sqlls"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
+-- C/C++
+require("lspconfig").ccls.setup { on_attach = on_attach }
+-- Python
+require("lspconfig").pyright.setup { on_attach = on_attach }
+-- Bash
+require("lspconfig").bashls.setup { on_attach = on_attach }
+-- XML
+require("lspconfig").lemminx.setup({ on_attach = on_attach, })
+-- SQL
+require("lspconfig").sqlls.setup({ on_attach = on_attach, })
 
 -- java lsp  NOTE: jdtls should be setup by nvim-jdtls

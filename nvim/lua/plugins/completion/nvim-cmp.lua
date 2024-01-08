@@ -2,35 +2,16 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 local icons = require('core.icons')
 
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
-
 local default_cmp_opts = {
-  enabled = function()
-    -- disable completion in comments
-    local context = require('cmp.config.context')
-    -- keep command mode completion enabled when cursor is in a comment
-    if vim.api.nvim_get_mode().mode == 'c' then
-      return true
-    else
-      return not context.in_treesitter_capture('comment') and not context.in_syntax_group('Comment')
-    end
-  end,
   snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
+    expand = function(args) luasnip.lsp_expand(args.body) end,
   },
-  completion = {
-    completeopt = 'menu, menuone, noinsert'
-  },
+  completion = { completeopt = 'menu, menuone' },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping({
+    ['<C-h>'] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
@@ -42,7 +23,6 @@ local default_cmp_opts = {
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
-      elseif has_words_before() then cmp.complete()
       else fallback()
       end
     end, { 'i', 's', }
@@ -52,18 +32,18 @@ local default_cmp_opts = {
       elseif luasnip.jumpable(-1) then luasnip.jump(-1)
       else fallback()
       end
-    end,
-      { 'i', 's', }
+    end, { 'i', 's', }
     ),
   }),
   window = {
     completion = {
       border = 'rounded',
-      winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
+      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+      scrollbar = true,
     },
     documentation = {
       border = 'rounded',
-      winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
+      winhighlight = "Normal:CmpDoc",
     },
   },
   experimental = {
@@ -71,25 +51,18 @@ local default_cmp_opts = {
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'nvim_lua' },
     { name = 'path' },
     { name = "vim-dadbod-completion" },
   }),
   formatting = {
-    format = function(entry, vim_item)
-      -- Kind icons
-      vim_item.kind = string.format('%s %s', icons.kind_icons[vim_item.kind], vim_item.kind)
-      vim_item.menu = ({
-        luasnip = '[snip]',
-        nvim_lsp = '[lsp]',
-        buffer = '[buf]',
-        path = '[path]',
-        nvim_lua = '[nvim_api]',
-        ['vim-dadbod-completion'] = '[DB]',
-      })[entry.source.name]
-      return vim_item
+    fields = { "abbr", "kind", "menu" },
+    format = function(_, item)
+      item.kind = icons.kind_icons[item.kind]
+      item.menu = item.kind
+      return item
     end,
   },
 }
