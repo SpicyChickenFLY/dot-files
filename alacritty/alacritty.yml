@@ -111,7 +111,6 @@ window:
 font:
   # Normal (roman) font face
   normal:
-    family: Noto Sans Symbols 2
     family: SauceCodeProNerdFont
   # Bold font face
   bold:
