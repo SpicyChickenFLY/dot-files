@@ -22,7 +22,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
 
-require("core.mappings").load_mappings "lazy"
+require("core.mappings").load_mappings()
 
 vim.cmd('colorscheme catppuccin-latte')
 vim.cmd('colorscheme catppuccin-latte')

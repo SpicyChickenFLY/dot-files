@@ -214,8 +214,9 @@ local plugins = {
   }, -- fuzzy finder
   {
     "ziontee113/icon-picker.nvim",
-    init = function() require('core.mappings').load_mappings "iconpicker" end,
     dependencies = { 'stevearc/dressing.nvim' },
+    init = function() require('core.mappings').load_mappings "iconpicker" end,
+    cmd = "IconPickerNormal",
     config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
   },
   {
