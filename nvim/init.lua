@@ -9,7 +9,7 @@ if not ok then
 end
 
 -- 加载基本键位配置
-require("core.mappings").load_general_mappings()
+require("core.mappings").load_mappings "general"
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 

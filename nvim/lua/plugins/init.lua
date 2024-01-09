@@ -139,7 +139,6 @@ local plugins = {
 
   -- NOTE: Sidebar
   { 'kyazdani42/nvim-tree.lua',
-    config = function() require('plugins.sidebar.nvim-tree') end,
     cmd = {
       'NvimTreeClipboard',
       'NvimTreeClose',
@@ -149,6 +148,7 @@ local plugins = {
       'NvimTreeToggle',
     },
     event = 'VimEnter',
+    config = function() require('plugins.sidebar.nvim-tree') end,
   }, -- file explorer
   { 'windwp/nvim-spectre',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -164,7 +164,7 @@ local plugins = {
     dependencies = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', },
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
       'xiyaowong/telescope-emoji.nvim',
     },
     config = function() require('plugins.tools.telescope') end,
@@ -179,6 +179,11 @@ local plugins = {
     config = function() require('plugins.tools.terminal') end,
   }, -- floating terminal
   { "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
     config = function() require('plugins.tools.which-key') end
   }, -- show keys
   { "kylechui/nvim-surround",
