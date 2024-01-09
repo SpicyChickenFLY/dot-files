@@ -36,7 +36,8 @@ require('bufferline').setup {
     diagnostics = "nvim_lsp",-- false | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
     -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-    diagnostics_indicator = function(count, level, diagnostics_dict, context) return " "..count end,
+    -- function(count, level, diagnostics_dict, context)
+    diagnostics_indicator = function(count, _, _, _) return " "..count end,
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = function(buf_number, buf_numbers)
         -- filter out filetypes you don't want to see
@@ -74,7 +75,6 @@ require('bufferline').setup {
     end,
     show_buffer_icons = true, -- disable filetype icons for buffers
     show_buffer_close_icons = true,
-    show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
     show_close_icon = true,
     show_tab_indicators = true,
     show_duplicate_prefix = true, -- whether to show duplicate buffer prefix

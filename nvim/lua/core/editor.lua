@@ -10,13 +10,6 @@ vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or "
 local g = vim.g
 g.skip_ts_context_commentstring_module = true
 g.mapleader = ' '
--- disable netrw at the very start of your init.lua (strongly advised)
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
--- disable some default providers
-for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
-  vim.g["loaded_" .. provider .. "_provider"] = 0
-end
 
 ---------------------------- Options ------------------------------
 local opt = vim.opt

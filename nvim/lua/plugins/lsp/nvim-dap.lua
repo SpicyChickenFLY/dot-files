@@ -228,3 +228,5 @@ vim.cmd([[
   hi  DapUIBreakpointsDisabledLine guifg=#424242
   hi  DapUIUnavailable guifg=#424242
   ]])
+
+require("nvim-dap-virtual-text").setup({})

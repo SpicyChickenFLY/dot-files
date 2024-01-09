@@ -102,6 +102,15 @@ local plugins = {
   -- NOTE: Language stuff
   {
     "williamboman/mason.nvim",
+    init = function() require('core.mappings').load_mappings "mason" end,
+    cmd = {
+      "Mason",
+      "MasonUpdate",
+      "MasonInstall",
+      "MasonUninstall",
+      "MasonUninstallAll",
+      "MasonLog",
+    },
     config = function() require('mason').setup() end,
   }, -- LSP server collection installer
   {
@@ -111,33 +120,35 @@ local plugins = {
       require('core.mappings').load_mappings "lspconfig"
     end,
     dependencies = { 'b0o/schemastore.nvim' },
-    config = function()
-      require('plugins.lsp.lspconfig')
-    end,
+    config = function() require('plugins.lsp.lspconfig') end,
   },                             -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
   {
     'mfussenegger/nvim-lint',
+    event = "VeryLazy",
     config = function() require('plugins.completion.lint') end,
   }, -- Linter
   {
     'mhartington/formatter.nvim',
+    event = "VeryLazy",
     config = function() require('plugins.completion.formatter') end,
   }, -- Formatter
 
   -- NOTE: Debugger
   {
-    'mfussenegger/nvim-dap',
-    config = function() require('plugins.lsp.nvim-dap') end,
-  }, -- dap client
-  {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap" },
-  }, -- dap ui
-  {
-    "theHamsta/nvim-dap-virtual-text",
-    config = function() require("nvim-dap-virtual-text").setup({}) end,
-  }, -- dap virtual text
+    dependencies = {
+      {
+        'mfussenegger/nvim-dap',
+        init = function() require('core.mappings').load_mappings "dap" end,
+        config = function() require('plugins.lsp.nvim-dap') end,
+      }, -- dap client
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function() require("nvim-dap-virtual-text").setup({}) end,
+      }, -- dap virtual text
+    },
+  },     -- dap ui
 
 
   -- NOTE: Completion stuff
@@ -155,7 +166,7 @@ local plugins = {
       { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
     },
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     config = function() require('plugins.completion.nvim-cmp') end,
   }, -- autocompletion
 
@@ -185,11 +196,12 @@ local plugins = {
   -- NOTE: Tool stuff
   {
     "sindrets/diffview.nvim",
+    init = function() require('core.mappings').load_mappings "diffview" end,
+    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory" },
     config = function() require("plugins.tools.diffview") end
   }, -- git diffview/mergetool
   {
     'nvim-telescope/telescope.nvim',
-    event = 'BufWinEnter',
     dependencies = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
@@ -197,17 +209,19 @@ local plugins = {
       'xiyaowong/telescope-emoji.nvim',
     },
     init = function() require('core.mappings').load_mappings "telescope" end,
+    cmd = "Telescope",
     config = function() require('plugins.tools.telescope') end,
   }, -- fuzzy finder
   {
     "ziontee113/icon-picker.nvim",
+    init = function() require('core.mappings').load_mappings "iconpicker" end,
     dependencies = { 'stevearc/dressing.nvim' },
     config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
   },
   {
     'voldikss/vim-floaterm',
-    opt = true,
-    event = 'BufWinEnter',
+    init = function() require('core.mappings').load_mappings "floaterm" end,
+    cmd = { "FloatermNew", "FloatermToggle" },
     config = function() require('plugins.tools.terminal') end,
   }, -- floating terminal
   {
@@ -216,31 +230,37 @@ local plugins = {
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
+      require('core.mappings').load_mappings "whichkey"
     end,
     config = function() require('plugins.tools.which-key') end
   }, -- show keys
   {
     "kylechui/nvim-surround",
+    event = "BufWinEnter",
     config = function() require("nvim-surround").setup({}) end,
   },
   {
     "windwp/nvim-autopairs",
+    event = "BufWinEnter",
     config = function() require("nvim-autopairs").setup {} end
   },
   {
     'phaazon/hop.nvim',
     branch = 'v2',
-    event = "VeryLazy",
     init = function() require('core.mappings').load_mappings "hop" end,
     config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
   },
-  {
-    'rest-nvim/rest.nvim',
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function() require("plugins.tools.rest") end
-  }, -- rest client
+  -- {
+  --   'rest-nvim/rest.nvim',
+  --   event = "VeryLazy",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function() require("plugins.tools.rest") end
+  -- }, -- rest client
   {
     "tpope/vim-dadbod",
+    init = function() require("core.mappings").load_mappings "dadbod" end,
+    cmd = "DBUIToggle",
+    -- event = "VeryLazy",
     dependencies = {
       "kristijanhusak/vim-dadbod-ui",
       "kristijanhusak/vim-dadbod-completion"
@@ -249,6 +269,14 @@ local plugins = {
   },
   {
     'rmagatti/auto-session',
+    init = function() require('core.mappings').load_mappings "autosession" end,
+    cmd = {
+      "SessionSave",
+      "SessionRestore",
+      "SessionDelete",
+      "SessionPurgeOrphaned",
+      "Autosession",
+    },
     config = function() require('plugins.tools.auto-session') end,
   } -- restore buffers
 }

@@ -14,14 +14,18 @@ M.general = function()
   map("n", "<C-h>", "<C-w>h")
   map("n", "<C-j>", "<C-w>j")
   map("n", "<C-k>", "<C-w>k")
-  map("n", "<C-l>", "<C-w>l")
+  map("n", "<C-j>", "<C-w>l")
   -- Resize window
   map("n", "-", ":resize -2<CR>")
   map("n", "=", ":resize +2<CR>")
   map("n", "_", ":vertical resize -5<CR>")
   map("n", "+", ":vertical resize +5<CR>")
-  -- Terminal
-  map("n", "<C-\\>", ":FloatermToggle<CR>")
+  -- Buffer/Window operation
+  map("n", "<leader>w", ":w<cr>", { desc = "Save current buffer" })
+  map("n", "<leader>W", ":w !sudo tee %<cr>", { desc = "Save current buffer with super priv" })
+  map("n", "<leader>d", ":bd<cr>", { desc = "Close current buffer" })
+  map("n", "<leader>q", ":q<cr>", { desc = "Close current window" })
+  map("n", "<leader>Q", ":qa<cr>", { desc = "Close all windows" })
 
   -- Quick exit insert mode
   map("i", "jj", "<ESC>")
@@ -35,14 +39,6 @@ M.general = function()
   map("i", "<C-p>", "<Up>")
   -- Content operation
   map("i", "<C-v>", "<ESC>pi")
-
-  map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
-
-  map("n", "<leader>w", ":w<cr>", { desc = "Save current buffer" })
-  map("n", "<leader>W", ":w !sudo tee %<cr>", { desc = "Save current buffer with super priv" })
-
-  map("n", "<leader>q", ":q<cr>", { desc = "Close current window" })
-  map("n", "<leader>Q", ":qa<cr>", { desc = "Close all windows" })
 end
 
 M.bufferline = function()
@@ -51,6 +47,27 @@ M.bufferline = function()
     ['<leader>bs'] = { name = "Sort Buffers" },
     ['<leader>j'] = { ":BufferLineCyclePrev<CR>", "next buffer" },
     ['<leader>k'] = { ":BufferLineCycleNext<CR>", "prev buffer" },
+  }
+  wk.register(mappings)
+end
+
+M.lazy = function()
+  local wk = require("which-key")
+  local mappings = {
+    ['<leader>pc'] = { ":Lazy check<CR>", "Check update" },
+    ['<leader>ps'] = { ":Lazy sync<CR>", "Sync update" },
+    ['<leader>pp'] = { ":Lazy home<CR>", "Open list" },
+  }
+  wk.register(mappings)
+end
+
+M.floaterm = function()
+  map("n", "<C-\\>", ":FloatermToggle<CR>")
+  map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
+  local wk = require("which-key")
+  local mappings = {
+    ['<leader>er'] = { ":FloatermNew ranger<CR>", "Open ranger" },
+    ['<leader>gl'] = { ":FloatermNew lazygit<CR>", "Open ranger" },
   }
   wk.register(mappings)
 end
@@ -150,6 +167,7 @@ M.dap = function()
     ["<leader>Db"] = { ":lua require'dap'.step_back()<cr>", "step back" },
     ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<cr>", "toggle breakpoint" },
     ["<leader>Dc"] = { ":lua require'dap'.continue()<cr>", "continue" },
+    ["<leader>DD"] = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
     ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<cr>", "run to cursor" },
     ["<leader>Dd"] = { ":lua require'dap'.disconnect()<cr>", "disconnect" },
     ["<leader>Dg"] = { ":lua require'dap'.session()<cr>", "get session" },
@@ -160,7 +178,6 @@ M.dap = function()
     ["<leader>Dp"] = { ":lua require'dap'.pause()<cr>", "pause" },
     ["<leader>Ds"] = { ":lua require'dap'.continue()<cr>", "start" },
     ["<leader>Dq"] = { ":lua require'dap'.close()<cr>", "quit" },
-    ["<leader>DU"] = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
   }
   wk.register(mappings)
 
@@ -261,6 +278,22 @@ M.hop = function()
   map("n", "T", function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
 end
 
+M.mason = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>lm"] = { ":Mason<CR>", "Open Manager(Mason)"},
+  }
+  wk.register(mappings)
+end
+
+M.iconpicker = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>fi"] = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<cr>", "Find Icon" },
+  }
+  wk.register(mappings)
+end
+
 M.whichkey = function()
   local wk = require("which-key")
   local leader_mapping = {
@@ -268,10 +301,10 @@ M.whichkey = function()
     D = { name = "Debug Tool" },
     e = { name = "File Explorer", },
     f = { name = "Find",
-      i = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<cr>", "Find Icon" },
     },
     g = { name = "Git", },
     l = { name = "LSP" },
+    p = { name = "Plugin(Lazy)" },
     r = { name = "Replacer" },
     s = { name = "Session" },
     H = { name = "Http Tool", },

@@ -1,6 +1,11 @@
 local utils = require("core.utils")
 local icons = require("core.icons")
 
+-- disable some default providers
+for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
+  vim.g["loaded_" .. provider .. "_provider"] = 0
+end
+
 -- set highlight and icon for diagnostic
 local statusline_colors = utils.get_highlight("StatusLine")
 local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
@@ -176,7 +181,7 @@ require("lspconfig")["jsonls"].setup({
 })
 
 -- C/C++
-require("lspconfig").ccls.setup { on_attach = on_attach }
+require("lspconfig").clangd.setup { on_attach = on_attach }
 -- Python
 require("lspconfig").pyright.setup { on_attach = on_attach }
 -- Bash

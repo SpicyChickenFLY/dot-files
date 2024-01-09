@@ -16,7 +16,7 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 -- [[ 加载编辑器基本参数配置 ]]
-ok, err = pcall(require, 'core.editor')
+local ok, err = pcall(require, 'core.editor')
 if not ok then
   error(('Error loading core...\n%s'):format(err))
 end
