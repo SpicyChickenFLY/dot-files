@@ -38,203 +38,132 @@ M.general = function()
 
   map("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]])
 
-  map("n", "<leader>w", ":w<cr>", { desc = "Save current buffer" }),
-  map("n", "<leader>W", ":w !sudo tee %<cr>", { desc = "Save current buffer with super priv" }),
+  map("n", "<leader>w", ":w<cr>", { desc = "Save current buffer" })
+  map("n", "<leader>W", ":w !sudo tee %<cr>", { desc = "Save current buffer with super priv" })
+
+  map("n", "<leader>q", ":q<cr>", { desc = "Close current window" })
+  map("n", "<leader>Q", ":qa<cr>", { desc = "Close all windows" })
 end
 
-M.bufferline = function() {
-  
-}
+M.bufferline = function()
+  local wk = require("which-key")
+  local mappings = {
+    ['<leader>bs'] = { name = "Sort Buffers" },
+    ['<leader>j'] = { ":BufferLineCyclePrev<CR>", "next buffer" },
+    ['<leader>k'] = { ":BufferLineCycleNext<CR>", "prev buffer" },
+  }
+  wk.register(mappings)
+end
 
-M.whichkey = function() 
-  local leader_mapping = {
-    b = {
-      name = "Buffer",
-      s = { name = "Sort Buffers" },
-    },
-    e = {
-      name = "File Explorer",
-      e = { ":NvimTreeFocus<CR>", "Open" },
-      f = { ":NvimTreeFindFile<CR>", "Find File" },
-      r = { ":Ranger<CR>", "Open" },
-    },
-    f = {
-      name = "Find",
-      e = { ":Telescope emoji<cr>", "Checkout branch" },
-      f = { ":Telescope find_files<cr>", "Find File" },
-      h = { ":Telescope help_tags<cr>", "Find Help" },
-      H = { ":Telescope highlights<cr>", "Find highlight groups" },
-      i = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<cr>", "Find Icon" },
-      M = { ":Telescope man_pages<cr>", "Man Pages" },
-      l = { ":Telescope live_grep<cr>", "Text" },
-      k = { ":Telescope keymaps<cr>", "Keymaps" },
-      C = { ":Telescope commands<cr>", "Commands" },
-      p = {
-        ":lua require('telescope.builtin').colorscheme({enable_preview=true})<cr>",
-        "Colorscheme with Preview",
+M.telescope = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>fa"] = { ":Telescope find_files follow=true no_ignore=true hidden=true <CR>",
+      "Find all" },
+    ['<leader>fc'] = { ":Telescope commands<cr>", "Commands" },
+    ['<leader>fe'] = { ":Telescope emoji<cr>", "Checkout branch" },
+    ['<leader>ff'] = { ":Telescope find_files<cr>", "Find File" },
+    ['<leader>fh'] = { ":Telescope help_tags<cr>", "Find Help" },
+    ['<leader>fH'] = { ":Telescope highlights<cr>", "Find highlight groups" },
+    ['<leader>fM'] = { ":Telescope man_pages<cr>", "Man Pages" },
+    ['<leader>fl'] = { ":Telescope live_grep<cr>", "Text" },
+    ['<leader>fk'] = { ":Telescope keymaps<cr>", "Keymaps" },
+    ["<leader>fo"] = { ":Telescope oldfiles<cr>", "Find oldfiles" },
+    ['<leader>fp'] = {
+      ":lua require('telescope.builtin').colorscheme {enable_preview=true}<cr>",
+      "Colorscheme with Preview",
       },
+    ["<leader>fz"] = { ":Telescope current_buffer_fuzzy_find<cr>", "Find in current buffer" },
+
+    ["<leader>gc"] = { ":Telescope git_commits<cr>", "Open changed file" },
+    ["<leader>gg"] = { ":Telescope git_status<cr>", "Open changed file" },
+  }
+  wk.register(mappings)
+end
+
+M.gitsigns = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>gb"] = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+    ["<leader>gs"] = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
+    ["<leader>gr"] = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
+    ["<leader>gp"] = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
+    ["]c"] = {
+      function()
+        if vim.wo.diff then return "]c" end
+        vim.schedule(function() require("gitsigns").next_hunk() end)
+        return "<Ignore>"
+      end,
+      "Jump to next hunk",
+      opts = { expr = true },
     },
-    g = {
-      name = "Git",
-      b = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-      d = { ":DiffviewOpen<cr>", "Git Diff" },
-      h = { ":DiffviewFileHistory %<cr>", "Show current file history" },
-      g = { ":Telescope git_status<cr>", "Open changed file" },
-      l = { ":Lazygit<cr>", "Lazygit" },
-      s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
-      r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
-      p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
-    },
-    j = { ":BufferLineCyclePrev<CR>", "next buffer" },
-    J = { ":tabprevious<CR>", "next buffer" },
-    k = { ":BufferLineCycleNext<CR>", "prev buffer" },
-    K = { ":tabnext<CR>", "prev buffer" },
-    l = {
-      name = "LSP",
-      r = { vim.lsp.buf.rename, "rename var/func/class" },
-      s = { vim.lsp.buf.signature_help, "signature help" },
-      a = { vim.lsp.buf.code_action, "action for err/warn" },
-      f = { ":Format<CR>", "format file" },
-      l = { ":LspLog<CR>", "open LSP log" },
-      i = { ":LspInfo<CR>", "show LSP info" },
-      R = { ":LspRestart<CR>", "restart LSP" },
-      m = { ":Mason<CR>", "open Mason" },
-      w = {
-        name = "workspace",
-        a = { vim.lsp.buf.add_workspace_folder, "add" },
-        r = { vim.lsp.buf.remove_workspace_folder, "remove" },
-        l = {
-          function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end,
-          "list workspaces",
-        },
-      },
-      d = {
-        name = "diagnostic",
-        d = { ":lua require 'lsp_lines'.toggle()<cr>", "toggle virtual text" },
-        x = { ":TroubleToggle<cr>", "Open" },
-        w = { ":TroubleToggle workspace_diagnostics<cr>", "workspace" },
-        D = { ":TroubleToggle document_diagnostics<cr>", "document" },
-        q = { ":TroubleToggle quickfix<cr>", "quickfix" },
-        l = { ":TroubleToggle loclist<cr>", "loclist" },
-      },
-    },
-    p = {
-      name = "Packer",
-      c = { "<cmd>PackerCompile<cr>", "Compile" },
-      i = { "<cmd>PackerInstall<cr>", "Install" },
-      r = { "<cmd>lua require('lvim.plugin-loader').recompile()<cr>", "Re-compile" },
-      s = { "<cmd>PackerSync<cr>", "Sync" },
-      S = { "<cmd>PackerStatus<cr>", "Status" },
-      u = { "<cmd>PackerUpdate<cr>", "Update" },
-    },
-    q = { ":bdelete<CR>", "delete buffer" },
-    r = {
-      name = "Replacer",
-      r = { '<cmd>lua require("spectre").open()<cr>', "open" },
-      w = { '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', "open with current word" },
-      f = { 'viw:lua require("spectre").open_file_search()<cr>', "open file search" },
-    },
-    s = {
-      name = "Session",
-      s = { ":SessionSave<cr>", "save session" },
-      l = { ":SessionRestore<cr>", "load session" },
-    },
-    t = {
-      name = "Todo",
-      t = { ":TodoTrouble<cr>", "Open" },
-      q = { ":TodoQuickFix<cr>", "quickfix" },
-      l = { ":TodoLocList<cr>", "loclist" },
-      f = { ":TodoTelescope<cr>", "find in telescope" },
-    },
-    u = {
-      name = "Utils Tools",
-      d = {
-        name = "Debug Tool",
-        b = { ":lua require'dap'.step_back()<cr>", "step back" },
-        B = { ":lua require'dap'.toggle_breakpoint()<cr>", "toggle breakpoint" },
-        c = { ":lua require'dap'.continue()<cr>", "continue" },
-        r = { ":lua require'dap'.run_to_cursor()<cr>", "run to cursor" },
-        d = { ":lua require'dap'.disconnect()<cr>", "disconnect" },
-        g = { ":lua require'dap'.session()<cr>", "get session" },
-        i = { ":lua require'dap'.step_into()<cr>", "step into" },
-        l = { ":lua require'dap'.repl.toggle()<cr>", "toggle repl" },
-        o = { ":lua require'dap'.step_over()<cr>", "step over" },
-        u = { ":lua require'dap'.step_out()<cr>", "step out" },
-        p = { ":lua require'dap'.pause()<cr>", "pause" },
-        s = { ":lua require'dap'.continue()<cr>", "start" },
-        q = { ":lua require'dap'.close()<cr>", "quit" },
-        U = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
-      },
-      h = {
-        name = "Http Tool",
-        h = { "<Plug>RestNvim", "run the request under the cursor" },
-        p = { "<Plug>RestNvimPreview", "preview the request cURL command" },
-        l = { "<Plug>RestNvimLast", "re-run the last request" },
-      },
-      x = {
-        name = "Database Tool",
-        x = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
-        f = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
-        q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
-        r = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
-      },
+
+    ["[c"] = {
+      function()
+        if vim.wo.diff then return "[c" end
+        vim.schedule(function() require("gitsigns").prev_hunk() end)
+        return "<Ignore>"
+      end,
+      "Jump to prev hunk",
+      opts = { expr = true },
     },
   }
+  wk.register(mappings)
 
-  local visual_leader_mapping = {
-    g = {
-      name = "Git",
-      s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
-      r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
-    },
+  local visual_mappings = {
+    s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
+    r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
   }
-
--- local wk = require("which-key")
--- wk.register(leader_mapping, { prefix = "<leader>" })
--- wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
 end
 
--- NOTE: command <f> mapping
--- local hop = require("hop")
--- local directions = require("hop.hint").HintDirection
--- map("n", "f", function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
--- end)
--- map("n", "F", function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
--- end)
--- map("n", "t", function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
--- end)
--- map("n", "T", function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
--- end)
+M.lspconfig = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["gd"] = { function() vim.lsp.buf.definition() end, "LSP definition" },
+    ["gD"] = { function() vim.lsp.buf.declaration() end, "LSP declaration" },
+    ["gt"] = { function() vim.lsp.buf.type_definition() end, "LSP definition type", },
+    ["gr"] = { function() vim.lsp.buf.references() end, "LSP references" },
+    ["gi"] = { function() vim.lsp.buf.implementation() end, "LSP implementation" },
+    ["gk"] = { function() vim.lsp.buf.hover() end, "LSP hover" },
+    ["gs"] = { function() vim.lsp.buf.document_symbol() end, "show document symbol "},
+    ["gh"] = { function() vim.lsp.buf.signature_help() end, "LSP signature help" },
 
--- NOTE: command <z> mapping
-map("n", "zR", ":lua require'ufo'.openAllFolds()<CR>", { desc = "open all folds" })
-map("n", "zM", ":lua require'ufo'.closeAllFolds()<CR>", { desc = "close all folds" })
-map("n", "zr", ":lua require'ufo'.openFoldsExceptKinds()<CR>", { desc = "open next fold level" })
-map("n", "zm", ":lua require'ufo'.closeFoldsWith()<CR>", { desc = "close next fold level" })
-map("n", "z1", ":lua require'ufo'.closeFoldsWith(1)<CR>", { desc = "close fold level 1" })
-map("n", "z2", ":lua require'ufo'.closeFoldsWith(2)<CR>", { desc = "close fold level 2" })
-map("n", "z3", ":lua require'ufo'.closeFoldsWith(3)<CR>", { desc = "close fold level 3" })
-map("n", "z4", ":lua require'ufo'.closeFoldsWith(4)<CR>", { desc = "close fold level 4" })
 
-M.load_lsp_mappings = function ()
-  map("n", "gd", vim.lsp.buf.definition, { desc = "goto func def" })
-  map("n", "gD", vim.lsp.buf.declaration, { desc = "goto func def" })
-  map("n", "gh", vim.lsp.buf.hover, { desc = "show hover info" })
-  map("n", "gi", vim.lsp.buf.implementation, { desc = "goto if impl" })
-  map("n", "gr", vim.lsp.buf.references, { desc = "goto refer" })
-  map("n", "gs", vim.lsp.buf.document_symbol, { desc = "show document symbol " })
-  map("n", "gt", vim.lsp.buf.type_definition, { desc = "goto type def" })
-  map("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "goto prev" })
-  map("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "goto_next" })
+    ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "LSP code action" },
+    ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "LSP formatting" },
+    ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "LSP rename" },
+    ["<leader>ldq"] = { function() vim.diagnostic.setloclist() end, "Diagnostic setloclist", },
+
+    ["<leader>lwa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder" },
+    ["<leader>lwr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "Remove workspace folder" },
+    ["<leader>lwl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List workspace folders" },
+
+    ["[d"] = { function() vim.diagnostic.goto_prev { float = { border = "rounded" } } end, "Goto prev" },
+    ["]d"] = { function() vim.diagnostic.goto_next { float = { border = "rounded" } } end, "Goto next" },
+  }
+  wk.register(mappings)
 end
 
-M.load_dap_mappings = function ()
+M.dap = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>Db"] = { ":lua require'dap'.step_back()<cr>", "step back" },
+    ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<cr>", "toggle breakpoint" },
+    ["<leader>Dc"] = { ":lua require'dap'.continue()<cr>", "continue" },
+    ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<cr>", "run to cursor" },
+    ["<leader>Dd"] = { ":lua require'dap'.disconnect()<cr>", "disconnect" },
+    ["<leader>Dg"] = { ":lua require'dap'.session()<cr>", "get session" },
+    ["<leader>Di"] = { ":lua require'dap'.step_into()<cr>", "step into" },
+    ["<leader>Dl"] = { ":lua require'dap'.repl.toggle()<cr>", "toggle repl" },
+    ["<leader>Do"] = { ":lua require'dap'.step_over()<cr>", "step over" },
+    ["<leader>Du"] = { ":lua require'dap'.step_out()<cr>", "step out" },
+    ["<leader>Dp"] = { ":lua require'dap'.pause()<cr>", "pause" },
+    ["<leader>Ds"] = { ":lua require'dap'.continue()<cr>", "start" },
+    ["<leader>Dq"] = { ":lua require'dap'.close()<cr>", "quit" },
+    ["<leader>DU"] = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
+  }
+  wk.register(mappings)
+
   map("n", "<F5>", ":lua require'dap'.continue()<CR>")
   map("n", "<S-F5>", ":lua require'dap'.run_to_cursor()<CR>")
   map("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
@@ -249,16 +178,111 @@ M.load_dap_mappings = function ()
   -- map("n", "",     ":lua require'dap'.repl.toggle()<CR>")
 end
 
--- NOTE: command goto with [ and ]
-map("n", "[c", ":lua require 'gitsigns'.prev_hunk({navigation_message=false})<cr>", { desc = "Prev Hunk" })
-map("n", "]c", ":lua require 'gitsigns'.next_hunk({navigation_message=false})<cr>", { desc = "Next Hunk" })
-map("n", "]t", function()
-  require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-map("n", "[t", function()
-  require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
+M.nvimtree = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>ee"] = { ":NvimTreeFocus<CR>", "Open" },
+    ["<leader>ef"] = { ":NvimTreeFindFile<CR>", "Find File" },
+    ["<leader>er"] = { ":Ranger<CR>", "Open" },
+  }
+  wk.register(mappings)
+end
 
+M.spectre = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>rr"] = { '<cmd>lua require("spectre").open()<cr>', "open" },
+    ["<leader>rw"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', "open with current word" },
+    ["<leader>rf"] = { 'viw:lua require("spectre").open_file_search()<cr>', "open file search" },
+  }
+  wk.register(mappings)
+end
+
+M.autosession = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>ss"] = { ":SessionSave<cr>", "save session" },
+    ["<leader>sl"] = { ":SessionRestore<cr>", "load session" },
+  }
+  wk.register(mappings)
+end
+
+M.diffview = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>gd"] = { ":DiffviewOpen<cr>", "Git diff" },
+    ["<leader>gh"] = { ":DiffviewFileHistory %<cr>", "Show file history" },
+  }
+  wk.register(mappings)
+end
+
+M.rest = function()
+  local wk = require("which-key")
+  local mappings = {
+      ["<leader>Hh"] = { "<Plug>RestNvim", "run the request under the cursor" },
+      ["<leader>Hp"] = { "<Plug>RestNvimPreview", "preview the request cURL command" },
+      ["<leader>Hl"] = { "<Plug>RestNvimLast", "re-run the last request" },
+  }
+  wk.register(mappings)
+end
+
+M.dadbod = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>xx"] = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
+    ["<leader>xf"] = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
+    ["<leader>xq"] = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
+    ["<leader>xr"] = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
+  }
+  wk.register(mappings)
+end
+
+M.ufo = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["zR"] = { ":lua require'ufo'.openAllFolds()<CR>", "open all folds" },
+    ["zM"] = { ":lua require'ufo'.closeAllFolds()<CR>", "close all folds" },
+    ["zr"] = { ":lua require'ufo'.openFoldsExceptKinds()<CR>", "open next fold level" },
+    ["zm"] = { ":lua require'ufo'.closeFoldsWith()<CR>", "close next fold level" },
+    ["z1"] = { ":lua require'ufo'.closeFoldsWith(1)<CR>", "close fold level 1" },
+    ["z2"] = { ":lua require'ufo'.closeFoldsWith(2)<CR>", "close fold level 2" },
+    ["z3"] = { ":lua require'ufo'.closeFoldsWith(3)<CR>", "close fold level 3" },
+    ["z4"] = { ":lua require'ufo'.closeFoldsWith(4)<CR>", "close fold level 4" },
+  }
+  wk.register(mappings)
+end
+
+M.hop = function()
+  local hop = require("hop")
+  local directions = require("hop.hint").HintDirection
+  map("n", "f", function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true }) end)
+  map("n", "F", function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end)
+  map("n", "t", function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end)
+  map("n", "T", function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
+end
+
+M.whichkey = function()
+  local wk = require("which-key")
+  local leader_mapping = {
+    b = { name = "Buffer", },
+    D = { name = "Debug Tool" },
+    e = { name = "File Explorer", },
+    f = { name = "Find",
+      i = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<cr>", "Find Icon" },
+    },
+    g = { name = "Git", },
+    l = { name = "LSP" },
+    r = { name = "Replacer" },
+    s = { name = "Session" },
+    H = { name = "Http Tool", },
+    x = { name = "Database Tool", },
+  }
+
+  local visual_leader_mapping = { g = { name = "Git", } }
+
+  wk.register(leader_mapping, { prefix = "<leader>" })
+  wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
+end
 
 function M.nvim_tree_keymap(bufnr)
   local _api = require("nvim-tree.api")

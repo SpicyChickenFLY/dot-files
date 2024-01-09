@@ -139,13 +139,8 @@ require("lspconfig")["volar"].setup({
     end,
 })
 
-require("lspconfig")["stylelint_lsp"].setup({
-    on_attach = on_attach,
-})
 
 -- javascript/typescript/html/css lsp
--------------
--- npm i -g vscode-langservers-extracted
 require("lspconfig")["eslint"].setup({
     on_attach = function(client, bufnr)
         local group = vim.api.nvim_create_augroup("Eslint", {})
@@ -158,6 +153,7 @@ require("lspconfig")["eslint"].setup({
         on_attach(client, bufnr) -- declared elsewhere
     end,
 })
+require("lspconfig").stylelint_lsp.setup({ on_attach = on_attach, })
 
 -- yaml lsp
 -------------
@@ -165,9 +161,7 @@ require("lspconfig")["eslint"].setup({
 require("lspconfig")["yamlls"].setup({
     on_attach = on_attach,
     settings = {
-        yaml = {
-            schemas = require("schemastore").json.schemas(),
-        },
+        yaml = { schemas = require("schemastore").json.schemas() },
     },
 })
 
@@ -177,9 +171,7 @@ require("lspconfig")["yamlls"].setup({
 require("lspconfig")["jsonls"].setup({
     on_attach = on_attach,
     settings = {
-        json = {
-            schemas = require("schemastore").json.schemas(),
-        },
+        json = { schemas = require("schemastore").json.schemas() },
     },
 })
 

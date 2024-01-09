@@ -58,10 +58,10 @@ local default_cmp_opts = {
     { name = "vim-dadbod-completion" },
   }),
   formatting = {
-    fields = { "abbr", "kind", "menu" },
+    fields = { "menu",  "abbr", "kind" },
     format = function(_, item)
-      item.kind = icons.kind_icons[item.kind]
-      item.menu = item.kind
+      local icon = icons.kind_icons[item.kind]
+      item.kind = string.format("%s %s", icon, item.kind)
       return item
     end,
   },

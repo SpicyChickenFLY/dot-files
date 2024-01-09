@@ -1,58 +1,87 @@
 local icons = require('core.icons')
 
 local plugins = {
-  'nvim-lua/plenary.nvim', -- basic algorithms
+  'nvim-lua/plenary.nvim',       -- basic algorithms
   'nvim-tree/nvim-web-devicons', -- character icons
 
   -- NOTE: themes
-  { 'catppuccin/nvim',
+  {
+    'catppuccin/nvim',
     config = function() require('plugins.theme.catppuccin') end,
   }, -- lovely colorscheme
 
   -- NOTE: UI stuff
-  { 'nvim-lualine/lualine.nvim',
+  {
+    'nvim-lualine/lualine.nvim',
     config = function() require('plugins.ui.lualine') end,
     lazy = false,
   }, -- statusline
-  {'akinsho/bufferline.nvim',
-    tag = "v3.*",
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    init = function() require('core.mappings').load_mappings "bufferline" end,
     config = function() require("plugins.ui.bufferline") end,
     lazy = false,
   }, -- tabline
-  { "utilyre/barbecue.nvim",
+
+  -- NOTE: Appearence
+  {
+    "utilyre/barbecue.nvim",
     dependencies = {
       "kyazdani42/nvim-web-devicons", -- optional
       "neovim/nvim-lspconfig",
       "smiteshp/nvim-navic",
     },
+    event = 'BufWinEnter',
     config = function() require("plugins.ui.barbecue") end,
   }, -- breadcrumbs
-
-  -- NOTE: Appearence
-  { 'nmac427/guess-indent.nvim',
-    init = function() require("core.utils").lazy_load "guess-indent.nvim" end,
+  {
+    'nmac427/guess-indent.nvim',
+    event = 'BufWinEnter',
     config = function() require('guess-indent').setup {} end,
   }, -- guess what indent should be like
-  { 'lukas-reineke/indent-blankline.nvim',
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    -- init = function() require("core.utils").lazy_load "ibl" end,
+    version = "*",
+    main = "ibl",
+    event = 'BufWinEnter',
     config = function() require('plugins.appearence.indent-blankline') end,
   }, -- indent line
-  { 'lewis6991/gitsigns.nvim',
+  {
+    'lewis6991/gitsigns.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = 'BufWinEnter',
+    init = function() require('core.mappings').load_mappings "gitsigns" end,
     config = function() require('plugins.appearence.gitsigns') end,
   }, -- git column signs
-  { 'folke/todo-comments.nvim',
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async',
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function() require('plugins.appearence.statuscol') end,
+      }
+    },
+    event = 'BufWinEnter',
+    config = function() require('plugins.appearence.nvim-ufo') end,
+  }, -- fold block
+  {
+    'folke/todo-comments.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('plugins.appearence.todo-comments') end,
     event = 'BufWinEnter',
   }, -- todo highlights
-  { 'NvChad/nvim-colorizer.lua',
+  {
+    'NvChad/nvim-colorizer.lua',
     init = function()
       require("core.utils").lazy_load "nvim-colorizer.lua"
     end,
     config = function() require('colorizer').setup({}) end,
   }, -- colorized hex codes
-  { 'nvim-treesitter/nvim-treesitter',
+  {
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'theHamsta/crazy-node-movement',
@@ -61,84 +90,79 @@ local plugins = {
       'JoosepAlviste/nvim-ts-context-commentstring',
     },
     run = ':TSUpdate',
+    event = 'BufWinEnter',
     config = function() require('plugins.appearence.treesitter') end,
   },
-  { 'kevinhwang91/nvim-ufo',
-    dependencies = {
-      'kevinhwang91/promise-async',
-      {
-        "luukvbaal/statuscol.nvim",
-        config = function()
-          local builtin = require("statuscol.builtin")
-          require("statuscol").setup({
-            relculright = true,
-            segments = {
-              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-              { text = { "%s" }, click = "v:lua.ScSa" },
-              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-            },
-          })
-        end,
-      }
-    },
-    config = function() require('plugins.appearence.nvim-ufo') end,
-  }, -- fold block
-  { 'numToStr/Comment.nvim',
+  {
+    'numToStr/Comment.nvim',
     config = function() require('Comment').setup() end,
     event = 'BufWinEnter',
   }, -- quick comment
 
   -- NOTE: Language stuff
-  { "williamboman/mason.nvim",
+  {
+    "williamboman/mason.nvim",
     config = function() require('mason').setup() end,
   }, -- LSP server collection installer
-  { 'neovim/nvim-lspconfig',
-    init = function() require("core.utils").lazy_load "nvim-lspconfig" end,
+  {
+    'neovim/nvim-lspconfig',
+    init = function()
+      require("core.utils").lazy_load "nvim-lspconfig"
+      require('core.mappings').load_mappings "lspconfig"
+    end,
     dependencies = { 'b0o/schemastore.nvim' },
     config = function()
       require('plugins.lsp.lspconfig')
     end,
-  }, -- LSP server configuration
+  },                             -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
-  { 'mfussenegger/nvim-lint',
-    config = function () require('plugins.completion.lint') end,
+  {
+    'mfussenegger/nvim-lint',
+    config = function() require('plugins.completion.lint') end,
   }, -- Linter
-  { 'mhartington/formatter.nvim',
+  {
+    'mhartington/formatter.nvim',
     config = function() require('plugins.completion.formatter') end,
   }, -- Formatter
 
   -- NOTE: Debugger
-  { 'mfussenegger/nvim-dap',
+  {
+    'mfussenegger/nvim-dap',
     config = function() require('plugins.lsp.nvim-dap') end,
   }, -- dap client
-  { "rcarriga/nvim-dap-ui",
-    dependencies = {"mfussenegger/nvim-dap"},
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
   }, -- dap ui
-  { "theHamsta/nvim-dap-virtual-text",
-    config = function () require("nvim-dap-virtual-text").setup({}) end,
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function() require("nvim-dap-virtual-text").setup({}) end,
   }, -- dap virtual text
 
 
   -- NOTE: Completion stuff
-  { 'hrsh7th/nvim-cmp',
+  {
+    'hrsh7th/nvim-cmp',
     dependencies = {
-      { 'L3MON4D3/LuaSnip',
+      {
+        'L3MON4D3/LuaSnip',
         dependencies = { 'rafamadriz/friendly-snippets', },
         config = function() require('plugins.completion.luasnip') end,
       },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
     },
-    config = function() require('plugins.completion.nvim-cmp') end,
     event = 'InsertEnter',
+    config = function() require('plugins.completion.nvim-cmp') end,
   }, -- autocompletion
 
 
   -- NOTE: Sidebar
-  { 'kyazdani42/nvim-tree.lua',
+  {
+    'kyazdani42/nvim-tree.lua',
     cmd = {
       'NvimTreeClipboard',
       'NvimTreeClose',
@@ -148,18 +172,23 @@ local plugins = {
       'NvimTreeToggle',
     },
     event = 'VimEnter',
+    init = function() require('core.mappings').load_mappings "nvimtree" end,
     config = function() require('plugins.sidebar.nvim-tree') end,
   }, -- file explorer
-  { 'windwp/nvim-spectre',
+  {
+    'windwp/nvim-spectre',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    init = function() require('core.mappings').load_mappings "spectre" end,
     config = function() require('plugins.sidebar.nvim-spectre') end,
   }, -- replacer
 
   -- NOTE: Tool stuff
-  { "sindrets/diffview.nvim",
+  {
+    "sindrets/diffview.nvim",
     config = function() require("plugins.tools.diffview") end
   }, -- git diffview/mergetool
-  { 'nvim-telescope/telescope.nvim',
+  {
+    'nvim-telescope/telescope.nvim',
     event = 'BufWinEnter',
     dependencies = {
       'nvim-lua/popup.nvim',
@@ -167,18 +196,22 @@ local plugins = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
       'xiyaowong/telescope-emoji.nvim',
     },
+    init = function() require('core.mappings').load_mappings "telescope" end,
     config = function() require('plugins.tools.telescope') end,
   }, -- fuzzy finder
-  {"ziontee113/icon-picker.nvim",
-    dependencies = {'stevearc/dressing.nvim'},
-    config = function() require("icon-picker").setup{ disable_legacy_commands = true } end,
+  {
+    "ziontee113/icon-picker.nvim",
+    dependencies = { 'stevearc/dressing.nvim' },
+    config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
   },
-  { 'voldikss/vim-floaterm',
+  {
+    'voldikss/vim-floaterm',
     opt = true,
     event = 'BufWinEnter',
     config = function() require('plugins.tools.terminal') end,
   }, -- floating terminal
-  { "folke/which-key.nvim",
+  {
+    "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
@@ -186,27 +219,36 @@ local plugins = {
     end,
     config = function() require('plugins.tools.which-key') end
   }, -- show keys
-  { "kylechui/nvim-surround",
+  {
+    "kylechui/nvim-surround",
     config = function() require("nvim-surround").setup({}) end,
   },
-  { "windwp/nvim-autopairs",
+  {
+    "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
   },
-  { 'phaazon/hop.nvim', branch = 'v2',
-    config = function() require'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
+  {
+    'phaazon/hop.nvim',
+    branch = 'v2',
+    event = "VeryLazy",
+    init = function() require('core.mappings').load_mappings "hop" end,
+    config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
   },
-  { 'rest-nvim/rest.nvim',
+  {
+    'rest-nvim/rest.nvim',
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function() require("plugins.tools.rest") end
   }, -- rest client
-  { "tpope/vim-dadbod",
+  {
+    "tpope/vim-dadbod",
     dependencies = {
-     "kristijanhusak/vim-dadbod-ui",
-     "kristijanhusak/vim-dadbod-completion"
+      "kristijanhusak/vim-dadbod-ui",
+      "kristijanhusak/vim-dadbod-completion"
     },
     config = function() require("plugins.tools.dadbod") end,
   },
-  { 'rmagatti/auto-session',
+  {
+    'rmagatti/auto-session',
     config = function() require('plugins.tools.auto-session') end,
   } -- restore buffers
 }
@@ -223,14 +265,14 @@ local config = {
     rtp = {
       disabled_plugins = {
         'netrw', 'netrwPlugin', 'netrwSettings', 'netrwFileHandlers', -- builtin file explorer
-        'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', -- edit compressed files
+        'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin',               -- edit compressed files
         'getscript', 'getscriptPlugin',
-        'vimball', 'vimballPlugin', -- create and unpack .vba files
-        '2html_plugin', 'tohtml', -- convert a file with highlight to html
-        'logipat', -- operators on pattern
-        'rrhelper', -- remote wait editing
-        'spellfile_plugin', -- downlload spell file
-        'matchit', -- highlight
+        'vimball', 'vimballPlugin',                                   -- create and unpack .vba files
+        '2html_plugin', 'tohtml',                                     -- convert a file with highlight to html
+        'logipat',                                                    -- operators on pattern
+        'rrhelper',                                                   -- remote wait editing
+        'spellfile_plugin',                                           -- downlload spell file
+        'matchit',                                                    -- highlight
         'tutor', 'rplugin', 'syntax', 'synmenu', 'optwin', 'compiler', 'bugreport',
       },
     },
