@@ -14,7 +14,7 @@ M.general = function()
   map("n", "<C-h>", "<C-w>h")
   map("n", "<C-j>", "<C-w>j")
   map("n", "<C-k>", "<C-w>k")
-  map("n", "<C-j>", "<C-w>l")
+  map("n", "<C-l>", "<C-w>l")
   -- Resize window
   map("n", "-", ":resize -2<CR>")
   map("n", "=", ":resize +2<CR>")
@@ -26,6 +26,10 @@ M.general = function()
   map("n", "<leader>d", ":bd<cr>", { desc = "Close current buffer" })
   map("n", "<leader>q", ":q<cr>", { desc = "Close current window" })
   map("n", "<leader>Q", ":qa<cr>", { desc = "Close all windows" })
+
+  -- Show the syntax highlight group under cursor
+  map("n", "gl", '<cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>')
+  map("n", "gL", '<cmd>Inspect!<cr>')
 
   -- Quick exit insert mode
   map("i", "jj", "<ESC>")
@@ -136,19 +140,22 @@ end
 M.lspconfig = function()
   local wk = require("which-key")
   local mappings = {
-    ["gd"] = { function() vim.lsp.buf.definition() end, "LSP definition" },
-    ["gD"] = { function() vim.lsp.buf.declaration() end, "LSP declaration" },
-    ["gt"] = { function() vim.lsp.buf.type_definition() end, "LSP definition type", },
-    ["gr"] = { function() vim.lsp.buf.references() end, "LSP references" },
-    ["gi"] = { function() vim.lsp.buf.implementation() end, "LSP implementation" },
-    ["gk"] = { function() vim.lsp.buf.hover() end, "LSP hover" },
+    ["K"] = { function() vim.lsp.buf.hover() end, "show hover" },
+
+    ["gd"] = { function() vim.lsp.buf.definition() end, "goto definition" },
+    ["gD"] = { function() vim.lsp.buf.declaration() end, "goto declaration" },
+    ["gt"] = { function() vim.lsp.buf.type_definition() end, "goto definition type", },
+    ["gr"] = { function() vim.lsp.buf.references() end, "goto references" },
+    ["gi"] = { function() vim.lsp.buf.implementation() end, "goto implementation" },
     ["gs"] = { function() vim.lsp.buf.document_symbol() end, "show document symbol "},
-    ["gh"] = { function() vim.lsp.buf.signature_help() end, "LSP signature help" },
+    ["gh"] = { function() vim.lsp.buf.signature_help() end, "show signature help" },
 
 
-    ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "LSP code action" },
-    ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "LSP formatting" },
-    ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "LSP rename" },
+    ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "code action" },
+    ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "formatting" },
+    ["<leader>ll"] = { ":LspLog<CR>", "Lsp server log" },
+    ["<leader>li"] = { ":LspInfo<CR>", "Lsp server Info" },
+    ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "rename" },
     ["<leader>ldq"] = { function() vim.diagnostic.setloclist() end, "Diagnostic setloclist", },
 
     ["<leader>lwa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder" },

@@ -1,5 +1,3 @@
-
-
 local sql_group = vim.api.nvim_create_augroup('vimrc_sql', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'sql',

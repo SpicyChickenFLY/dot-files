@@ -91,8 +91,8 @@ opt.termguicolors = true
 opt.background = 'light'
 
 ---------------------------- Commands ------------------------------
-local cmd = vim.api.nvim_create_user_command
--- cmd([[ filetype plugin indent on ]])
+local cmd = vim.cmd
+cmd([[filetype plugin indent on]])
 
 ---------------------------- AutoCommands ------------------------------
 local autocmd = vim.api.nvim_create_autocmd

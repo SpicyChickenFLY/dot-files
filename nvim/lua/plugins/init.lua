@@ -83,11 +83,11 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'theHamsta/crazy-node-movement',
-      'windwp/nvim-ts-autotag',
-      'HiPhish/nvim-ts-rainbow2',
-      'JoosepAlviste/nvim-ts-context-commentstring',
+      -- 'nvim-treesitter/nvim-treesitter-textobjects',
+      -- 'theHamsta/crazy-node-movement',
+      -- 'windwp/nvim-ts-autotag',
+      -- 'HiPhish/nvim-ts-rainbow2',
+      -- 'JoosepAlviste/nvim-ts-context-commentstring',
     },
     run = ':TSUpdate',
     event = 'BufWinEnter',
@@ -260,7 +260,7 @@ local plugins = {
   {
     "tpope/vim-dadbod",
     init = function() require("core.mappings").load_mappings "dadbod" end,
-    cmd = "DBUIToggle",
+    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
     -- event = "VeryLazy",
     dependencies = {
       "kristijanhusak/vim-dadbod-ui",
