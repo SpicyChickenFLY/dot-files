@@ -166,7 +166,7 @@ local plugins = {
       { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
     },
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    event = { 'InsertEnter' },
     config = function() require('plugins.completion.nvim-cmp') end,
   }, -- autocompletion
 

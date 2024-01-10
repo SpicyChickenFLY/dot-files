@@ -10,12 +10,10 @@ local default_cmp_opts = {
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-h>'] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    -- disabled for autopairs mapping
     ['<C-l>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
@@ -37,8 +35,8 @@ local default_cmp_opts = {
   }),
   window = {
     completion = {
-      border = 'rounded',
-      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+      -- border = 'rounded',
+      -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
       scrollbar = true,
     },
     documentation = {
@@ -58,10 +56,11 @@ local default_cmp_opts = {
     { name = "vim-dadbod-completion" },
   }),
   formatting = {
-    fields = { "menu",  "abbr", "kind" },
+    fields = { "kind", "abbr", "menu" },
     format = function(_, item)
       local icon = icons.kind_icons[item.kind]
-      item.kind = string.format("%s %s", icon, item.kind)
+      item.menu = item.kind
+      item.kind = icon
       return item
     end,
   },
