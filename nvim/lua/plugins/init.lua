@@ -265,11 +265,11 @@ local plugins = {
   --   config = function() require("plugins.tools.rest") end
   -- }, -- rest client
   {
-    "tpope/vim-dadbod-ui",
+    "kristijanhusak/vim-dadbod-ui",
     init = function() require("core.mappings").load_mappings "dadbod" end,
     -- event = "VeryLazy",
     dependencies = {
-      { "kristijanhusak/vim-dadbod", lazy = true},
+      { "tpope/vim-dadbod", lazy = true},
       {
         "kristijanhusak/vim-dadbod-completion",
         ft = { 'sql', 'mysql', 'plsql'},
