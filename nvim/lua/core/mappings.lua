@@ -21,15 +21,15 @@ M.general = function()
   map("n", "_", ":vertical resize -5<CR>")
   map("n", "+", ":vertical resize +5<CR>")
   -- Buffer/Window operation
-  map("n", "<leader>w", ":w<cr>", { desc = "Save current buffer" })
-  map("n", "<leader>W", ":w !sudo tee %<cr>", { desc = "Save current buffer with super priv" })
-  map("n", "<leader>d", ":bd<cr>", { desc = "Close current buffer" })
-  map("n", "<leader>q", ":q<cr>", { desc = "Close current window" })
-  map("n", "<leader>Q", ":qa<cr>", { desc = "Close all windows" })
+  map("n", "<leader>w", ":w<CR>", { desc = "Save current buffer" })
+  map("n", "<leader>W", ":w !sudo tee %<CR>", { desc = "Save current buffer with super priv" })
+  map("n", "<leader>d", ":bd<CR>", { desc = "Close current buffer" })
+  map("n", "<leader>q", ":q<CR>", { desc = "Close current window" })
+  map("n", "<leader>Q", ":qa<CR>", { desc = "Close all windows" })
 
   -- Show the syntax highlight group under cursor
-  map("n", "gl", '<cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>')
-  map("n", "gL", '<cmd>Inspect!<cr>')
+  map("n", "gl", '<cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>')
+  map("n", "gL", '<cmd>Inspect!<CR>')
 
   -- Quick exit insert mode
   map("i", "jj", "<ESC>")
@@ -81,23 +81,23 @@ M.telescope = function()
   local mappings = {
     ["<leader>fa"] = { ":Telescope find_files follow=true no_ignore=true hidden=true <CR>",
       "Find all" },
-    ['<leader>fc'] = { ":Telescope commands<cr>", "Commands" },
-    ['<leader>fe'] = { ":Telescope emoji<cr>", "Checkout branch" },
-    ['<leader>ff'] = { ":Telescope find_files<cr>", "Find File" },
-    ['<leader>fh'] = { ":Telescope help_tags<cr>", "Find Help" },
-    ['<leader>fH'] = { ":Telescope highlights<cr>", "Find highlight groups" },
-    ['<leader>fM'] = { ":Telescope man_pages<cr>", "Man Pages" },
-    ['<leader>fl'] = { ":Telescope live_grep<cr>", "Text" },
-    ['<leader>fk'] = { ":Telescope keymaps<cr>", "Keymaps" },
-    ["<leader>fo"] = { ":Telescope oldfiles<cr>", "Find oldfiles" },
+    ['<leader>fc'] = { ":Telescope commands<CR>", "Commands" },
+    ['<leader>fe'] = { ":Telescope emoji<CR>", "Checkout branch" },
+    ['<leader>ff'] = { ":Telescope find_files<CR>", "Find File" },
+    ['<leader>fh'] = { ":Telescope help_tags<CR>", "Find Help" },
+    ['<leader>fH'] = { ":Telescope highlights<CR>", "Find highlight groups" },
+    ['<leader>fM'] = { ":Telescope man_pages<CR>", "Man Pages" },
+    ['<leader>fl'] = { ":Telescope live_grep<CR>", "Text" },
+    ['<leader>fk'] = { ":Telescope keymaps<CR>", "Keymaps" },
+    ["<leader>fo"] = { ":Telescope oldfiles<CR>", "Find oldfiles" },
     ['<leader>fp'] = {
-      ":lua require('telescope.builtin').colorscheme {enable_preview=true}<cr>",
+      ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
       "Colorscheme with Preview",
       },
-    ["<leader>fz"] = { ":Telescope current_buffer_fuzzy_find<cr>", "Find in current buffer" },
+    ["<leader>fz"] = { ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer" },
 
-    ["<leader>gc"] = { ":Telescope git_commits<cr>", "Open changed file" },
-    ["<leader>gg"] = { ":Telescope git_status<cr>", "Open changed file" },
+    ["<leader>gc"] = { ":Telescope git_commits<CR>", "Open changed file" },
+    ["<leader>gg"] = { ":Telescope git_status<CR>", "Open changed file" },
   }
   wk.register(mappings)
 end
@@ -105,10 +105,10 @@ end
 M.gitsigns = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>gb"] = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-    ["<leader>gs"] = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
-    ["<leader>gr"] = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
-    ["<leader>gp"] = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview" },
+    ["<leader>gb"] = { ":lua require 'gitsigns'.blame_line()<CR>", "Blame" },
+    ["<leader>gs"] = { ":lua require 'gitsigns'.stage_hunk()<CR>", "Stage" },
+    ["<leader>gr"] = { ":lua require 'gitsigns'.reset_hunk()<CR>", "Reset" },
+    ["<leader>gp"] = { ":lua require 'gitsigns'.preview_hunk()<CR>", "Preview" },
     ["]c"] = {
       function()
         if vim.wo.diff then return "]c" end
@@ -132,8 +132,8 @@ M.gitsigns = function()
   wk.register(mappings)
 
   local visual_mappings = {
-    s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage" },
-    r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset" },
+    s = { ":lua require 'gitsigns'.stage_hunk()<CR>", "Stage" },
+    r = { ":lua require 'gitsigns'.reset_hunk()<CR>", "Reset" },
   }
 end
 
@@ -152,7 +152,7 @@ M.lspconfig = function()
 
 
     ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "code action" },
-    ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "formatting" },
+    -- ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "formatting" },
     ["<leader>ll"] = { ":LspLog<CR>", "Lsp server log" },
     ["<leader>li"] = { ":LspInfo<CR>", "Lsp server Info" },
     ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "rename" },
@@ -171,20 +171,20 @@ end
 M.dap = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>Db"] = { ":lua require'dap'.step_back()<cr>", "step back" },
-    ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<cr>", "toggle breakpoint" },
-    ["<leader>Dc"] = { ":lua require'dap'.continue()<cr>", "continue" },
-    ["<leader>DD"] = { ":lua require'dapui'.toggle()<cr>", "Toggle UI" },
-    ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<cr>", "run to cursor" },
-    ["<leader>Dd"] = { ":lua require'dap'.disconnect()<cr>", "disconnect" },
-    ["<leader>Dg"] = { ":lua require'dap'.session()<cr>", "get session" },
-    ["<leader>Di"] = { ":lua require'dap'.step_into()<cr>", "step into" },
-    ["<leader>Dl"] = { ":lua require'dap'.repl.toggle()<cr>", "toggle repl" },
-    ["<leader>Do"] = { ":lua require'dap'.step_over()<cr>", "step over" },
-    ["<leader>Du"] = { ":lua require'dap'.step_out()<cr>", "step out" },
-    ["<leader>Dp"] = { ":lua require'dap'.pause()<cr>", "pause" },
-    ["<leader>Ds"] = { ":lua require'dap'.continue()<cr>", "start" },
-    ["<leader>Dq"] = { ":lua require'dap'.close()<cr>", "quit" },
+    ["<leader>Db"] = { ":lua require'dap'.step_back()<CR>", "step back" },
+    ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<CR>", "toggle breakpoint" },
+    ["<leader>Dc"] = { ":lua require'dap'.continue()<CR>", "continue" },
+    ["<leader>DD"] = { ":lua require'dapui'.toggle()<CR>", "Toggle UI" },
+    ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<CR>", "run to cursor" },
+    ["<leader>Dd"] = { ":lua require'dap'.disconnect()<CR>", "disconnect" },
+    ["<leader>Dg"] = { ":lua require'dap'.session()<CR>", "get session" },
+    ["<leader>Di"] = { ":lua require'dap'.step_into()<CR>", "step into" },
+    ["<leader>Dl"] = { ":lua require'dap'.repl.toggle()<CR>", "toggle repl" },
+    ["<leader>Do"] = { ":lua require'dap'.step_over()<CR>", "step over" },
+    ["<leader>Du"] = { ":lua require'dap'.step_out()<CR>", "step out" },
+    ["<leader>Dp"] = { ":lua require'dap'.pause()<CR>", "pause" },
+    ["<leader>Ds"] = { ":lua require'dap'.continue()<CR>", "start" },
+    ["<leader>Dq"] = { ":lua require'dap'.close()<CR>", "quit" },
   }
   wk.register(mappings)
 
@@ -196,10 +196,18 @@ M.dap = function()
   map("n", "<F10>", ":lua require'dap'.step_over()<CR>")
   map("n", "<F11>", ":lua require'dap'.step_into()<CR>")
   map("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
-  -- map("n", "",  ":lua require'dap'.pause()<cr>" )
+  -- map("n", "",  ":lua require'dap'.pause()<CR>" )
   map("n", "<F12>", ":lua require'dap'.run_last()<CR>")
   map("n", "<S-F12>", ":lua require'dap'.terminate()<CR>")
   -- map("n", "",     ":lua require'dap'.repl.toggle()<CR>")
+end
+
+M.formatter = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>lf"] = { ":Format<CR>", "Format current buffer" },
+  }
+  wk.register(mappings)
 end
 
 M.nvimtree = function()
@@ -215,9 +223,17 @@ end
 M.spectre = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>rr"] = { '<cmd>lua require("spectre").open()<cr>', "open" },
-    ["<leader>rw"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', "open with current word" },
-    ["<leader>rf"] = { 'viw:lua require("spectre").open_file_search()<cr>', "open file search" },
+    ["<leader>rr"] = { ':lua require("spectre").open()<CR>', "open" },
+    ["<leader>rw"] = { ':lua require("spectre").open_visual({select_word=true})<CR>', "open with current word" },
+    ["<leader>rf"] = { ':lua require("spectre").open_file_search()<CR>', "open file search" },
+  }
+  wk.register(mappings)
+end
+
+M.outline = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>lo"] = { ':Outline<CR>', "toggle outline" },
   }
   wk.register(mappings)
 end
@@ -225,8 +241,8 @@ end
 M.autosession = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>ss"] = { ":SessionSave<cr>", "save session" },
-    ["<leader>sl"] = { ":SessionRestore<cr>", "load session" },
+    ["<leader>ss"] = { ":SessionSave<CR>", "save session" },
+    ["<leader>sl"] = { ":SessionRestore<CR>", "load session" },
   }
   wk.register(mappings)
 end
@@ -234,8 +250,8 @@ end
 M.diffview = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>gd"] = { ":DiffviewOpen<cr>", "Git diff" },
-    ["<leader>gh"] = { ":DiffviewFileHistory %<cr>", "Show file history" },
+    ["<leader>gd"] = { ":DiffviewOpen<CR>", "Git diff" },
+    ["<leader>gh"] = { ":DiffviewFileHistory %<CR>", "Show file history" },
   }
   wk.register(mappings)
 end
@@ -253,10 +269,10 @@ end
 M.dadbod = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>xx"] = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
-    ["<leader>xf"] = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
-    ["<leader>xq"] = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
-    ["<leader>xr"] = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
+    ["<leader>xx"] = { "<Cmd>DBUIToggle<CR>", "Toggle UI" },
+    ["<leader>xf"] = { "<Cmd>DBUIFindBuffer<CR>", "Find buffer" },
+    ["<leader>xq"] = { "<Cmd>DBUILastQueryInfo<CR>", "Last query info" },
+    ["<leader>xr"] = { "<Cmd>DBUIRenameBuffer<CR>", "Rename buffer" },
   }
   wk.register(mappings)
 end
@@ -296,7 +312,7 @@ end
 M.iconpicker = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>fi"] = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<cr>", "Find Icon" },
+    ["<leader>fi"] = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<CR>", "Find Icon" },
   }
   wk.register(mappings)
 end
@@ -383,7 +399,7 @@ function M.nvim_spectre_keymap()
       desc = "toggle item",
     },
     ["enter_file"] = {
-      map = "<cr>",
+      map = "<CR>",
       cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
       desc = "open file",
     },

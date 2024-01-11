@@ -7,7 +7,7 @@ local plugins = {
   -- NOTE: themes
   {
     'catppuccin/nvim',
-    config = function() require('plugins.theme.catppuccin') end,
+    config = function() require('plugins.ui.catppuccin') end,
   }, -- lovely colorscheme
 
   -- NOTE: UI stuff
@@ -23,6 +23,16 @@ local plugins = {
     config = function() require("plugins.ui.bufferline") end,
     lazy = false,
   }, -- tabline
+  {
+    "folke/which-key.nvim",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require('core.mappings').load_mappings "whichkey"
+    end,
+    config = function() require('plugins.tools.which-key') end,
+    lazy = false
+  }, -- show keys
 
   -- NOTE: Appearence
   {
@@ -126,12 +136,13 @@ local plugins = {
   {
     'mfussenegger/nvim-lint',
     event = "VeryLazy",
-    config = function() require('plugins.completion.lint') end,
+    config = function() require('plugins.lsp.lint') end,
   }, -- Linter
   {
     'mhartington/formatter.nvim',
-    event = "VeryLazy",
-    config = function() require('plugins.completion.formatter') end,
+    init = function() require('core.mappings').load_mappings "formatter" end,
+    cmd = "FormatWrite",
+    config = function() require('plugins.lsp.formatter') end,
   }, -- Formatter
 
   -- NOTE: Debugger
@@ -150,7 +161,6 @@ local plugins = {
     },
   },     -- dap ui
 
-
   -- NOTE: Completion stuff
   {
     'hrsh7th/nvim-cmp',
@@ -158,7 +168,7 @@ local plugins = {
       {
         'L3MON4D3/LuaSnip',
         dependencies = { 'rafamadriz/friendly-snippets', },
-        config = function() require('plugins.completion.luasnip') end,
+        config = function() require('plugins.lsp.luasnip') end,
       },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
@@ -167,7 +177,7 @@ local plugins = {
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
     },
     event = { 'InsertEnter' },
-    config = function() require('plugins.completion.nvim-cmp') end,
+    config = function() require('plugins.lsp.nvim-cmp') end,
   }, -- autocompletion
 
 
@@ -192,6 +202,13 @@ local plugins = {
     init = function() require('core.mappings').load_mappings "spectre" end,
     config = function() require('plugins.sidebar.nvim-spectre') end,
   }, -- replacer
+  {
+    "hedyhli/outline.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    init = function() require('core.mappings').load_mappings "outline" end,
+    cmd = "Outline",
+    config = function() require("plugins.sidebar.outline") end,
+  }, -- outline
 
   -- NOTE: Tool stuff
   {
@@ -223,18 +240,8 @@ local plugins = {
     'voldikss/vim-floaterm',
     init = function() require('core.mappings').load_mappings "floaterm" end,
     cmd = { "FloatermNew", "FloatermToggle" },
-    config = function() require('plugins.tools.terminal') end,
+    config = function() require('plugins.tools.floaterm') end,
   }, -- floating terminal
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require('core.mappings').load_mappings "whichkey"
-    end,
-    config = function() require('plugins.tools.which-key') end
-  }, -- show keys
   {
     "kylechui/nvim-surround",
     event = "BufWinEnter",
@@ -258,14 +265,18 @@ local plugins = {
   --   config = function() require("plugins.tools.rest") end
   -- }, -- rest client
   {
-    "tpope/vim-dadbod",
+    "tpope/vim-dadbod-ui",
     init = function() require("core.mappings").load_mappings "dadbod" end,
-    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
     -- event = "VeryLazy",
     dependencies = {
-      "kristijanhusak/vim-dadbod-ui",
-      "kristijanhusak/vim-dadbod-completion"
+      { "kristijanhusak/vim-dadbod", lazy = true},
+      {
+        "kristijanhusak/vim-dadbod-completion",
+        ft = { 'sql', 'mysql', 'plsql'},
+        lazy = true
+      },
     },
+    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
     config = function() require("plugins.tools.dadbod") end,
   },
   {
