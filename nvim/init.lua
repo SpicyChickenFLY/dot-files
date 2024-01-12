@@ -9,20 +9,15 @@ if not ok then
 end
 
 -- 加载基本键位配置
-require("core.mappings").load_mappings "general"
-
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+require("core.mappings").load "general"
 
 -- 安装lazy.nvim 编译组件字节流 并 下载安装插件
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   require("bootstrap").lazy(lazypath)
 end
 
--- 加载组件
+-- 加载组件管理器和组件
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
-
-require("core.mappings").load_mappings "lazy"
-
-vim.cmd('colorscheme catppuccin-latte')
-vim.cmd('colorscheme catppuccin-latte')
+require("core.mappings").load "lazy"

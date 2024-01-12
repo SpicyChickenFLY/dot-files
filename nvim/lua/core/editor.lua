@@ -5,7 +5,6 @@ local icons = require("core.icons")
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
 
-
 ---------------------------- Global ------------------------------
 local g = vim.g
 g.skip_ts_context_commentstring_module = true
@@ -79,8 +78,8 @@ opt.writebackup = false
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Perfomance
-opt.lazyredraw = true
 opt.redrawtime = 1500
+opt.timeout = true
 opt.timeoutlen = 400
 opt.ttimeoutlen = 10
 opt.updatetime = 250
@@ -99,7 +98,5 @@ local autocmd = vim.api.nvim_create_autocmd
 -- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
 autocmd({"BufRead","BufNewFile"}, {
   pattern = "*.i3.config",
-  callback = function ()
-    cmd([[set filetype=i3config]])
-  end
+  callback = function () cmd([[set filetype=i3config]]) end
 })

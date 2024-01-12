@@ -1,4 +1,5 @@
-local handler = function(virtText, lnum, endLnum, width, truncate) local newVirtText = {}
+local handler = function(virtText, lnum, endLnum, width, truncate)
+  local newVirtText = {}
   local suffix = (" ↙ %d "):format(endLnum - lnum)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
@@ -29,8 +30,6 @@ end
 require("ufo").setup({
   close_fold_kinds = {'imports', 'comment'},
   --[[ provider_selector = function(bufnr, filetype, buftype) ]]
-  provider_selector = function(_, _, _)
-    return { "lsp" }
-  end,
+  provider_selector = function(_, _, _) return { "lsp", "indent" } end,
   fold_virt_text_handler = handler
 })

@@ -43,7 +43,7 @@ local icons = {
   flame = "", test = "", perf = "󱫍",
 
   branch = "󰘬",
-  dotdotdot = "…",
+  ellipsis = "…",
   line_number = "",
   check = "",
   cross = "",

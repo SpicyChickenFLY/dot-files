@@ -1,11 +1,8 @@
 local map = require("core.utils").map
-
 local M = {}
 
-M.load_mappings = function(section)
-  vim.schedule(function()
-    M[section]()
-  end)
+M.load = function(section)
+  vim.schedule(function() M[section]() end)
 end
 
 M.general = function()

@@ -4,18 +4,12 @@ require("barbecue").setup({
   create_autocmd = true,
   include_buftypes = { "" },
   exclude_filetypes = { "toggleterm" },
-  truncation = {
-    enabled = true,
-    method = "keep_basename",
-  },
-  modifiers = {
-    dirname = ":~:.",
-    basename = "",
-  },
+  truncation = { enabled = true, method = "keep_basename", },
+  modifiers = { dirname = ":~:.", basename = "", },
   custom_section = function() return "" end,
   symbols = {
     modified = false,
-    ellipsis = "…",
+    ellipsis = icons.ellipsis,
     separator = ">",
   },
 

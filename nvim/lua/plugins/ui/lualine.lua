@@ -10,7 +10,8 @@ local function searchCount()
   local searchCurrent = search.current
   local searchTotal = search.total
   if searchCurrent > 0 and vim.v.hlsearch ~= 0 then
-    return vim.fn.getreg("/") .. " [" .. searchCurrent .. "/" .. searchTotal .. "]"
+    -- return vim.fn.getreg("/") .. " [" .. searchCurrent .. "/" .. searchTotal .. "]"
+    return " [" .. searchCurrent .. "/" .. searchTotal .. "]"
   else
     return ""
   end
@@ -82,7 +83,7 @@ require("lualine").setup({
         fmt = function(mode_str) return modeMap[mode_str] end,
       },
     },
-    lualine_b = { "branch" },
+    lualine_b = { { "branch", icon = '' } },
     lualine_c = {
       {
         "diagnostics" ,
@@ -93,10 +94,17 @@ require("lualine").setup({
           hint = icons.hint .. ' '
         }
       },
-      { searchCount }, },
+      { searchCount },
+      -- {
+      --   require("noice").api.statusline.mode.get,
+      --   cond = require("noice").api.statusline.mode.has,
+      -- }
+    },
     lualine_x = { { todoCount } },
-    -- lualine_x = {'b:gitsigns_blame_line'},
-    lualine_y = { "filetype", "encoding", "fileformat", fileSpace },
+    lualine_y = {
+      { "filetype", icon_only = true },
+      "encoding", "fileformat", fileSpace
+    },
     lualine_z = { "%l:%c", "progress" },
   },
   inactive_sections = {

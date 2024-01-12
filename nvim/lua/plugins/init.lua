@@ -2,15 +2,14 @@ local icons = require('core.icons')
 
 local plugins = {
   'nvim-lua/plenary.nvim',       -- basic algorithms
-  'nvim-tree/nvim-web-devicons', -- character icons
-
-  -- NOTE: themes
-  {
-    'catppuccin/nvim',
-    config = function() require('plugins.ui.catppuccin') end,
-  }, -- lovely colorscheme
+  { 'nvim-tree/nvim-web-devicons', lazy = true }, -- character icons
 
   -- NOTE: UI stuff
+  {
+    'catppuccin/nvim',
+    lazy = false,
+    config = function() require('plugins.ui.catppuccin') end,
+  }, -- lovely colorscheme
   {
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.ui.lualine') end,
@@ -19,19 +18,24 @@ local plugins = {
   {
     'akinsho/bufferline.nvim',
     version = "*",
-    init = function() require('core.mappings').load_mappings "bufferline" end,
+    init = function() require('core.mappings').load "bufferline" end,
     config = function() require("plugins.ui.bufferline") end,
     lazy = false,
   }, -- tabline
   {
     "folke/which-key.nvim",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require('core.mappings').load_mappings "whichkey"
-    end,
+    init = function() require('core.mappings').load "whichkey" end,
     config = function() require('plugins.tools.which-key') end,
     lazy = false
+  }, -- show keys
+  {
+    "folke/noice.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    event = "VeryLazy",
+    config = function() require('plugins.ui.noice') end,
   }, -- show keys
 
   -- NOTE: Appearence
@@ -62,7 +66,7 @@ local plugins = {
     'lewis6991/gitsigns.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = 'BufWinEnter',
-    init = function() require('core.mappings').load_mappings "gitsigns" end,
+    init = function() require('core.mappings').load "gitsigns" end,
     config = function() require('plugins.appearence.gitsigns') end,
   }, -- git column signs
   {
@@ -109,10 +113,10 @@ local plugins = {
     event = 'BufWinEnter',
   }, -- quick comment
 
-  -- NOTE: Language stuff
+  -- NOTE: LSP staff
   {
     "williamboman/mason.nvim",
-    init = function() require('core.mappings').load_mappings "mason" end,
+    init = function() require('core.mappings').load "mason" end,
     cmd = {
       "Mason",
       "MasonUpdate",
@@ -127,7 +131,7 @@ local plugins = {
     'neovim/nvim-lspconfig',
     init = function()
       require("core.utils").lazy_load "nvim-lspconfig"
-      require('core.mappings').load_mappings "lspconfig"
+      require('core.mappings').load "lspconfig"
     end,
     dependencies = { 'b0o/schemastore.nvim' },
     config = function() require('plugins.lsp.lspconfig') end,
@@ -140,28 +144,26 @@ local plugins = {
   }, -- Linter
   {
     'mhartington/formatter.nvim',
-    init = function() require('core.mappings').load_mappings "formatter" end,
+    init = function() require('core.mappings').load "formatter" end,
     cmd = "FormatWrite",
     config = function() require('plugins.lsp.formatter') end,
   }, -- Formatter
 
-  -- NOTE: Debugger
   {
     "rcarriga/nvim-dap-ui",
     dependencies = {
       {
         'mfussenegger/nvim-dap',
-        init = function() require('core.mappings').load_mappings "dap" end,
+        init = function() require('core.mappings').load "dap" end,
         config = function() require('plugins.lsp.nvim-dap') end,
-      }, -- dap client
+      }, -- DAP client
       {
         "theHamsta/nvim-dap-virtual-text",
         config = function() require("nvim-dap-virtual-text").setup({}) end,
-      }, -- dap virtual text
+      }, -- DAP virtual text
     },
-  },     -- dap ui
+  }, -- DAP ui
 
-  -- NOTE: Completion stuff
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -176,10 +178,9 @@ local plugins = {
       { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
     },
-    event = { 'InsertEnter' },
+    event = { 'InsertEnter', 'CmdlineEnter' },
     config = function() require('plugins.lsp.nvim-cmp') end,
   }, -- autocompletion
-
 
   -- NOTE: Sidebar
   {
@@ -193,19 +194,19 @@ local plugins = {
       'NvimTreeToggle',
     },
     event = 'VimEnter',
-    init = function() require('core.mappings').load_mappings "nvimtree" end,
+    init = function() require('core.mappings').load "nvimtree" end,
     config = function() require('plugins.sidebar.nvim-tree') end,
   }, -- file explorer
   {
     'windwp/nvim-spectre',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    init = function() require('core.mappings').load_mappings "spectre" end,
+    init = function() require('core.mappings').load "spectre" end,
     config = function() require('plugins.sidebar.nvim-spectre') end,
   }, -- replacer
   {
     "hedyhli/outline.nvim",
     dependencies = { "neovim/nvim-lspconfig" },
-    init = function() require('core.mappings').load_mappings "outline" end,
+    init = function() require('core.mappings').load "outline" end,
     cmd = "Outline",
     config = function() require("plugins.sidebar.outline") end,
   }, -- outline
@@ -213,7 +214,7 @@ local plugins = {
   -- NOTE: Tool stuff
   {
     "sindrets/diffview.nvim",
-    init = function() require('core.mappings').load_mappings "diffview" end,
+    init = function() require('core.mappings').load "diffview" end,
     cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory" },
     config = function() require("plugins.tools.diffview") end
   }, -- git diffview/mergetool
@@ -225,20 +226,20 @@ local plugins = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
       'xiyaowong/telescope-emoji.nvim',
     },
-    init = function() require('core.mappings').load_mappings "telescope" end,
+    init = function() require('core.mappings').load "telescope" end,
     cmd = "Telescope",
     config = function() require('plugins.tools.telescope') end,
   }, -- fuzzy finder
   {
     "ziontee113/icon-picker.nvim",
     dependencies = { 'stevearc/dressing.nvim' },
-    init = function() require('core.mappings').load_mappings "iconpicker" end,
+    init = function() require('core.mappings').load "iconpicker" end,
     cmd = "IconPickerNormal",
     config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
   },
   {
     'voldikss/vim-floaterm',
-    init = function() require('core.mappings').load_mappings "floaterm" end,
+    init = function() require('core.mappings').load "floaterm" end,
     cmd = { "FloatermNew", "FloatermToggle" },
     config = function() require('plugins.tools.floaterm') end,
   }, -- floating terminal
@@ -255,18 +256,18 @@ local plugins = {
   {
     'phaazon/hop.nvim',
     branch = 'v2',
-    init = function() require('core.mappings').load_mappings "hop" end,
+    init = function() require('core.mappings').load "hop" end,
     config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
   },
-  -- {
-  --   'rest-nvim/rest.nvim',
-  --   event = "VeryLazy",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function() require("plugins.tools.rest") end
-  -- }, -- rest client
+  {
+    'rest-nvim/rest.nvim',
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "",
+    config = function() require("plugins.tools.rest") end
+  }, -- rest client
   {
     "kristijanhusak/vim-dadbod-ui",
-    init = function() require("core.mappings").load_mappings "dadbod" end,
+    init = function() require("core.mappings").load "dadbod" end,
     -- event = "VeryLazy",
     dependencies = {
       { "tpope/vim-dadbod", lazy = true},
@@ -281,7 +282,7 @@ local plugins = {
   },
   {
     'rmagatti/auto-session',
-    init = function() require('core.mappings').load_mappings "autosession" end,
+    init = function() require('core.mappings').load "autosession" end,
     cmd = {
       "SessionSave",
       "SessionRestore",
@@ -296,10 +297,7 @@ local plugins = {
 local config = {
   defaults = { lazy = true },
   install = { colorscheme = { "nvchad" } },
-
-  ui = {
-    icons = icons.lazy,
-  },
+  ui = { icons = icons.lazy },
 
   performance = {
     rtp = {
