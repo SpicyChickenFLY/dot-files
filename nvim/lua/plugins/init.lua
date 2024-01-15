@@ -36,7 +36,7 @@ local plugins = {
     },
     event = "VeryLazy",
     config = function() require('plugins.ui.noice') end,
-  }, -- show keys
+  }, -- popup uis
 
   -- NOTE: Appearence
   {
@@ -177,6 +177,7 @@ local plugins = {
       { 'hrsh7th/cmp-nvim-lsp',     after = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-cmdline',         after = 'nvim-cmp' },
     },
     event = { 'InsertEnter', 'CmdlineEnter' },
     config = function() require('plugins.lsp.nvim-cmp') end,

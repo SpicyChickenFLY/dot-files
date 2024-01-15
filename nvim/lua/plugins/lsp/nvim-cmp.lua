@@ -2,12 +2,18 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 local icons = require('core.icons')
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local default_cmp_opts = {
   snippet = {
     expand = function(args) luasnip.lsp_expand(args.body) end,
   },
   completion = { completeopt = 'menu, menuone' },
-  mapping = cmp.mapping.preset.insert({
+  mapping = {
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-h>'] = cmp.mapping({
@@ -21,18 +27,19 @@ local default_cmp_opts = {
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
+      elseif has_words_before() then cmp.complete()
       else fallback()
       end
-    end, { 'i', 's', }
+    end, { 'i', 'c', 's', }
     ),
     ['<C-k>'] = cmp.mapping(function(fallback)
       if cmp.visible() then cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then luasnip.jump(-1)
       else fallback()
       end
-    end, { 'i', 's', }
+    end, { 'i', 'c', 's', }
     ),
-  }),
+  },
   window = {
     completion = {
       -- border = 'rounded',
@@ -52,6 +59,7 @@ local default_cmp_opts = {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'nvim_lua' },
+    { name = 'cmdline' },
     { name = 'path' },
     { name = "vim-dadbod-completion" },
   }),
