@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name
 local opts = {
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI

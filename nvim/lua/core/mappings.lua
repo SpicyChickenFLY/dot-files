@@ -137,26 +137,28 @@ end
 M.lspconfig = function()
   local wk = require("which-key")
   local mappings = {
-    ["K"] = { function() vim.lsp.buf.hover() end, "show hover" },
+    ["K"] = { vim.lsp.buf.hover, "show hover" },
 
-    ["gd"] = { function() vim.lsp.buf.definition() end, "goto definition" },
-    ["gD"] = { function() vim.lsp.buf.declaration() end, "goto declaration" },
-    ["gt"] = { function() vim.lsp.buf.type_definition() end, "goto definition type", },
-    ["gr"] = { function() vim.lsp.buf.references() end, "goto references" },
-    ["gi"] = { function() vim.lsp.buf.implementation() end, "goto implementation" },
-    ["gs"] = { function() vim.lsp.buf.document_symbol() end, "show document symbol "},
-    ["gh"] = { function() vim.lsp.buf.signature_help() end, "show signature help" },
+    ["gd"] = { vim.lsp.buf.definition, "goto definition" },
+    ["gD"] = { vim.lsp.buf.declaration, "goto declaration" },
+    ["gt"] = { vim.lsp.buf.type_definition, "goto definition type", },
+    ["gr"] = { vim.lsp.buf.references, "goto references" },
+    ["gi"] = { vim.lsp.buf.implementation, "goto implementation" },
+    ["gs"] = { vim.lsp.buf.document_symbol, "show document symbol "},
+    ["gh"] = { vim.lsp.buf.signature_help, "show signature help" },
 
 
-    ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "code action" },
-    -- ["<leader>lf"] = { function() vim.lsp.buf.format { async = true } end, "formatting" },
+    ["<leader>la"] = { vim.lsp.buf.code_action, "code action" },
+    -- ["<leader>lf"] = { vim.lsp.buf.format { async = true } end, "formatting" },
     ["<leader>ll"] = { ":LspLog<CR>", "Lsp server log" },
     ["<leader>li"] = { ":LspInfo<CR>", "Lsp server Info" },
-    ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "rename" },
-    ["<leader>ldq"] = { function() vim.diagnostic.setloclist() end, "Diagnostic setloclist", },
+    ["<leader>lr"] = { vim.lsp.buf.rename, "rename" },
 
-    ["<leader>lwa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder" },
-    ["<leader>lwr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "Remove workspace folder" },
+    ["<leader>ldf"] = { vim.diagnostic.open_float, "Diagnostic setloclist", },
+    ["<leader>ldq"] = { vim.diagnostic.setloclist, "Diagnostic setloclist", },
+
+    ["<leader>lwa"] = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
+    ["<leader>lwr"] = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
     ["<leader>lwl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List workspace folders" },
 
     ["[d"] = { function() vim.diagnostic.goto_prev { float = { border = "rounded" } } end, "Goto prev" },
@@ -314,16 +316,25 @@ M.iconpicker = function()
   wk.register(mappings)
 end
 
+M.trouble = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List"},
+  }
+  wk.register(mappings)
+end
+
 M.whichkey = function()
   local wk = require("which-key")
   local leader_mapping = {
     b = { name = "Buffer", },
     D = { name = "Debug Tool" },
     e = { name = "File Explorer", },
-    f = { name = "Find",
-    },
+    f = { name = "Find", },
     g = { name = "Git", },
-    l = { name = "LSP" },
+    l = { name = "LSP",
+      d = { name = "Diagnostic" },
+    },
     p = { name = "Plugin(Lazy)" },
     r = { name = "Replacer" },
     s = { name = "Session" },

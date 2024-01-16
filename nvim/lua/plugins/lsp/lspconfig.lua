@@ -35,26 +35,51 @@ end
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- 允许使用LSP内置的Formatter
-  client.server_capabilities.documentFormattingProvider = true
-  client.server_capabilities.documentRangeFormattingProvider = true
+  -- client.server_capabilities.documentFormattingProvider = true
+  -- client.server_capabilities.documentRangeFormattingProvider = true
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     vim.api.nvim_create_autocmd("CursorHold", {
-        buffer = bufnr,
-        callback = function()
-            local opts = {
-                focusable = false,
-                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "rounded",
-                source = "always",
-                prefix = " ",
-                scope = "cursor",
-            }
-            vim.diagnostic.open_float(nil, opts)
-        end,
+      buffer = bufnr,
+      callback = function()
+        local opts = {
+          focusable = false,
+          close_events = {
+              "BufLeave",
+              "BufHidden",
+              "CursorMoved",
+              "CursorMovedI",
+              "InsertEnter",
+              "FocusLost",
+              "WinLeave",
+          },
+          border = "rounded",
+          source = "always",
+          prefix = " ",
+          scope = "cursor",
+        }
+        vim.diagnostic.open_float(nil, opts)
+      end,
     })
+
+    if client.server_capabilities.documentHighlightProvider then
+      vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+      vim.api.nvim_create_autocmd("CursorHold", {
+          callback = vim.lsp.buf.document_highlight,
+          buffer = bufnr,
+          group = "lsp_document_highlight",
+          desc = "Document Highlight",
+      })
+      vim.api.nvim_create_autocmd("CursorMoved", {
+          callback = vim.lsp.buf.clear_references,
+          buffer = bufnr,
+          group = "lsp_document_highlight",
+          desc = "Clear All the References",
+      })
+    end
 end
 
 -- go lsp

@@ -1,6 +1,6 @@
 local icons = require("core.icons")
 
-local function fileSpace()
+local function indentCount()
   local indicator = vim.o.expandtab and "S:" or "T:"
   return indicator .. vim.o.tabstop
 end
@@ -15,6 +15,15 @@ local function searchCount()
   else
     return ""
   end
+end
+
+local function visualCount()
+  local isVisualMode = vim.fn.mode():find("[Vv]")
+  if not isVisualMode then return '' end
+  local startPos = vim.fn.line('v')
+  local endPos = vim.fn.line('.')
+  local lines = startPos <= endPos and endPos - startPos + 1 or startPos - endPos
+  return "(" .. tostring(lines) .. ":" .. tostring(vim.fn.wordcount().visual_chars) .. ")"
 end
 
 local todoCommentMap = {
@@ -95,6 +104,7 @@ require("lualine").setup({
         }
       },
       { searchCount },
+      { visualCount },
       -- {
       --   require("noice").api.statusline.mode.get,
       --   cond = require("noice").api.statusline.mode.has,
@@ -103,9 +113,9 @@ require("lualine").setup({
     lualine_x = { { todoCount } },
     lualine_y = {
       { "filetype", icon_only = true },
-      "encoding", "fileformat", fileSpace
+      "encoding", "fileformat", indentCount
     },
-    lualine_z = { "%l:%c", "progress" },
+    lualine_z = { "%l:%c" },
   },
   inactive_sections = {
     lualine_a = {},

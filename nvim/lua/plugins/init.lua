@@ -225,7 +225,7 @@ local plugins = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
-      'xiyaowong/telescope-emoji.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
     },
     init = function() require('core.mappings').load "telescope" end,
     cmd = "Telescope",
@@ -282,6 +282,24 @@ local plugins = {
     config = function() require("plugins.tools.dadbod") end,
   },
   {
+      "iamcco/markdown-preview.nvim",
+      init = function()
+        vim.cmd([[
+        function OpenMarkdownPreview (url)
+          execute "silent ! firefox --new-window --app=" .a:url
+        endfunction
+        ]])
+        vim.g.mkdp_browserfunc = 'OpenMarkdownPreview'
+      end,
+      cmd = {
+        "MarkdownPreviewToggle",
+        "MarkdownPreview",
+        "MarkdownPreviewStop"
+      },
+      ft = { "markdown" },
+      build = function() vim.fn["mkdp#util#install"]() end,
+  },
+  {
     'rmagatti/auto-session',
     init = function() require('core.mappings').load "autosession" end,
     cmd = {
@@ -292,7 +310,18 @@ local plugins = {
       "Autosession",
     },
     config = function() require('plugins.tools.auto-session') end,
-  } -- restore buffers
+  }, -- restore buffers
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    init = function() require('core.mappings').load "trouble" end,
+    cmd = {
+      "Trouble",
+      "TroubleClose",
+      "TroubleToggle",
+      "TroubleRefresh",
+    }
+  }
 }
 
 local config = {
