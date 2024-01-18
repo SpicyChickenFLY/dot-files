@@ -12,8 +12,8 @@ local d = ls.dynamic_node ]]
 -- Every unspecified option will be set to the default.
 ls.config.set_config({
   history = true,
-  -- Update more often, :h events for more info.
-  updateevents = 'TextChanged,TextChangedI',
+  update_events = 'TextChanged,TextChangedI',
+  delete_check_events = 'TextChanged',
   enable_autosnippets = true,
 })
 
