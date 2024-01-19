@@ -42,6 +42,32 @@ M.general = function()
   map("i", "<C-v>", "<ESC>pi")
 end
 
+M.whichkey = function()
+  local wk = require("which-key")
+  local leader_mapping = {
+    -- b = { name = "Buffer", },
+    D = { name = "Debug Tool" },
+    e = { name = "File Explorer" },
+    f = { name = "Find" },
+    g = { name = "Git" },
+    h = { name = "Hop" },
+    H = { name = "Http Tool" },
+    l = { name = "LSP",
+      d = { name = "Diagnostic" },
+      w = { name = "Workspace" },
+    },
+    p = { name = "Plugin(Lazy)" },
+    r = { name = "Replacer" },
+    s = { name = "Session" },
+    x = { name = "Database Tool" },
+  }
+
+  local visual_leader_mapping = { g = { name = "Git", } }
+
+  wk.register(leader_mapping, { prefix = "<leader>" })
+  wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
+end
+
 M.bufferline = function()
   local wk = require("which-key")
   local mappings = {
@@ -209,6 +235,18 @@ M.formatter = function()
   wk.register(mappings)
 end
 
+M.neotest = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>tt"] = { ":lua require'neotest'.run.run()<CR>", "Run last test" },
+    ["<leader>tf"] = { ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Run current file" },
+    ["<leader>td"] = { ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Run current dir" },
+    ["<leader>tr"] = { ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Run root dir" },
+    ["<leader>tD"] = { ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug last test" },
+  }
+  wk.register(mappings)
+end
+
 M.nvimtree = function()
   local wk = require("which-key")
   local mappings = {
@@ -293,11 +331,10 @@ end
 
 M.hop = function()
   local hop = require("hop")
-  local directions = require("hop.hint").HintDirection
-  map("n", "f", function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true }) end)
-  map("n", "F", function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end)
-  map("n", "t", function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end)
-  map("n", "T", function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end)
+  local hd = require("hop.hint").HintDirection
+  map("n", "H", function() hop.hint_words() end)
+  map("n", "f", function() hop.hint_char1({ direction = hd.AFTER_CURSOR, current_line_only = true }) end)
+  map("n", "F", function() hop.hint_char1({ direction = hd.BEFORE_CURSOR, current_line_only = true }) end)
 end
 
 M.mason = function()
@@ -322,30 +359,6 @@ M.trouble = function()
     ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List"},
   }
   wk.register(mappings)
-end
-
-M.whichkey = function()
-  local wk = require("which-key")
-  local leader_mapping = {
-    b = { name = "Buffer", },
-    D = { name = "Debug Tool" },
-    e = { name = "File Explorer", },
-    f = { name = "Find", },
-    g = { name = "Git", },
-    l = { name = "LSP",
-      d = { name = "Diagnostic" },
-    },
-    p = { name = "Plugin(Lazy)" },
-    r = { name = "Replacer" },
-    s = { name = "Session" },
-    H = { name = "Http Tool", },
-    x = { name = "Database Tool", },
-  }
-
-  local visual_leader_mapping = { g = { name = "Git", } }
-
-  wk.register(leader_mapping, { prefix = "<leader>" })
-  wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
 end
 
 function M.nvim_tree_keymap(bufnr)
