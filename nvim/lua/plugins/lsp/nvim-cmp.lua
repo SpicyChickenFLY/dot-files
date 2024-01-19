@@ -12,7 +12,8 @@ local default_cmp_opts = {
   snippet = {
     expand = function(args) luasnip.lsp_expand(args.body) end,
   },
-  completion = { completeopt = 'menu, menuone' },
+  preselect = 'none',
+  completion = { completeopt = 'menu, preview, menuone, noinsert' },
   mapping = {
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
