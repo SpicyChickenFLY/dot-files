@@ -148,7 +148,6 @@ local plugins = {
     cmd = "FormatWrite",
     config = function() require('plugins.lsp.formatter') end,
   }, -- Formatter
-
   {
     "rcarriga/nvim-dap-ui",
     dependencies = {
@@ -163,7 +162,6 @@ local plugins = {
       }, -- DAP virtual text
     },
   }, -- DAP ui
-
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -182,6 +180,21 @@ local plugins = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     config = function() require('plugins.lsp.nvim-cmp') end,
   }, -- autocompletion
+
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-neotest/neotest-python",
+  --     "nvim-neotest/neotest-plenary",
+  --     "nvim-neotest/neotest-go",
+  --     "antoinemadec/FixCursorHold.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   event = "VeryLazy",
+  --   init = function() require('core.mappings').load "neotest" end,
+  --   config = function() require('plugins.lsp.neotest') end,
+  -- }, -- unit test
 
   -- NOTE: Sidebar
   {
@@ -257,6 +270,7 @@ local plugins = {
   {
     'phaazon/hop.nvim',
     branch = 'v2',
+    cmd = { "HopWord", "HopPattern" },
     init = function() require('core.mappings').load "hop" end,
     config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
   },
