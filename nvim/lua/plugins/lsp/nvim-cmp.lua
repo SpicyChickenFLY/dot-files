@@ -60,7 +60,6 @@ local default_cmp_opts = {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'nvim_lua' },
-    { name = 'cmdline' },
     { name = 'path' },
     { name = "vim-dadbod-completion" },
   }),
