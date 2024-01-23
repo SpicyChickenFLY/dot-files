@@ -3,7 +3,7 @@ require('gitsigns').setup({
   signs = {
     add          = { hl = 'GitSignsAdd'   , text = '┃'},
     change       = { hl = 'GitSignsChange', text = '┋'},
-    delete       = { hl = 'GitSignsDelete', text = '▶'},
+    delete       = { hl = 'GitSignsDelete', text = ''},
     topdelete    = { hl = 'GitSignsDelete', text = ''},
     changedelete = { hl = 'GitSignsChange', text = '┋'},
     untracked    = { hl = 'GitSignsAdd'   , text = '┃'},
@@ -45,7 +45,7 @@ require('gitsigns').setup({
   },
 })
 
-vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg='#91b859' })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg='#1e66f5' })
-vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg='#e53935' })
+-- vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg='#91b859' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChange', { fg='#1e66f5' })
+-- vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg='#e53935' })
 
