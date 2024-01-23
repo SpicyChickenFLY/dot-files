@@ -1,5 +1,6 @@
 local defaults = {
     ensure_installed = {
+        "go", "java", "python",
         "markdown", "sql", "json",
         "scss", "css", "html", "http",
         "jsdoc", "javascript", "typescript", "tsx", "vue",
