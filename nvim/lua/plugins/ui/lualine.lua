@@ -1,5 +1,18 @@
 local icons = require("core.icons")
 
+local modeMap = {
+  ["NORMAL"] = " N ",
+  ["INSERT"] = " I ",
+  ["COMMAND"] = " C ",
+  ["REPLACE"] = " R ",
+  ["TERMINAL"] = " T ",
+  ["VISUAL"] = " V ",
+  ["V-LINE"] = "V-L",
+  ["V-BLOCK"] = "V-B",
+  ["SELECT"] = " S ",
+  ["S-LINE"] = "S-L",
+}
+
 local function indentCount()
   local indicator = vim.o.expandtab and "S:" or "T:"
   return indicator .. vim.o.tabstop
@@ -10,8 +23,7 @@ local function searchCount()
   local searchCurrent = search.current
   local searchTotal = search.total
   if searchCurrent > 0 and vim.v.hlsearch ~= 0 then
-    -- return vim.fn.getreg("/") .. " [" .. searchCurrent .. "/" .. searchTotal .. "]"
-    return " [" .. searchCurrent .. "/" .. searchTotal .. "]"
+    return " [" .. searchCurrent .. "/" .. searchTotal .. "]" -- use vim.fn.getreg("/") if need search content
   else
     return ""
   end
@@ -32,7 +44,6 @@ local todoCommentMap = {
   WARN = { icon = icons.warn, color = "warning" },
   PERF = { icon = icons.perf, color = "environment"},
   HACK = { icon = icons.flame, color = "warning" },
-  -- NOTE = { icon = icons.note, color = "hint" },
 }
 local todoCommentStat = {}
 local function todoCount()
@@ -60,18 +71,6 @@ local function todoCount()
   end
   return table.concat(out, ' ')
 end
-
-local modeMap = {}
-modeMap["NORMAL"] = " N "
-modeMap["INSERT"] = " I "
-modeMap["COMMAND"] = " C "
-modeMap["REPLACE"] = " R "
-modeMap["TERMINAL"] = " T "
-modeMap["VISUAL"] = " V "
-modeMap["V-LINE"] = "V-L"
-modeMap["V-BLOCK"] = "V-B"
-modeMap["SELECT"] = " S "
-modeMap["S-LINE"] = "S-L"
 
 require("lualine").setup({
   options = {
