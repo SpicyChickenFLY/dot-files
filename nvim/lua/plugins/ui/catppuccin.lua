@@ -34,6 +34,7 @@ require("catppuccin").setup({
         gitsigns = true,
         hop = true,
         mason = true,
+        neotest = true,
         noice = true,
         notify = true,
         nvimtree = true,

@@ -180,22 +180,18 @@ local plugins = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     config = function() require('plugins.lsp.nvim-cmp') end,
   }, -- autocompletion
-
-  -- {
-  --   "nvim-neotest/neotest",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-neotest/neotest-python",
-  --     "nvim-neotest/neotest-plenary",
-  --     "nvim-neotest/neotest-go",
-  --     "antoinemadec/FixCursorHold.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   event = "VeryLazy",
-  --   init = function() require('core.mappings').load "neotest" end,
-  --   config = function() require('plugins.lsp.neotest') end,
-  -- }, -- unit test
-
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-go",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    event = "VeryLazy",
+    init = function() require('core.mappings').load "neotest" end,
+    config = function() require('plugins.lsp.neotest') end,
+  }, -- unit test
   -- NOTE: Sidebar
   {
     'kyazdani42/nvim-tree.lua',

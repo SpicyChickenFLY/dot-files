@@ -238,11 +238,14 @@ end
 M.neotest = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>tt"] = { ":lua require'neotest'.run.run()<CR>", "Run last test" },
-    ["<leader>tf"] = { ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Run current file" },
-    ["<leader>td"] = { ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Run current dir" },
-    ["<leader>tr"] = { ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Run root dir" },
-    ["<leader>tD"] = { ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug last test" },
+    ["<leader>tt"] = { ":lua require('neotest').summary.open()<CR>", "open output panel" },
+    ["<leader>to"] = { ":lua require('neotest').output.open({ enter = true })<CR>", "open output" },
+    ["<leader>tO"] = { ":lua require('neotest').output_panel.open()<CR>", "open output panel" },
+    ["<leader>tr"] = { ":lua require'neotest'.run.run()<CR>", "Run nearest test" },
+    ["<leader>tf"] = { ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file" },
+    ["<leader>td"] = { ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir" },
+    ["<leader>tg"] = { ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir" },
+    ["<leader>tD"] = { ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test" },
   }
   wk.register(mappings)
 end

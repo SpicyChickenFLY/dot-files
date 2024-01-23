@@ -30,11 +30,11 @@ local icons = {
   close = "󰅖",
   dot = "●",
 
+  status = { pass = "", sync = "", sync_ignored = "", error = "", question = "", watch = ""},
+
   lazy = {
-    ft = "",
-    lazy = "󰂠 ",
-    loaded = "",
-    not_loaded = "",
+    ft = "", lazy = "󰂠 ",
+    loaded = "", not_loaded = "",
   },
 
   -- NOTE: level
@@ -45,8 +45,7 @@ local icons = {
   branch = "󰘬",
   ellipsis = "…",
   line_number = "",
-  check = "",
-  cross = "",
+  check = "", cross = "",
 
   empty_file = "", file = "", file1 = "", file2 = "",
 
