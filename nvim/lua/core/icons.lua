@@ -4,7 +4,7 @@ local icons = {
     tab = '  →',
     trail = '·',
     space = ' ',
-    lead = '·',
+    lead = ' ',
     extends = '»',
     precedes = '«',
     nbsp = '×',
@@ -38,8 +38,8 @@ local icons = {
   },
 
   -- NOTE: level
-  info = "", warn = "󰀪", error = "", hint = "",
-  information = "", trace = "✎", note = "", debug = "",
+  info = "", warn = "󰀪", error = "", hint = "",
+  information = "", trace = "✎", note = "", debug = "",
   flame = "", test = "", perf = "󱫍",
 
   branch = "󰘬",
