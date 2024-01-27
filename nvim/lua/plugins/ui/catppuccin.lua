@@ -10,9 +10,9 @@ require("catppuccin").setup({
     no_underline = false, -- Force no underline
     styles = {
         comments = { "italic" },
-        conditionals = { "italic" },
+        conditionals = {},
         loops = {},
-        functions = {},
+        functions = { "italic" },
         keywords = {},
         strings = {},
         variables = {},
