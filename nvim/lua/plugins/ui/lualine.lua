@@ -103,7 +103,6 @@ require("lualine").setup({
         }
       },
       { searchCount },
-      { visualCount },
       -- {
       --   require("noice").api.statusline.mode.get,
       --   cond = require("noice").api.statusline.mode.has,
@@ -114,7 +113,10 @@ require("lualine").setup({
       { "filetype", icon_only = true },
       "encoding", "fileformat", indentCount
     },
-    lualine_z = { "%l:%c" },
+    lualine_z = {
+      { "%l:%c" },
+      { visualCount },
+    },
   },
   inactive_sections = {
     lualine_a = {},
