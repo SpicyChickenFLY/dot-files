@@ -53,9 +53,9 @@ vim.diagnostic.config({
   float = { border = border },
   signs = false;
   severity_sort  = true,
-  virtual_text = false,
+  virtual_text = true,
   virtual_lines = false,
-  ["my/notify"] = {log_level = vim.log.levels.HINT}
+  -- ["my/notify"] = {log_level = vim.log.levels.HINT}
 })
 require("lspconfig.ui.windows").default_options = { border = border }
 
