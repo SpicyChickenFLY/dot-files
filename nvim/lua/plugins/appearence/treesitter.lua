@@ -1,3 +1,6 @@
+local enable_lang = { "scss", "css", "html", "http",
+                "jsdoc", "javascript", "typescript", "tsx", "vue" }
+
 local defaults = {
     ensure_installed = {
         "go", "java", "python",
@@ -8,9 +11,7 @@ local defaults = {
     highlight = {
         enable = true,
         disable = function(lang, buf) -- omit lang
-            local lang_table = { "scss", "css", "html", "http",
-                "jsdoc", "javascript", "typescript", "tsx", "vue" }
-            for _, parser in ipairs(lang_table) do
+            for _, parser in ipairs(enable_lang) do
                 if lang == parser then
                     return false
                 end
@@ -69,17 +70,23 @@ local defaults = {
     --         "RainbowViolet",
     --     },
     -- },
-    -- context_commentstring = {
-    --     enable = true,
-    --     disable = function(_, buf) -- omit lang
-    --         local max_filesize = 100 * 1024 -- 100KB
-    --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-    --         if ok and stats and stats.size > max_filesize then
-    --             return true
-    --         end
-    --     end,
-    --     enable_autocmd = false,
-    -- },
+    context_commentstring = {
+        enable = true,
+        disable = function(lang, buf) -- omit lang
+            for _, parser in ipairs(enable_lang) do
+                if lang == parser then
+                    return false
+                end
+            end
+
+            local max_filesize = 100 * 1024 -- 100KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                return true
+            end
+        end,
+        enable_autocmd = false,
+    },
 }
 
 require("nvim-treesitter.configs").setup(defaults)

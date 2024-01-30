@@ -101,7 +101,7 @@ local plugins = {
       -- 'theHamsta/crazy-node-movement',
       -- 'windwp/nvim-ts-autotag',
       -- 'HiPhish/nvim-ts-rainbow2',
-      -- 'JoosepAlviste/nvim-ts-context-commentstring',
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
     run = ':TSUpdate',
     event = 'BufWinEnter',
