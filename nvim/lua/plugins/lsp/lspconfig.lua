@@ -112,6 +112,12 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local on_sql_attach = function(client, bufnr)
+  require('sqls').on_attach(client, bufnr)
+  -- on_attach(client, bufnr)
+end
+
+
 -- go lsp
 -------------
 -- go install golang.org/x/tools/gopls@latest
@@ -243,6 +249,7 @@ require("lspconfig").bashls.setup({ on_attach = on_attach })
 -- XML
 require("lspconfig").lemminx.setup({ on_attach = on_attach })
 -- SQL
-require("lspconfig").sqlls.setup({ on_attach = on_attach })
+-- require("lspconfig").sqlls.setup({ on_attach = on_attach })
+require("lspconfig").sqls.setup({ on_attach = on_sql_attach })
 
 -- java lsp  NOTE: jdtls should be setup by nvim-jdtls

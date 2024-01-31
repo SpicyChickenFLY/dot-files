@@ -136,6 +136,7 @@ local plugins = {
     config = function() require('plugins.lsp.lspconfig') end,
   }, -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
+  { 'nanotee/sqls.nvim' }, -- SQL LSP
   {
     'mfussenegger/nvim-lint',
     event = "VeryLazy",
