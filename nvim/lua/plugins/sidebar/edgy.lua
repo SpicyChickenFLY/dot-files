@@ -28,6 +28,7 @@ local M = {
       end,
     },
     { ft = "spectre_panel", size = { height = 0.4 } },
+    { ft="sqls_output", size = { height = 0.4 } },
   },
   left = {
     -- Neo-tree filesystem always takes half the screen height
