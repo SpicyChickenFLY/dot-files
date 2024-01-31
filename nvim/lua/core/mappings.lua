@@ -113,7 +113,7 @@ M.telescope = function()
     ['<leader>fl'] = { ":Telescope live_grep<CR>", "Text" },
     ['<leader>fk'] = { ":Telescope keymaps<CR>", "Keymaps" },
     ["<leader>fo"] = { ":Telescope oldfiles<CR>", "Find oldfiles" },
-    ['<leader>fp'] = {
+    ['<leader>ft'] = {
       ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
       "Colorscheme with Preview",
       },
@@ -360,6 +360,14 @@ M.trouble = function()
   local wk = require("which-key")
   local mappings = {
     ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List"},
+  }
+  wk.register(mappings)
+end
+
+M.project = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader>fp"] = { ":Telescope projects<CR>", "Find Projects" },
   }
   wk.register(mappings)
 end

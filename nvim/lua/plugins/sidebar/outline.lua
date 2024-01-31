@@ -21,7 +21,7 @@ local opts = {
 
     -- Auto close the outline window if goto_location is triggered and not for
     -- peek_location
-    auto_close = false,
+    auto_close = true,
     -- Automatically scroll to the location in code when navigating outline window.
     auto_jump = false,
     -- boolean or integer for milliseconds duration to apply a temporary highlight
@@ -170,9 +170,9 @@ local opts = {
     rename_symbol = 'r',
     code_actions = 'a',
     -- These fold actions are collapsing tree nodes, not code folding
-    fold = 'h',
-    unfold = 'l',
-    fold_toggle = '<Tab>',
+    fold = {}, -- 'h'
+    unfold = {}, -- 'l'
+    fold_toggle = 'l', -- '<Tab>'
     -- Toggle folds for all nodes.
     -- If at least one node is folded, this action will fold all nodes.
     -- If all nodes are folded, this action will unfold all nodes.
@@ -183,8 +183,8 @@ local opts = {
     -- Move down/up by one line and peek_location immediately.
     -- You can also use outline_window.auto_jump=true to do this for any
     -- j/k/<down>/<up>.
-    down_and_jump = '<C-j>',
-    up_and_jump = '<C-k>',
+    down_and_jump = {}, -- '<C-j>'
+    up_and_jump = {}, -- '<C-k>'
   },
 
   providers = {

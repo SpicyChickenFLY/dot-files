@@ -17,7 +17,6 @@ local plugins = {
   }, -- statusline
   {
     'akinsho/bufferline.nvim',
-    version = "*",
     init = function() require('core.mappings').load "bufferline" end,
     config = function() require("plugins.ui.bufferline") end,
     lazy = false,
@@ -56,8 +55,6 @@ local plugins = {
   }, -- guess what indent should be like
   {
     'lukas-reineke/indent-blankline.nvim',
-    -- init = function() require("core.utils").lazy_load "ibl" end,
-    version = "*",
     main = "ibl",
     event = 'BufWinEnter',
     config = function() require('plugins.appearence.indent-blankline') end,
@@ -70,13 +67,15 @@ local plugins = {
     config = function() require('plugins.appearence.gitsigns') end,
   }, -- git column signs
   {
+    "luukvbaal/statuscol.nvim",
+    event = 'BufWinEnter',
+    config = function() require('plugins.appearence.statuscol') end,
+  }, -- status line
+  {
     'kevinhwang91/nvim-ufo',
     dependencies = {
       'kevinhwang91/promise-async',
-      {
-        "luukvbaal/statuscol.nvim",
-        config = function() require('plugins.appearence.statuscol') end,
-      }
+      "luukvbaal/statuscol.nvim",
     },
     event = 'BufWinEnter',
     config = function() require('plugins.appearence.nvim-ufo') end,
@@ -106,7 +105,7 @@ local plugins = {
     run = ':TSUpdate',
     event = 'BufWinEnter',
     config = function() require('plugins.appearence.treesitter') end,
-  },
+  }, -- tree sitter
   {
     'numToStr/Comment.nvim',
     config = function() require('Comment').setup() end,
@@ -135,7 +134,7 @@ local plugins = {
     end,
     dependencies = { 'b0o/schemastore.nvim' },
     config = function() require('plugins.lsp.lspconfig') end,
-  },                             -- LSP server configuration
+  }, -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
   {
     'mfussenegger/nvim-lint',
@@ -194,6 +193,12 @@ local plugins = {
   }, -- unit test
   -- NOTE: Sidebar
   {
+    "folke/edgy.nvim",
+    -- init = function() require('core.mappings').load "edge" end,
+    opts = require('plugins.sidebar.edgy'),
+    event = "VeryLazy"
+  }, -- integrate all sidebar tool in one layout
+  {
     'kyazdani42/nvim-tree.lua',
     cmd = {
       'NvimTreeClipboard',
@@ -246,7 +251,7 @@ local plugins = {
     init = function() require('core.mappings').load "iconpicker" end,
     cmd = "IconPickerNormal",
     config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
-  },
+  }, -- icon picker
   {
     'voldikss/vim-floaterm',
     init = function() require('core.mappings').load "floaterm" end,
@@ -257,19 +262,19 @@ local plugins = {
     "kylechui/nvim-surround",
     event = "BufWinEnter",
     config = function() require("nvim-surround").setup({}) end,
-  },
+  }, -- surround signs
   {
     "windwp/nvim-autopairs",
     event = "BufWinEnter",
     config = function() require("nvim-autopairs").setup {} end
-  },
+  }, -- auto pair
   {
     'phaazon/hop.nvim',
     branch = 'v2',
     cmd = { "HopWord", "HopPattern" },
     init = function() require('core.mappings').load "hop" end,
     config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
-  },
+  }, -- hop to anywhere
   {
     'rest-nvim/rest.nvim',
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -290,7 +295,7 @@ local plugins = {
     },
     cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
     config = function() require("plugins.tools.dadbod") end,
-  },
+  }, -- database client
   {
       "iamcco/markdown-preview.nvim",
       init = function()
@@ -308,7 +313,7 @@ local plugins = {
       },
       ft = { "markdown" },
       build = function() vim.fn["mkdp#util#install"]() end,
-  },
+  }, -- markdown preview
   {
     'rmagatti/auto-session',
     init = function() require('core.mappings').load "autosession" end,
@@ -331,7 +336,16 @@ local plugins = {
       "TroubleToggle",
       "TroubleRefresh",
     }
-  }
+  }, -- list all diagnositic && todos
+  {
+    "ahmedkhalf/project.nvim",
+    init = function() require('core.mappings').load "project" end,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    event = "VeryLazy",
+    config = function() require('plugins.tools.project') end,
+  }, -- project manager
 }
 
 local config = {
