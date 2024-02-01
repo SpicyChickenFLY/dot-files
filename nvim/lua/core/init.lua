@@ -18,6 +18,7 @@ local opt = vim.opt
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.encoding = 'utf-8'
+opt.fileencodings = 'utf-8,ucs-bom,gbk,cp936,gb2312,gb18030'
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
 opt.backspace = { 'eol', 'start', 'indent' }
 opt.shortmess:append "sI" -- 禁用开头介绍
