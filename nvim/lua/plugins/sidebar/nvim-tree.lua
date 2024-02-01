@@ -57,7 +57,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
       icons = {
         corner = icons.border.corner,
         edge = icons.border.long_sep,
-        item = icons.border.long_sep,
+        item = icons.border.middle,
         bottom = icons.border.bottom,
         none = " ",
       },
@@ -72,7 +72,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
         file = true,
         folder = true,
         folder_arrow = true,
-        git = true,
+        git = false,
         modified = false,
       },
       glyphs = {
@@ -84,7 +84,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
         git = icons.git,
       },
     },
-    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+    -- special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
     symlink_destination = true,
   },
   hijack_directories = {
