@@ -15,7 +15,7 @@ local icons = {
     arrow_left_filled = "", arrow_right_filled = "",
     arrow_left = "",
     arrow_right = "",
-    sep = "|", long_sep = "│", corner = "└", bottom = "─",
+    sep = "|", long_sep = "│", corner = "└", bottom = "─", middle = '├',
   },
 
   left = "", right = "",

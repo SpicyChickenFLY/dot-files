@@ -1,22 +1,104 @@
--- -- [[ 禁用vim的一些内置插件 ]]
--- local disabled_built_ins = {
---   'netrw', 'netrwPlugin', 'netrwSettings', 'netrwFileHandlers', -- builtin file explorer
---   'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', -- edit compressed files
---   'getscript', 'getscriptPlugin',
---   'vimball', 'vimballPlugin', -- create and unpack .vba files
---   '2html_plugin', 'tohtml', -- convert a file with highlight to html
---   'logipat', -- operators on pattern
---   'rrhelper', -- remote wait editing
---   'spellfile_plugin', -- downlload spell file
---   'matchit', -- highlight
---   'tutor', 'rplugin', 'syntax', 'synmenu', 'optwin', 'compiler', 'bugreport',
--- }
--- for _, plugin in pairs(disabled_built_ins) do
---   vim.g['loaded_' .. plugin] = 1
--- end
-
 -- [[ 加载编辑器基本参数配置 ]]
-local ok, err = pcall(require, 'core.editor')
-if not ok then
-  error(('Error loading core...\n%s'):format(err))
-end
+--
+local icons = require("core.icons")
+
+---------------------------- Path ------------------------------
+-- add binaries installed by mason.nvim to path
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
+
+---------------------------- Global ------------------------------
+local g = vim.g
+g.skip_ts_context_commentstring_module = true
+g.mapleader = ' '
+
+---------------------------- Options ------------------------------
+local opt = vim.opt
+-- Misc
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
+opt.encoding = 'utf-8'
+opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
+opt.backspace = { 'eol', 'start', 'indent' }
+opt.shortmess:append "sI" -- 禁用开头介绍
+
+-- UI
+opt.background = 'light'
+opt.termguicolors = true
+opt.syntax = 'disable'
+-- opt.showmode = false
+opt.laststatus = 3 -- global statusline
+opt.cursorline = true
+opt.list = true
+opt.listchars = icons.listchars
+opt.signcolumn = "yes"
+opt.scrolloff = 5 -- 当游标离上下N行时滚动
+opt.sidescrolloff = 5 -- 当游标离左右N列时滚动
+opt.wrap = true -- 开启折行显示
+opt.whichwrap:append "<>[]hl" -- 允许hl移动换行
+
+-- Numbers
+opt.number = true
+opt.numberwidth = 2
+opt.relativenumber = false
+opt.ruler = false
+
+-- Spliting
+opt.splitkeep = "screen"
+opt.splitbelow = false -- Open new split below
+opt.splitright = false -- Open new split to the right
+
+-- Indenting
+local indent = 4
+opt.autoindent = true -- 开启自动缩进
+opt.smartindent = true -- 开启智能缩进,首先需要开启自动缩进
+opt.shiftwidth = indent -- 自动缩进长度
+opt.tabstop = indent -- 只修改制表符的显示宽度
+opt.softtabstop = indent -- 按Tab键的行为, 行为跟tabstop有关
+opt.expandtab = true -- 按Tab键替换成空格。数目跟tabstop有关
+
+-- Searching
+opt.hlsearch = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.wildignore = opt.wildignore + { '*/node_modules/*', '*/.git/*', '*/vendor/*' }
+opt.wildmenu = true
+
+-- Folding
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
+opt.foldcolumn = '1' -- '0' is not bad
+opt.foldlevel = 99 -- Using ufo provider need a large value
+opt.foldlevelstart = 99
+opt.foldenable = true
+
+-- Backups
+opt.backup = false
+opt.swapfile = false
+opt.writebackup = false
+
+-- Autocomplete
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+-- Perfomance
+opt.redrawtime = 1500
+opt.timeout = true
+opt.timeoutlen = 400
+opt.ttimeoutlen = 10
+opt.updatetime = 250
+opt.undofile = true
+
+-- theme
+opt.termguicolors = true
+opt.background = 'light'
+
+---------------------------- Commands ------------------------------
+local cmd = vim.cmd
+cmd([[filetype plugin indent on]])
+
+---------------------------- AutoCommands ------------------------------
+local autocmd = vim.api.nvim_create_autocmd
+-- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
+autocmd({"BufRead","BufNewFile"}, {
+  pattern = "*.i3.config",
+  callback = function () cmd([[set filetype=i3config]]) end
+})

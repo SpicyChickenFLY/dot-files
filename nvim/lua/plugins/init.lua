@@ -357,6 +357,7 @@ local config = {
 
   performance = {
     rtp = {
+      -- [[ 禁用vim的一些内置插件 ]]
       disabled_plugins = {
         'netrw', 'netrwPlugin', 'netrwSettings', 'netrwFileHandlers', -- builtin file explorer
         'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin',               -- edit compressed files
