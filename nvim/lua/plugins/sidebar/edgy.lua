@@ -9,14 +9,6 @@ local M = {
         return vim.api.nvim_win_get_config(win).relative == ""
       end,
     },
-    {
-      ft = "lazyterm",
-      title = "LazyTerm",
-      size = { height = 0.4 },
-      filter = function(buf)
-        return not vim.b[buf].lazyterm_cmd
-      end,
-    },
     "Trouble",
     { ft = "qf", title = "QuickFix" },
     {
@@ -29,6 +21,7 @@ local M = {
     },
     { ft = "spectre_panel", size = { height = 0.4 } },
     { ft="sqls_output", size = { height = 0.4 } },
+    -- { ft="noice", size = { height = 0.4 } },
   },
   left = {
     -- Neo-tree filesystem always takes half the screen height

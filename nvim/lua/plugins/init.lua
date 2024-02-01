@@ -29,6 +29,7 @@ local plugins = {
   }, -- show keys
   {
     "folke/noice.nvim",
+    init = function() require('core.mappings').load "noice" end,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -282,21 +283,21 @@ local plugins = {
     cmd = "",
     config = function() require("plugins.tools.rest") end
   }, -- rest client
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    init = function() require("core.mappings").load "dadbod" end,
-    -- event = "VeryLazy",
-    dependencies = {
-      { "tpope/vim-dadbod", lazy = true},
-      {
-        "kristijanhusak/vim-dadbod-completion",
-        ft = { 'sql', 'mysql', 'plsql'},
-        lazy = true
-      },
-    },
-    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
-    config = function() require("plugins.tools.dadbod") end,
-  }, -- database client
+  -- {
+  --   "kristijanhusak/vim-dadbod-ui",
+  --   init = function() require("core.mappings").load "dadbod" end,
+  --   -- event = "VeryLazy",
+  --   dependencies = {
+  --     { "tpope/vim-dadbod", lazy = true},
+  --     {
+  --       "kristijanhusak/vim-dadbod-completion",
+  --       ft = { 'sql', 'mysql', 'plsql'},
+  --       lazy = true
+  --     },
+  --   },
+  --   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
+  --   config = function() require("plugins.tools.dadbod") end,
+  -- }, -- database client
   {
       "iamcco/markdown-preview.nvim",
       init = function()

@@ -207,10 +207,10 @@ local opts = {
       opts = { skip = true },
       filter = { event = "msg_show", kind = "search_count" }
     },
-    -- {
-    --   opts = { view = "split" },
-    --   filter = { event = "sqls_error" }
-    -- },
+    {
+      view = "messages",
+      filter = { find = "sqls: Error" }
+    },
   }, --- @see section on routes
   ---@type table<string, NoiceFilter>
   status = {}, --- @see section on statusline components

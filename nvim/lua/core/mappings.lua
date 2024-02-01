@@ -193,6 +193,19 @@ M.lspconfig = function()
   wk.register(mappings)
 end
 
+M.sqls = function()
+  local wk = require("which-key")
+  local normal_mappings = {
+    ["<leader>x"] = { ":SqlsExecuteQuery<CR>", "Execute query" },
+  }
+  local visual_mappings = {
+    ["<leader>x"] = { ":SqlsExecuteQuery<CR>", "Execute query" },
+    ["<leader>X"] = { ":SqlsExecuteQueryVertical<CR>", "Execute query in vertical" },
+  }
+  wk.register(normal_mappings )
+  wk.register(visual_mappings, { mode = "v" })
+end
+
 M.dap = function()
   local wk = require("which-key")
   local mappings = {
@@ -360,6 +373,15 @@ M.trouble = function()
   local wk = require("which-key")
   local mappings = {
     ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List"},
+  }
+  wk.register(mappings)
+end
+
+M.noice = function()
+  local wk = require("which-key")
+  local mappings = {
+    ["<leader><Esc>"] = { ":Noice dismiss<CR>", "Dismiss noice" },
+    ["<leader>fn"] = { ":Noice telescope<CR>", "Find noice" },
   }
   wk.register(mappings)
 end

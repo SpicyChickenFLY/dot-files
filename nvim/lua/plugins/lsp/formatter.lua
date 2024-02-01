@@ -11,11 +11,11 @@ require("formatter").setup {
   filetype = {
     lua = { require("formatter.filetypes.lua").stylua },
     sh = { require("formatter.filetypes.sh").shfmt },
-    sql = {
-      function ()
-        return { exe = "sqlfmt", args = { "-" }, stdin = true }
-      end
-    },
+    -- sql = {
+    --   function ()
+    --     return { exe = "sqlfmt", args = { "-" }, stdin = true }
+    --   end
+    -- },
     python = { require("formatter.filetypes.python").black },
     markdown = { require("formatter.filetypes.markdown").prettierd },
 

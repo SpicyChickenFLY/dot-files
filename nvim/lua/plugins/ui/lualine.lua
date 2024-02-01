@@ -103,10 +103,6 @@ require("lualine").setup({
         }
       },
       { searchCount },
-      -- {
-      --   require("noice").api.statusline.mode.get,
-      --   cond = require("noice").api.statusline.mode.has,
-      -- }
     },
     lualine_x = { { todoCount } },
     lualine_y = {
