@@ -103,6 +103,7 @@ require("lualine").setup({
         }
       },
       { searchCount },
+      { function() return vim.g.sqls_connection_choice .. ' / ' .. vim.g.sqls_database_choice end },
     },
     lualine_x = { { todoCount } },
     lualine_y = {

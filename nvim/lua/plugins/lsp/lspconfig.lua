@@ -113,8 +113,21 @@ local on_attach = function(client, bufnr)
 end
 
 local on_sql_attach = function(client, bufnr)
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'SqlsConnectionChoice',
+    callback = function(event)
+      -- 提取连接中的dsn信息
+      vim.g.sqls_connection_choice = event.data.choice
+    end,
+  })
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'SqlsDatabaseChoice',
+    callback = function(event)
+      vim.g.sqls_database_choice = event.data.choice
+    end,
+  })
   require('sqls').on_attach(client, bufnr)
-  -- on_attach(client, bufnr)
+  vim.cmd([[ SqlsSwitchConnection ]])
 end
 
 
