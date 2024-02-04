@@ -256,11 +256,11 @@ local plugins = {
     cmd = { "FloatermNew", "FloatermToggle" },
     config = function() require('plugins.tools.floaterm') end,
   }, -- floating terminal
-  {
-    "kylechui/nvim-surround",
-    event = "BufWinEnter",
-    config = function() require("nvim-surround").setup({}) end,
-  }, -- surround signs
+  -- {
+  --   "kylechui/nvim-surround",
+  --   event = "BufWinEnter",
+  --   config = function() require("nvim-surround").setup({}) end,
+  -- }, -- surround signs
   {
     "windwp/nvim-autopairs",
     event = "BufWinEnter",
