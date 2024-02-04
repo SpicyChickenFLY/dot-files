@@ -18,11 +18,6 @@ require("neotest").setup({
       experimental = { test_table = true, },
       args = { "-count=1", "-timeout=60s"  },
     }),
-    require("neotest-python")({
-      dap = { justMyCode = false },
-      args = { "--log-level", "DEBUG" },
-      is_test_file = function() end,
-    }),
   },
   benchmark = {
     enabled = true

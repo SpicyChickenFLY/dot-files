@@ -89,19 +89,16 @@ local plugins = {
   }, -- todo highlights
   {
     'NvChad/nvim-colorizer.lua',
-    init = function()
-      require("core.utils").lazy_load "nvim-colorizer.lua"
-    end,
     config = function() require('colorizer').setup({}) end,
   }, -- colorized hex codes
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
       -- 'nvim-treesitter/nvim-treesitter-textobjects',
       -- 'theHamsta/crazy-node-movement',
       -- 'windwp/nvim-ts-autotag',
       -- 'HiPhish/nvim-ts-rainbow2',
-      'JoosepAlviste/nvim-ts-context-commentstring',
     },
     run = ':TSUpdate',
     event = 'BufWinEnter',
@@ -185,7 +182,6 @@ local plugins = {
     "nvim-neotest/neotest",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
       "nvim-treesitter/nvim-treesitter",
     },
@@ -283,21 +279,6 @@ local plugins = {
     cmd = "",
     config = function() require("plugins.tools.rest") end
   }, -- rest client
-  -- {
-  --   "kristijanhusak/vim-dadbod-ui",
-  --   init = function() require("core.mappings").load "dadbod" end,
-  --   -- event = "VeryLazy",
-  --   dependencies = {
-  --     { "tpope/vim-dadbod", lazy = true},
-  --     {
-  --       "kristijanhusak/vim-dadbod-completion",
-  --       ft = { 'sql', 'mysql', 'plsql'},
-  --       lazy = true
-  --     },
-  --   },
-  --   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnetion", "DBUIFindBuffer" },
-  --   config = function() require("plugins.tools.dadbod") end,
-  -- }, -- database client
   {
       "iamcco/markdown-preview.nvim",
       init = function()
