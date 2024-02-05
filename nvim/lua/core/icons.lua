@@ -64,6 +64,12 @@ local icons = {
     symlink = "", symlink_open = "",
   },
 
+  db_icons = {
+    mysql = '',
+    postgresql = '',
+    sqlite = '',
+  },
+
   kind_icons = {
     Array = "󰅪", -- "",
     Boolean = "",

@@ -117,7 +117,21 @@ local on_sql_attach = function(client, bufnr)
     pattern = 'SqlsConnectionChoice',
     callback = function(event)
       -- 提取连接中的dsn信息
-      vim.g.sqls_connection_choice = event.data.choice
+      -- vim.g.sqls_connection_choice = event.data.choice
+      local results = vim.split(event.data.choice, ' ')
+      vim.g.sqls_driver_type = results[2]
+      vim.g.sqls_connection_choice = results[3]
+      local dsn = results[4]
+      if #results == 4 then dsn = results[4] end
+
+      local split = vim.split(dsn, "://")
+      split = vim.split(split[#split], '/')
+      vim.g.sqls_database_choice = split[#split]
+      if results[3] == '' then
+        table.remove(split)
+        vim.g.sqls_connection_choice = table.concat(split, '/')
+      end
+
     end,
   })
   vim.api.nvim_create_autocmd('User', {

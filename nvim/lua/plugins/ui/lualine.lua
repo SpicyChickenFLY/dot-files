@@ -29,6 +29,23 @@ local function searchCount()
   end
 end
 
+local function dbInfo()
+  local info = ""
+  -- 获取当前 buffer 的 LSP 客户端
+  local bufnr = vim.api.nvim_get_current_buf()
+  local buf_clients = vim.lsp.buf_get_clients(bufnr)
+  for _, buf_client in ipairs(buf_clients) do
+    if buf_client.name== 'sqls' then
+      info = icons.db_icons[vim.g.sqls_driver_type] or vim.g.sqls_driver_type
+      info = info .. ' ' .. vim.g.sqls_connection_choice
+      if vim.g.sqls_database_choice then
+        info = info .. ' 󰆼 ' .. vim.g.sqls_database_choice
+      end
+    end
+  end
+  return info
+end
+
 local function visualCount()
   local isVisualMode = vim.fn.mode():find("[Vv]")
   if not isVisualMode then return '' end
@@ -103,7 +120,7 @@ require("lualine").setup({
         }
       },
       { searchCount },
-      { function() return vim.g.sqls_connection_choice .. ' / ' .. vim.g.sqls_database_choice end },
+      { dbInfo },
     },
     lualine_x = { { todoCount } },
     lualine_y = {
