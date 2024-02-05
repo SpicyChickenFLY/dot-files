@@ -1,8 +1,8 @@
 local icons = require('core.icons')
 
 local plugins = {
-  'nvim-lua/plenary.nvim',       -- basic algorithms
-  { 'nvim-tree/nvim-web-devicons', lazy = true }, -- character icons
+  -- 'nvim-lua/plenary.nvim',       -- basic algorithms
+  -- 'nvim-tree/nvim-web-devicons', -- character icons
 
   -- NOTE: UI stuff
   {
@@ -189,6 +189,7 @@ local plugins = {
     init = function() require('core.mappings').load "neotest" end,
     config = function() require('plugins.lsp.neotest') end,
   }, -- unit test
+
   -- NOTE: Sidebar
   {
     "folke/edgy.nvim",
@@ -326,7 +327,7 @@ local plugins = {
     dependencies = {
       'nvim-telescope/telescope.nvim',
     },
-    event = "VeryLazy",
+    cmd = "Telescope project",
     config = function() require('plugins.tools.project') end,
   }, -- project manager
 }
