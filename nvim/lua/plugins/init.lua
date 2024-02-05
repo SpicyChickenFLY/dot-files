@@ -135,11 +135,11 @@ local plugins = {
   }, -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
   { 'nanotee/sqls.nvim' }, -- SQL LSP
-  {
-    'mfussenegger/nvim-lint',
-    event = "VeryLazy",
-    config = function() require('plugins.lsp.lint') end,
-  }, -- Linter
+  -- {
+  --   'mfussenegger/nvim-lint',
+  --   event = "VeryLazy",
+  --   config = function() require('plugins.lsp.lint') end,
+  -- }, -- Linter
   {
     'mhartington/formatter.nvim',
     init = function() require('core.mappings').load "formatter" end,
