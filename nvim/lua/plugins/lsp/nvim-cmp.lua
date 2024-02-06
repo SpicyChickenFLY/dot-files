@@ -61,7 +61,6 @@ local default_cmp_opts = {
     { name = 'buffer' },
     { name = 'nvim_lua' },
     { name = 'path' },
-    -- { name = "vim-dadbod-completion" },
   }),
   formatting = {
     fields = { "kind", "abbr", "menu" },

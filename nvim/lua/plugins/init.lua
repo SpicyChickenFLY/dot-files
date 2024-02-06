@@ -37,6 +37,27 @@ local plugins = {
 
   -- NOTE: Appearence
   {
+    "luukvbaal/statuscol.nvim",
+    event = 'BufWinEnter',
+    config = function() require('plugins.appearence.statuscol') end,
+  }, -- status line
+  {
+    'lewis6991/gitsigns.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'BufWinEnter',
+    init = function() require('core.mappings').load "gitsigns" end,
+    config = function() require('plugins.appearence.gitsigns') end,
+  }, -- git column signs
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async',
+      "luukvbaal/statuscol.nvim",
+    },
+    event = 'BufWinEnter',
+    config = function() require('plugins.appearence.nvim-ufo') end,
+  }, -- fold block
+  {
     "utilyre/barbecue.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- optional
@@ -57,27 +78,6 @@ local plugins = {
     event = 'BufWinEnter',
     config = function() require('plugins.appearence.indent-blankline') end,
   }, -- indent line
-  {
-    'lewis6991/gitsigns.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    event = 'BufWinEnter',
-    init = function() require('core.mappings').load "gitsigns" end,
-    config = function() require('plugins.appearence.gitsigns') end,
-  }, -- git column signs
-  {
-    "luukvbaal/statuscol.nvim",
-    event = 'BufWinEnter',
-    config = function() require('plugins.appearence.statuscol') end,
-  }, -- status line
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = {
-      'kevinhwang91/promise-async',
-      "luukvbaal/statuscol.nvim",
-    },
-    event = 'BufWinEnter',
-    config = function() require('plugins.appearence.nvim-ufo') end,
-  }, -- fold block
   {
     'folke/todo-comments.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
@@ -101,11 +101,6 @@ local plugins = {
     event = 'BufWinEnter',
     config = function() require('plugins.appearence.treesitter') end,
   }, -- tree sitter
-  {
-    'numToStr/Comment.nvim',
-    config = function() require('Comment').setup() end,
-    event = 'BufWinEnter',
-  }, -- quick comment
 
   -- NOTE: LSP staff
   {
@@ -223,6 +218,11 @@ local plugins = {
 
   -- NOTE: Tool stuff
   {
+    'numToStr/Comment.nvim',
+    event = 'BufWinEnter',
+    config = function() require('Comment').setup() end,
+  }, -- quick comment
+  {
     "sindrets/diffview.nvim",
     init = function() require('core.mappings').load "diffview" end,
     cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory" },
@@ -330,7 +330,7 @@ local plugins = {
 
 local config = {
   defaults = { lazy = true },
-  install = { colorscheme = { "nvchad" } },
+  -- install = { colorscheme = { "nvchad" } },
   ui = { icons = icons.lazy },
 
   performance = {
