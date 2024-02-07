@@ -42,7 +42,8 @@ for _, ls in ipairs(language_servers) do
 end
 
 require("ufo").setup({
-  close_fold_kinds = {'imports', 'comment'},
+  -- close_fold_kinds = {'imports', 'comment'},
+  close_fold_kinds = {'imports'},
   --[[ provider_selector = function(bufnr, filetype, buftype) ]]
   provider_selector = function(_, _, _) return { "lsp", "indent" } end,
   fold_virt_text_handler = handler
