@@ -45,7 +45,7 @@ end
 M.whichkey = function()
   local wk = require("which-key")
   local leader_category_mapping = {
-    -- b = { name = "Buffer", },
+    b = { name = "Buffer", },
     D = { name = "Debug Tool" },
     e = { name = "File Explorer" },
     f = { name = "Find" },

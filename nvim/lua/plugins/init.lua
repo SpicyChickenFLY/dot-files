@@ -329,9 +329,8 @@ local plugins = {
 }
 
 local config = {
-  defaults = { lazy = true },
-  -- install = { colorscheme = { "nvchad" } },
-  ui = { icons = icons.lazy },
+  defaults = { lazy = true, version = false },
+  install = { colorscheme = { "catppuccin-latte" } },
 
   performance = {
     rtp = {
