@@ -44,7 +44,7 @@ end
 
 M.whichkey = function()
   local wk = require("which-key")
-  local leader_mapping = {
+  local leader_category_mapping = {
     -- b = { name = "Buffer", },
     D = { name = "Debug Tool" },
     e = { name = "File Explorer" },
@@ -64,8 +64,9 @@ M.whichkey = function()
 
   local visual_leader_mapping = { g = { name = "Git", } }
 
-  wk.register(leader_mapping, { prefix = "<leader>" })
+  wk.register(leader_category_mapping, { prefix = "<leader>" })
   wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
+
 end
 
 M.bufferline = function()
