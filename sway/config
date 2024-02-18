@@ -26,7 +26,8 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term WAYLAND_DISPLAY=alacritty alacritty
+# set $term WAYLAND_DISPLAY=alacritty alacritty
+set $term alacritty
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu rofi --combi-modi drun-run -show combi --show-icons
 
