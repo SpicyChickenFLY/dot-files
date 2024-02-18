@@ -4,11 +4,12 @@ end
 
 -- 加载编辑器核心配置
 local ok , err = pcall(require, 'core')
-local core_err = 'Loading core failed:'
-assert(ok, core_err .. "\n" .. err)
+if not ok then
+  error('Loading core failed:' .. err)
+end
 
 -- 加载基本键位配置
-require("core.mappings").load "general"
+require("core.keymaps").load "general"
 
 -- 安装lazy.nvim 插件包管理器
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -25,4 +26,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
 
-require("core.mappings").load "lazy"
+require("core.keymaps").load "lazy"

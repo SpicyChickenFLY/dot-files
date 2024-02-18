@@ -1,4 +1,21 @@
-local map = require("core.utils").map
+-- Wrapper around vim.keymap.set that will
+-- not create a keymap if a lazy key handler exists.
+-- It will also set `silent` to true by default.
+local function map(mode, lhs, rhs, opts)
+  local modes = type(mode) == "string" and { mode } or mode
+
+  -- do not create the keymap if a lazy keys handler exists
+  if #modes > 0 then
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
+    if opts.remap and not vim.g.vscode then
+      ---@diagnostic disable-next-line: no-unknown
+      opts.remap = nil
+    end
+    vim.keymap.set(modes, lhs, rhs, opts)
+  end
+end
+
 local M = {}
 
 M.load = function(section)
@@ -6,27 +23,24 @@ M.load = function(section)
 end
 
 M.general = function()
-  map("n", "<ESC>", ":nohl<CR>")
-  -- Move around windows & split window
-  map("n", "<C-h>", "<C-w>h")
-  map("n", "<C-j>", "<C-w>j")
-  map("n", "<C-k>", "<C-w>k")
-  map("n", "<C-l>", "<C-w>l")
-  -- Resize window
-  map("n", "-", ":resize -2<CR>")
-  map("n", "=", ":resize +2<CR>")
-  map("n", "_", ":vertical resize -5<CR>")
-  map("n", "+", ":vertical resize +5<CR>")
+  -- Clear search with <esc>
+  map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+  -- Move to window using the <ctrl> hjkl keys
+  map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
+  map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
+  map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
+  map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
+  -- Resize window using <ctrl> arrow keys
+  map("n", "-", ":resize -2<cr>", { desc = "Decrease window height" })
+  map("n", "=", ":resize +2<cr>", { desc = "Increase window height" })
+  map("n", "_", ":vertical resize -2<cr>", { desc = "Decrease window width" })
+  map("n", "+", ":vertical resize +2<cr>", { desc = "Increase window width" })
   -- Buffer/Window operation
   map("n", "<leader>w", ":w<CR>", { desc = "Save current buffer" })
   map("n", "<leader>W", ":w !sudo tee %<CR>", { desc = "Save current buffer with super priv" })
   map("n", "<leader>d", ":bd<CR>", { desc = "Close current buffer" })
   map("n", "<leader>q", ":q<CR>", { desc = "Close current window" })
   map("n", "<leader>Q", ":qa<CR>", { desc = "Close all windows" })
-
-  -- Show the syntax highlight group under cursor
-  map("n", "gl", '<cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>')
-  map("n", "gL", '<cmd>Inspect!<CR>')
 
   -- Quick exit insert mode
   map("i", "jj", "<ESC>")
@@ -42,41 +56,9 @@ M.general = function()
   map("i", "<C-v>", "<ESC>pi")
 end
 
-M.whichkey = function()
-  local wk = require("which-key")
-  local leader_category_mapping = {
-    b = { name = "Buffer", },
-    D = { name = "Debug Tool" },
-    e = { name = "File Explorer" },
-    f = { name = "Find" },
-    g = { name = "Git" },
-    h = { name = "Hop" },
-    H = { name = "Http Tool" },
-    l = { name = "LSP",
-      d = { name = "Diagnostic" },
-      w = { name = "Workspace" },
-    },
-    p = { name = "Plugin(Lazy)" },
-    r = { name = "Replacer" },
-    s = { name = "Session" },
-    x = { name = "Database Tool" },
-  }
-
-  local visual_leader_mapping = { g = { name = "Git", } }
-
-  wk.register(leader_category_mapping, { prefix = "<leader>" })
-  wk.register(visual_leader_mapping, { prefix = "<leader>", mode = "v" })
-
-end
-
 M.bufferline = function()
-  local wk = require("which-key")
-  local mappings = {
-    ['<leader>bs'] = { name = "Sort Buffers" },
-    ['<leader>j'] = { ":BufferLineCyclePrev<CR>", "next buffer" },
-    ['<leader>k'] = { ":BufferLineCycleNext<CR>", "prev buffer" },
-  }
-  wk.register(mappings)
+  map("n", "H", ":BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
+  map("n", "L", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
 end
 
 M.lazy = function()
@@ -124,41 +106,6 @@ M.telescope = function()
     ["<leader>gg"] = { ":Telescope git_status<CR>", "Open changed file" },
   }
   wk.register(mappings)
-end
-
-M.gitsigns = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>gb"] = { ":lua require 'gitsigns'.blame_line()<CR>", "Blame" },
-    ["<leader>gs"] = { ":lua require 'gitsigns'.stage_hunk()<CR>", "Stage" },
-    ["<leader>gr"] = { ":lua require 'gitsigns'.reset_hunk()<CR>", "Reset" },
-    ["<leader>gp"] = { ":lua require 'gitsigns'.preview_hunk()<CR>", "Preview" },
-    ["]c"] = {
-      function()
-        if vim.wo.diff then return "]c" end
-        vim.schedule(function() require("gitsigns").next_hunk() end)
-        return "<Ignore>"
-      end,
-      "Jump to next hunk",
-      opts = { expr = true },
-    },
-
-    ["[c"] = {
-      function()
-        if vim.wo.diff then return "[c" end
-        vim.schedule(function() require("gitsigns").prev_hunk() end)
-        return "<Ignore>"
-      end,
-      "Jump to prev hunk",
-      opts = { expr = true },
-    },
-  }
-  wk.register(mappings)
-
-  local visual_mappings = {
-    s = { ":lua require 'gitsigns'.stage_hunk()<CR>", "Stage" },
-    r = { ":lua require 'gitsigns'.reset_hunk()<CR>", "Reset" },
-  }
 end
 
 M.lspconfig = function()
@@ -212,8 +159,7 @@ M.dap = function()
   local mappings = {
     ["<leader>Db"] = { ":lua require'dap'.step_back()<CR>", "step back" },
     ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<CR>", "toggle breakpoint" },
-    ["<leader>Dc"] = { ":lua require'dap'.continue()<CR>", "continue" },
-    ["<leader>DD"] = { ":lua require'dapui'.toggle()<CR>", "Toggle UI" },
+    ["<leader>Dc"] = { ":lua require'dap'.continue()<CR>", "continue" }, ["<leader>DD"] = { ":lua require'dapui'.toggle()<CR>", "Toggle UI" },
     ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<CR>", "run to cursor" },
     ["<leader>Dd"] = { ":lua require'dap'.disconnect()<CR>", "disconnect" },
     ["<leader>Dg"] = { ":lua require'dap'.session()<CR>", "get session" },
@@ -260,34 +206,6 @@ M.neotest = function()
     ["<leader>td"] = { ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir" },
     ["<leader>tg"] = { ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir" },
     ["<leader>tD"] = { ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test" },
-  }
-  wk.register(mappings)
-end
-
-M.nvimtree = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>ee"] = { ":NvimTreeFocus<CR>", "Open" },
-    ["<leader>ef"] = { ":NvimTreeFindFile<CR>", "Find File" },
-    ["<leader>er"] = { ":Ranger<CR>", "Open" },
-  }
-  wk.register(mappings)
-end
-
-M.spectre = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>rr"] = { ':lua require("spectre").open()<CR>', "open" },
-    ["<leader>rw"] = { ':lua require("spectre").open_visual({select_word=true})<CR>', "open with current word" },
-    ["<leader>rf"] = { ':lua require("spectre").open_file_search()<CR>', "open file search" },
-  }
-  wk.register(mappings)
-end
-
-M.outline = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>lo"] = { ':Outline<CR>', "toggle outline" },
   }
   wk.register(mappings)
 end
@@ -354,13 +272,6 @@ M.hop = function()
   map("n", "F", function() hop.hint_char1({ direction = hd.BEFORE_CURSOR, current_line_only = true }) end)
 end
 
-M.mason = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>lm"] = { ":Mason<CR>", "Open Manager(Mason)"},
-  }
-  wk.register(mappings)
-end
 
 M.iconpicker = function()
   local wk = require("which-key")
@@ -444,89 +355,6 @@ function M.nvim_tree_keymap(bufnr)
   _map("n", "y", _api.fs.copy.filename, _opts("Copy Name"))
   _map("n", "gy", _api.fs.copy.relative_path, _opts("Copy Relative Path"))
   _map("n", "gY", _api.fs.copy.absolute_path, _opts("Copy Absolute Path"))
-end
-
-function M.nvim_spectre_keymap()
-  local mapping = {
-    ["toggle_line"] = {
-      map = "dd",
-      cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
-      desc = "toggle item",
-    },
-    ["enter_file"] = {
-      map = "<CR>",
-      cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
-      desc = "open file",
-    },
-    ["send_to_qf"] = {
-      map = "<C-q>",
-      cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-      desc = "send all items to quickfix",
-    },
-    ["replace_cmd"] = {
-      map = "<leader>c",
-      cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
-      desc = "input replace command",
-    },
-    ["show_option_menu"] = {
-      map = "<leader>o",
-      cmd = "<cmd>lua require('spectre').show_options()<CR>",
-      desc = "show options",
-    },
-    ["run_current_replace"] = {
-      map = "<leader>r",
-      cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
-      desc = "replace item",
-    },
-    ["run_replace"] = {
-      map = "<leader>R",
-      cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
-      desc = "replace all",
-    },
-    -- only show replace text in result UI
-    ["change_view_mode"] = {
-      map = "<leader>v",
-      cmd = "<cmd>lua require('spectre').change_view()<CR>",
-      desc = "change result view mode",
-    },
-    ["change_replace_sed"] = {
-      map = "trs",
-      cmd = "<cmd>lua require('spectre').change_engine_replace('sed')<CR>",
-      desc = "use sed to replace",
-    },
-    ["change_replace_oxi"] = {
-      map = "tro",
-      cmd = "<cmd>lua require('spectre').change_engine_replace('oxi')<CR>",
-      desc = "use oxi to replace",
-    },
-    ["toggle_live_update"] = {
-      map = "tu",
-      cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
-      desc = "update when vim writes to file",
-    },
-    -- only work if the find_engine following have that option
-    ["toggle_ignore_case"] = {
-      map = "ti",
-      cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
-      desc = "toggle ignore case",
-    },
-    ["toggle_ignore_hidden"] = {
-      map = "th",
-      cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
-      desc = "toggle search hidden",
-    },
-    ["resume_last_search"] = {
-      map = "<leader>l",
-      cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
-      desc = "repeat last search",
-    },
-    ["select_template"] = {
-      map = "<leader>rp",
-      cmd = "<cmd>lua require('spectre.actions').select_template()<CR>",
-      desc = "pick template",
-    },
-  }
-  return mapping
 end
 
 return M

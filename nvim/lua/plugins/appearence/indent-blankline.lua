@@ -25,7 +25,6 @@
 -- end)
 
 -- require("ibl").setup {indent = { highlight = highlight, char = '│' } }
-require("ibl").setup { indent = { char = '│' } }
 
 -- vim.g.rainbow_delimiters = { highlight = highlight }
 -- require("ibl").setup({ scope = {
@@ -36,3 +35,15 @@ require("ibl").setup { indent = { char = '│' } }
 -- } })
 --
 -- hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
+return {
+  'lukas-reineke/indent-blankline.nvim',
+  main = "ibl",
+  event = 'BufWinEnter',
+  config = function()
+    require("ibl").setup {
+      indent = { char = '│' },
+      scope = { enabled = false },
+    }
+  end,
+}

@@ -1,157 +1,53 @@
-local icons = require('core.icons')
-
 local plugins = {
-  -- NOTE: UI stuff
-  {
-    'catppuccin/nvim',
-    lazy = false,
-    config = function() require('plugins.ui.catppuccin') end,
-  }, -- lovely colorscheme
-  {
-    'nvim-lualine/lualine.nvim',
-    config = function() require('plugins.ui.lualine') end,
-    lazy = false,
-  }, -- statusline
-  {
-    'akinsho/bufferline.nvim',
-    init = function() require('core.mappings').load "bufferline" end,
-    config = function() require("plugins.ui.bufferline") end,
-    lazy = false,
-  }, -- tabline
-  {
-    "folke/which-key.nvim",
-    init = function() require('core.mappings').load "whichkey" end,
-    config = function() require('plugins.tools.which-key') end,
-    lazy = false
-  }, -- show keys
-  {
-    "folke/noice.nvim",
-    init = function() require('core.mappings').load "noice" end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    event = "VeryLazy",
-    config = function() require('plugins.ui.noice') end,
-  }, -- popup uis
+  { "nvim-lua/plenary.nvim", lazy = true }, -- nvim algorithm library
+  { 'kevinhwang91/promise-async', lazy = true }, -- async promise support
 
-  -- NOTE: Appearence
-  {
-    "luukvbaal/statuscol.nvim",
+  -------------- UI stuff --------------
+  { "MunifTanjim/nui.nvim", lazy = true }, -- ui components library
+  { "stevearc/dressing.nvim", lazy = true }, -- beautiful vim.ui
+  { "nvim-tree/nvim-web-devicons", lazy = true }, -- icons for develop
+  { 'NvChad/nvim-colorizer.lua',
     event = 'BufWinEnter',
-    config = function() require('plugins.appearence.statuscol') end,
-  }, -- status line
-  {
-    'lewis6991/gitsigns.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    event = 'BufWinEnter',
-    init = function() require('core.mappings').load "gitsigns" end,
-    config = function() require('plugins.appearence.gitsigns') end,
-  }, -- git column signs
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = {
-      'kevinhwang91/promise-async',
-      "luukvbaal/statuscol.nvim",
-    },
-    event = 'BufWinEnter',
-    config = function() require('plugins.appearence.nvim-ufo') end,
-  }, -- fold block
-  {
-    "utilyre/barbecue.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons", -- optional
-      "neovim/nvim-lspconfig",
-      "smiteshp/nvim-navic",
-    },
-    event = 'BufWinEnter',
-    config = function() require("plugins.ui.barbecue") end,
-  }, -- breadcrumbs
-  {
-    'nmac427/guess-indent.nvim',
-    event = 'BufWinEnter',
-    config = function() require('guess-indent').setup {} end,
-  }, -- guess what indent should be like
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    event = 'BufWinEnter',
-    config = function() require('plugins.appearence.indent-blankline') end,
-  }, -- indent line
-  {
-    'folke/todo-comments.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = function() require('plugins.appearence.todo-comments') end,
-    event = 'BufWinEnter',
-  }, -- todo highlights
-  {
-    'NvChad/nvim-colorizer.lua',
     config = function() require('colorizer').setup({}) end,
-  }, -- colorized hex codes
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      -- 'nvim-treesitter/nvim-treesitter-textobjects',
-      -- 'theHamsta/crazy-node-movement',
-      -- 'windwp/nvim-ts-autotag',
-      -- 'HiPhish/nvim-ts-rainbow2',
-    },
-    run = ':TSUpdate',
-    event = 'BufWinEnter',
-    config = function() require('plugins.appearence.treesitter') end,
-  }, -- tree sitter
+  } , -- colorized hex codes and color name
+  require "plugins.ui.catppuccin", -- my favourte colorscheme
+  require "plugins.ui.lualine", -- extra status line on bottom
+  require "plugins.ui.bufferline", -- use tabline show buffer list
+  require "plugins.ui.barbecue", -- use winbar show breadcrumbs
+  require "plugins.ui.noice", -- use float window show cmdline and messages
+  require "plugins.ui.statuscol", -- manage status coloumn on left
+  require "plugins.ui.nvim-ufo", -- buffer fold guide
+
+  -------------- Sidebar stuff --------------
+  require "plugins.sidebar.neo-tree", -- file/buffer/git explorer
+  require "plugins.sidebar.nvim-spectre", -- find and replace
+  require "plugins.sidebar.outline", -- outline
+  require "plugins.sidebar.nvim-dap", -- debug
+
+  -------------- Appearence --------------
+  require "plugins.appearence.indent-blankline", -- buffer indent guide
+  require "plugins.appearence.mini-indent", -- current indent guide
+  require "plugins.appearence.gitsigns", -- git integration in buffer
+  require "plugins.appearence.todo-comments", -- highlight TODO-like comments
+  require "plugins.appearence.treesitter", -- tree sitter
 
   -- NOTE: LSP staff
-  {
-    "williamboman/mason.nvim",
-    init = function() require('core.mappings').load "mason" end,
-    cmd = {
-      "Mason",
-      "MasonUpdate",
-      "MasonInstall",
-      "MasonUninstall",
-      "MasonUninstallAll",
-      "MasonLog",
-    },
-    config = function() require('mason').setup() end,
-  }, -- LSP server collection installer
+  require "plugins.lsp.mason", -- LSP/DAP/Linter/Formatter manager
   {
     'neovim/nvim-lspconfig',
-    init = function()
-      require("core.utils").lazy_load "nvim-lspconfig"
-      require('core.mappings').load "lspconfig"
-    end,
+    init = function() require('core.keymaps').load "lspconfig" end,
     dependencies = { 'b0o/schemastore.nvim' },
     config = function() require('plugins.lsp.lspconfig') end,
   }, -- LSP server configuration
   { 'mfussenegger/nvim-jdtls' }, -- Java LSP
   { 'nanotee/sqls.nvim' }, -- SQL LSP
-  -- {
-  --   'mfussenegger/nvim-lint',
-  --   event = "VeryLazy",
-  --   config = function() require('plugins.lsp.lint') end,
-  -- }, -- Linter
+  { 'stevearc/conform.nvim', opts = {}, },
   {
     'mhartington/formatter.nvim',
-    init = function() require('core.mappings').load "formatter" end,
+    init = function() require('core.keymaps').load "formatter" end,
     cmd = "FormatWrite",
     config = function() require('plugins.lsp.formatter') end,
   }, -- Formatter
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = {
-      {
-        'mfussenegger/nvim-dap',
-        init = function() require('core.mappings').load "dap" end,
-        config = function() require('plugins.lsp.nvim-dap') end,
-      }, -- DAP client
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        config = function() require("nvim-dap-virtual-text").setup({}) end,
-      }, -- DAP virtual text
-    },
-  }, -- DAP ui
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -178,53 +74,37 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
     },
     event = "VeryLazy",
-    init = function() require('core.mappings').load "neotest" end,
+    init = function() require('core.keymaps').load "neotest" end,
     config = function() require('plugins.lsp.neotest') end,
   }, -- unit test
-  -- NOTE: Sidebar
-  {
-    "folke/edgy.nvim",
-    -- init = function() require('core.mappings').load "edge" end,
-    opts = require('plugins.sidebar.edgy'),
-    event = "VeryLazy"
-  }, -- integrate all sidebar tool in one layout
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = {
-      'NvimTreeClipboard',
-      'NvimTreeClose',
-      'NvimTreeFindFile',
-      'NvimTreeOpen',
-      'NvimTreeRefresh',
-      'NvimTreeToggle',
-    },
-    event = 'VimEnter',
-    init = function() require('core.mappings').load "nvimtree" end,
-    config = function() require('plugins.sidebar.nvim-tree') end,
-  }, -- file explorer
-  {
-    'windwp/nvim-spectre',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    init = function() require('core.mappings').load "spectre" end,
-    config = function() require('plugins.sidebar.nvim-spectre') end,
-  }, -- replacer
-  {
-    "hedyhli/outline.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
-    init = function() require('core.mappings').load "outline" end,
-    cmd = "Outline",
-    config = function() require("plugins.sidebar.outline") end,
-  }, -- outline
 
   -- NOTE: Tool stuff
+  require "plugins.tools.which-key", -- show keys
+  {
+    'nmac427/guess-indent.nvim',
+    event = 'BufWinEnter',
+    config = function() require('guess-indent').setup {} end,
+  }, -- guess what indent should be like
   {
     'numToStr/Comment.nvim',
     event = 'BufWinEnter',
-    config = function() require('Comment').setup() end,
+    config = function() require('Comment').setup({
+      pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    }) end,
   }, -- quick comment
   {
+    "windwp/nvim-autopairs",
+    event = "BufWinEnter",
+    config = function() require("nvim-autopairs").setup {} end
+  }, -- auto pair
+  -- {
+  --   "kylechui/nvim-surround",
+  --   event = "BufWinEnter",
+  --   config = function() require("nvim-surround").setup({}) end,
+  -- }, -- surround signs
+  {
     "sindrets/diffview.nvim",
-    init = function() require('core.mappings').load "diffview" end,
+    init = function() require('core.keymaps').load "diffview" end,
     cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory" },
     config = function() require("plugins.tools.diffview") end
   }, -- git diffview/mergetool
@@ -236,40 +116,37 @@ local plugins = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', },
       'nvim-telescope/telescope-ui-select.nvim',
     },
-    init = function() require('core.mappings').load "telescope" end,
+    init = function() require('core.keymaps').load "telescope" end,
     cmd = "Telescope",
     config = function() require('plugins.tools.telescope') end,
   }, -- fuzzy finder
   {
     "ziontee113/icon-picker.nvim",
     dependencies = { 'stevearc/dressing.nvim' },
-    init = function() require('core.mappings').load "iconpicker" end,
+    init = function() require('core.keymaps').load "iconpicker" end,
     cmd = "IconPickerNormal",
     config = function() require("icon-picker").setup { disable_legacy_commands = true } end,
   }, -- icon picker
   {
     'voldikss/vim-floaterm',
-    init = function() require('core.mappings').load "floaterm" end,
+    init = function() require('core.keymaps').load "floaterm" end,
     cmd = { "FloatermNew", "FloatermToggle" },
     config = function() require('plugins.tools.floaterm') end,
   }, -- floating terminal
-  -- {
-  --   "kylechui/nvim-surround",
-  --   event = "BufWinEnter",
-  --   config = function() require("nvim-surround").setup({}) end,
-  -- }, -- surround signs
   {
-    "windwp/nvim-autopairs",
-    event = "BufWinEnter",
-    config = function() require("nvim-autopairs").setup {} end
-  }, -- auto pair
-  {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    cmd = { "HopWord", "HopPattern" },
-    init = function() require('core.mappings').load "hop" end,
-    config = function() require 'hop'.setup { keys = 'asdfghjkl;qwertyuiopzxcvbnm' } end
-  }, -- hop to anywhere
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
   {
     'rest-nvim/rest.nvim',
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -296,7 +173,7 @@ local plugins = {
   }, -- markdown preview
   {
     'rmagatti/auto-session',
-    init = function() require('core.mappings').load "autosession" end,
+    init = function() require('core.keymaps').load "autosession" end,
     cmd = {
       "SessionSave",
       "SessionRestore",
@@ -309,7 +186,7 @@ local plugins = {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    init = function() require('core.mappings').load "trouble" end,
+    init = function() require('core.keymaps').load "trouble" end,
     cmd = {
       "Trouble",
       "TroubleClose",
@@ -319,7 +196,7 @@ local plugins = {
   }, -- list all diagnositic && todos
   {
     "ahmedkhalf/project.nvim",
-    init = function() require('core.mappings').load "project" end,
+    init = function() require('core.keymaps').load "project" end,
     dependencies = {
       'nvim-telescope/telescope.nvim',
     },
@@ -327,6 +204,7 @@ local plugins = {
     config = function() require('plugins.tools.project') end,
   }, -- project manager
 }
+
 
 local config = {
   defaults = { lazy = true, version = false },

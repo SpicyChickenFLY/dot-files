@@ -1,5 +1,5 @@
 local icons = require("core.icons")
-local keymaps = require("core.mappings")
+local keymaps = require("core.keymaps")
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
