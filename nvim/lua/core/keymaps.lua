@@ -56,11 +56,6 @@ M.general = function()
   map("i", "<C-v>", "<ESC>pi")
 end
 
-M.bufferline = function()
-  map("n", "H", ":BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
-  map("n", "L", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
-end
-
 M.lazy = function()
   local wk = require("which-key")
   local mappings = {

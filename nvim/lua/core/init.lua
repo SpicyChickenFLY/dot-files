@@ -99,7 +99,11 @@ cmd([[filetype plugin indent on]])
 ---------------------------- AutoCommands ------------------------------
 local autocmd = vim.api.nvim_create_autocmd
 -- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
-autocmd({"BufRead","BufNewFile"}, {
+autocmd({"BufRead", "BufEnter","BufNewFile"}, {
   pattern = "*.i3.config",
   callback = function () cmd([[set filetype=i3config]]) end
+})
+autocmd({"BufRead", "BufEnter","BufNewFile"}, {
+  pattern = "*.http",
+  callback = function () cmd([[set filetype=http]]) end
 })

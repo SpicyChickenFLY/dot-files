@@ -46,7 +46,7 @@ return {
       --       end
       --   end , -- this sorts files and directories descendantly
       -- sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-      sources = { "filesystem", "buffers", "git_status" },
+      sources = { "filesystem" },
       source_selector = {
         winbar = true,
         statusline = false,
