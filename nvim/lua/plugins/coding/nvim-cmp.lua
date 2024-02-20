@@ -10,7 +10,7 @@ return {
     { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' },
   },
   event = { 'InsertEnter', 'CmdlineEnter' },
-  config = function() 
+  config = function()
     local cmp = require('cmp')
     local snippet = require('luasnip')
     local icons = require('core.icons')

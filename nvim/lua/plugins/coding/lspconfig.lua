@@ -71,10 +71,6 @@ return {
 
     -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
     local on_attach = function(client, bufnr)
-      -- 允许使用LSP内置的Formatter
-      -- client.server_capabilities.documentFormattingProvider = true
-      -- client.server_capabilities.documentRangeFormattingProvider = true
-
       -- Enable completion triggered by <c-x><c-o>
       vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -149,10 +145,7 @@ return {
       vim.cmd([[ SqlsSwitchConnection ]])
     end
 
-
     -- go lsp
-    -------------
-    -- go install golang.org/x/tools/gopls@latest
     require("lspconfig")["gopls"].setup({
       on_attach = on_attach,
       init_options = {
@@ -172,22 +165,7 @@ return {
         codelenses = { gc_details = true, tidy = true },
       },
     })
-
-    -- rust lsp
-    -------------
-    -- sudo pacman -S rust-analyzer
-    require("lspconfig")["rust_analyzer"].setup({
-      on_attach = on_attach,
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = { command = "clippy" },
-        },
-      },
-    })
-
     -- lua lsp
-    -------------
-    -- sudo pacman -S lua-language-server
     require("lspconfig")["lua_ls"].setup({
       on_attach = on_attach,
       settings = {
@@ -198,8 +176,7 @@ return {
             library = {
               [vim.fn.expand("$VIMRUNTIME/lua")] = true,
               [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-              [vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types"] = true,
-              [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
+              [vim.fn.stdpath("data") .. "/lazy"] = true,
               -- library = vim.api.nvim_get_runtime_file("", true),
             },
             checkThirdParty = "Disable",
@@ -208,9 +185,7 @@ return {
         },
       },
     })
-
-    -- vue lsp
-    ----------
+    -- vue/typescirpt lsp
     local util = require("lspconfig.util")
     local function get_typescript_server_path(root_dir)
       local global_ts = vim.fn.stdpath("data") .. "/lsp_servers/tsserver/node_modules/typescript/lib"
@@ -227,7 +202,6 @@ return {
         return global_ts
       end
     end
-
     require("lspconfig")["volar"].setup({
       on_attach = on_attach,
       filetypes = { "javascript", "typescript", "vue" },
@@ -236,7 +210,6 @@ return {
         new_config.init_options.typescript.tsdk = ts_server_path
       end,
     })
-
     -- javascript/typescript/html/css lsp
     require("lspconfig")["eslint"].setup({
       on_attach = function(client, bufnr)
@@ -251,27 +224,13 @@ return {
       end,
     })
     require("lspconfig").stylelint_lsp.setup({ on_attach = on_attach })
-
-    -- yaml lsp
-    -------------
-    -- -- yarn global add yaml-language-server
-    require("lspconfig")["yamlls"].setup({
-      on_attach = on_attach,
-      settings = {
-        yaml = { schemas = require("schemastore").json.schemas() },
-      },
-    })
-
     -- json lsp
-    -------------
-    -- npm i -g vscode-langservers-extracted
     require("lspconfig")["jsonls"].setup({
       on_attach = on_attach,
       settings = {
         json = { schemas = require("schemastore").json.schemas() },
       },
     })
-
     -- C/C++
     require("lspconfig").clangd.setup({ on_attach = on_attach })
     -- Python
@@ -283,7 +242,5 @@ return {
     -- SQL
     -- require("lspconfig").sqlls.setup({ on_attach = on_attach })
     require("lspconfig").sqls.setup({ on_attach = on_sql_attach })
-
-    -- java lsp  NOTE: jdtls should be setup by nvim-jdtls
   end,
 }

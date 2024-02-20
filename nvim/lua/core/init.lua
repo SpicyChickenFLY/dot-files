@@ -5,28 +5,28 @@ local icons = require("core.icons")
 ---------------------------- Path ------------------------------
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
 
 ---------------------------- Global ------------------------------
 local g = vim.g
 g.skip_ts_context_commentstring_module = true
-g.mapleader = ' '
+g.mapleader = " "
 
 ---------------------------- Options ------------------------------
 local opt = vim.opt
 -- Misc
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
-opt.encoding = 'utf-8'
-opt.fileencodings = 'utf-8,ucs-bom,gbk,cp936,gb2312,gb18030'
-opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
-opt.backspace = { 'eol', 'start', 'indent' }
-opt.shortmess:append "sI" -- 禁用开头介绍
+opt.encoding = "utf-8"
+opt.fileencodings = "utf-8,ucs-bom,gbk,cp936,gb2312,gb18030"
+opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
+opt.backspace = { "eol", "start", "indent" }
+opt.shortmess:append("sI") -- 禁用开头介绍
 
 -- UI
-opt.background = 'light'
+opt.background = "light"
 opt.termguicolors = true
-opt.syntax = 'disable'
+opt.syntax = "disable"
 -- opt.showmode = false
 opt.laststatus = 3 -- global statusline
 opt.cursorline = true
@@ -36,7 +36,7 @@ opt.signcolumn = "yes"
 opt.scrolloff = 5 -- 当游标离上下N行时滚动
 opt.sidescrolloff = 5 -- 当游标离左右N列时滚动
 opt.wrap = true -- 开启折行显示
-opt.whichwrap:append "<>[]hl" -- 允许hl移动换行
+opt.whichwrap:append("<>[]hl") -- 允许hl移动换行
 
 -- Numbers
 opt.number = true
@@ -62,12 +62,12 @@ opt.expandtab = true -- 按Tab键替换成空格。数目跟tabstop有关
 opt.hlsearch = true
 opt.ignorecase = true
 opt.smartcase = true
-opt.wildignore = opt.wildignore + { '*/node_modules/*', '*/.git/*', '*/vendor/*' }
+opt.wildignore = opt.wildignore + { "*/node_modules/*", "*/.git/*", "*/vendor/*" }
 opt.wildmenu = true
 
 -- Folding
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
-opt.foldcolumn = '1' -- '0' is not bad
+opt.foldcolumn = "1" -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value
 opt.foldlevelstart = 99
 opt.foldenable = true
@@ -76,9 +76,6 @@ opt.foldenable = true
 opt.backup = false
 opt.swapfile = false
 opt.writebackup = false
-
--- Autocomplete
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Perfomance
 opt.redrawtime = 1500
@@ -90,7 +87,7 @@ opt.undofile = true
 
 -- theme
 opt.termguicolors = true
-opt.background = 'light'
+opt.background = "light"
 
 ---------------------------- Commands ------------------------------
 local cmd = vim.cmd
@@ -99,11 +96,35 @@ cmd([[filetype plugin indent on]])
 ---------------------------- AutoCommands ------------------------------
 local autocmd = vim.api.nvim_create_autocmd
 -- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
-autocmd({"BufRead", "BufEnter","BufNewFile"}, {
-  pattern = "*.i3.config",
-  callback = function () cmd([[set filetype=i3config]]) end
+autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
+	pattern = "*.i3.config",
+	callback = function()
+		cmd([[set filetype=i3config]])
+	end,
 })
-autocmd({"BufRead", "BufEnter","BufNewFile"}, {
-  pattern = "*.http",
-  callback = function () cmd([[set filetype=http]]) end
+autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
+	pattern = "*.http",
+	callback = function()
+		cmd([[set filetype=http]])
+	end,
+})
+-- close some filetypes with <q>
+autocmd("FileType", {
+    pattern = {
+        "PlenaryTestPopup",
+        "help",
+        "lspinfo",
+        "man",
+        "notify",
+        "qf",
+        "query", -- :InspectTree
+        "spectre_panel",
+    },
+    callback = function(event)
+        -- :help api-autocmd
+        -- nvim_create_autocmd's callback receives a table argument with fields
+        -- event = {id,event,group?,match,buf,file,data(arbituary data)}
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true }, "close some filetype windows with <q>")
+    end,
 })

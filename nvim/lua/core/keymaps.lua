@@ -54,17 +54,12 @@ M.general = function()
   map("i", "<C-p>", "<Up>")
   -- Content operation
   map("i", "<C-v>", "<ESC>pi")
+
+  map("n", '<leader>pc', ":Lazy check<CR>", { desc = "Check update" })
+  map("n", '<leader>ps', ":Lazy sync<CR>", { desc = "Sync update" })
+  map("n", '<leader>pp', ":Lazy home<CR>", { desc = "Open list" })
 end
 
-M.lazy = function()
-  local wk = require("which-key")
-  local mappings = {
-    ['<leader>pc'] = { ":Lazy check<CR>", "Check update" },
-    ['<leader>ps'] = { ":Lazy sync<CR>", "Sync update" },
-    ['<leader>pp'] = { ":Lazy home<CR>", "Open list" },
-  }
-  wk.register(mappings)
-end
 
 M.floaterm = function()
   map("n", "<C-\\>", ":FloatermToggle<CR>")
@@ -94,7 +89,7 @@ M.telescope = function()
     ['<leader>ft'] = {
       ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
       "Colorscheme with Preview",
-      },
+    },
     ["<leader>fz"] = { ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer" },
 
     ["<leader>gc"] = { ":Telescope git_commits<CR>", "Open changed file" },
@@ -113,12 +108,12 @@ M.lspconfig = function()
     ["gt"] = { vim.lsp.buf.type_definition, "goto definition type", },
     ["gr"] = { vim.lsp.buf.references, "goto references" },
     ["gi"] = { vim.lsp.buf.implementation, "goto implementation" },
-    ["gs"] = { vim.lsp.buf.document_symbol, "show document symbol "},
+    ["gs"] = { vim.lsp.buf.document_symbol, "show document symbol " },
     ["gh"] = { vim.lsp.buf.signature_help, "show signature help" },
 
 
     ["<leader>la"] = { vim.lsp.buf.code_action, "code action" },
-    -- ["<leader>lf"] = { vim.lsp.buf.format { async = true } end, "formatting" },
+    ["<leader>lf"] = { function() vim.lsp.buf.format({ async = true }) end, "formatting" },
     ["<leader>ll"] = { ":LspLog<CR>", "Lsp server log" },
     ["<leader>li"] = { ":LspInfo<CR>", "Lsp server Info" },
     ["<leader>lr"] = { vim.lsp.buf.rename, "rename" },
@@ -145,7 +140,7 @@ M.sqls = function()
     ["<leader>x"] = { ":SqlsExecuteQuery<CR>", "Execute query" },
     ["<leader>X"] = { ":SqlsExecuteQueryVertical<CR>", "Execute query in vertical" },
   }
-  wk.register(normal_mappings )
+  wk.register(normal_mappings)
   wk.register(visual_mappings, { mode = "v" })
 end
 
@@ -154,7 +149,8 @@ M.dap = function()
   local mappings = {
     ["<leader>Db"] = { ":lua require'dap'.step_back()<CR>", "step back" },
     ["<leader>DB"] = { ":lua require'dap'.toggle_breakpoint()<CR>", "toggle breakpoint" },
-    ["<leader>Dc"] = { ":lua require'dap'.continue()<CR>", "continue" }, ["<leader>DD"] = { ":lua require'dapui'.toggle()<CR>", "Toggle UI" },
+    ["<leader>Dc"] = { ":lua require'dap'.continue()<CR>", "continue" },
+    ["<leader>DD"] = { ":lua require'dapui'.toggle()<CR>", "Toggle UI" },
     ["<leader>Dr"] = { ":lua require'dap'.run_to_cursor()<CR>", "run to cursor" },
     ["<leader>Dd"] = { ":lua require'dap'.disconnect()<CR>", "disconnect" },
     ["<leader>Dg"] = { ":lua require'dap'.session()<CR>", "get session" },
@@ -226,9 +222,9 @@ end
 M.rest = function()
   local wk = require("which-key")
   local mappings = {
-      ["<leader>Hh"] = { "<Plug>RestNvim", "run the request under the cursor" },
-      ["<leader>Hp"] = { "<Plug>RestNvimPreview", "preview the request cURL command" },
-      ["<leader>Hl"] = { "<Plug>RestNvimLast", "re-run the last request" },
+    ["<leader>Hh"] = { "<Plug>RestNvim", "run the request under the cursor" },
+    ["<leader>Hp"] = { "<Plug>RestNvimPreview", "preview the request cURL command" },
+    ["<leader>Hl"] = { "<Plug>RestNvimLast", "re-run the last request" },
   }
   wk.register(mappings)
 end
@@ -259,15 +255,6 @@ M.ufo = function()
   wk.register(mappings)
 end
 
-M.hop = function()
-  local hop = require("hop")
-  local hd = require("hop.hint").HintDirection
-  map("n", "H", function() hop.hint_words() end)
-  map("n", "f", function() hop.hint_char1({ direction = hd.AFTER_CURSOR, current_line_only = true }) end)
-  map("n", "F", function() hop.hint_char1({ direction = hd.BEFORE_CURSOR, current_line_only = true }) end)
-end
-
-
 M.iconpicker = function()
   local wk = require("which-key")
   local mappings = {
@@ -279,7 +266,7 @@ end
 M.trouble = function()
   local wk = require("which-key")
   local mappings = {
-    ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List"},
+    ["<leader>ldd"] = { ":TroubleToggle<CR>", "Open Diagnostic List" },
   }
   wk.register(mappings)
 end

@@ -10,17 +10,18 @@ return {
   cmd = { 'Neotree', },
   keys = {
     {"<leader>ee", ":Neotree<CR>", desc = "Open" },
+    {"<leader>ef", ":Neotree reveal=true<CR>", desc = "Open" },
   },
   deactivate = function()
     vim.cmd([[Neotree close]])
   end,
   init = function()
-    if vim.fn.argc(-1) == 1 then
-      local stat = vim.loop.fs_stat(vim.fn.argv(0))
-      if stat and stat.type == "directory" then
-        require("neo-tree")
-      end
-    end
+    -- if vim.fn.argc(-1) == 1 then
+    --   local stat = vim.loop.fs_stat(vim.fn.argv(0))
+    --   if stat and stat.type == "directory" then
+    --     require("neo-tree")
+    --   end
+    -- end
   end,
   config = function ()
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
@@ -48,7 +49,7 @@ return {
       -- sources = { "filesystem", "buffers", "git_status", "document_symbols" },
       sources = { "filesystem" },
       source_selector = {
-        winbar = true,
+        winbar = false,
         statusline = false,
       },
       default_component_configs = {
@@ -60,7 +61,7 @@ return {
           padding = 1, -- extra padding on left hand side
           -- indent guides
           with_markers = true,
-          indent_marker = "├",
+          indent_marker = "│",
           last_indent_marker = "└",
           highlight = "NeoTreeIndentMarker",
           -- expander config, needed for nesting files
@@ -97,9 +98,9 @@ return {
             renamed   = "R",-- this can only be used in the git_status source
             -- Status type
             untracked = "?",
-            ignored   = "",
-            unstaged  = "󰄱",
-            staged    = "",
+            ignored   = "I",
+            unstaged  = "", --󰄱,
+            staged    = "", -- 
             conflict  = "",
           }
         },
@@ -142,10 +143,11 @@ return {
           },
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
+          ["l"] = "open",
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
           -- Read `# Preview Mode` for more information
-          ["l"] = "focus_preview",
+          -- ["P"] = "focus_preview",
           ["S"] = "open_split",
           ["s"] = "open_vsplit",
           -- ["S"] = "split_with_window_picker",
@@ -159,7 +161,7 @@ return {
           -- ['C'] = 'close_all_subnodes',
           ["z"] = "close_all_nodes",
           --["Z"] = "expand_all_nodes",
-          ["a"] = { 
+          ["a"] = {
             "add",
             -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
             -- some commands may take optional config options, see `:h neo-tree-mappings` for details
@@ -219,7 +221,7 @@ return {
           --               -- the current file is changed while the tree is open.
           leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
         },
-        group_empty_dirs = false, -- when true, empty folders will be grouped together
+        group_empty_dirs = true, -- when true, empty folders will be grouped together
         hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
                                                 -- in whatever position is specified in window.position
                               -- "open_current",  -- netrw disabled, opening a directory opens within the

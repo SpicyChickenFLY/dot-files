@@ -25,5 +25,3 @@ end
 -- 下载 或 加载组件
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
-
-require("core.keymaps").load "lazy"

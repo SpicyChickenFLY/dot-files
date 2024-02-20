@@ -20,6 +20,7 @@ return {
 				lua = { "stylua" },
 				-- Conform will run multiple formatters sequentially
 				go = { "goimports", "gofmt" },
+				sh = { "beautysh" },
 				-- Use a sub-list to run only the first available formatter
 				javascript = { { "prettierd", "prettier" } },
 				-- You can use a function here to determine the formatters dynamically
@@ -27,7 +28,7 @@ return {
 					if require("conform").get_formatter_info("ruff_format", bufnr).available then
 						return { "ruff_format" }
 					else
-						return { "isort", "black" }
+						return { "black" }
 					end
 				end,
 				-- Use the "*" filetype to run formatters on all filetypes.
