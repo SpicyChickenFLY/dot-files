@@ -1,10 +1,10 @@
 return {
   "folke/noice.nvim",
-  init = function() require('core.keymaps').load "noice" end,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
   },
+  keys = require('core.keymaps')["noice"],
   event = "VeryLazy",
   config = function()
     ---@diagnostic disable: undefined-doc-name

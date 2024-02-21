@@ -120,6 +120,7 @@ autocmd("FileType", {
         "query", -- :InspectTree
         "spectre_panel",
         "neo-tree-preview",
+        "neotest-output",
     },
     callback = function(event)
         -- :help api-autocmd

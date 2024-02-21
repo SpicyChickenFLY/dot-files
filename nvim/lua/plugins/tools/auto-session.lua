@@ -1,9 +1,6 @@
 return {
   "rmagatti/auto-session",
-  keys = {
-    {"<leader>ss", ":SessionSave<CR>", "save session" },
-    {"<leader>sl", ":SessionRestore<CR>", "load session" },
-  },
+  keys = require("core.keymaps")["autosession"],
   cmd = {
     "SessionSave",
     "SessionRestore",

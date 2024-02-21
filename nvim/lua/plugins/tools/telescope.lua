@@ -9,9 +9,7 @@ return {
     },
     "nvim-telescope/telescope-ui-select.nvim",
   },
-  init = function()
-    require("core.keymaps").load("telescope")
-  end,
+  keys = require('core.keymaps')["telescope"],
   cmd = "Telescope",
   config = function()
     local actions = require('telescope.actions')

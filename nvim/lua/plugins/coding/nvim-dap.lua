@@ -3,7 +3,6 @@ return {
   dependencies = {
     {
       'mfussenegger/nvim-dap',
-      init = function() require('core.keymaps').load "dap" end,
       config = function()
         local dap = require("dap")
         dap.adapters.delve = {
@@ -203,4 +202,5 @@ return {
       config = function() require("nvim-dap-virtual-text").setup({}) end,
     }, -- DAP virtual text
   },
+  keys = require("core.keymaps")["dap"],
 } -- DAP UI

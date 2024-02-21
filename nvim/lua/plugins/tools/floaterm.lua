@@ -1,8 +1,6 @@
 return {
     "voldikss/vim-floaterm",
-    init = function()
-        require("core.keymaps").load("floaterm")
-    end,
+    keys = require("core.keymaps")["floaterm"],
     cmd = { "FloatermNew", "FloatermToggle" },
     config = function()
         local g = vim.g
@@ -16,5 +14,7 @@ return {
 
         vim.cmd(('hi FloatBorder guibg=None')) -- terminal highlights
         vim.cmd('hi! link FloatermBorder FloatBorder')
+
+        require("core.keymaps").floaterm_func()
     end,
 }

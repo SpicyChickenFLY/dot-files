@@ -20,6 +20,7 @@ init = function()
       "alpha",
       "dashboard",
       "neo-tree",
+      "neotest-summary",
       "Trouble",
       "trouble",
       "lazy",

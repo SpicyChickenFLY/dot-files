@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  init = function() require('core.keymaps').load "lspconfig" end,
+  keys = require('core.keymaps')["lspconfig"],
   dependencies = {
     'b0o/schemastore.nvim',
   },
@@ -24,35 +24,6 @@ return {
       local icon = diagnostic_icon_map[value]
       vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
     end
-
-    -- local ns = vim.api.nvim_create_namespace("my_namespace")
-    -- -- Get a reference to the original signs handler
-    -- local orig_signs_handler = vim.diagnostic.handlers.signs
-    -- -- Override the built-in signs handler
-    -- vim.diagnostic.handlers.signs = {
-    --   show = function(_, bufnr, _, opts)
-    --     -- Get all diagnostics from the whole buffer rather than just the
-    --     -- diagnostics passed to the handler
-    --     local diagnostics = vim.diagnostic.get(bufnr)
-    --
-    --     -- Find the "worst" diagnostic per line
-    --     local max_severity_per_line = {}
-    --     for _, d in pairs(diagnostics) do
-    --       local m = max_severity_per_line[d.lnum]
-    --       if not m or d.severity < m.severity then
-    --         max_severity_per_line[d.lnum] = d
-    --       end
-    --     end
-    --
-    --     -- Pass the filtered diagnostics (with our custom namespace) to
-    --     -- the original handler
-    --     local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
-    --     orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
-    --   end,
-    --   hide = function(_, bufnr)
-    --     orig_signs_handler.hide(ns, bufnr)
-    --   end,
-    -- }
 
     -- set lsp-config
     local border = "rounded"
@@ -134,7 +105,6 @@ return {
             table.remove(split)
             vim.g.sqls_connection_choice = table.concat(split, '/')
           end
-
         end,
       })
       vim.api.nvim_create_autocmd('User', {
@@ -143,6 +113,7 @@ return {
           vim.g.sqls_database_choice = event.data.choice
         end,
       })
+      require("core.keymaps").sqls(bufnr)
       require('sqls').on_attach(client, bufnr)
       vim.cmd([[ SqlsSwitchConnection ]])
     end

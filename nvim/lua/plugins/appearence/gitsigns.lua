@@ -1,4 +1,3 @@
-
 return {
   'lewis6991/gitsigns.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
@@ -27,7 +26,7 @@ return {
         -- NOTE: will be replaced by diffview.nvim
         -- map('n', '<leader>gd', gs.diffthis)
         -- map('n', '<leader>gD', function() gs.diffthis('~') end)
-        -- map('n', '<leader>gd', gs.toggle_deleted)
+        -- map('n', '<leader>gt', gs.toggle_deleted)
 
         map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, 'Stage hunk')
         map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, 'Reset hunk')

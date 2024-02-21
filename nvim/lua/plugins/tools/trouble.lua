@@ -1,9 +1,7 @@
 return {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    init = function()
-        require("core.keymaps").load("trouble")
-    end,
+    key = require("core.keymaps")["trouble"],
     cmd = {
         "Trouble",
         "TroubleClose",

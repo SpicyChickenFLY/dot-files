@@ -1,14 +1,11 @@
 
 return {
   "sindrets/diffview.nvim",
-  init = function()
-    require("core.keymaps").load("diffview")
-  end,
+  keys = require("core.keymaps")["diffview"],
   cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory" },
   config = function()
     require("diffview").setup({
-      view = {
-        default = {
+      view = { default = {
           winbar_info = true,
         },
         file_history = {
