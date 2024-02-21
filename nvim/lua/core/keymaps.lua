@@ -186,21 +186,6 @@ M.formatter = function()
   wk.register(mappings)
 end
 
-M.neotest = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>tt"] = { ":lua require('neotest').summary.open()<CR>", "open output panel" },
-    ["<leader>to"] = { ":lua require('neotest').output.open({ enter = true })<CR>", "open output" },
-    ["<leader>tO"] = { ":lua require('neotest').output_panel.open()<CR>", "open output panel" },
-    ["<leader>tr"] = { ":lua require'neotest'.run.run()<CR>", "Run nearest test" },
-    ["<leader>tf"] = { ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file" },
-    ["<leader>td"] = { ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir" },
-    ["<leader>tg"] = { ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir" },
-    ["<leader>tD"] = { ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test" },
-  }
-  wk.register(mappings)
-end
-
 M.autosession = function()
   local wk = require("which-key")
   local mappings = {
@@ -229,17 +214,6 @@ M.rest = function()
   wk.register(mappings)
 end
 
-M.dadbod = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>xx"] = { "<Cmd>DBUIToggle<CR>", "Toggle UI" },
-    ["<leader>xf"] = { "<Cmd>DBUIFindBuffer<CR>", "Find buffer" },
-    ["<leader>xq"] = { "<Cmd>DBUILastQueryInfo<CR>", "Last query info" },
-    ["<leader>xr"] = { "<Cmd>DBUIRenameBuffer<CR>", "Rename buffer" },
-  }
-  wk.register(mappings)
-end
-
 M.ufo = function()
   local wk = require("which-key")
   local mappings = {
@@ -255,13 +229,6 @@ M.ufo = function()
   wk.register(mappings)
 end
 
-M.iconpicker = function()
-  local wk = require("which-key")
-  local mappings = {
-    ["<leader>fi"] = { ":IconPickerNormal nerd_font_v3 alt_font emoji symbols html_colors<CR>", "Find Icon" },
-  }
-  wk.register(mappings)
-end
 
 M.trouble = function()
   local wk = require("which-key")

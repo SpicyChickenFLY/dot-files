@@ -1,7 +1,9 @@
 return {
   'neovim/nvim-lspconfig',
   init = function() require('core.keymaps').load "lspconfig" end,
-  dependencies = { 'b0o/schemastore.nvim' },
+  dependencies = {
+    'b0o/schemastore.nvim',
+  },
   config = function()
     local utils = require("core.utils")
     local icons = require("core.icons")

@@ -6,10 +6,16 @@ return {
 		"rcasia/neotest-java",
 		"nvim-treesitter/nvim-treesitter",
 	},
-	event = "VeryLazy",
-	init = function()
-		require("core.keymaps").load("neotest")
-	end,
+	keys = {
+		{ "<leader>tt", ":lua require('neotest').summary.open()<CR>", desc = "open output panel" },
+		{ "<leader>to", ":lua require('neotest').output.open({ enter = true })<CR>", desc = "open output" },
+		{ "<leader>tO", ":lua require('neotest').output_panel.open()<CR>", desc = "open output panel" },
+		{ "<leader>tr", ":lua require'neotest'.run.run()<CR>", desc = "Run nearest test" },
+		{ "<leader>tf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", desc = "Test current file" },
+		{ "<leader>td", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", desc = "Test current dir" },
+		{ "<leader>tg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", desc = "Test root dir" },
+		{ "<leader>tD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", desc = "Debug nearest test" },
+	},
 	config = function()
 		local icons = require("core.icons")
 		-- get neotest namespace (api call creates or returns namespace)

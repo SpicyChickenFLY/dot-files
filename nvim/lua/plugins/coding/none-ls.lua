@@ -16,7 +16,7 @@ return {
                 null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.formatting.black,
                 -- lua
-                null_ls.builtins.formatting.stylua,
+                -- null_ls.builtins.formatting.stylua,
                 -- golang
                 null_ls.builtins.formatting.goimports,
                 -- golang

@@ -9,7 +9,7 @@ local plugins = {
   require("plugins.ui.statuscol"),                -- manage status coloumn on left
   require("plugins.ui.nvim-ufo"),                 -- buffer fold guide
   -------------- Sidebar tools --------------
-  require("plugins.sidebar.edgy"),            -- sidebar/bottom panel layout
+  require("plugins.sidebar.edgy"),                -- sidebar/bottom panel layout
   require("plugins.sidebar.neo-tree"),            -- file/buffer/git explorer
   require("plugins.sidebar.nvim-spectre"),        -- find and replace
   require("plugins.sidebar.outline"),             -- lsp document symbol outline

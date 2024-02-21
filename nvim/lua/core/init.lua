@@ -119,6 +119,7 @@ autocmd("FileType", {
         "qf",
         "query", -- :InspectTree
         "spectre_panel",
+        "neo-tree-preview",
     },
     callback = function(event)
         -- :help api-autocmd
