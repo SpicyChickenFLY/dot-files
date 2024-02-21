@@ -21,8 +21,6 @@ local plugins = {
   require("plugins.appearence.treesitter"),       -- TreeSitter for nvim
   -------------- Coding --------------
   require("plugins.coding.mason"),                -- LSP/DAP/Linter/Formatter manager
-  { "mfussenegger/nvim-jdtls" },                  -- Java LSP
-  { "nanotee/sqls.nvim" },                        -- SQL LSP
   require("plugins.coding.lspconfig"),            -- general LSP servers configuration
   require("plugins.coding.nvim-dap"),             -- general DAP debug configuration
   require("plugins.coding.none-ls"),              -- general Formatter/Linter configuration
@@ -30,22 +28,25 @@ local plugins = {
   require("plugins.coding.nvim-cmp"),             -- Autocompletion
   require("plugins.coding.neotest"),              -- UnitTest framework
   require("plugins.coding.Comment"),              -- quick Comment
+  -------------- Language tool --------------
+  { "mfussenegger/nvim-jdtls" },                  -- Java LSP
+  { "nanotee/sqls.nvim" },                        -- SQL LSP
+  require("plugins.coding.markdown-preview"),     -- markdown preview
+  require("plugins.coding.rest"),                 -- HTTP request client
   -------------- Finder --------------
   require("plugins.tools.telescope"),             -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.tools.icon-picker"),           -- find Icon/NerdFont/Color
   require("plugins.tools.session-lens"),          -- find saved Session
   require("plugins.tools.project"),               -- find recent Project
-  require("plugins.tools.trouble"),               -- list all diagnositic && todos
   require("plugins.tools.which-key"),             -- show keys
   -------------- Tools --------------
+  require("plugins.tools.trouble"),               -- list all diagnositic && todos
   require("plugins.tools.nvim-autopairs"),        -- match Parenthsis
   require("plugins.tools.guess-indent"),          -- guess what Indent should be like
   require("plugins.tools.diffview"),              -- Git diffview/mergetool
   require("plugins.tools.floaterm"),              -- floating terminal
   require("plugins.tools.flash"),                 -- Navigation in search/fFtT/treesitter
   require("plugins.tools.auto-session"),          -- save/restore Session
-  require("plugins.coding.markdown-preview"),     -- markdown preview
-  require("plugins.coding.rest"),                 -- HTTP request client
 }
 
 local disabled_builtin_plugins = {
