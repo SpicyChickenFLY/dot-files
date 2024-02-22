@@ -5,7 +5,6 @@ return {
     'b0o/schemastore.nvim',
   },
   config = function()
-    local utils = require("core.utils")
     local icons = require("core.icons")
 
     -- disable some default providers
@@ -14,7 +13,7 @@ return {
     end
 
     -- set highlight and icon for diagnostic
-    local statusline_colors = utils.get_highlight("StatusLine")
+    local statusline_colors = vim.api.nvim_command_output(('hi %s'):format("StatusLine"))
     local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
     local diagnostic_icon_map = { Error = icons.error, Warn = icons.warn, Info = icons.info, Hint = icons.hint }
     for _, value in ipairs(diagnostic_type) do
