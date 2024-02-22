@@ -18,8 +18,14 @@ return {
     local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
     local diagnostic_icon_map = { Error = icons.error, Warn = icons.warn, Info = icons.info, Hint = icons.hint }
     for _, value in ipairs(diagnostic_type) do
-      local color = utils.get_highlight("Diagnostic" .. value)
-      utils.set_highlight("Diagnostic" .. value .. "Inv", { guibg = color.guifg, guifg = statusline_colors.guibg })
+      local hi_str = vim.api.nvim_command_output(('hi %s'):format("Diagnostic" .. value))
+      local fg = ''
+      for key, val in string.gmatch(hi_str, '(%w+)=(%S+)') do
+        if key == 'guifg' then fg = val end
+      end
+      hi_str = ('guibg=%s guifg=%s'):format(fg, statusline_colors.guibg)
+      vim.cmd(('hi %s %s'):format("Diagnostic" .. value .. "Inv", hi_str))
+
       local diag_sign_key = "DiagnosticSign" .. value
       local icon = diagnostic_icon_map[value]
       vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
