@@ -7,10 +7,9 @@ return {
   cmd = "SearchSession",
   config = function()
     require('session-lens').setup({
-      path_display = {'shorten'},
-      -- theme = 'catppuccin-latte', -- default is dropdown
-      -- theme_conf = { border = false },
-      previewer = true
+      -- path_display = {'shorten'},
+      path_display = {},
+      previewer = false
     })
   end
 }

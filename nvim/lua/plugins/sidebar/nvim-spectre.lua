@@ -1,11 +1,7 @@
 return {
   'windwp/nvim-spectre',
   dependencies = { 'nvim-lua/plenary.nvim' },
-  keys = {
-    {"<leader>rr", function() require("spectre").open() end, desc = "open panel" },
-    {"<leader>rw", function() require("spectre").open_visual({select_word=true}) end, desc = "search current word" },
-    {"<leader>rf", function() require("spectre").open_file_search() end, desc = "search in file" },
-  },
+  keys = require('core.keymaps').spectre,
   config = function()
     require('spectre').setup({
       color_devicons = true,

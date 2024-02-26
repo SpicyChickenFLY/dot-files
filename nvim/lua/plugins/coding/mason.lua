@@ -1,8 +1,6 @@
 return {
   "williamboman/mason.nvim",
-  keys = {
-    { "<leader>lm", ":Mason<CR>", desc = "Open Manager(Mason)"},
-  },
+	keys = require('core.keymaps').mason,
   cmd = {
     "Mason",
     "MasonUpdate",

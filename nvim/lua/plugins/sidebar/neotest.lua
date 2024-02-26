@@ -6,16 +6,7 @@ return {
 		"rcasia/neotest-java",
 		"nvim-treesitter/nvim-treesitter",
 	},
-	keys = {
-		{ "<leader>tt", ":lua require('neotest').summary.open()<CR>", desc = "open output panel" },
-		{ "<leader>to", ":lua require('neotest').output.open({ enter = true })<CR>", desc = "open output" },
-		{ "<leader>tO", ":lua require('neotest').output_panel.open()<CR>", desc = "open output panel" },
-		{ "<leader>tr", ":lua require'neotest'.run.run()<CR>", desc = "Run nearest test" },
-		{ "<leader>tf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", desc = "Test current file" },
-		{ "<leader>td", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", desc = "Test current dir" },
-		{ "<leader>tg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", desc = "Test root dir" },
-		{ "<leader>tD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", desc = "Debug nearest test" },
-	},
+	keys = require('core.keymaps').neotest,
 	config = function()
 		local icons = require("core.icons")
 		-- get neotest namespace (api call creates or returns namespace)
@@ -153,9 +144,12 @@ return {
 			watch = {
 				enabled = true,
 				symbol_queries = {
-					go = "        ;query\n        ;Captures imported types\n        (qualified_type name: (type_identifier) @symbol)\n        ;Captures package-local and built-in types\n        (type_identifier)@symbol\n        ;Captures imported function calls and variables/constants\n        (selector_expression field: (field_identifier) @symbol)\n        ;Captures package-local functions calls\n        (call_expression function: (identifier) @symbol)\n      ",
-					lua = '        ;query\n        ;Captures module names in require calls\n        (function_call\n          name: ((identifier) @function (#eq? @function "require"))\n          arguments: (arguments (string) @symbol))\n      ',
-					python = "        ;query\n        ;Captures imports and modules they're imported from\n        (import_from_statement (_ (identifier) @symbol))\n        (import_statement (_ (identifier) @symbol))\n      ",
+					go =
+					"        ;query\n        ;Captures imported types\n        (qualified_type name: (type_identifier) @symbol)\n        ;Captures package-local and built-in types\n        (type_identifier)@symbol\n        ;Captures imported function calls and variables/constants\n        (selector_expression field: (field_identifier) @symbol)\n        ;Captures package-local functions calls\n        (call_expression function: (identifier) @symbol)\n      ",
+					lua =
+					'        ;query\n        ;Captures module names in require calls\n        (function_call\n          name: ((identifier) @function (#eq? @function "require"))\n          arguments: (arguments (string) @symbol))\n      ',
+					python =
+					"        ;query\n        ;Captures imports and modules they're imported from\n        (import_from_statement (_ (identifier) @symbol))\n        (import_statement (_ (identifier) @symbol))\n      ",
 				},
 			},
 		})

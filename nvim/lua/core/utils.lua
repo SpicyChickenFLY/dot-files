@@ -1,12 +1,9 @@
 local M = {}
-local augroup_name = 'NeverVimUtils'
-local group = vim.api.nvim_create_augroup(augroup_name, { clear = true })
-local merge_tb = vim.tbl_deep_extend
 
 function M.log(type, msg, opts)
   local ok, notify = pcall(require, 'notify')
   if ok then
-    opts  = merge_tb('force', { title = 'NeverVim', }, opts)
+    opts  = vim.tbl_deep_extend('force', { title = 'NeverVim', }, opts)
     notify( msg, type, opts)
   else
     if vim.tbl_islist(msg) then -- regular vim.notify can't take tables of strings
@@ -24,9 +21,7 @@ function M.map(mode, lhs, rhs, opts)
 end
 
 function M.merge_list(tbl1, tbl2)
-  for _, v in ipairs(tbl2) do
-    table.insert(tbl1, v)
-  end
+  for _, v in ipairs(tbl2) do table.insert(tbl1, v) end
   return tbl1
 end
 
@@ -35,13 +30,11 @@ function M.merge(...)
 end
 
 function M.split(str, sep)
-  local res = {}
-  for w in str:gmatch('([^' .. sep .. ']*)') do
-    if w ~= '' then
-      table.insert(res, w)
-    end
+  local result = {}
+  for word in str:gmatch('([^' .. sep .. ']*)') do
+    if word ~= '' then table.insert(result, word) end
   end
-  return res
+  return result
 end
 
 function M.get_active_lsp_client_names()
@@ -73,82 +66,11 @@ local function unload(module_pattern, reload)
   end
 end
 
-local function clear_cache()
-  vim.cmd(':LuaCacheClear')
-end
-
-function M.post_reload(msg)
-  -- unload('utils', true)
-  -- unload('theme', true)
-  -- unload('plugins.statusline', true)
-  msg = msg or 'User config reloaded!'
-  M.log(vim.log.levels.INFO, msg)
-end
-
 function M.reload_user_config_sync()
-  clear_cache()
-  unload('core.plugins', true)
-  vim.api.nvim_create_autocmd('User PackerComplete', {
-    callback = function()
-      M.post_reload()
-    end,
-    group = group,
-    once = true,
-  })
-  vim.cmd(':PackerSync')
-end
-
-function M.reload_user_config(compile)
-  compile = compile or false
-  if compile then
-    vim.api.nvim_create_autocmd('User PackerCompileDone', {
-      callback = function()
-        M.post_reload()
-      end,
-      group = group,
-      once = true,
-    })
-    vim.cmd(':PackerCompile')
-  end
-end
-
-function M.get_install_dir()
-  local config_dir = os.getenv('COSMICNVIM_INSTALL_DIR')
-  if not config_dir then
-    return vim.fn.stdpath('config')
-  end
-  return config_dir
-end
-
--- update instance of CosmicNvim
-function M.update()
-  local Job = require('plenary.job')
-  local path = M.get_install_dir()
-  local errors = {}
-
-  Job
-      :new({
-        command = 'git',
-        args = { 'pull', '--ff-only' },
-        cwd = path or '',
-        on_start = function()
-          M.log(vim.log.levels.INFO, 'Updating...')
-        end,
-        on_exit = function()
-          if vim.tbl_isempty(errors) then
-            M.log(vim.log.levels.INFO, 'Updated! Running CosmicReloadSync...')
-            M.reload_user_config_sync()
-          else
-            table.insert(errors, 1, 'Something went wrong! Please pull changes manually.')
-            table.insert(errors, 2, '')
-            M.log(vim.log.levels.ERROR, 'Update failed!', { timeout = 30000 })
-          end
-        end,
-        on_stderr = function(_, err)
-          table.insert(errors, err)
-        end,
-      })
-      :sync()
+  vim.cmd(':LuaCacheClear')
+  unload('plugins', true)
+  unload('core', true)
+  M.log(vim.log.levels.INFO, 'User config reloaded!')
 end
 
 M.get_highlight = function(hi)

@@ -1,7 +1,9 @@
 -- [[ 加载编辑器基本参数配置 ]]
---
-local icons = require("core.icons")
 
+-- 加载基本键位配置
+require("core.keymaps").load "general"
+
+local icons = require("core.icons")
 ---------------------------- Path ------------------------------
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"

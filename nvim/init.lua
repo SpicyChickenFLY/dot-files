@@ -8,9 +8,6 @@ if not ok then
   error('Loading core failed:' .. err)
 end
 
--- 加载基本键位配置
-require("core.keymaps").load "general"
-
 -- 安装lazy.nvim 插件包管理器
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

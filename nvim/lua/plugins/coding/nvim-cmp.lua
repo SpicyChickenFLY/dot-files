@@ -27,33 +27,7 @@ return {
       },
       preselect = 'none',
       completion = { completeopt = 'menu, preview, menuone, noinsert' },
-      mapping = {
-        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-h>'] = cmp.mapping({
-          i = cmp.mapping.abort(),
-          c = cmp.mapping.close(),
-        }),
-        ['<C-l>'] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        }),
-        ['<C-j>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then cmp.select_next_item()
-          elseif snippet.expand_or_jumpable() then snippet.expand_or_jump()
-          elseif has_words_before() then cmp.complete()
-          else fallback()
-          end
-        end, { 'i', 'c', 's', }
-        ),
-        ['<C-k>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then cmp.select_prev_item()
-          elseif snippet.jumpable(-1) then snippet.jump(-1)
-          else fallback()
-          end
-        end, { 'i', 'c', 's', }
-        ),
-      },
+      mapping = require('core.keymaps').cmp_mapping(cmp, snippet, has_words_before),
       window = {
         completion = {
           -- border = 'rounded',

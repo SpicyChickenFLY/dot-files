@@ -1,9 +1,7 @@
 return {
   "hedyhli/outline.nvim",
   dependencies = { "neovim/nvim-lspconfig" },
-  keys = {
-    {"<leader>lo", ':Outline<CR>', desc = "toggle outline" },
-  },
+  keys = require('core.keymaps').outline,
   cmd = "Outline",
   config = function()
     local icons = require("core.icons")

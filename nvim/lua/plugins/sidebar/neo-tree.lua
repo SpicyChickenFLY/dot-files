@@ -8,10 +8,7 @@ return {
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
   },
   cmd = { 'Neotree', },
-  keys = {
-    {"<leader>ee", ":Neotree<CR>", desc = "Open" },
-    {"<leader>ef", ":Neotree reveal=true<CR>", desc = "Open" },
-  },
+  keys = require("core.keymaps").neotree,
   deactivate = function()
     vim.cmd([[Neotree close]])
   end,
@@ -144,7 +141,6 @@ return {
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
           ["l"] = "open",
-          ["q"] = "cancel", -- close preview or floating neo-tree window
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
           -- Read `# Preview Mode` for more information
           ["L"] = "focus_preview",
@@ -183,6 +179,7 @@ return {
           --  }
           --}
           ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
+          ["q"] = "close_window",
           ["R"] = "refresh",
           ["?"] = "show_help",
           ["<"] = "prev_source",

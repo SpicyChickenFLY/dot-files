@@ -1,6 +1,7 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/chow/.config/dot-files
+- /home/chow/Code/vdi-dev
 - /home/chow/.local/share/nvim/lazy/markdown-preview.nvim
 - /mnt/Mine/Code/nodejs/lx-music-desktop
 - /home/chow/Code/nodejs/lx-music-desktop

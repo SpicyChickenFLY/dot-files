@@ -2,10 +2,7 @@
 return {
   "akinsho/bufferline.nvim",
   lazy = false,
-  keys = {
-    { "H", ":BufferLineCyclePrev<CR>", desc = "Prev buffer", silent = true },
-    { "L", ":BufferLineCycleNext<CR>", desc = "Next buffer", silent = true },
-  },
+  keys = require('core.keymaps').bufferline,
   config = function()
     local icons = require("core.icons")
     local opt = {
