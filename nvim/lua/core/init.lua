@@ -1,7 +1,7 @@
 -- [[ 加载编辑器基本参数配置 ]]
 
 -- 加载基本键位配置
-require("core.keymaps").load "general"
+vim.schedule(require("core.keymaps").general)
 
 local icons = require("core.icons")
 ---------------------------- Path ------------------------------

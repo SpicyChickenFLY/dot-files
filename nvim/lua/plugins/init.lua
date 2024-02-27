@@ -34,7 +34,6 @@ local plugins = {
   require("plugins.finder.telescope"),         -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.finder.icon-picker"),       -- find Icon/NerdFont/Color
   require("plugins.finder.session-lens"),      -- find saved Session
-  require("plugins.finder.project"),           -- find recent Project
   require("plugins.finder.trouble"),           -- find all Diagnositic && TODO-like Comment
   require("plugins.finder.which-key"),         -- find triggerd Keymaps
   -------------- Tools --------------

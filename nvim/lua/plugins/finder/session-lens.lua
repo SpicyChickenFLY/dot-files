@@ -4,6 +4,7 @@ return {
     "rmagatti/auto-session",
     'nvim-telescope/telescope.nvim'
   },
+  keys = require('core.keymaps').sessionlens,
   cmd = "SearchSession",
   config = function()
     require('session-lens').setup({

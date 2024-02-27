@@ -4,10 +4,6 @@
 
 local M = {}
 
-M.load = function(section)
-  vim.schedule(function() M[section]() end)
-end
-
 M.general = function()
   local function map(mode, lhs, rhs, opts)
     local modes = type(mode) == "string" and { mode } or mode
@@ -16,10 +12,7 @@ M.general = function()
     if #modes > 0 then
       opts = opts or {}
       opts.silent = true
-      if opts.remap and not vim.g.vscode then
-        ---@diagnostic disable-next-line: no-unknown
-        opts.remap = nil
-      end
+      if opts.remap and not vim.g.vscode then opts.remap = nil end
       vim.keymap.set(modes, lhs, rhs, opts)
     end
   end
@@ -137,8 +130,8 @@ M.lspconfig = {
   { "<leader>lwr", vim.lsp.buf.remove_workspace_folder,                                        silent = true, desc = "Remove workspace folder" },
   { "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,    silent = true, desc = "List workspace folders" },
 
-  { "[d",          function() vim.diagnostic.goto_prev { float = { border = "rounded" } } end, silent = true, desc = "Goto prev" },
-  { "]d",          function() vim.diagnostic.goto_next { float = { border = "rounded" } } end, silent = true, desc = "Goto next" },
+  { "[d",          function() vim.diagnostic.goto_prev { float = { border = "rounded" } } end, silent = true, desc = "Prev diagnostic" },
+  { "]d",          function() vim.diagnostic.goto_next { float = { border = "rounded" } } end, silent = true, desc = "Next diagnostic" },
 }
 M.dap = {
   { "<leader>Db", ":lua require'dap'.step_back()<CR>",                                                   silent = true, desc = "step back" },
@@ -229,19 +222,11 @@ M.telescope = {
   { "<leader>gc", ":Telescope git_commits<CR>",                                              silent = true, desc = "Open changed file" },
   { "<leader>gg", ":Telescope git_status<CR>",                                               silent = true, desc = "Open changed file" },
 }
-M.project = { { "<leader>fp", ":Telescope projects<CR>", silent = true, desc = "Find Projects" }, }
+M.sessionlens = { { "<leader>sf", ":SearchSession<CR>", silent = true, desc = "Find Session" }, }
 M.trouble = { { "<leader>ldd", ":TroubleToggle<CR>", silent = true, desc = "Open Diagnostic List" }, }
 
 
 -------------- Tools --------------
-M.floaterm = {
-  { "<C-\\>",     ":FloatermToggle<CR>",      silent = true },
-  { '<leader>er', ":FloatermNew ranger<CR>",  silent = true, desc = "Open ranger" },
-  { '<leader>gl', ":FloatermNew lazygit<CR>", silent = true, desc = "Open ranger" },
-}
-M.floaterm_func = function()
-  vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
-end
 M.autosession = {
   { "<leader>ss", ":SessionSave<CR>",    "save session" },
   { "<leader>sl", ":SessionRestore<CR>", "load session" },
@@ -250,5 +235,48 @@ M.diffview = {
   { "<leader>gd", ":DiffviewOpen<CR>",          silent = true, desc = "Git diff" },
   { "<leader>gh", ":DiffviewFileHistory %<CR>", silent = true, desc = "Show file history" },
 }
+M.flash = {
+  { "s",     mode = { "n", "x", "o" }, ":lua require('flash').jump()<CR>",              silent = true, desc = "Flash" },
+  { "S",     mode = { "n", "x", "o" }, ":lua require('flash').treesitter()<CR>",        silent = true, desc = "Flash Treesitter" },
+  { "r",     mode = "o",               ":lua require('flash').remote()<CR>",            silent = true, desc = "Remote Flash" },
+  { "R",     mode = { "o", "x" },      ":lua require('flash').treesitter_search()<CR>", silent = true, desc = "Treesitter Search" },
+  { "<c-s>", mode = { "c" },           ":lua require('flash').toggle()<CR>",            silent = true, desc = "Toggle Flash Search" },
+}
+M.floaterm = {
+  { "<C-\\>",     ":FloatermToggle<CR>",      silent = true },
+  { '<leader>er', ":FloatermNew ranger<CR>",  silent = true, desc = "Open ranger" },
+  { '<leader>gl', ":FloatermNew lazygit<CR>", silent = true, desc = "Open ranger" },
+}
+M.floaterm_func = function()
+  vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
+end
+M.gitsigns = function(bufnr, gs)
+  local function map(mode, l, r, desc)
+    vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+  end
+
+  map('n', ']c', gs.next_hunk, 'Next hunk')
+  map('n', '[c', gs.prev_hunk, 'Prev hunk')
+
+  map('n', '<leader>gs', gs.stage_hunk, 'Stage hunk')
+  map('n', '<leader>gr', gs.reset_hunk, 'Reset hunk')
+  map('n', '<leader>gp', gs.preview_hunk, 'Preview hunk')
+  map('n', '<leader>gb', gs.blame_line, 'Blame line')
+  map('n', '<leader>gB', function() gs.blame_line { full = true } end, 'Blame line with detail')
+
+  -- NOTE: dont need buffer operation
+  -- map('n', '<leader>gS', gs.stage_buffer)
+  -- map('n', '<leader>gu', gs.undo_stage_hunk)
+  -- map('n', '<leader>gR', gs.reset_buffer)
+  -- NOTE: will be replaced by diffview.nvim
+  -- map('n', '<leader>gd', gs.diffthis)
+  -- map('n', '<leader>gD', function() gs.diffthis('~') end)
+  -- map('n', '<leader>gt', gs.toggle_deleted)
+
+  map('v', '<leader>gs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end, 'Stage hunk')
+  map('v', '<leader>gr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end, 'Reset hunk')
+
+  map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+end
 
 return M

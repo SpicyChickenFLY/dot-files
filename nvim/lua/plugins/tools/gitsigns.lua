@@ -5,34 +5,7 @@ return {
   config = function()
     require('gitsigns').setup({
       on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-        end
-
-        map('n', ']c', gs.next_hunk, 'Next hunk')
-        map('n', '[c', gs.prev_hunk, 'Prev hunk')
-
-        map('n', '<leader>gs', gs.stage_hunk, 'Stage hunk')
-        map('n', '<leader>gr', gs.reset_hunk, 'Reset hunk')
-        map('n', '<leader>gp', gs.preview_hunk, 'Preview hunk')
-        map('n', '<leader>gb', gs.blame_line, 'Blame line')
-        map('n', '<leader>gB', function() gs.blame_line{full=true} end, 'Blame line with detail')
-
-        -- NOTE: dont need buffer operation
-        -- map('n', '<leader>gS', gs.stage_buffer)
-        -- map('n', '<leader>gu', gs.undo_stage_hunk)
-        -- map('n', '<leader>gR', gs.reset_buffer)
-        -- NOTE: will be replaced by diffview.nvim
-        -- map('n', '<leader>gd', gs.diffthis)
-        -- map('n', '<leader>gD', function() gs.diffthis('~') end)
-        -- map('n', '<leader>gt', gs.toggle_deleted)
-
-        map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, 'Stage hunk')
-        map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, 'Reset hunk')
-
-        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        require('core.keymaps').gitsigns(bufnr, package.loaded.gitsigns)
       end,
       signs = {
         add          = { hl = 'GitSignsAdd'   , text = '┃'},
