@@ -18,8 +18,9 @@ local plugins = {
   require("plugins.sidebar.neotest"),         -- UnitTest framework
   -------------- Coding --------------
   require("plugins.coding.mason"),            -- LSP/DAP/Linter/Formatter manager
-  { "mfussenegger/nvim-jdtls" },              -- Java LSP
-  { "nanotee/sqls.nvim" },                    -- SQL LSP
+  require("plugins.coding.flutter-tools"),    -- Flutter LSP Tool
+  { "mfussenegger/nvim-jdtls" },              -- Java LSP Tool
+  { "nanotee/sqls.nvim" },                    -- SQL LSP Tool
   require("plugins.coding.lspconfig"),        -- general LSP servers configuration
   require("plugins.coding.nvim-dap"),         -- general DAP debug configuration
   require("plugins.coding.none-ls"),          -- general Formatter/Linter configuration
@@ -28,7 +29,7 @@ local plugins = {
   require("plugins.coding.Comment"),          -- quick Comment
   require("plugins.coding.todo-comments"),    -- highlight TODO-like Comment
   require("plugins.coding.treesitter"),       -- TreeSitter for nvim
-  require("plugins.coding.markdown-preview"), -- markdown preview
+  require("plugins.coding.markdown-preview"), -- Markdown preview
   require("plugins.coding.rest"),             -- HTTP request client
   -------------- Finder --------------
   require("plugins.finder.telescope"),         -- fuzzy Finder(file/buffer/keymap/highlight)

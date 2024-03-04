@@ -48,6 +48,10 @@ M.general = function()
   -- Content operation
   map("i", "<C-v>", "<ESC>pi")
 
+  -- Show the syntax highlight group under cursor
+  map("n", "gl", '<cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>')
+  map("n", "gL", '<cmd>Inspect!<CR>')
+
   map("n", '<leader>pc', ":Lazy check<CR>", { desc = "Check update" })
   map("n", '<leader>ps', ":Lazy sync<CR>", { desc = "Sync update" })
   map("n", '<leader>pp', ":Lazy home<CR>", { desc = "Open list" })
@@ -105,9 +109,15 @@ M.neotest = {
 M.mason = {
   { "<leader>lm", ":Mason<CR>", silent = true, desc = "Open Manager(Mason)" },
 }
+M.flutter_tools = function()
+  local function _map(mode, l, r, desc)
+    vim.keymap.set(mode, l, r, { silent = true, desc = desc })
+  end
+  _map("n", "<leader>lc", ":Telescope flutter commands<CR>" , "Flutter commands")
+end
 M.sqls = function(bufnr)
   local function _map(mode, l, r, desc)
-    vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+    vim.keymap.set(mode, l, r, { buffer = bufnr, silent = true, desc = desc })
   end
   _map('n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
   _map('n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')

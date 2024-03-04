@@ -29,6 +29,9 @@ local function searchCount()
   end
 end
 
+local function flutterInfo()
+end
+
 local function dbInfo()
   local info = ""
   -- 获取当前 buffer 的 LSP 客户端
@@ -128,10 +131,13 @@ return {
               hint = icons.hint .. " ",
             },
           },
+          { todoCount },
           { searchCount },
+        },
+        lualine_x = {
+          { dbInfo },
           { dbInfo },
         },
-        lualine_x = { { todoCount } },
         lualine_y = {
           { "filetype", icon_only = true },
           "encoding",

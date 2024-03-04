@@ -15,6 +15,7 @@ return {
       },
       "Trouble",
       { ft = "qf",            title = "QuickFix" },
+      { ft = "log",            title = "Log" },
       {
         ft = "help",
         size = { height = 20 },
