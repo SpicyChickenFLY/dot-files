@@ -72,6 +72,14 @@ M.ufo = {
   { "z3", ":lua require'ufo'.closeFoldsWith(3)<CR>",      silent = true, desc = "close fold level 3" },
   { "z4", ":lua require'ufo'.closeFoldsWith(4)<CR>",      silent = true, desc = "close fold level 4" },
 }
+M.mini_indent_mappings = {
+  -- Textobjects
+  object_scope = 'ii',
+  object_scope_with_border = 'ai',
+  -- Motions (jump to respective border line; if not present - body line)
+  goto_top = '[i',
+  goto_bottom = ']i',
+}
 -------------- Sidebar tools --------------
 M.neotree = {
   { "<leader>ee", ":Neotree<CR>",             silent = true, desc = "open panel" },
