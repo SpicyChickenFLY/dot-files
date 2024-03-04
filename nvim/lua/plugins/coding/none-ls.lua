@@ -22,11 +22,9 @@ return {
                 -- golang
                 null_ls.builtins.formatting.goimports,
                 -- shell
-                null_ls.builtins.formatting.beautysh,
+                null_ls.builtins.formatting.shfmt,
                 null_ls.builtins.diagnostics.zsh.with({ filetypes = { "zsh" }, }),
                 null_ls.builtins.hover.printenv.with({ filetypes = { "zsh", "bash", "sh", "dosbatch", "ps1" }, }),
-                null_ls.builtins.diagnostics.shellcheck.with({ filetypes = { "bash", "sh" }, }),
-                null_ls.builtins.code_actions.shellcheck.with({ filetypes = { "bash", "sh" }, }),
             },
         }
     end,
