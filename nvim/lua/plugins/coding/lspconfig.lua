@@ -170,15 +170,9 @@ return {
       local found_ts = ""
       local function check_dir(path)
         found_ts = util.path.join(path, "node_modules", "typescript", "lib")
-        if util.path.exists(found_ts) then
-          return path
-        end
+        if util.path.exists(found_ts) then return path end
       end
-      if util.search_ancestors(root_dir, check_dir) then
-        return found_ts
-      else
-        return global_ts
-      end
+      return util.search_ancestors(root_dir, check_dir) and found_ts or global_ts
     end
     require("lspconfig")["volar"].setup({
       on_attach = on_attach,
