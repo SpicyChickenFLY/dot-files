@@ -55,12 +55,12 @@ return {
     },
     lsp = {
       color = { -- show the derived colours for dart variables
-        enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
+        enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
         background = false, -- highlight the background
         background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
         foreground = false, -- highlight the foreground
         virtual_text = true, -- show the highlight using virtual text
-        virtual_text_str = "■", -- the virtual text character to highlight
+        virtual_text_str = "󰝤", -- the virtual text character to highlight
       },
       on_attach = function(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
@@ -105,31 +105,26 @@ return {
         end
       end,
 
-      capabilities = {
-        documentFormattingProvider = false,
-        documentRangeFormattingProvider = false,
-      },
-      -- capabilities = my_custom_capabilities -- e.g. lsp_status capabilities
+    capabilities = (function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.workspace.configuration = true
+      -- This setting allows document changes to be made via the lsp e.g. renaming a file when
+      -- the containing class is renamed also
+      -- @see: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#workspaceEdit
+      capabilities.workspace.workspaceEdit.documentChanges = true
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      capabilities.textDocument.documentColor = { dynamicRegistration = true }
+      -- @see: https://github.com/hrsh7th/nvim-compe#how-to-use-lsp-snippet
+      capabilities.textDocument.completion.completionItem.resolveSupport = {
+        properties = { "documentation", "detail", "additionalTextEdits" },
+      }
+      return capabilities
+    end)(),
       --- OR you can specify a function to deactivate or change or control how the config is created
       -- capabilities = function(config)
       --   config.specificThingIDontWant = false
       --   return config
       -- end,
-      -- capabilities = (function()
-      --   local capabilities = vim.lsp.protocol.make_client_capabilities()
-      --   capabilities.workspace.configuration = true
-      --   -- This setting allows document changes to be made via the lsp e.g. renaming a file when
-      --   -- the containing class is renamed also
-      --   -- @see: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#workspaceEdit
-      --   capabilities.workspace.workspaceEdit.documentChanges = true
-      --   capabilities.textDocument.completion.completionItem.snippetSupport = true
-      --   capabilities.textDocument.documentColor = { dynamicRegistration = true }
-      --   -- @see: https://github.com/hrsh7th/nvim-compe#how-to-use-lsp-snippet
-      --   capabilities.textDocument.completion.completionItem.resolveSupport = {
-      --     properties = { "documentation", "detail", "additionalTextEdits" },
-      --   }
-      --   return capabilities
-      -- end)(),
       -- see the link below for details on each option:
       -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
       settings = {
