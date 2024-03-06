@@ -41,7 +41,10 @@ alias vi="nvim"
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 
+
 # path
+export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
+
 export MAVEN_HOME=/usr/local/maven
 export PATH=$PATH:$MAVEN_HOME/bin
 
@@ -56,11 +59,18 @@ export JDK8=/usr/local/jdk8
 export JDK17=/usr/local/jdk17
 export JAVA_HOME=$JDK8
 export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=$CLASSPATH:.
 
 export GOBANG_HOME=/usr/local/gobang
 export PATH=$PATH:$GOBANG_HOME
 
-export CLASSPATH=$CLASSPATH:.
+export FLUTTER_HOME=/usr/local/flutter
+export PATH=$PATH:$FLUTTER_HOME/bin
+export ANDROID_HOME=/home/chow/Android/Sdk
+export ANDROID_SDK_ROOT=/home/chow/Android/Sdk
+export ANDROID_AVD_HOME=/home/chow/.android/avd
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
 
 # export MYSQL_HOME=/usr/local/mysql
 # export PATH=$PATH:$MYSQL_HOME/bin
