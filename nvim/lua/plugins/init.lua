@@ -5,14 +5,14 @@ local plugins = {
   require("plugins.ui.lualine"),              -- extra Status Line on bottom
   require("plugins.ui.bufferline"),           -- use Tabline show buffer list
   require("plugins.ui.barbecue"),             -- use Winbar show breadcrumbs
-  require("plugins.ui.noice"),                -- use Float Window show cmdline and messages
+  -- require("plugins.ui.noice"),                -- use Float Window show cmdline and messages
   require("plugins.ui.statuscol"),            -- manage Status Coloumn on left
   require("plugins.ui.nvim-ufo"),             -- buffer Fold guide
   require("plugins.ui.indent-blankline"),     -- buffer Indent guide
   require("plugins.ui.mini-indent"),          -- cursor Indent guide
   -------------- Sidebar tools --------------
-  require("plugins.sidebar.edgy"),            -- sidebar/bottom Panel Layout
-  require("plugins.sidebar.neo-tree"),        -- File Explorer (also for buffer/git)
+  -- require("plugins.sidebar.edgy"),            -- sidebar/bottom Panel Layout
+  -- require("plugins.sidebar.neo-tree"),        -- File Explorer (also for buffer/git)
   require("plugins.sidebar.nvim-spectre"),    -- Find and Replace content
   require("plugins.sidebar.outline"),         -- LSP document symbol outline
   require("plugins.sidebar.neotest"),         -- UnitTest framework
