@@ -77,6 +77,11 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$ANDR
 #
 export PATH=$PATH:$HOME/.local/bin
 
+export VISUAL=nvim
+# export EDITOR=nvim
+export PAGER=less
+export SHELL=zsh
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
