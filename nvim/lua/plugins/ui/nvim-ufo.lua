@@ -55,7 +55,7 @@ return {
       -- close_fold_kinds = {'imports', 'comment'},
       close_fold_kinds = {'imports'},
       --[[ provider_selector = function(bufnr, filetype, buftype) ]]
-      provider_selector = function(_, _, _) return { "lsp", "indent" } end,
+      provider_selector = function(_, _, _) return { "lsp" } end,
       fold_virt_text_handler = handler,
       enable_get_fold_virt_text = true,
       preview = {},
