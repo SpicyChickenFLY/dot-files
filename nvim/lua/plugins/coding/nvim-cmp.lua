@@ -26,7 +26,7 @@ return {
         expand = function(args) snippet.lsp_expand(args.body) end,
       },
       preselect = 'none',
-      completion = { completeopt = 'menu, preview, menuone, noinsert' },
+      completion = { completeopt = 'menu, preview, menuone, noinsert', autocomplete = false },
       mapping = require('core.keymaps').cmp_mapping(cmp, snippet, has_words_before),
       window = {
         completion = {
@@ -95,5 +95,25 @@ return {
       'confirm_done',
       require('nvim-autopairs.completion.cmp').on_confirm_done()
     )
+
+    local function debounce(ms, fn)
+        require('cmp').close()
+        local timer = vim.loop.new_timer()
+        return function(...)
+            local argv = { ... }
+            timer:start(ms, 0, function()
+                timer:stop()
+                vim.schedule_wrap(fn)(unpack(argv))
+            end)
+        end
+    end
+
+    local autocmd = vim.api.nvim_create_autocmd
+    autocmd('TextChangedI', {
+        pattern = "*",
+        callback = debounce(400, function()
+          require('cmp').complete({ reason = require('cmp').ContextReason.Auto })
+        end)
+    })
   end,
 }

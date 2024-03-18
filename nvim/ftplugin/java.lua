@@ -1,6 +1,7 @@
 local jdk8_path = "/usr/local/jdk8"
 local jdk17_path = "/usr/local/jdk17"
 local jdtls_path = "/usr/local/jdtls"
+local jdtls_launcher_path = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar", 1)
 local jdtls_cache_path = "/home/chow/.cache/jdtls"
 local java_debug_path = "/usr/local/java-debug"
 local java_decompiler_path = "/usr/local/java-decompiler"
@@ -26,7 +27,7 @@ local config = {
 		"java.base/java.lang=ALL-UNNAMED",
 		"-javaagent:" .. jdtls_path .. "/plugins/lombok.jar",
 		"-jar",
-		jdtls_path .. "/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+		jdtls_launcher_path,
 		"-configuration",
 		jdtls_path .. "/config_linux",
 		"-data",

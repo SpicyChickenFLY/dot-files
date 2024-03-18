@@ -40,28 +40,21 @@ return {
 
         -- You do not have to define dap.adapters.java yourself if you use nvim-jdtls
         -- dap.adapters.java = {}
+        -- dap.adapters.java = function(callback) end
         dap.configurations.java = {
-          {
-            type = "java",
-            name = "Debug(Attach) - Host",
-            request = "attach",
-            hostName = "127.0.0.1",
-            port = 5005,
-          },
-          {
-            type = "java",
-            name = "Debug(Attach) - Process",
-            request = "attach",
-            processId = "${command:PickJavaProcess}",
-          },
-          {
-            type = "java",
-            name = "Debug(Launch)",
-            request = "launch",
-            javaExec = "/usr/bin/java",
-            mainClass = "${file}",
-            -- args = "${command:SpecifyProgramArgs}" ,
-          },
+          -- {
+          --   type = "java",
+          --   name = "Debug(Attach) - Host",
+          --   request = "attach",
+          --   hostName = "127.0.0.1",
+          --   port = 5005,
+          -- },
+          -- {
+          --   type = "java",
+          --   name = "Debug(Attach) - Process",
+          --   request = "attach",
+          --   processId = "${command:PickJavaProcess}",
+          -- },
         }
 
         dap.adapters.bashdb = {
@@ -195,7 +188,7 @@ return {
         dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
 
         require("nvim-dap-virtual-text").setup({})
-     end,
+      end,
     }, -- DAP client
     {
       "theHamsta/nvim-dap-virtual-text",

@@ -18,6 +18,7 @@ local plugins = {
   require("plugins.coding.flutter-tools"),    -- Flutter LSP Tool
   { "mfussenegger/nvim-jdtls" },              -- Java LSP Tool
   { "nanotee/sqls.nvim" },                    -- SQL LSP Tool
+  -- require("plugins.coding.nvim-java"),         -- general DAP debug configuration
   require("plugins.coding.lspconfig"),        -- general LSP servers configuration
   require("plugins.coding.nvim-dap"),         -- general DAP debug configuration
   require("plugins.coding.none-ls"),          -- general Formatter/Linter configuration

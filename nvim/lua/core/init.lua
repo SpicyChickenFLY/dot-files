@@ -35,9 +35,9 @@ opt.cursorline = true
 opt.list = true
 opt.listchars = icons.listchars
 opt.signcolumn = "yes"
-opt.scrolloff = 5 -- 当游标离上下N行时滚动
-opt.sidescrolloff = 5 -- 当游标离左右N列时滚动
-opt.wrap = true -- 开启折行显示
+opt.scrolloff = 5              -- 当游标离上下N行时滚动
+opt.sidescrolloff = 5          -- 当游标离左右N列时滚动
+opt.wrap = true                -- 开启折行显示
 opt.whichwrap:append("<>[]hl") -- 允许hl移动换行
 
 -- Numbers
@@ -53,12 +53,12 @@ opt.splitright = false -- Open new split to the right
 
 -- Indenting
 local indent = 4
-opt.autoindent = true -- 开启自动缩进
-opt.smartindent = true -- 开启智能缩进,首先需要开启自动缩进
-opt.shiftwidth = indent -- 自动缩进长度
-opt.tabstop = indent -- 只修改制表符的显示宽度
+opt.autoindent = true    -- 开启自动缩进
+opt.smartindent = true   -- 开启智能缩进,首先需要开启自动缩进
+opt.shiftwidth = indent  -- 自动缩进长度
+opt.tabstop = indent     -- 只修改制表符的显示宽度
 opt.softtabstop = indent -- 按Tab键的行为, 行为跟tabstop有关
-opt.expandtab = true -- 按Tab键替换成空格。数目跟tabstop有关
+opt.expandtab = true     -- 按Tab键替换成空格。数目跟tabstop有关
 
 -- Searching
 opt.hlsearch = true
@@ -70,7 +70,7 @@ opt.wildmenu = true
 -- Folding
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
 opt.foldcolumn = "1" -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value
+opt.foldlevel = 99   -- Using ufo provider need a large value
 opt.foldlevelstart = 99
 opt.foldenable = true
 
@@ -99,16 +99,17 @@ cmd([[filetype plugin indent on]])
 local autocmd = vim.api.nvim_create_autocmd
 -- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
 autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
-	pattern = "*.i3.config",
-	callback = function()
-		cmd([[set filetype=i3config]])
-	end,
+    pattern = "*.i3.config",
+    callback = function()
+        cmd([[set filetype=i3config]])
+    end,
 })
+-- 打开新Buffer时把http结尾的文件看作rest测试文件类型
 autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
-	pattern = "*.http",
-	callback = function()
-		cmd([[set filetype=http]])
-	end,
+    pattern = "*.http",
+    callback = function()
+        cmd([[set filetype=http]])
+    end,
 })
 -- close some filetypes with <q>
 autocmd("FileType", {
@@ -129,6 +130,7 @@ autocmd("FileType", {
         -- nvim_create_autocmd's callback receives a table argument with fields
         -- event = {id,event,group?,match,buf,file,data(arbituary data)}
         vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true }, "close some filetype windows with <q>")
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true },
+            "close some filetype windows with <q>")
     end,
 })
