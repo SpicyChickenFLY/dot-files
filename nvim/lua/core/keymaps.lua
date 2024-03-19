@@ -92,13 +92,10 @@ M.neotest = {
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
 M.flutter_tools = function() map_wrap("n", "<leader>lc", ":Telescope flutter commands<CR>", "Flutter commands") end
 M.sqls = function(bufnr)
-  local function _map(mode, l, r, desc)
-    vim.keymap.set(mode, l, r, { buffer = bufnr, desc })
-  end
-  _map('n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
-  _map('n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')
-  _map('v', '<leader>xx', "<Plug>(sqls-execute-query)", 'Stage hunk')
-  _map('v', '<leader>xX', "<Plug>(sqls-execute-query-vertical)", 'Reset hunk')
+  map_buf_wrap(bufnr, 'n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
+  map_buf_wrap(bufnr, 'n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')
+  map_buf_wrap(bufnr, 'v', '<leader>xx', "<Plug>(sqls-execute-query)", 'Stage hunk')
+  map_buf_wrap(bufnr, 'v', '<leader>xX', "<Plug>(sqls-execute-query-vertical)", 'Reset hunk')
 end
 M.lspconfig = {
   wrap_lazy("n", "K", vim.lsp.buf.hover, "show hover"),

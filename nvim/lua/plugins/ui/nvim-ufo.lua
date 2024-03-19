@@ -52,8 +52,9 @@ return {
 
     require("ufo").setup({
     open_fold_hl_timeout = 400,
-      -- close_fold_kinds = {'imports', 'comment'},
-      close_fold_kinds = {'imports'},
+      close_fold_kinds_for_ft = {
+        java = { "imports" }
+      },
       --[[ provider_selector = function(bufnr, filetype, buftype) ]]
       provider_selector = function(_, _, _) return { "lsp" } end,
       fold_virt_text_handler = handler,

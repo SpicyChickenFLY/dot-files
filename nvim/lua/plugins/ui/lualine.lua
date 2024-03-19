@@ -136,7 +136,6 @@ return {
         },
         lualine_x = {
           { dbInfo },
-          { dbInfo },
         },
         lualine_y = {
           { "filetype", icon_only = true },
