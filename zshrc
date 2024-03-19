@@ -86,8 +86,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-
-if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-     # exec i3
-     # exec sway
-fi
