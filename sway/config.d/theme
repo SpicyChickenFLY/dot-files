@@ -19,7 +19,7 @@ exec ~/.azotebg
 
 ## Window decoration
 # class                 border  backgr. text    indicator child_border
-client.focused          #000000 #77ffaa #0000ff #8fbcbb   #88c0d0
+client.focused          #000000 #77ffaa #0000ff #8fbcbb   #77ffaa
 client.focused_inactive #000000 #77ffaa #0000ff #4c566a   #4c566a
 client.unfocused        #000000 #cceecc #aaddff #4c566a   #4c566a
 client.urgent           #ebcb8b #ebcb8b #2e3440 #8fbcbb   #ebcb8b
