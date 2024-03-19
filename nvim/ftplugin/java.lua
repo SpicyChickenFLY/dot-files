@@ -21,17 +21,12 @@ local config = {
 		"-Dlog.level=ALL",
 		"-Xms1g",
 		"--add-modules=ALL-SYSTEM",
-		"--add-opens",
-		"java.base/java.util=ALL-UNNAMED",
-		"--add-opens",
-		"java.base/java.lang=ALL-UNNAMED",
+		"--add-opens", "java.base/java.util=ALL-UNNAMED",
+		"--add-opens", "java.base/java.lang=ALL-UNNAMED",
 		"-javaagent:" .. jdtls_path .. "/plugins/lombok.jar",
-		"-jar",
-		jdtls_launcher_path,
-		"-configuration",
-		jdtls_path .. "/config_linux",
-		"-data",
-		jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
+		"-jar", jdtls_launcher_path,
+		"-configuration", jdtls_path .. "/config_linux",
+		"-data", jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
 	},
 
 	-- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -44,10 +39,45 @@ local config = {
 	settings = {
 		java = {
 			runtimes = {
-				{ name = "javaSE-8", path = jdk8_path },
+				{ name = "javaSE-8",  path = jdk8_path },
 				{ name = "javaSE-17", path = jdk17_path },
 			},
 			contentProvider = { preferred = "fernflower" },
+			signatureHelp = { enabled = true },
+			completion = {
+				favoriteStaticMembers = {
+					"org.hamcrest.MatcherAssert.assertThat",
+					"org.hamcrest.Matchers.*",
+					"org.hamcrest.CoreMatchers.*",
+					"org.junit.jupiter.api.Assertions.*",
+					"java.util.Objects.requireNonNull",
+					"java.util.Objects.requireNonNullElse",
+					"org.mockito.Mockito.*"
+				},
+				filteredTypes = {
+					"com.sun.*",
+					"io.micrometer.shaded.*",
+					"java.awt.*",
+					"jdk.*", "sun.*",
+				},
+			},
+			-- Specify any options for organizing imports
+			sources = {
+				organizeImports = {
+					starThreshold = 9999,
+					staticStarThreshold = 9999,
+				},
+			},
+			-- How code generation should act
+			codeGeneration = {
+				toString = {
+					template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+				},
+				hashCodeEquals = {
+					useJava7Objects = true,
+				},
+				useBlocks = true,
+			},
 		},
 	},
 
