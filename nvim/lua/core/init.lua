@@ -124,6 +124,7 @@ autocmd("FileType", {
         "spectre_panel",
         "neo-tree-preview",
         "neotest-output",
+        "sqls_output",
     },
     callback = function(event)
         -- :help api-autocmd

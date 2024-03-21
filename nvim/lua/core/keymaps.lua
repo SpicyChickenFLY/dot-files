@@ -79,14 +79,14 @@ M.spectre = {
   wrap_lazy("n", "<leader>rf", function() require("spectre").open_file_search() end, "search in file"), }
 M.outline = { wrap_lazy("n", "<leader>lo", ':Outline<CR>', "toggle outline"), }
 M.neotest = {
-  wrap_lazy("n", "<leader>tt", ":lua require('neotest').summary.open()<CR>", "open output panel"),
-  wrap_lazy("n", "<leader>to", ":lua require('neotest').output.open({ enter = true })<CR>", "open output"),
-  wrap_lazy("n", "<leader>tO", ":lua require('neotest').output_panel.open()<CR>", "open output panel"),
-  wrap_lazy("n", "<leader>tr", ":lua require'neotest'.run.run()<CR>", "Run nearest test"),
-  wrap_lazy("n", "<leader>tf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file"),
-  wrap_lazy("n", "<leader>td", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir"),
-  wrap_lazy("n", "<leader>tg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir"),
-  wrap_lazy("n", "<leader>tD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test"), }
+  wrap_lazy("n", "<leader>ltt", ":lua require('neotest').summary.open()<CR>", "open output panel"),
+  wrap_lazy("n", "<leader>lto", ":lua require('neotest').output.open({ enter = true })<CR>", "open output"),
+  wrap_lazy("n", "<leader>ltO", ":lua require('neotest').output_panel.open()<CR>", "open output panel"),
+  wrap_lazy("n", "<leader>ltr", ":lua require'neotest'.run.run()<CR>", "Run nearest test"),
+  wrap_lazy("n", "<leader>ltf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file"),
+  wrap_lazy("n", "<leader>ltd", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir"),
+  wrap_lazy("n", "<leader>ltg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir"),
+  wrap_lazy("n", "<leader>ltD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test"), }
 
 -------------- Coding --------------
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
@@ -99,12 +99,12 @@ M.sqls = function(bufnr)
 end
 M.lspconfig = {
   wrap_lazy("n", "K", vim.lsp.buf.hover, "show hover"),
-  wrap_lazy("n", "gd", vim.lsp.buf.definition, "goto definition"),
+  wrap_lazy("n", "gd", ":Telescope lsp_definitions<CR>", "goto definition"),
   wrap_lazy("n", "gD", vim.lsp.buf.declaration, "goto declaration"),
-  wrap_lazy("n", "gt", vim.lsp.buf.type_definition, "goto definition type"),
-  wrap_lazy("n", "gr", vim.lsp.buf.references, "goto references"),
-  wrap_lazy("n", "gi", vim.lsp.buf.implementation, "goto implementation"),
-  wrap_lazy("n", "gs", vim.lsp.buf.document_symbol, "show document symbol "),
+  wrap_lazy("n", "gt", ":Telescope lsp_type_definitions<CR>", "goto definition type"),
+  wrap_lazy("n", "gr", ":Telescope lsp_references<CR>", "goto references"),
+  wrap_lazy("n", "gi", ":Telescope lsp_implementations<CR>", "goto implementation"),
+  wrap_lazy("n", "gs", ":Telescope lsp_document_symbols<CR>", "show document symbol "),
   wrap_lazy("n", "gh", vim.lsp.buf.signature_help, "show signature help"),
   wrap_lazy("n", "<leader>la", vim.lsp.buf.code_action, "code action"),
   wrap_lazy("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "formatting"),
@@ -118,8 +118,10 @@ M.lspconfig = {
   wrap_lazy("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
     "List workspace folders"),
 
-  wrap_lazy("n", "[d", function() vim.diagnostic.goto_prev { float = { border = "rounded" } } end, "Prev diagnostic"),
-  wrap_lazy("n", "]d", function() vim.diagnostic.goto_next { float = { border = "rounded" } } end, "Next diagnostic"),
+  wrap_lazy("n", "[d", function() vim.diagnostic.goto_prev {} end, "Prev diagnostic"),
+  wrap_lazy("n", "]d", function() vim.diagnostic.goto_next {} end, "Next diagnostic"),
+  wrap_lazy("n", "[e", function() vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR } end, "Prev error"),
+  wrap_lazy("n", "]e", function() vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR } end, "Next error"),
 }
 M.dap = {
   wrap_lazy("n", "<leader>Db", ":lua require'dap'.step_back()<CR>", "step back"),
@@ -217,14 +219,13 @@ M.flash = {
   wrap_lazy({ "o", "x" }, "R", function() require("flash").treesitter_search() end, "Treesitter Search"),
   wrap_lazy({ "c" }, "<c-s>", function() require("flash").toggle() end, "Toggle Flash Search"), }
 M.floaterm = {
-  wrap_lazy("n", "<C-`>", ":FloatermToggle<CR>"),
-  wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open shell"),
   wrap_lazy("n", "<leader>ef", ":FloatermNew ranger<CR>", "Open ranger"),
   wrap_lazy("n", "<leader>ee", ":FloatermNew ranger $pwd<CR>", "Open ranger"),
   wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
-  wrap_lazy("t", "<C-Tab>", [[<C-\><C-n>:FloatermNext<CR>]]),
-  wrap_lazy("t", "<C-S-Tab>", [[<C-\><C-n>:FloatermPrev<CR>]]),
-  wrap_lazy("t", "<C-`>", [[<C-\><C-n>:FloatermToggle<CR>]]),
+  wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open shell"),
+  wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),
+  wrap_lazy("t", "<C-[>", [[<C-\><C-n>:FloatermNext<CR>]]),
+  wrap_lazy("t", "<C-]>", [[<C-\><C-n>:FloatermPrev<CR>]]),
   wrap_lazy("t", "<C-\\>", [[<C-\><C-n>]]), }
 M.gitsigns = function(bufnr, gs)
   map_buf_wrap(bufnr, 'n', ']c', gs.next_hunk, 'Next hunk')

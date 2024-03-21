@@ -85,6 +85,7 @@ return {
       l = { name = "LSP",
         d = { name = "Diagnostic" },
         w = { name = "Workspace" },
+        t = { name = "Unit Tests" }
       },
       p = { name = "Plugin(Lazy)" },
       r = { name = "Replacer" },
