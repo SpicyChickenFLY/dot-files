@@ -15,7 +15,6 @@ local plugins = {
   require("plugins.sidebar.neotest"),         -- UnitTest framework
   -------------- Coding --------------
   require("plugins.coding.mason"),            -- LSP/DAP/Linter/Formatter manager
-  require("plugins.coding.flutter-tools"),    -- Flutter LSP Tool
   { "mfussenegger/nvim-jdtls" },              -- Java LSP Tool
   -- require("plugins.coding.nvim-java"),         -- general DAP debug configuration
   { "nanotee/sqls.nvim" },                    -- SQL LSP Tool
@@ -29,8 +28,10 @@ local plugins = {
   require("plugins.coding.treesitter"),       -- TreeSitter for nvim
   -- require("plugins.coding.lsp-signature"),    -- Show function signature when you type
   -- require("plugins.coding.navigator"),        -- code Analysis & Navigation tool
-  require("plugins.coding.markdown-preview"), -- Markdown preview
-  require("plugins.coding.rest"),             -- HTTP request client
+  -------------- Language --------------
+  require("plugins.language.markdown-preview"), -- Markdown preview
+  require("plugins.language.flutter-tools"),    -- Flutter LSP Tool
+  -- require("plugins.language.rest"),             -- HTTP request client
   -------------- Finder --------------
   require("plugins.finder.telescope"),        -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.finder.icon-picker"),      -- find Icon/NerdFont/Color

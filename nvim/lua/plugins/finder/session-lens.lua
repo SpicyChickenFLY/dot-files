@@ -12,5 +12,6 @@ return {
       path_display = {},
       previewer = false
     })
+    require('telescope').load_extension('session-lens')
   end
 }

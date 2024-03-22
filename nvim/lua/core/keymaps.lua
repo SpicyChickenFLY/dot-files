@@ -90,13 +90,6 @@ M.neotest = {
 
 -------------- Coding --------------
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
-M.flutter_tools = function() map_wrap("n", "<leader>lc", ":Telescope flutter commands<CR>", "Flutter commands") end
-M.sqls = function(bufnr)
-  map_buf_wrap(bufnr, 'n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
-  map_buf_wrap(bufnr, 'n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')
-  map_buf_wrap(bufnr, 'v', '<leader>xx', "<Plug>(sqls-execute-query)", 'Stage hunk')
-  map_buf_wrap(bufnr, 'v', '<leader>xX', "<Plug>(sqls-execute-query-vertical)", 'Reset hunk')
-end
 M.lspconfig = {
   wrap_lazy("n", "K", vim.lsp.buf.hover, "show hover"),
   wrap_lazy("n", "gd", ":Telescope lsp_definitions<CR>", "goto definition"),
@@ -180,10 +173,17 @@ M.cmp_mapping = function(cmp, snippet, has_words_before)
     ),
   }
 end
+M.sqls = function(bufnr)
+  map_buf_wrap(bufnr, 'n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
+  map_buf_wrap(bufnr, 'n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')
+  map_buf_wrap(bufnr, 'v', '<leader>xx', "<Plug>(sqls-execute-query)", 'Stage hunk')
+  map_buf_wrap(bufnr, 'v', '<leader>xX', "<Plug>(sqls-execute-query-vertical)", 'Reset hunk')
+end
+M.flutter_tools = function() map_wrap("n", "<leader>lc", ":Telescope flutter commands<CR>", "Flutter commands") end
+M.markdown_preview = function() map_wrap("n", "<leader>lc", ":MarkdownPreviewToggle<CR>", "Toggle MarkdownPreview") end
 M.rest = {
-  wrap_lazy("n", "<leader>hh", "<Plug>RestNvim", "run the request under the cursor"),
-  wrap_lazy("n", "<leader>hp", "<Plug>RestNvimPreview", "preview the request cURL command"),
-  wrap_lazy("n", "<leader>hl", "<Plug>RestNvimLast", "re-run the last request"), }
+  wrap_lazy("n", "<leader>lcc", ":Rest run<CR>", "run the request under the cursor"),
+  wrap_lazy("n", "<leader>lcl", ":Rest run last<CR>", "run latest request"), }
 -------------- Finder --------------
 M.telescope = {
   wrap_lazy("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"),
@@ -224,8 +224,7 @@ M.floaterm = {
   wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
   wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open shell"),
   wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),
-  wrap_lazy("t", "<C-[>", [[<C-\><C-n>:FloatermNext<CR>]]),
-  wrap_lazy("t", "<C-]>", [[<C-\><C-n>:FloatermPrev<CR>]]),
+  wrap_lazy("t", "<C-]>", [[<C-\><C-n>:FloatermNext<CR>]]),
   wrap_lazy("t", "<C-\\>", [[<C-\><C-n>]]), }
 M.gitsigns = function(bufnr, gs)
   map_buf_wrap(bufnr, 'n', ']c', gs.next_hunk, 'Next hunk')
