@@ -9,7 +9,6 @@
             "disk",
         ],
         "modules-center": [
-            "sway/mode",
             "sway/window",
         ],
         "modules-right": [
@@ -36,6 +35,7 @@
         "modules-left": [
             "custom/app",
             "sway/workspaces",
+            "sway/mode",
         ],
         "modules-center": [
             "wlr/taskbar",

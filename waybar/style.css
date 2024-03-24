@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     font-family: 'SauceCodePro Nerd Font';
-    font-size: 22px;
+    font-size: 18px;
     min-height: 0;
 }
 
@@ -47,7 +47,6 @@ window#waybar.empty {
 
 #mode {
     background-color: #ffffff;
-    border-top: 3px solid #64727d;
 }
 
 #cpu, #memory, #disk, #mode,
