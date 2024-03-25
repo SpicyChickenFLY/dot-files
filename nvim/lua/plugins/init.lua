@@ -26,7 +26,7 @@ local plugins = {
   require("plugins.coding.Comment"),          -- quick Comment
   require("plugins.coding.todo-comments"),    -- highlight TODO-like Comment
   require("plugins.coding.treesitter"),       -- TreeSitter for nvim
-  -- require("plugins.coding.lsp-signature"),    -- Show function signature when you type
+  require("plugins.coding.lsp-signature"),    -- Show function signature when you type
   -- require("plugins.coding.navigator"),        -- code Analysis & Navigation tool
   -------------- Language --------------
   require("plugins.language.markdown-preview"), -- Markdown preview

@@ -14,5 +14,12 @@ return {
 
         vim.cmd('hi FloatBorder guibg=None')
         vim.cmd('hi! link FloatermBorder FloatBorder')
+
+        vim.api.nvim_create_autocmd({ "VimResized"}, {
+            pattern = "*",
+            callback = function()
+                vim.cmd(":FloatermUpdate")
+            end,
+        })
     end,
 }
