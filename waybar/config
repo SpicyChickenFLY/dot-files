@@ -85,6 +85,7 @@
         },
 
         "bluetooth": {
+          "format-no-controller": "󰂲 ",
           "format-disabled": "󰂲 ",
           "format-on": " ",
           "format-connected": "󰂱 ",
