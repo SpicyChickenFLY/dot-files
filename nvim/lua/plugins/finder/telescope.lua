@@ -24,7 +24,7 @@ return {
       layout_strategy = 'cursor',
       results_title = false,
       layout_config = {
-        width = 0.5,
+        width = 0.8,
         height = 0.4,
       },
     }
@@ -45,8 +45,8 @@ return {
     local opts_flex = {
       layout_strategy = 'flex',
       layout_config = {
-        width = 0.7,
-        height = 0.7,
+        width = 0.99,
+        height = 0.99,
       },
     }
 
