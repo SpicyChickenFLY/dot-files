@@ -1,4 +1,13 @@
 
+exec --no-startup-id export GTK_IM_MODULE=fcitx
+exec --no-startup-id export QT_IM_MODULE=fcitx
+exec --no-startup-id export XMODIFIERS="@im=fcitx"
+exec --no-startup-id export XIM=fcitx
+exec --no-startup-id export XIM_PROGRAM=fcitx
+exec --no-startup-id export INPUT_METHOD=fcitx
+exec --no-startup-id export SDL_IM_MODULE=fcitx
+exec --no-startup-id export GDK_BACKEND=x11
+
 exec --no-startup-id xclip
 exec --no-startup-id greenclip daemon 
 exec --no-startup-id fcitx5 -d

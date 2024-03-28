@@ -9,7 +9,7 @@ set $right l
 
 # Start foot server
 
-set $term WAYLAND_DISPLAY= alacritty
+set $term WINIT_UNIX_BACKEND=x11 WAYLAND_DISPLAY= alacritty
 set $menu rofi --combi-modi drun-run -show combi --show-icons
 set $launcher fuzzel
 # set $menu nwg-drawer
