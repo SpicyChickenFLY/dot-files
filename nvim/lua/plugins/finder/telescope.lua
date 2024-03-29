@@ -24,7 +24,7 @@ return {
       layout_strategy = 'cursor',
       results_title = false,
       layout_config = {
-        width = 0.8,
+        width = 0.99,
         height = 0.4,
       },
     }
@@ -35,8 +35,8 @@ return {
       layout_strategy = 'vertical',
       results_title = false,
       layout_config = {
-        width = 0.3,
-        height = 0.5,
+        width = 0.99,
+        height = 0.99,
         prompt_position = 'top',
         mirror = true,
       },
