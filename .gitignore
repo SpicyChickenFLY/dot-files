@@ -1,1 +1,4 @@
 lazygit/state.yml
+# fcitx5
+ranger/plugins/__pycache__/*.pyc
+
