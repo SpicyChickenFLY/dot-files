@@ -187,6 +187,8 @@ M.rest = {
 M.telescope = {
   wrap_lazy("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"),
   wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "Commands"),
+  wrap_lazy("n", "<leader>fC", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
+    "Colorscheme with Preview"),
   wrap_lazy("n", "<leader>fe", ":Telescope emoji<CR>", "Checkout branch"),
   wrap_lazy("n", "<leader>ff", ":Telescope find_files<CR>", "Find File"),
   wrap_lazy("n", "<leader>fh", ":Telescope help_tags<CR>", "Find Help"),
@@ -195,14 +197,12 @@ M.telescope = {
   wrap_lazy("n", "<leader>fl", ":Telescope live_grep<CR>", "Text"),
   wrap_lazy("n", "<leader>fk", ":Telescope keymaps<CR>", "Keymaps"),
   wrap_lazy("n", "<leader>fo", ":Telescope oldfiles<CR>", "Find oldfiles"),
-  wrap_lazy("n", "<leader>ft", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
-    "Colorscheme with Preview"),
   wrap_lazy("n", "<leader>fz", ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer"),
   wrap_lazy("n", "<leader>gc", ":Telescope git_commits<CR>", "Open changed file"),
   wrap_lazy("n", "<leader>gg", ":Telescope git_status<CR>", "Open changed file"),
 }
 M.sessionlens = { wrap_lazy("n", "<leader>sf", ":SearchSession<CR>", "Find Session"), }
-M.trouble = { wrap_lazy("n", "<leader>ldd", ":TroubleToggle<CR>", "Open Diagnostic List"), }
+M.todo_comments = { wrap_lazy("n", "<leader>ft", ":TodoTelescope<CR>", "Find todo comments"), }
 
 -------------- Tools --------------
 M.autosession = {

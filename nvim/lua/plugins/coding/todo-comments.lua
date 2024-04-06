@@ -2,6 +2,7 @@ return {
   'folke/todo-comments.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
   event = 'BufWinEnter',
+  key = require("core.keymaps")["todo_comments"],
   config = function()
     local icons = require('core.icons')
     require('todo-comments').setup({

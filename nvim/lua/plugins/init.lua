@@ -23,7 +23,7 @@ local plugins = {
   require("plugins.coding.Comment"),          -- quick Comment
   require("plugins.coding.todo-comments"),    -- highlight TODO-like Comment
   require("plugins.coding.treesitter"),       -- TreeSitter for nvim
-  require("plugins.coding.lsp-signature"),    -- Show function signature when you type
+  -- require("plugins.coding.lsp-signature"),    -- Show function signature when you type
   -- require("plugins.coding.navigator"),        -- code Analysis & Navigation tool
   -------------- Language --------------
   { "mfussenegger/nvim-jdtls" },              -- Java LSP Tool
@@ -36,7 +36,6 @@ local plugins = {
   require("plugins.finder.telescope"),        -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.finder.icon-picker"),      -- find Icon/NerdFont/Color
   require("plugins.finder.session-lens"),     -- find saved Session
-  require("plugins.finder.trouble"),          -- find all Diagnositic && TODO-like Comment
   require("plugins.finder.which-key"),        -- find triggerd Keymaps
   -------------- Tools --------------
   require("plugins.tools.nvim-autopairs"),    -- match Parenthsis
