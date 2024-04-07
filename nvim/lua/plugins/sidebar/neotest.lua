@@ -2,6 +2,7 @@ return {
 	"nvim-neotest/neotest",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"nvim-neotest/nvim-nio",
 		"nvim-neotest/neotest-go",
 		"rcasia/neotest-java",
 		"nvim-treesitter/nvim-treesitter",
