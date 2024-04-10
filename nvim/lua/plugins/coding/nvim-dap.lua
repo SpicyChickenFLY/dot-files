@@ -42,19 +42,19 @@ return {
         -- dap.adapters.java = {}
         -- dap.adapters.java = function(callback) end
         dap.configurations.java = {
-          -- {
-          --   type = "java",
-          --   name = "Debug(Attach) - Host",
-          --   request = "attach",
-          --   hostName = "127.0.0.1",
-          --   port = 5005,
-          -- },
-          -- {
-          --   type = "java",
-          --   name = "Debug(Attach) - Process",
-          --   request = "attach",
-          --   processId = "${command:PickJavaProcess}",
-          -- },
+          {
+            type = "java",
+            name = "Debug(Attach) - Host",
+            request = "attach",
+            hostName = "127.0.0.1",
+            port = 5005,
+          },
+          {
+            type = "java",
+            name = "Debug(Attach) - Process",
+            request = "attach",
+            processId = "${command:PickJavaProcess}",
+          },
         }
 
         dap.adapters.bashdb = {
