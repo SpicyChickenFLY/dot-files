@@ -83,7 +83,10 @@ return {
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline(':', {
-      mapping = cmp.mapping.preset.cmdline(),
+      mapping = cmp.mapping.preset.cmdline({
+        ['<C-n>'] = cmp.config.disable,
+        ['<C-p>'] = cmp.config.disable,
+      }),
       sources = cmp.config.sources(
         { { name = 'path' }, },
         { { name = 'cmdline' }, }
@@ -96,24 +99,24 @@ return {
       require('nvim-autopairs.completion.cmp').on_confirm_done()
     )
 
-    local function debounce(ms, fn)
-        require('cmp').close()
-        local timer = vim.loop.new_timer()
-        return function(...)
-            local argv = { ... }
-            timer:start(ms, 0, function()
-                timer:stop()
-                vim.schedule_wrap(fn)(unpack(argv))
-            end)
-        end
-    end
-
-    local autocmd = vim.api.nvim_create_autocmd
-    autocmd('TextChangedI', {
-        pattern = "*",
-        callback = debounce(400, function()
-          require('cmp').complete({ reason = require('cmp').ContextReason.Auto })
-        end)
-    })
+    -- local function debounce(ms, fn)
+    --     require('cmp').close()
+    --     local timer = vim.loop.new_timer()
+    --     return function(...)
+    --         local argv = { ... }
+    --         timer:start(ms, 0, function()
+    --             timer:stop()
+    --             vim.schedule_wrap(fn)(unpack(argv))
+    --         end)
+    --     end
+    -- end
+    --
+    -- local autocmd = vim.api.nvim_create_autocmd
+    -- autocmd('TextChangedI', {
+    --     pattern = "*",
+    --     callback = debounce(400, function()
+    --       require('cmp').complete({ reason = require('cmp').ContextReason.Auto })
+    --     end)
+    -- })
   end,
 }

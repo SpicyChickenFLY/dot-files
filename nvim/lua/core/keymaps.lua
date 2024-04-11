@@ -67,15 +67,15 @@ M.ufo = {
 M.mini_indent_mappings = {
   object_scope = 'ii',             -- Textobjects Inside
   object_scope_with_border = 'ai', -- Textobjects Around
-  -- Motions (jump to respective border line; if not present - body line)
-  goto_top = '[i',
-  goto_bottom = ']i',
+  goto_top = '[i',                 -- jump Start of Textobjects
+  goto_bottom = ']i',              -- jump End of Textobjects
 }
 
 -------------- Sidebar tools --------------
 M.spectre = {
   wrap_lazy("n", "<leader>rr", function() require("spectre").open() end, "open panel"),
-  wrap_lazy("n", "<leader>rw", function() require("spectre").open_visual({ select_word = true }) end, "search current word"),
+  wrap_lazy("n", "<leader>rw", function() require("spectre").open_visual({ select_word = true }) end,
+    "search current word"),
   wrap_lazy("n", "<leader>rf", function() require("spectre").open_file_search() end, "search in file"), }
 M.outline = { wrap_lazy("n", "<leader>lo", ':Outline<CR>', "toggle outline"), }
 M.neotest = {
@@ -147,7 +147,15 @@ M.cmp_mapping = function(cmp, snippet, has_words_before)
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-h>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-    ['<C-l>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+    ['<C-n>'] = cmp.mapping(function(fallback) fallback() end, { 'i', 'c', 's', }),
+    ['<C-p>'] = cmp.mapping(function(fallback) fallback() end, { 'i', 'c', 's', }),
+    ['<C-l>'] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
+      else
+        cmp.complete()
+      end
+    end, { 'i', 'c', 's', }),
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -158,8 +166,7 @@ M.cmp_mapping = function(cmp, snippet, has_words_before)
       else
         fallback()
       end
-    end, { 'i', 'c', 's', }
-    ),
+    end, { 'i', 'c', 's', }),
     ['<C-k>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -168,8 +175,7 @@ M.cmp_mapping = function(cmp, snippet, has_words_before)
       else
         fallback()
       end
-    end, { 'i', 'c', 's', }
-    ),
+    end, { 'i', 'c', 's', }),
   }
 end
 M.sqls = function(bufnr)
