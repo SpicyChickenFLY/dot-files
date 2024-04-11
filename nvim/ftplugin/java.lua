@@ -1,15 +1,22 @@
 local jdk8_path = "/usr/local/jdk8"
 local jdk17_path = "/usr/local/jdk17"
-local jdtls_path = "/usr/local/jdtls"
-local jdtls_launcher_path = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar", 1)
-local jdtls_cache_path = "/home/chow/.cache/jdtls"
-local java_debug_path = "/usr/local/java-debug"
-local java_decompiler_path = "/usr/local/java-decompiler"
 
-local bundles = {
-	vim.fn.glob(java_debug_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1),
-}
-vim.list_extend(bundles, vim.split(vim.fn.glob(java_decompiler_path .. "/server/*.jar", 1), "\n"))
+local jdtls_path = "/usr/local/jdtls"
+local jdtls_launcher_jar = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar", 1)
+local jdtls_lombok_jar = jdtls_path .. "/plugins/lombok.jar"
+local jdtls_cache_path = "/home/chow/.cache/jdtls"
+local jdtls_cache_data = jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local jdtls_config_path = jdtls_path .. "/config_linux"
+
+local debugger_path = "/usr/local/java-debug"
+local debugger_jar = vim.fn.glob(
+debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
+
+local decompiler_path = "/usr/local/java-decompiler"
+local decompiler_jars = vim.split(vim.fn.glob(decompiler_path .. "/server/*.jar", 1), "\n")
+
+local bundles = { debugger_jar }
+vim.list_extend(bundles, decompiler_jars)
 
 local config = {
 	cmd = {
@@ -23,10 +30,10 @@ local config = {
 		"--add-modules=ALL-SYSTEM",
 		"--add-opens", "java.base/java.util=ALL-UNNAMED",
 		"--add-opens", "java.base/java.lang=ALL-UNNAMED",
-		"-javaagent:" .. jdtls_path .. "/plugins/lombok.jar",
-		"-jar", jdtls_launcher_path,
-		"-configuration", jdtls_path .. "/config_linux",
-		"-data", jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
+		"-javaagent:" .. jdtls_lombok_jar,
+		"-jar", jdtls_launcher_jar,
+		"-configuration", jdtls_config_path,
+		"-data", jdtls_cache_data,
 	},
 
 	-- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -88,9 +95,7 @@ local config = {
 	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 	--
 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-	init_options = {
-		bundles = bundles,
-	},
+	init_options = { bundles = bundles, },
 }
 
 config["on_attach"] = function(client, bufnr)
@@ -103,6 +108,8 @@ config["on_attach"] = function(client, bufnr)
 		config_overrides = {},
 	})
 	vim.cmd([[ command! JdtRefresh lua require('jdtls.dap').setup_dap_main_class_configs() ]])
+	vim.cmd([[ JdtRefresh ]])
+	vim.cmd([[ JdtUpdateDebugConfig ]])
 end
 
 -- This starts a new client & server,
