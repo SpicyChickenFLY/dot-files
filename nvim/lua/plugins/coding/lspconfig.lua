@@ -27,6 +27,7 @@ return {
 
       local diag_sign_key = "DiagnosticSign" .. value
       local icon = diagnostic_icon_map[value]
+      -- local icon = ''
       vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
     end
 
@@ -34,9 +35,9 @@ return {
     local border = "rounded"
     vim.diagnostic.config({
       float         = { border = border },
-      signs         = false,
+      signs         = true,
       severity_sort = true,
-      virtual_text  = true,
+      virtual_text  = false,
       virtual_lines = false,
       -- ["my/notify"] = {log_level = vim.log.levels.HINT}
     })
