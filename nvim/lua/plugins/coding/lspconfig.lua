@@ -41,6 +41,9 @@ return {
       virtual_lines = false,
       -- ["my/notify"] = {log_level = vim.log.levels.HINT}
     })
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "rounded",
+    })
     require("lspconfig.ui.windows").default_options = { border = border }
 
     local kinds = vim.lsp.protocol.CompletionItemKind
