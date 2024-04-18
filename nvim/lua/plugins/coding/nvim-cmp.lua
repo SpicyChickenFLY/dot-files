@@ -26,7 +26,7 @@ return {
         expand = function(args) snippet.lsp_expand(args.body) end,
       },
       preselect = 'none',
-      completion = { completeopt = 'menu, preview, menuone, noinsert', autocomplete = false },
+      completion = { completeopt = 'menu, preview, menuone, noinsert', autocomplete = true },
       mapping = require('core.keymaps').cmp_mapping(cmp, snippet, has_words_before),
       window = {
         completion = {
