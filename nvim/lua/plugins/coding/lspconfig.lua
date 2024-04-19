@@ -26,8 +26,8 @@ return {
       vim.cmd(('hi %s %s'):format("Diagnostic" .. value .. "Inv", hi_str))
 
       local diag_sign_key = "DiagnosticSign" .. value
-      local icon = diagnostic_icon_map[value]
-      -- local icon = ''
+      -- local icon = diagnostic_icon_map[value]
+      local icon = ''
       vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
     end
 
@@ -37,7 +37,7 @@ return {
       float         = { border = border },
       signs         = true,
       severity_sort = true,
-      virtual_text  = false,
+      virtual_text  = true,
       virtual_lines = false,
       -- ["my/notify"] = {log_level = vim.log.levels.HINT}
     })
