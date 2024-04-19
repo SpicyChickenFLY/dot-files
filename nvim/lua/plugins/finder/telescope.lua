@@ -57,7 +57,7 @@ return {
         selection_caret = icons.folder.arrow_closed,
         path_display={"smart"},
         file_ignore_patterns = {
-          '.git/',
+          '%.git/',
         },
         dynamic_preview_title = true,
         vimgrep_arguments = {
