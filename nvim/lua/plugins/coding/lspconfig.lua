@@ -56,28 +56,28 @@ return {
       -- Enable completion triggered by <c-x><c-o>
       vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-      vim.api.nvim_create_autocmd("CursorHold", {
-        buffer = bufnr,
-        callback = function()
-          local opts = {
-            focusable = false,
-            close_events = {
-              "BufLeave",
-              "BufHidden",
-              "CursorMoved",
-              "CursorMovedI",
-              "InsertEnter",
-              "FocusLost",
-              "WinLeave",
-            },
-            border = "rounded",
-            source = "always",
-            prefix = " ",
-            scope = "cursor",
-          }
-          vim.diagnostic.open_float(nil, opts)
-        end,
-      })
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --   buffer = bufnr,
+      --   callback = function()
+      --     local opts = {
+      --       focusable = false,
+      --       close_events = {
+      --         "BufLeave",
+      --         "BufHidden",
+      --         "CursorMoved",
+      --         "CursorMovedI",
+      --         "InsertEnter",
+      --         "FocusLost",
+      --         "WinLeave",
+      --       },
+      --       border = "rounded",
+      --       source = "always",
+      --       prefix = " ",
+      --       scope = "cursor",
+      --     }
+      --     vim.diagnostic.open_float(nil, opts)
+      --   end,
+      -- })
 
       if client.server_capabilities.documentHighlightProvider then
         -- vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
@@ -167,25 +167,28 @@ return {
         },
       },
     })
-    -- vue/typescirpt lsp
-    local util = require("lspconfig.util")
-    local function get_typescript_server_path(root_dir)
-      local global_ts = vim.fn.stdpath("data") .. "/lsp_servers/tsserver/node_modules/typescript/lib"
-      local found_ts = ""
-      local function check_dir(path)
-        found_ts = util.path.join(path, "node_modules", "typescript", "lib")
-        if util.path.exists(found_ts) then return path end
-      end
-      return util.search_ancestors(root_dir, check_dir) and found_ts or global_ts
-    end
-    require("lspconfig")["volar"].setup({
-      on_attach = on_attach,
-      filetypes = { "javascript", "typescript", "vue" },
-      on_new_config = function(new_config, new_root_dir)
-        local ts_server_path = get_typescript_server_path(new_root_dir)
-        new_config.init_options.typescript.tsdk = ts_server_path
-      end,
-    })
+    -- Vue/TypeScript lsp
+    local vue_language_server_path = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+    require('lspconfig')["tsserver"].setup {
+      init_options = {
+        plugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = vue_language_server_path,
+            languages = { 'vue' },
+          },
+        },
+      },
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    }
+    -- No need to set `hybridMode` to `true` as it's the default value
+    require('lspconfig')["volar"].setup {
+      init_options = {
+        vue = {
+          hybridMode = true,
+        },
+      },
+    }
     -- javascript/typescript/html/css lsp
     require("lspconfig")["eslint"].setup({
       on_attach = function(client, bufnr)

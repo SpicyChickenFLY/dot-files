@@ -8,12 +8,12 @@ return {
     "smiteshp/nvim-navic",
   },
   event = 'BufWinEnter',
-  config = function() 
+  config = function()
     require("barbecue").setup({
       attach_navic = true,
       create_autocmd = true,
       include_buftypes = { "" },
-      exclude_filetypes = { "toggleterm" },
+      exclude_filetypes = { "toggleterm", "vue" },
       truncation = { enabled = true, method = "keep_basename", },
       modifiers = { dirname = ":~:.", basename = "", },
       custom_section = function() return "" end,
