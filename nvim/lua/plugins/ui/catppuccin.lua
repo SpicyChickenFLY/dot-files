@@ -40,6 +40,7 @@ return {
           enable_ui = true,
         },
         flash = true,
+        fidget = true,
         gitsigns = true,
         mason = true,
         markdown = true,
