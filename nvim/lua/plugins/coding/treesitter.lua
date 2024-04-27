@@ -32,77 +32,49 @@ return {
         disable = function(lang, buf) -- omit lang
           for _, parser in ipairs(enable_lang) do
             if lang == parser then
+              local max_filesize = 100 * 1024 -- 100KB
+              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
+                return true
+              end
               return false
             end
           end
-
-          local max_filesize = 100 * 1024 -- 100KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
+          return true
         end,
         use_languagetree = true,
         additional_vim_regex_highlighting = false,
       },
-      -- indent = {
-      --     enable = true,
-      --     disable = function(_, buf) -- omit lang
-      --         local max_filesize = 100 * 1024 -- 100KB
-      --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      --         if ok and stats and stats.size > max_filesize then
-      --             return true
-      --         end
-      --     end,
-      -- },
-      -- autotag = {
-      --     enable = true,
-      --     disable = function(_, buf) -- omit lang
-      --         local max_filesize = 100 * 1024 -- 100KB
-      --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      --         if ok and stats and stats.size > max_filesize then
-      --             return true
-      --         end
-      --     end,
-      -- },
-      -- rainbow = {
-      --     enable = true,
-      --     disable = function(_, buf) -- omit lang
-      --         local max_filesize = 100 * 1024 -- 100KB
-      --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      --         if ok and stats and stats.size > max_filesize then
-      --             return true
-      --         end
-      --     end,
-      --     query = {
-      --         "rainbow-parens",
-      --         vue = "rainbow-tags",
-      --     },
-      --     strategy = require("ts-rainbow").strategy.global,
-      --     hlgroups = {
-      --         "RainbowRed",
-      --         "RainbowOrange",
-      --         "RainbowYellow",
-      --         "RainbowGreen",
-      --         "RainbowBlue",
-      --         "RainbowCyan",
-      --         "RainbowViolet",
-      --     },
-      -- },
+      autotag = {
+        enable = true,
+        disable = function(_, buf) -- omit lang
+          for _, parser in ipairs(enable_lang) do
+            if lang == parser then
+              local max_filesize = 100 * 1024 -- 100KB
+              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
+                return true
+              end
+              return false
+            end
+          end
+          return true
+        end,
+      },
       context_commentstring = {
         enable = true,
         disable = function(lang, buf) -- omit lang
           for _, parser in ipairs(enable_lang) do
             if lang == parser then
+              local max_filesize = 100 * 1024 -- 100KB
+              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
+                return true
+              end
               return false
             end
           end
-
-          local max_filesize = 100 * 1024 -- 100KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
+          return true
         end,
         enable_autocmd = false,
       },
