@@ -11,5 +11,5 @@ return {
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   build = function() vim.fn["mkdp#util#install"]() end,
   ft = { "markdown" },
-  -- config = function() require("core.keymaps").markdown_preview() end,
+  config = function() require("core.keymaps").markdown_preview() end,
 }
