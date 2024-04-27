@@ -37,8 +37,8 @@ return {
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
+      dynamicRegistration = false,
+      lineFoldingOnly = true
     }
     -- find by lsp (or list servers manually like {'gopls', 'clangd'})
     -- local language_servers = require("lspconfig").util.available_servers()
@@ -51,12 +51,16 @@ return {
     -- end
 
     require("ufo").setup({
-    open_fold_hl_timeout = 400,
+      open_fold_hl_timeout = 400,
       close_fold_kinds_for_ft = {
         java = { "imports" }
       },
       --[[ provider_selector = function(bufnr, filetype, buftype) ]]
-      provider_selector = function(_, _, _) return { "lsp" } end,
+      provider_selector = function(_, filetype, _)
+        -- local lspWithOutFolding = { "markdown", "sh", "css", "html", "python" }
+        -- if vim.tbl_contains(lspWithOutFolding, filetype) then return { "treesitter", "indent" } end
+        return { "lsp", "indent" }
+      end,
       fold_virt_text_handler = handler,
       enable_get_fold_virt_text = true,
       preview = {},
