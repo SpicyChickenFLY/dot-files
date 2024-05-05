@@ -7,7 +7,7 @@ local plugins = {
   require("plugins.ui.barbecue"),             -- use Winbar show breadcrumbs
   require("plugins.ui.statuscol"),            -- manage Status Coloumn on left
   require("plugins.ui.nvim-ufo"),             -- buffer Fold guide
-  -- require("plugins.ui.indent-blankline"),     -- buffer Indent guide
+  require("plugins.ui.indent-blankline"),     -- buffer Indent guide
   require("plugins.ui.mini-indent"),          -- cursor Indent guide
   require("plugins.ui.fidget"),          -- cursor Indent guide
   -------------- Sidebar tools --------------
