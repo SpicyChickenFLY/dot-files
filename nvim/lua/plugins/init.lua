@@ -29,6 +29,7 @@ local plugins = {
   -------------- Language --------------
   { "mfussenegger/nvim-jdtls" },              -- Java LSP Tool
   { "nanotee/sqls.nvim" },                    -- SQL LSP Tool
+  require("plugins.language.sqlua"), -- Markdown preview
   require("plugins.language.markdown-preview"), -- Markdown preview
   require("plugins.language.flutter-tools"),    -- Flutter LSP Tool
   -- require("plugins.language.nvim-java"),         -- general DAP debug configuration
