@@ -207,6 +207,114 @@ M.telescope = {
   wrap_lazy("n", "<leader>gc", ":Telescope git_commits<CR>", "Open changed file"),
   wrap_lazy("n", "<leader>gg", ":Telescope git_status<CR>", "Open changed file"),
 }
+M.telescope_mapping = function(actions)
+  return {
+    i = {
+      -- NOTE: default keymaps
+      ["<LeftMouse>"] = {
+        actions.mouse_click,
+        type = "action",
+        opts = { expr = true },
+      },
+      ["<2-LeftMouse>"] = {
+        actions.double_mouse_click,
+        type = "action",
+        opts = { expr = true },
+      },
+
+      -- ["<C-n>"] = actions.move_selection_next,
+      -- ["<C-p>"] = actions.move_selection_previous,
+
+      ["<C-c>"] = actions.close,
+
+      ["<Down>"] = actions.move_selection_next,
+      ["<Up>"] = actions.move_selection_previous,
+
+      ["<CR>"] = actions.select_default,
+      -- ["<C-x>"] = actions.select_horizontal,
+      -- ["<C-v>"] = actions.select_vertical,
+      ["<C-t>"] = actions.select_tab,
+
+      -- ["<C-u>"] = actions.preview_scrolling_up,
+      -- ["<C-d>"] = actions.preview_scrolling_down,
+      -- ["<C-f>"] = actions.preview_scrolling_left,
+      -- ["<C-k>"] = actions.preview_scrolling_right,
+
+      ["<PageUp>"] = actions.results_scrolling_up,
+      ["<PageDown>"] = actions.results_scrolling_down,
+      ["<M-f>"] = actions.results_scrolling_left,
+      ["<M-k>"] = actions.results_scrolling_right,
+
+      ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+      ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+      ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+      ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+      -- ["<C-l>"] = actions.complete_tag,
+      ["<C-/>"] = actions.which_key,
+      ["<C-_>"] = actions.which_key,   -- keys from pressing <C-/>
+      ["<C-w>"] = { "<c-s-w>", type = "command" },
+      ["<C-r><C-w>"] = actions.insert_original_cword,
+
+      -- ["<C-j>"] = actions.nop,
+
+      -- NOTE: custom keymappings
+      ["<C-n>"] = false,
+      ["<C-p>"] = false,
+      ["<C-x>"] = false,
+      ["<C-v>"] = false,
+      ["<C-u>"] = false,
+      ["<C-d>"] = false,
+
+      ["<C-j>"] = actions.move_selection_next,
+      ["<C-k>"] = actions.move_selection_previous,
+      ["<C-l>"] = actions.select_default,
+
+      ["<C-b>"] = actions.preview_scrolling_up,
+      ["<C-f>"] = actions.preview_scrolling_down,
+
+      ["<C-[>"] = actions.results_scrolling_up,
+      ["<C-]>"] = actions.results_scrolling_down,
+    },
+    n = {
+      ["<LeftMouse>"] = { actions.mouse_click, type = "action", opts = { expr = true }, },
+      ["<2-LeftMouse>"] = { actions.double_mouse_click, type = "action", opts = { expr = true }, },
+
+      ["<esc>"] = actions.close,
+      ["<C-l>"] = actions.select_default,
+      ["<C-x>"] = actions.select_horizontal,
+      ["<C-v>"] = actions.select_vertical,
+      ["<C-t>"] = actions.select_tab,
+
+      ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+      ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+      ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+      ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+      -- TODO: This would be weird if we switch the ordering.
+      ["j"] = actions.move_selection_next,
+      ["k"] = actions.move_selection_previous,
+      ["H"] = actions.move_to_top,
+      ["M"] = actions.move_to_middle,
+      ["L"] = actions.move_to_bottom,
+
+      ["<Down>"] = actions.move_selection_next,
+      ["<Up>"] = actions.move_selection_previous,
+      ["gg"] = actions.move_to_top,
+      ["G"] = actions.move_to_bottom,
+
+      ["<C-b>"] = actions.preview_scrolling_up,
+      ["<C-f>"] = actions.preview_scrolling_down,
+      -- ["<C-f>"] = actions.preview_scrolling_left,
+      -- ["<C-k>"] = actions.preview_scrolling_right,
+
+      ["?"] = actions.which_key,
+      -- NOTE: custom keymappings
+
+      ["<C-[>"] = actions.results_scrolling_up,
+      ["<C-]>"] = actions.results_scrolling_down,
+    },
+  }
+end
 M.sessionlens = { wrap_lazy("n", "<leader>sf", ":SearchSession<CR>", "Find Session"), }
 M.todo_comments = { wrap_lazy("n", "<leader>ft", ":TodoTelescope<CR>", "Find todo comments"), }
 
