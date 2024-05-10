@@ -211,16 +211,8 @@ M.telescope_mapping = function(actions)
   return {
     i = {
       -- NOTE: default keymaps
-      ["<LeftMouse>"] = {
-        actions.mouse_click,
-        type = "action",
-        opts = { expr = true },
-      },
-      ["<2-LeftMouse>"] = {
-        actions.double_mouse_click,
-        type = "action",
-        opts = { expr = true },
-      },
+      ["<LeftMouse>"] = { actions.mouse_click, type = "action", opts = { expr = true } },
+      ["<2-LeftMouse>"] = { actions.double_mouse_click, type = "action", opts = { expr = true } },
 
       -- ["<C-n>"] = actions.move_selection_next,
       -- ["<C-p>"] = actions.move_selection_previous,
@@ -269,11 +261,11 @@ M.telescope_mapping = function(actions)
       ["<C-k>"] = actions.move_selection_previous,
       ["<C-l>"] = actions.select_default,
 
-      ["<C-b>"] = actions.preview_scrolling_up,
-      ["<C-f>"] = actions.preview_scrolling_down,
+      ["<C-,>"] = actions.preview_scrolling_up,
+      ["<C-.>"] = actions.preview_scrolling_down,
 
-      ["<C-[>"] = actions.results_scrolling_up,
-      ["<C-]>"] = actions.results_scrolling_down,
+      ["<C-b>"] = actions.results_scrolling_up,
+      ["<C-f>"] = actions.results_scrolling_down,
     },
     n = {
       ["<LeftMouse>"] = { actions.mouse_click, type = "action", opts = { expr = true }, },
@@ -302,16 +294,19 @@ M.telescope_mapping = function(actions)
       ["gg"] = actions.move_to_top,
       ["G"] = actions.move_to_bottom,
 
-      ["<C-b>"] = actions.preview_scrolling_up,
-      ["<C-f>"] = actions.preview_scrolling_down,
+      -- ["<C-b>"] = actions.preview_scrolling_up,
+      -- ["<C-f>"] = actions.preview_scrolling_down,
       -- ["<C-f>"] = actions.preview_scrolling_left,
       -- ["<C-k>"] = actions.preview_scrolling_right,
 
       ["?"] = actions.which_key,
       -- NOTE: custom keymappings
 
-      ["<C-[>"] = actions.results_scrolling_up,
-      ["<C-]>"] = actions.results_scrolling_down,
+      ["<C-b>"] = actions.results_scrolling_up,
+      ["<C-f>"] = actions.results_scrolling_down,
+
+      ["<C-,>"] = actions.preview_scrolling_up,
+      ["<C-.>"] = actions.preview_scrolling_down,
     },
   }
 end
@@ -337,7 +332,8 @@ M.floaterm = {
   wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
   wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open shell"),
   wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),
-  wrap_lazy("t", "<C-]>", [[<C-\><C-n>:FloatermNext<CR>]]),
+  wrap_lazy("t", "<C-,>", [[<C-\><C-n>:FloatermPrev<CR>]]),
+  wrap_lazy("t", "<C-.>", [[<C-\><C-n>:FloatermNext<CR>]]),
   wrap_lazy("t", "<C-\\>", [[<C-\><C-n>]]), }
 M.gitsigns = function(bufnr, gs)
   map_buf_wrap(bufnr, 'n', ']c', gs.next_hunk, 'Next hunk')
