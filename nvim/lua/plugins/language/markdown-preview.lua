@@ -3,7 +3,7 @@ return {
   init = function()
     vim.cmd([[
       function OpenMarkdownPreview (url)
-        execute "silent ! firefox --new-window " . a:url
+        execute "silent ! firefox " . a:url
       endfunction
       let g:mkdp_browserfunc = 'OpenMarkdownPreview'
     ]])
