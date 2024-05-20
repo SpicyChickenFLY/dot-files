@@ -1,10 +1,13 @@
 local plugins = {
+  -------------- basic stuff --------------
+  { "nvim-tree/nvim-web-devicons" }, -- optional
   -------------- UI stuff --------------
   -- require("plugins.ui.nvim-colorizer"),       -- colorized hex codes and color name
   require("plugins.ui.catppuccin"),           -- my favourte Colorscheme
   require("plugins.ui.lualine"),              -- extra Status Line on bottom
   require("plugins.ui.bufferline"),           -- use Tabline show buffer list
   require("plugins.ui.barbecue"),             -- use Winbar show breadcrumbs
+  -- require("plugins.ui.dropbar"),             -- use Winbar show breadcrumbs
   require("plugins.ui.statuscol"),            -- manage Status Coloumn on left
   require("plugins.ui.nvim-ufo"),             -- buffer Fold guide
   require("plugins.ui.indent-blankline"),     -- buffer Indent guide
@@ -24,6 +27,7 @@ local plugins = {
   require("plugins.coding.Comment"),          -- quick Comment
   require("plugins.coding.todo-comments"),    -- highlight TODO-like Comment
   require("plugins.coding.treesitter"),       -- TreeSitter for nvim
+  require("plugins.coding.nvim-ts-autotag"),
   -- require("plugins.coding.lsp-signature"),    -- Show function signature when you type
   -- require("plugins.coding.navigator"),        -- code Analysis & Navigation tool
   -------------- Language --------------
