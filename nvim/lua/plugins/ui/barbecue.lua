@@ -13,7 +13,7 @@ return {
       attach_navic = true,
       create_autocmd = true,
       include_buftypes = { "" },
-      exclude_filetypes = { "toggleterm", "vue" },
+      exclude_filetypes = { "toggleterm" },
       truncation = { enabled = true, method = "keep_basename", },
       modifiers = { dirname = ":~:.", basename = "", },
       custom_section = function() return "" end,
