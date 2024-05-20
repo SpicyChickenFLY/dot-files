@@ -283,11 +283,11 @@ M.telescope_mapping = function(actions)
       ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
       -- TODO: This would be weird if we switch the ordering.
-      ["j"] = actions.move_selection_next,
-      ["k"] = actions.move_selection_previous,
-      ["H"] = actions.move_to_top,
-      ["M"] = actions.move_to_middle,
-      ["L"] = actions.move_to_bottom,
+      -- ["j"] = actions.move_selection_next,
+      -- ["k"] = actions.move_selection_previous,
+      -- ["H"] = actions.move_to_top,
+      -- ["M"] = actions.move_to_middle,
+      -- ["L"] = actions.move_to_bottom,
 
       ["<Down>"] = actions.move_selection_next,
       ["<Up>"] = actions.move_selection_previous,
@@ -301,6 +301,8 @@ M.telescope_mapping = function(actions)
 
       ["?"] = actions.which_key,
       -- NOTE: custom keymappings
+      ["<C-j>"] = actions.move_selection_next,
+      ["<C-k>"] = actions.move_selection_previous,
 
       ["<C-b>"] = actions.results_scrolling_up,
       ["<C-f>"] = actions.results_scrolling_down,
