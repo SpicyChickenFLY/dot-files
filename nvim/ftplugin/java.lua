@@ -109,7 +109,7 @@ config["on_attach"] = function(client, bufnr)
 	})
 	vim.cmd([[ command! JdtRefresh lua require('jdtls.dap').setup_dap_main_class_configs() ]])
 	vim.cmd([[ JdtRefresh ]])
-	vim.cmd([[ JdtUpdateDebugConfig ]])
+	-- vim.cmd([[ JdtUpdateDebugConfig ]])
 end
 
 -- This starts a new client & server,
