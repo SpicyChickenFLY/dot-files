@@ -3,7 +3,6 @@ return {
   ft={'vue'},
   config = function()
     require('nvim-ts-autotag').setup({
-      did_setup = false,
       opts = {
         enable_close = true,      -- Auto close tags
         enable_rename = true,     -- Auto rename pairs of tags
