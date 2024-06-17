@@ -8,15 +8,11 @@ return {
             sources = {
                 -- cpp
                 null_ls.builtins.diagnostics.cppcheck.with({
-                    extra_args = {
-                        "--inconclusive",
-                    },
+                    extra_args = { "--inconclusive" },
                 }),
                 -- python
                 null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.formatting.black,
-                -- lua
-                -- null_ls.builtins.formatting.stylua,
                 -- golang
                 null_ls.builtins.formatting.goimports,
                 -- golang
@@ -25,6 +21,9 @@ return {
                 null_ls.builtins.formatting.shfmt,
                 null_ls.builtins.diagnostics.zsh.with({ filetypes = { "zsh" }, }),
                 null_ls.builtins.hover.printenv.with({ filetypes = { "zsh", "bash", "sh", "dosbatch", "ps1" }, }),
+                -- vue/js/ts/html/css
+                -- other
+                null_ls.builtins.formatting.prettierd,
             },
         }
     end,
