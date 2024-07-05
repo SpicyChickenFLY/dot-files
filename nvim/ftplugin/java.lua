@@ -65,7 +65,8 @@ local config = {
 					"com.sun.*",
 					"io.micrometer.shaded.*",
 					"java.awt.*",
-					"jdk.*", "sun.*",
+					"jdk.*",
+					"sun.*",
 				},
 			},
 			-- Specify any options for organizing imports
