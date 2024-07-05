@@ -5,7 +5,7 @@ local plugins = {
   -- require("plugins.ui.nvim-colorizer"),       -- colorized hex codes and color name
   require("plugins.ui.catppuccin"),           -- my favourte Colorscheme
   require("plugins.ui.lualine"),              -- extra Status Line on bottom
-  -- require("plugins.ui.bufferline"),           -- use Tabline show buffer list
+  require("plugins.ui.bufferline"),           -- use Tabline show buffer list
   require("plugins.ui.barbecue"),             -- use Winbar show breadcrumbs
   -- require("plugins.ui.dropbar"),             -- use Winbar show breadcrumbs
   require("plugins.ui.statuscol"),            -- manage Status Coloumn on left
