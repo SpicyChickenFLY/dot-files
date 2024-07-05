@@ -13,21 +13,13 @@ return {
     end
 
     -- set highlight and icon for diagnostic
-    local statusline_colors = vim.api.nvim_command_output(('hi %s'):format("StatusLine"))
+    -- local statusline_colors = vim.api.nvim_command_output(('hi %s'):format("StatusLine"))
     local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
     local diagnostic_icon_map = { Error = icons.error, Warn = icons.warn, Info = icons.info, Hint = icons.hint }
     for _, value in ipairs(diagnostic_type) do
-      local hi_str = vim.api.nvim_command_output(('hi %s'):format("Diagnostic" .. value))
-      local fg = ''
-      for key, val in string.gmatch(hi_str, '(%w+)=(%S+)') do
-        if key == 'guifg' then fg = val end
-      end
-      hi_str = ('guibg=%s guifg=%s'):format(fg, statusline_colors.guibg)
-      vim.cmd(('hi %s %s'):format("Diagnostic" .. value .. "Inv", hi_str))
 
       local diag_sign_key = "DiagnosticSign" .. value
-      -- local icon = diagnostic_icon_map[value]
-      local icon = ''
+      local icon = diagnostic_icon_map[value]
       vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
     end
 
@@ -53,31 +45,6 @@ return {
 
     -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
     local on_attach = function(client, bufnr)
-      -- Enable completion triggered by <c-x><c-o>
-      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-      -- vim.api.nvim_create_autocmd("CursorHold", {
-      --   buffer = bufnr,
-      --   callback = function()
-      --     local opts = {
-      --       focusable = false,
-      --       close_events = {
-      --         "BufLeave",
-      --         "BufHidden",
-      --         "CursorMoved",
-      --         "CursorMovedI",
-      --         "InsertEnter",
-      --         "FocusLost",
-      --         "WinLeave",
-      --       },
-      --       border = "rounded",
-      --       source = "always",
-      --       prefix = " ",
-      --       scope = "cursor",
-      --     }
-      --     vim.diagnostic.open_float(nil, opts)
-      --   end,
-      -- })
 
       if client.server_capabilities.documentHighlightProvider then
         -- vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
