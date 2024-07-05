@@ -136,9 +136,9 @@ M.dap = {
   wrap_lazy("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", ""),
   wrap_lazy("n", "<S-F8>", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", ""),
   wrap_lazy("n", "<F10>", ":lua require'dap'.step_over()<CR>", ""),
-  wrap_lazy("n", "<S-F10>", ":lua require'dap'.run_to_cursor()<CR>", ""),
+  wrap_lazy("n", "<F22>", ":lua require'dap'.run_to_cursor()<CR>", ""), -- <S-F10>
   wrap_lazy("n", "<F11>", ":lua require'dap'.step_into()<CR>", ""),
-  wrap_lazy("n", "<S-F11>", ":lua require'dap'.step_out()<CR>", ""),
+  wrap_lazy("n", "<F23>", ":lua require'dap'.step_out()<CR>", ""), -- <S-F12>
   wrap_lazy("n", "<F12>", ":lua require'dap'.close()<CR>", ""),
   -- wrap("n", "",     ":lua require'dap'.repl.toggle()<CR>", "" ),
 }
