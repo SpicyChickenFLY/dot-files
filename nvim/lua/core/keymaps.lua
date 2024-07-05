@@ -192,6 +192,7 @@ M.rest = {
 -------------- Finder --------------
 M.telescope = {
   wrap_lazy("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"),
+  wrap_lazy("n", "<leader>fb", ":Telescope buffers<CR>", "Find buffer"),
   wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "Commands"),
   wrap_lazy("n", "<leader>fC", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
     "Colorscheme with Preview"),
