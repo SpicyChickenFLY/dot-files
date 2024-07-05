@@ -5,38 +5,61 @@ return {
       'mfussenegger/nvim-dap',
       config = function()
         local dap = require("dap")
-        dap.adapters.delve = {
-          type = "server",
-          port = "${port}",
-          executable = {
-            command = "dlv",
-            args = { "dap", "-l", "127.0.0.1:${port}" },
-          },
+
+        local file = vim.fn.expand("%:p")
+        local fileBasename = vim.fn.expand("%:t")
+        local fileBasenameNotExtension = vim.fn.fnamemodify(fileBasename, ":r")
+        local fileDirname  =vim.fn.expand("%:p:h")
+        local fileExtname = vim.fn.expand("%:e")
+        local relativeFile = vim.fn.expand("%:.")
+        local relativeFileDirname = vim.fn.fnamemodify(vim.fn.expand("%:.:h"), ":r")
+
+        local placeholders = {
+          ["${file}"] = function(_) return file end,
+          ["${fileBasename}"] = function(_) return fileBasename end,
+          ["${fileBasenameNoExtension}"] = function(_) return fileBasenameNotExtension end,
+          ["${fileDirname}"] = function(_) return fileDirname  end,
+          ["${fileExtname}"] = function(_) return fileExtname end,
+          ["${relativeFile}"] = function(_) return relativeFile end,
+          ["${relativeFileDirname}"] = function(_) return relativeFileDirname end,
+          ["${workspaceFolder}"] = function(_) return vim.fn.getcwd() end,
+          ["${workspaceFolderBasename}"] = function(_) return vim.fn.fnamemodify(vim.fn.getcwd(), ":t") end,
         }
+
+        -- dap.adapters.delve = {
+        --   type = "server",
+        --   port = "${port}",
+        --   executable = {
+        --     command = "dlv",
+        --     args = { "dap", "-l", "127.0.0.1:${port}" },
+        --   },
+        -- }
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-        dap.configurations.go = {
-          {
-            type = "delve",
-            name = "Debug",
-            request = "launch",
-            program = "${file}",
-          },
-          {
-            type = "delve",
-            name = "Debug test", -- configuration for debugging test files
-            request = "launch",
-            mode = "test",
-            program = "${file}",
-          },
-          -- works with go.mod packages and sub packages
-          {
-            type = "delve",
-            name = "Debug test (go.mod)",
-            request = "launch",
-            mode = "test",
-            program = "./${relativeFileDirname}",
-          },
-        }
+        -- dap.configurations.go = {
+        --   {
+        --     type = "delve",
+        --     name = "Debug",
+        --     request = "launch",
+        --     program = "${file}",
+        --     testFlags = { "-gcflags=all=-N", "-gcflags=all=-l" }
+        --   },
+        --   {
+        --     type = "delve",
+        --     name = "Debug test", -- configuration for debugging test files
+        --     request = "launch",
+        --     mode = "test",
+        --     program = "${file}",
+        --     testFlags = { "-gcflags=all=-N", "-gcflags=all=-l" },
+        --   },
+        --   -- works with go.mod packages and sub packages
+        --   {
+        --     type = "delve",
+        --     name = "Debug test (go.mod)",
+        --     request = "launch",
+        --     mode = "test",
+        --     program = "./${relativeFileDirname}",
+        --   },
+        -- }
 
         -- You do not have to define dap.adapters.java yourself if you use nvim-jdtls
         -- dap.adapters.java = {}
@@ -58,29 +81,29 @@ return {
         }
 
         dap.adapters.bashdb = {
-          type = 'executable';
-          command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter';
-          name = 'bashdb';
+          type = 'executable',
+          command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter',
+          name = 'bashdb',
         }
         dap.configurations.sh = {
           {
-            type = 'bashdb';
-            request = 'launch';
-            name = "Launch file";
-            showDebugOutput = true;
-            pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb';
-            pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir';
-            trace = true;
-            file = "${file}";
-            program = "${file}";
-            cwd = '${workspaceFolder}';
-            pathCat = "cat";
-            pathBash = "/bin/bash";
-            pathMkfifo = "mkfifo";
-            pathPkill = "pkill";
-            args = {};
-            env = {};
-            terminalKind = "integrated";
+            type = 'bashdb',
+            request = 'launch',
+            name = "Launch file",
+            showDebugOutput = true,
+            pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
+            pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
+            trace = true,
+            file = "${file}",
+            program = "${file}",
+            cwd = '${workspaceFolder}',
+            pathCat = "cat",
+            pathBash = "/bin/bash",
+            pathMkfifo = "mkfifo",
+            pathPkill = "pkill",
+            args = {},
+            env = {},
+            terminalKind = "integrated",
           }
         }
 
@@ -93,11 +116,11 @@ return {
         -- You can customize the signs by setting them with the |sign_define()| function.
         -- For example:
 
-        vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop'})
-        vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop'})
-        vim.fn.sign_define('DapLogPoint', {text='', texthl='DapUIStop'})
-        vim.fn.sign_define('DapStopped', {text='', texthl='DapUIStop'})
-        vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='DapUIStop'})
+        vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapUIStop' })
+        vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapUIStop' })
+        vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapUIStop' })
+        vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapUIStop' })
+        vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'DapUIStop' })
 
         local dapui = require("dapui")
         dapui.setup({
@@ -168,8 +191,8 @@ return {
             },
           },
           floating = {
-            max_height = nil, -- These can be integers or a float between 0 and 1.
-            max_width = nil, -- Floats will be treated as percentage of your screen.
+            max_height = nil,  -- These can be integers or a float between 0 and 1.
+            max_width = nil,   -- Floats will be treated as percentage of your screen.
             border = "single", -- Border style. Can be "single", "double" or "rounded"
             mappings = {
               close = { "q", "<Esc>" },
@@ -194,6 +217,10 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       config = function() require("nvim-dap-virtual-text").setup({}) end,
     }, -- DAP virtual text
+    {
+      'leoluz/nvim-dap-go',
+      config = function() require('dap-go').setup() end,
+    }
   },
   keys = require("core.keymaps")["dap"],
 } -- DAP UI
