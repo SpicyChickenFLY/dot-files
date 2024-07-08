@@ -179,10 +179,10 @@ M.cmp_mapping = function(cmp, snippet, has_words_before)
   }
 end
 M.sqls = function(bufnr)
-  map_buf_wrap(bufnr, 'n', '<leader>xx', ":SqlsExecuteQuery<CR>", 'Stage hunk')
-  map_buf_wrap(bufnr, 'n', '<leader>xX', ":SqlsExecuteQueryVertical<CR>", 'Reset hunk')
-  map_buf_wrap(bufnr, 'v', '<leader>xx', "<Plug>(sqls-execute-query)", 'Stage hunk')
-  map_buf_wrap(bufnr, 'v', '<leader>xX', "<Plug>(sqls-execute-query-vertical)", 'Reset hunk')
+  map_buf_wrap(bufnr, 'n', '<leader>lc', ":SqlsExecuteQuery<CR>", 'Execute Query')
+  map_buf_wrap(bufnr, 'n', '<leader>lc', ":SqlsExecuteQueryVertical<CR>", 'Execute Query vertical')
+  map_buf_wrap(bufnr, 'v', '<leader>lc', "<Plug>(sqls-execute-query)", 'Execute Query')
+  map_buf_wrap(bufnr, 'v', '<leader>lc', "<Plug>(sqls-execute-query-vertical)", 'Execute Query vertical')
 end
 M.flutter_tools = function() map_wrap("n", "<leader>lc", ":Telescope flutter commands<CR>", "Flutter commands") end
 M.markdown_preview = function() map_wrap("n", "<leader>lc", ":MarkdownPreviewToggle<CR>", "Toggle MarkdownPreview") end
