@@ -47,6 +47,7 @@ init = function()
       "mason",
       "notify",
       "toggleterm",
+      "floaterm",
       "lazyterm",
     },
     callback = function()
