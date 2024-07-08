@@ -131,7 +131,6 @@ autocmd("FileType", {
         -- nvim_create_autocmd's callback receives a table argument with fields
         -- event = {id,event,group?,match,buf,file,data(arbituary data)}
         vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true },
-            "close some filetype windows with <q>")
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
