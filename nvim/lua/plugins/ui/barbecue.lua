@@ -20,7 +20,7 @@ return {
       symbols = {
         modified = false,
         ellipsis = icons.ellipsis,
-        separator = ">",
+        separator = "",
       },
 
       kinds = icons.kind_icons
