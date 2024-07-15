@@ -220,6 +220,8 @@ return {
     {
       'leoluz/nvim-dap-go',
       config = function() require('dap-go').setup() end,
+      ft = "go",
+      keys = require("core.keymaps")["dap_go"],
     }
   },
   keys = require("core.keymaps")["dap"],
