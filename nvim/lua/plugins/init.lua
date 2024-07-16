@@ -1,6 +1,7 @@
 local plugins = {
   -------------- basic stuff --------------
   { "nvim-tree/nvim-web-devicons" }, -- optional
+  { "echasnovski/mini.icons" },
   -------------- UI stuff --------------
   -- require("plugins.ui.nvim-colorizer"),       -- colorized hex codes and color name
   require("plugins.ui.catppuccin"),           -- my favourte Colorscheme

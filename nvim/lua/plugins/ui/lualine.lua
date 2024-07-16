@@ -1,16 +1,16 @@
 local icons = require("core.icons")
 
 local modeMap = {
-  ["NORMAL"] = " N ",
-  ["INSERT"] = " I ",
-  ["COMMAND"] = " C ",
-  ["REPLACE"] = " R ",
-  ["TERMINAL"] = " T ",
-  ["VISUAL"] = " V ",
-  ["V-LINE"] = "V-L",
-  ["V-BLOCK"] = "V-B",
-  ["SELECT"] = " S ",
-  ["S-LINE"] = "S-L",
+  ["NORMAL"] = " N",
+  ["INSERT"] = " I",
+  ["COMMAND"] = " C",
+  ["REPLACE"] = " R",
+  ["TERMINAL"] = " T",
+  ["VISUAL"] = " V",
+  ["V-LINE"] = "VL",
+  ["V-BLOCK"] = "VB",
+  ["SELECT"] = " S",
+  ["S-LINE"] = "SL",
 }
 
 local function indentCount()
