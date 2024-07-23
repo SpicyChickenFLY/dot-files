@@ -10,7 +10,7 @@ local jdtls_config_path = jdtls_path .. "/config_linux"
 
 local debugger_path = "/usr/local/java-debug"
 local debugger_jar = vim.fn.glob(
-debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
+	debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
 
 local decompiler_path = "/usr/local/java-decompiler"
 local decompiler_jars = vim.split(vim.fn.glob(decompiler_path .. "/server/*.jar", 1), "\n")
@@ -111,6 +111,22 @@ config["on_attach"] = function(client, bufnr)
 	vim.cmd([[ command! JdtRefresh lua require('jdtls.dap').setup_dap_main_class_configs() ]])
 	vim.cmd([[ JdtRefresh ]])
 	-- vim.cmd([[ JdtUpdateDebugConfig ]])
+
+	if client.server_capabilities.documentHighlightProvider then
+		local augroup = "lsp_document_highlight"
+		vim.api.nvim_create_augroup(augroup, { clear = true })
+		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
+		vim.api.nvim_create_autocmd("CursorHold", {
+			callback = vim.lsp.buf.document_highlight,
+			buffer = bufnr,
+			group = augroup,
+		})
+		vim.api.nvim_create_autocmd("CursorMoved", {
+			callback = vim.lsp.buf.clear_references,
+			buffer = bufnr,
+			group = augroup,
+		})
+	end
 end
 
 -- This starts a new client & server,

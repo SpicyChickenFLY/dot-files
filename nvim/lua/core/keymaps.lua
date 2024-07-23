@@ -33,6 +33,8 @@ M.general = function()
   map_wrap("n", "<leader>d", ":bd<CR>", "Close current buffer")
   map_wrap("n", "<leader>q", ":q<CR>", "Close current window")
   map_wrap("n", "<leader>Q", ":qa<CR>", "Close all windows")
+  map_wrap("n", "<leader>cc", ":call setreg('+', expand('%:.') . ':' . line('.'))<CR>", "Copy file/line position to clipboard")
+  map_wrap("n", "<leader>cp", ":e <C-r>+<CR>", "jump position according register +")
   map_wrap("i", "jj", "<ESC>")
   map_wrap("i", "jk", "<ESC>:w<CR>")
   map_wrap("i", "<C-a>", "<Home>")
@@ -192,18 +194,18 @@ M.rest = {
 -------------- Finder --------------
 M.telescope = {
   wrap_lazy("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"),
-  wrap_lazy("n", "<leader>fb", ":Telescope buffers<CR>", "Find buffer"),
-  wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "Commands"),
+  wrap_lazy("n", "<leader>fb", ":Telescope buffers<CR>", "buffer"),
+  wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "command"),
   wrap_lazy("n", "<leader>fC", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
-    "Colorscheme with Preview"),
-  wrap_lazy("n", "<leader>fe", ":Telescope emoji<CR>", "Checkout branch"),
-  wrap_lazy("n", "<leader>ff", ":Telescope find_files<CR>", "Find File"),
-  wrap_lazy("n", "<leader>fh", ":Telescope help_tags<CR>", "Find Help"),
-  wrap_lazy("n", "<leader>fH", ":Telescope highlights<CR>", "Find highlight groups"),
+    "colorscheme with Preview"),
+  wrap_lazy("n", "<leader>ff", ":Telescope find_files<CR>", "file"),
+  wrap_lazy("n", "<leader>fh", ":Telescope help_tags<CR>", "help"),
+  wrap_lazy("n", "<leader>fH", ":Telescope highlights<CR>", "Highlight groups"),
+  wrap_lazy("n", "<leader>fm", ":Telescope marks <CR>", "Marks"),
   wrap_lazy("n", "<leader>fM", ":Telescope man_pages<CR>", "Man Pages"),
   wrap_lazy("n", "<leader>fl", ":Telescope live_grep<CR>", "Text"),
   wrap_lazy("n", "<leader>fk", ":Telescope keymaps<CR>", "Keymaps"),
-  wrap_lazy("n", "<leader>fo", ":Telescope oldfiles<CR>", "Find oldfiles"),
+  wrap_lazy("n", "<leader>fo", ":Telescope oldfiles<CR>", "Old File"),
   wrap_lazy("n", "<leader>fz", ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer"),
   wrap_lazy("n", "<leader>gc", ":Telescope git_commits<CR>", "Open changed file"),
   wrap_lazy("n", "<leader>gg", ":Telescope git_status<CR>", "Open changed file"),
