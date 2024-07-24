@@ -33,7 +33,8 @@ M.general = function()
   map_wrap("n", "<leader>d", ":bd<CR>", "Close current buffer")
   map_wrap("n", "<leader>q", ":q<CR>", "Close current window")
   map_wrap("n", "<leader>Q", ":qa<CR>", "Close all windows")
-  map_wrap("n", "<leader>cc", ":call setreg('+', expand('%:.') . ':' . line('.'))<CR>", "Copy file/line position to clipboard")
+  map_wrap("n", "<leader>cc", ":call setreg('+', expand('%:.') . ':' . line('.'))<CR>",
+    "Copy file/line position to clipboard")
   map_wrap("n", "<leader>cp", ":e <C-r>+<CR>", "jump position according register +")
   map_wrap("i", "jj", "<ESC>")
   map_wrap("i", "jk", "<ESC>:w<CR>")
@@ -140,7 +141,7 @@ M.dap = {
   wrap_lazy("n", "<F10>", ":lua require'dap'.step_over()<CR>", ""),
   wrap_lazy("n", "<F22>", ":lua require'dap'.run_to_cursor()<CR>", ""), -- <S-F10>
   wrap_lazy("n", "<F11>", ":lua require'dap'.step_into()<CR>", ""),
-  wrap_lazy("n", "<F23>", ":lua require'dap'.step_out()<CR>", ""), -- <S-F12>
+  wrap_lazy("n", "<F23>", ":lua require'dap'.step_out()<CR>", ""),      -- <S-F12>
   wrap_lazy("n", "<F12>", ":lua require'dap'.close()<CR>", ""),
   -- wrap("n", "",     ":lua require'dap'.repl.toggle()<CR>", "" ),
 }
@@ -246,7 +247,7 @@ M.telescope_mapping = function(actions)
       ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       -- ["<C-l>"] = actions.complete_tag,
       ["<C-/>"] = actions.which_key,
-      ["<C-_>"] = actions.which_key,   -- keys from pressing <C-/>
+      ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
       ["<C-w>"] = { "<c-s-w>", type = "command" },
       ["<C-r><C-w>"] = actions.insert_original_cword,
 
@@ -362,5 +363,24 @@ M.gitsigns = function(bufnr, gs)
     'Reset hunk')
   map_buf_wrap(bufnr, { 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
+
+M.which_key = {
+  { "<leader>b",  group = "Buffer" },
+  { "<leader>c",  group = "Clipboard" },
+  { "<leader>D",  group = "Debug Tool" },
+  { "<leader>e",  group = "File Explorer" },
+  { "<leader>f",  group = "Find" },
+  { "<leader>g",  group = "Git" },
+  { "<leader>h",  group = "Http Tool" },
+  { "<leader>l",  group = "Code LSP" },
+  { "<leader>lt", group = "Code Test" },
+  { "<leader>lw", group = "Workspace" },
+  { "<leader>t",  group = "Unit Tests" },
+  { "<leader>p",  group = "Plugin(Lazy)" },
+  { "<leader>r",  group = "Search/Replace" },
+  { "<leader>s",  group = "Session" },
+  { "<leader>x",  group = "Database Tool" },
+  { "<leader>g",  group = "Git",           mode = "v" },
+}
 
 return M

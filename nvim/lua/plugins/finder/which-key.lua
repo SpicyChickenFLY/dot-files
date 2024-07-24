@@ -182,24 +182,7 @@ return {
       },
       debug = false, -- enable wk.log in the current directory
     }
-
-    wk.add({
-      { "<leader>b", group = "Buffer" },
-      { "<leader>D", group = "Debug Tool" },
-      { "<leader>e", group = "File Explorer" },
-      { "<leader>f", group = "Find" },
-      { "<leader>g", group = "Git" },
-      { "<leader>h", group = "Http Tool" },
-      { "<leader>l", group = "Code LSP" },
-      { "<leader>lt", group = "Code Test" },
-      { "<leader>lw", group = "Workspace" },
-      { "<leader>t", group = "Unit Tests" },
-      { "<leader>p", group = "Plugin(Lazy)" },
-      { "<leader>r", group = "Search/Replace" },
-      { "<leader>s", group = "Session" },
-      { "<leader>x", group = "Database Tool" },
-      { "<leader>g", group = "Git", mode = "v" },
-    })
+    wk.add(require('core.keymaps')["which_key"])
 
   end,
   lazy = false
