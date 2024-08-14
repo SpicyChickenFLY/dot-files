@@ -13,7 +13,7 @@ set $term WINIT_UNIX_BACKEND=x11 WAYLAND_DISPLAY= alacritty
 set $menu rofi --combi-modi drun-run -show combi --show-icons
 set $launcher fuzzel
 # set $menu nwg-drawer
-set $powermenu nwgbar
+# set $powermenu nwgbar
 
 ### Idle configuration
 exec swayidle -w\
@@ -32,7 +32,7 @@ exec swayidle -w\
 bindsym $mod+r exec $term
 bindsym $mod+d exec $launcher
 bindsym $mod+f exec $menu
-bindsym Ctrl+Alt+Delete exec $powermenu
+bindsym Ctrl+Alt+Delete exit
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 
