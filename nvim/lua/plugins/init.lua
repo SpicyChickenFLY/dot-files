@@ -41,7 +41,6 @@ local plugins = {
   -------------- Finder --------------
   require("plugins.finder.telescope"),        -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.finder.icon-picker"),      -- find Icon/NerdFont/Color
-  require("plugins.finder.session-lens"),     -- find saved Session
   require("plugins.finder.which-key"),        -- find triggerd Keymaps
   -------------- Tools --------------
   require("plugins.tools.nvim-autopairs"),    -- match Parenthsis

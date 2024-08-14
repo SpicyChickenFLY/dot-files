@@ -317,16 +317,23 @@ M.telescope_mapping = function(actions)
     },
   }
 end
-M.sessionlens = { wrap_lazy("n", "<leader>sf", ":SearchSession<CR>", "Find Session"), }
 M.todo_comments = { wrap_lazy("n", "<leader>ft", ":TodoTelescope<CR>", "Find todo comments"), }
 
 -------------- Tools --------------
 M.autosession = {
   wrap_lazy("n", "<leader>ss", ":SessionSave<CR>", "save session"),
-  wrap_lazy("n", "<leader>sl", ":SessionRestore<CR>", "load session"), }
+  wrap_lazy("n", "<leader>sl", ":SessionRestore<CR>", "load session"),
+  wrap_lazy("n", "<leader>sf", ":SessionSearch<CR>", "find Session"), }
 M.diffview = {
   wrap_lazy("n", "<leader>gd", ":DiffviewOpen<CR>", "Git diff"),
   wrap_lazy("n", "<leader>gh", ":DiffviewFileHistory %<CR>", "Show file history"), }
+  
+M.autosession_mapping = function()
+  return {
+    delete_session = { "i", "<c-d>" },
+    alternate_session = { "i", "<c-a>" },
+  }
+end
 M.flash = {
   wrap_lazy({ "n", "x", "o" }, "s", function() require("flash").jump() end, "Flash"),
   wrap_lazy({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, "Flash Treesitter"),
