@@ -1,7 +1,7 @@
 local icons = {
 
 	listchars = {
-		tab = "│ →",
+		tab = "│  ",
 		trail = "·",
 		space = " ",
 		lead = " ",
