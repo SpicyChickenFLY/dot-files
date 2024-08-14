@@ -52,6 +52,7 @@ M.general = function()
   map_wrap("n", '<leader>pc', ":Lazy check<CR>", "Check update")
   map_wrap("n", '<leader>ps', ":Lazy sync<CR>", "Sync update")
   map_wrap("n", '<leader>pp', ":Lazy home<CR>", "Open list")
+  map_wrap("c", '<c-j>', "", "disable default <c-j> -> <CR> in cmdline mode")
 end
 
 -------------- UI stuff --------------
@@ -82,14 +83,14 @@ M.spectre = {
   wrap_lazy("n", "<leader>rf", function() require("spectre").open_file_search() end, "search in file"), }
 M.outline = { wrap_lazy("n", "<leader>lo", ':Outline<CR>', "toggle outline"), }
 M.neotest = {
-  wrap_lazy("n", "<leader>ltt", ":lua require('neotest').summary.open()<CR>", "open output panel"),
-  wrap_lazy("n", "<leader>lto", ":lua require('neotest').output.open({ enter = true })<CR>", "open output"),
-  wrap_lazy("n", "<leader>ltO", ":lua require('neotest').output_panel.open()<CR>", "open output panel"),
-  wrap_lazy("n", "<leader>ltr", ":lua require'neotest'.run.run()<CR>", "Run nearest test"),
-  wrap_lazy("n", "<leader>ltf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file"),
-  wrap_lazy("n", "<leader>ltd", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir"),
-  wrap_lazy("n", "<leader>ltg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir"),
-  wrap_lazy("n", "<leader>ltD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test"), }
+  wrap_lazy("n", "<leader>tt", ":lua require('neotest').summary.open()<CR>", "open output panel"),
+  wrap_lazy("n", "<leader>to", ":lua require('neotest').output.open({ enter = true })<CR>", "open output"),
+  wrap_lazy("n", "<leader>tO", ":lua require('neotest').output_panel.open()<CR>", "open output panel"),
+  wrap_lazy("n", "<leader>tr", ":lua require'neotest'.run.run()<CR>", "Run nearest test"),
+  wrap_lazy("n", "<leader>tf", ":lua require'neotest'.run.run(vim.fn.expand('%'))<CR>", "Test current file"),
+  wrap_lazy("n", "<leader>td", ":lua require'neotest'.run.run(vim.fn.expand('%:ph'))<CR>", "Test current dir"),
+  wrap_lazy("n", "<leader>tg", ":lua require'neotest'.run.run(vim.fn.getcwd())<CR>", "Test root dir"),
+  wrap_lazy("n", "<leader>tD", ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", "Debug nearest test"), }
 
 -------------- Coding --------------
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
@@ -373,7 +374,7 @@ M.which_key = {
   { "<leader>g",  group = "Git" },
   { "<leader>h",  group = "Http Tool" },
   { "<leader>l",  group = "Code LSP" },
-  { "<leader>lt", group = "Code Test" },
+  { "<leader>t", group = "Code Test" },
   { "<leader>lw", group = "Workspace" },
   { "<leader>t",  group = "Unit Tests" },
   { "<leader>p",  group = "Plugin(Lazy)" },
