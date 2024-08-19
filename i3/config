@@ -68,6 +68,7 @@ font pango:Sauce Code Pro Nerd Font 10
 # exec --no-startup-id xsetroot -solid "#ffffff"
 # exec --no-startup-id xrandr --primary
 # exec --no-startup-id dbus-launch --sh-syntax --exit-with-session > /dev/null
+exec i3-sensible-terminal
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
