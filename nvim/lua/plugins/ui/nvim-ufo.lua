@@ -59,6 +59,8 @@ return {
       provider_selector = function(_, filetype, _)
         -- local lspWithOutFolding = { "markdown", "sh", "css", "html", "python" }
         -- if vim.tbl_contains(lspWithOutFolding, filetype) then return { "treesitter", "indent" } end
+        local lspWithOutFolding = { "markdown", "sh", "css", "html", "python" }
+        if vim.tbl_contains(lspWithOutFolding, filetype) then return { "treesitter", "indent" } end
         return { "lsp", "indent" }
       end,
       fold_virt_text_handler = handler,
