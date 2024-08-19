@@ -248,7 +248,14 @@ return {
     -- C/C++
     require("lspconfig").clangd.setup({ on_attach = on_attach })
     -- Python
-    require("lspconfig").pyright.setup({ on_attach = on_attach })
+    require("lspconfig").pyright.setup({
+      on_attach = on_attach,
+      settings = {
+        python = {
+          venvPath = "/mnt/Mine/Code/python/venv/"
+        }
+      }
+    })
     -- Bash
     require("lspconfig").bashls.setup({ on_attach = on_attach })
     -- XML
