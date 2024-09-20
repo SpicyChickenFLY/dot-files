@@ -7,7 +7,7 @@ return {
   run = ":TSUpdate",
   event = "BufWinEnter",
   config = function()
-    local enable_lang = { "http", "scss", "css", "html", "http", "jsdoc", "javascript", "typescript", "tsx", "vue", "markdown" }
+    local enable_lang = { "http", "scss", "css", "html", "http", "jsdoc", "javascript", "typescript", "tsx", "vue", "markdown", "python" }
 
     local defaults = {
       ensure_installed = {
@@ -26,6 +26,7 @@ return {
         "typescript",
         "tsx",
         "vue",
+        "python",
       },
       highlight = {
         enable = true,
