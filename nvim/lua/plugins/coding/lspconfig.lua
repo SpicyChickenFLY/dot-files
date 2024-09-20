@@ -136,7 +136,7 @@ return {
       },
     })
     -- Vue/TypeScript lsp
-    require('lspconfig')["tsserver"].setup {
+    require('lspconfig')["ts_ls"].setup {
       filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
     }
     -- local vue_language_server_path = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
