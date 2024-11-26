@@ -252,7 +252,9 @@ return {
       on_attach = on_attach,
       settings = {
         python = {
-          venvPath = "/mnt/Mine/Code/python/venv/"
+          -- venv = "venv",
+          -- venvPath = "/mnt/Mine/Code/python/",
+          pythonPath = "/mnt/Mine/Code/python/venv/bin/python"
         }
       }
     })
