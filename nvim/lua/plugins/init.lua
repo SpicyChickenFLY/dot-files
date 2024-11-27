@@ -35,9 +35,9 @@ local plugins = {
   { "mfussenegger/nvim-jdtls" },                -- Java LSP Tool
   { "nanotee/sqls.nvim" },                      -- SQL LSP Tool
   require("plugins.language.markdown-preview"), -- Markdown preview
+  require("plugins.language.rest"),             -- HTTP request client
   -- require("plugins.language.flutter-tools"),    -- Flutter LSP Tool
   -- require("plugins.language.nvim-java"),         -- general DAP debug configuration
-  -- require("plugins.language.rest"),             -- HTTP request client
   -------------- Finder --------------
   require("plugins.finder.telescope"),     -- fuzzy Finder(file/buffer/keymap/highlight)
   require("plugins.finder.icon-picker"),   -- find Icon/NerdFont/Color
