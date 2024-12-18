@@ -7,12 +7,12 @@ local plugins = {
   require("plugins.ui.catppuccin"),        -- my favourte Colorscheme
   require("plugins.ui.lualine"),           -- extra Status Line on bottom
   require("plugins.ui.bufferline"),        -- use Tabline show buffer list
-  require("plugins.ui.barbecue"),          -- use Winbar show breadcrumbs
+  -- require("plugins.ui.barbecue"),          -- use Winbar show breadcrumbs
   -- require("plugins.ui.dropbar"),             -- use Winbar show breadcrumbs
   require("plugins.ui.statuscol"),         -- manage Status Coloumn on left
   require("plugins.ui.nvim-ufo"),          -- buffer Fold guide
-  require("plugins.ui.indent-blankline"),  -- buffer Indent guide
-  require("plugins.ui.mini-indent"),       -- cursor Indent guide
+  -- require("plugins.ui.indent-blankline"),  -- buffer Indent guide
+  -- require("plugins.ui.mini-indent"),       -- cursor Indent guide
   require("plugins.ui.fidget"),            -- LSP status indicator
   -------------- Sidebar tools --------------
   require("plugins.sidebar.nvim-spectre"), -- Find and Replace content
@@ -36,7 +36,6 @@ local plugins = {
   { "nanotee/sqls.nvim" },                      -- SQL LSP Tool
   require("plugins.language.markdown-preview"), -- Markdown preview
   require("plugins.language.rest"),             -- HTTP request client
-  -- require("plugins.language.flutter-tools"),    -- Flutter LSP Tool
   -- require("plugins.language.nvim-java"),         -- general DAP debug configuration
   -------------- Finder --------------
   require("plugins.finder.telescope"),     -- fuzzy Finder(file/buffer/keymap/highlight)
@@ -49,7 +48,8 @@ local plugins = {
   require("plugins.tools.diffview"),       -- Git diffview/mergetool
   require("plugins.tools.floaterm"),       -- floating terminal
   require("plugins.tools.flash"),          -- Navigation in search/fFtT/treesitter
-  require("plugins.tools.auto-session"),   -- save/restore Session
+  require("plugins.tools.snacks"),         -- 
+  -- require("plugins.tools.auto-session"),   -- save/restore Session
 }
 
 local disabled_builtin_plugins = {
