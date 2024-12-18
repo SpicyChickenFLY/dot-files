@@ -28,11 +28,10 @@ M.general = function()
   map_wrap("n", "=", ":resize +2<cr>", "Increase window height")
   map_wrap("n", "_", ":vertical resize -2<cr>", "Decrease window width")
   map_wrap("n", "+", ":vertical resize +2<cr>", "Increase window width")
-  map_wrap("n", "<leader>w", ":w<CR>", "Save current buffer")
-  map_wrap("n", "<leader>W", ":w !sudo tee %<CR>", "Save current buffer with super priv")
-  map_wrap("n", "<leader>d", ":bd<CR>", "Close current buffer")
-  map_wrap("n", "<leader>q", ":q<CR>", "Close current window")
-  map_wrap("n", "<leader>Q", ":qa<CR>", "Close all windows")
+  map_wrap("n", "<leader>bw", ":w<CR>", "Save current buffer")
+  map_wrap("n", "<leader>bW", ":w !sudo tee %<CR>", "Save current buffer with super priv")
+  map_wrap("n", "<leader>wq", ":q<CR>", "Close current window")
+  map_wrap("n", "<leader>wQ", ":qa<CR>", "Close all windows")
   map_wrap("n", "<leader>cc", ":call setreg('+', expand('%:.') . ':' . line('.'))<CR>",
     "Copy file/line position to clipboard")
   map_wrap("n", "<leader>cp", ":e <C-r>+<CR>", "jump position according register +")
@@ -211,7 +210,7 @@ M.telescope = {
   wrap_lazy("n", "<leader>fo", ":Telescope oldfiles<CR>", "Old File"),
   wrap_lazy("n", "<leader>fz", ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer"),
   wrap_lazy("n", "<leader>gc", ":Telescope git_commits<CR>", "Open changed file"),
-  wrap_lazy("n", "<leader>gg", ":Telescope git_status<CR>", "Open changed file"),
+  wrap_lazy("n", "<leader>gs", ":Telescope git_status<CR>", "Open changed file"),
 }
 M.telescope_mapping = function(actions)
   return {
@@ -288,7 +287,6 @@ M.telescope_mapping = function(actions)
       ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
       ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
-      -- TODO: This would be weird if we switch the ordering.
       -- ["j"] = actions.move_selection_next,
       -- ["k"] = actions.move_selection_previous,
       -- ["H"] = actions.move_to_top,
@@ -328,7 +326,7 @@ M.autosession = {
 M.diffview = {
   wrap_lazy("n", "<leader>gd", ":DiffviewOpen<CR>", "Git diff"),
   wrap_lazy("n", "<leader>gh", ":DiffviewFileHistory %<CR>", "Show file history"), }
-  
+
 M.autosession_mapping = function()
   return {
     delete_session = { "i", "<c-d>" },
@@ -344,7 +342,7 @@ M.flash = {
 M.floaterm = {
   wrap_lazy("n", "<leader>ef", ":FloatermNew ranger<CR>", "Open ranger"),
   wrap_lazy("n", "<leader>ee", ":FloatermNew ranger $pwd<CR>", "Open ranger"),
-  wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
+  -- wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
   wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open Terminal"),
   wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),
   wrap_lazy("t", "<C-,>", [[<C-\><C-n>:FloatermPrev<CR>]]),
@@ -372,6 +370,9 @@ M.gitsigns = function(bufnr, gs)
     'Reset hunk')
   map_buf_wrap(bufnr, { 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
+M.snacks = {
+
+}
 
 M.which_key = {
   { "<leader>b",  group = "Buffer" },
@@ -382,13 +383,15 @@ M.which_key = {
   { "<leader>g",  group = "Git" },
   { "<leader>h",  group = "Http Tool" },
   { "<leader>l",  group = "Code LSP" },
-  { "<leader>t", group = "Code Test" },
   { "<leader>lw", group = "Workspace" },
   { "<leader>t",  group = "Unit Tests" },
   { "<leader>p",  group = "Plugin(Lazy)" },
   { "<leader>r",  group = "Search/Replace" },
   { "<leader>s",  group = "Session" },
+  { "<leader>u",  group = "UI" },
+  { "<leader>w",  group = "Window" },
   { "<leader>x",  group = "Database Tool" },
+
   { "<leader>g",  group = "Git",           mode = "v" },
 }
 
