@@ -1,0 +1,98 @@
+" M->cmd, A->option, C->control
+let mapleader=" "
+set ideajoin
+set ideamarks
+set easymotion
+set surround
+set multiple-cursors
+set nu
+set hlsearch
+set incsearch
+set showmode
+set clipboard=unnamed
+set clipboard+=ideaput
+set ignorecase smartcase
+
+inoremap jk <Esc>
+" Emacs-like insert
+inoremap <C-a> <home>
+inoremap <C-e> <end>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+
+nmap H <Action>(PreviousTab)
+nmap K <Action>(ShowHoverInfo)
+nmap L <Action>(NextTab)
+
+" Window
+nmap <C-h> <C-w>h
+nmap <C-j> <C-j>j
+nmap <C-k> <C-k>k
+nmap <C-l> <C-l>l
+
+" g-relate 跳转相关
+nmap ga <Action>(ShowIntentionActions)
+nmap gd <Action>(GotoDeclaration)
+nmap gi <Action>(GotoImplementation)
+"nmap gt <Action>(GotoTypeDeclaration)
+nmap gcc <Action>(CommentByLineComment)
+nmap gcb <Action>(CommentByBlockComment)
+
+" Fold
+nmap zr <Action>(ExpandRegionRecursively)
+nmap zm <Action>(CollapseRegionRecursively)
+nmap zO <Action>(ExpandAllRegion)
+nmap zC <Action>(CollapseAllRegion)
+nmap z1 <Action>(ExpandToLevel1)
+nmap z2 <Action>(ExpandToLevel2)
+nmap z3 <Action>(ExpandToLevel3)
+nmap z4 <Action>(ExpandToLevel4)
+nmap z5 <Action>(ExpandToLevel5)
+
+nmap ` <Action>(ShowTypeBookmarks)
+nmap m <Action>(ToggleBookmarkWithMnemonic)
+
+"nmap gw <Action>(RecentFiles)
+"nmap gy :action CopyReference)
+"nmap gp <Action>(ParameterInfo)
+"nmap gf <Action>(GotoFile)
+"nmap ghc <Action>(CallHierarchy)
+"nmap ght <Action>(TypeHierarchy)
+"nmap ghm <Action>(MethodHierarchy)
+"nmap gj <Action>(SliceBackward)
+"nmap gk <Action>(SliceForward)
+"nmap gx <Action>(CloseAllEditorsButActive)
+"nmap gc <Action>(CompileDirty)
+"nmap gb <Action>(FindBugs.CurrentFileAction)
+"nmap gn <Action>(GotoClass)
+"nmap gm <Action>(GotoSymbol)
+
+nmap [[ <Action>(MethodUp)
+nmap ]] <Action>(MethodDown)
+nmap ]e <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
+nmap ]m <Action>(GotoNextBookmark)
+nmap [m <Action>(GotoPreviousBookmark)
+
+nmap <leader>q :wq<CR>
+nmap <leader>w :w<CR>
+
+" Debug
+"nmap <leader>br <Action>(Resume)
+"nmap <leader>bl <Action>(StepOver)
+"nmap <leader>bj <Action>(SmartStepInto)
+"nmap <leader>be <Action>(EvaluateExpression)
+"nmap <leader>bbb <Action>(ViewBreakpoints)
+"nmap <leader>bbl <Action>(ToggleLineBreakpoint)
+"nmap <leader>bbm <Action>(XDebugger.MuteBreakpoints)
+nmap <leader>ff <Action>(SearchEverywhere)
+nmap <leader>fg <Action>(FindInPath)
+nmap <leader>gg <Action>(Git.Menu)
+nmap <leader>R :source ~/.ideavimrc<CR>
+nmap <leader>rg <Action>(ReplaceInPath)
+nmap <leader>rr <Action>(Replace)
+
+
+Plug 'machakann/vim-highlightedyank'
