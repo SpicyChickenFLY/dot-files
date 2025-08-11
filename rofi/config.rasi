@@ -9,10 +9,11 @@ configuration {
   hide-scrollbar: true;
   display-drun: "  ";
   display-run: "  ";
-  display-window: " 﩯 ";
-  display-Network: " N";
+  display-window: "  ";
+  display-Network: " 󰛳 ";
   sidebar-mode: true;
-/*	modes: "window,drun,run,ssh";*/
+  modes: "drun,window,run,ssh";
+  combi-modes: "drun,run,window,ssh";
 /*	font: "mono 12";*/
 /*	location: 0;*/
 /*	yoffset: 0;*/
@@ -45,7 +46,6 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-/*	combi-modes: "window,run";*/
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
