@@ -4,30 +4,31 @@ local plugins = {
   { "echasnovski/mini.icons" },
   -------------- UI stuff --------------
   -- require("plugins.ui.nvim-colorizer"),       -- colorized hex codes and color name
-  require("plugins.ui.catppuccin"),        -- my favourte Colorscheme
-  require("plugins.ui.lualine"),           -- extra Status Line on bottom
-  require("plugins.ui.bufferline"),        -- use Tabline show buffer list
-  -- require("plugins.ui.barbecue"),          -- use Winbar show breadcrumbs
+  require("plugins.ui.catppuccin"), -- my favourte Colorscheme
+  require("plugins.ui.lualine"),    -- extra Status Line on bottom
+  require("plugins.ui.bufferline"), -- use Tabline show buffer list
+  require("plugins.ui.barbecue"),          -- use Winbar show breadcrumbs
   -- require("plugins.ui.dropbar"),             -- use Winbar show breadcrumbs
-  require("plugins.ui.statuscol"),         -- manage Status Coloumn on left
-  require("plugins.ui.nvim-ufo"),          -- buffer Fold guide
-  -- require("plugins.ui.indent-blankline"),  -- buffer Indent guide
-  -- require("plugins.ui.mini-indent"),       -- cursor Indent guide
-  require("plugins.ui.fidget"),            -- LSP status indicator
+  require("plugins.ui.statuscol"), -- manage Status Coloumn on left
+  require("plugins.ui.nvim-ufo"),  -- buffer Fold guide
+  require("plugins.ui.indent-blankline"),  -- buffer Indent guide
+  require("plugins.ui.mini-indent"),       -- cursor Indent guide
+  require("plugins.ui.fidget"),              -- LSP status indicator
   -------------- Sidebar tools --------------
-  require("plugins.sidebar.nvim-spectre"), -- Find and Replace content
-  require("plugins.sidebar.outline"),      -- LSP document symbol outline
-  require("plugins.sidebar.neotest"),      -- UnitTest framework
+  require("plugins.sidebar.nvim-spectre"),   -- Find and Replace content
+  require("plugins.sidebar.outline"),        -- LSP document symbol outline
+  require("plugins.sidebar.neotest"),        -- UnitTest framework
   -------------- Coding --------------
-  require("plugins.coding.mason"),         -- LSP/DAP/Linter/Formatter manager
-  require("plugins.coding.lspconfig"),     -- general LSP servers configuration
-  require("plugins.coding.nvim-dap"),      -- general DAP debug configuration
-  require("plugins.coding.none-ls"),       -- general Formatter/Linter configuration
-  require("plugins.coding.LuaSnip"),       -- Snippets
-  require("plugins.coding.nvim-cmp"),      -- Autocompletion
-  require("plugins.coding.Comment"),       -- quick Comment
-  require("plugins.coding.todo-comments"), -- highlight TODO-like Comment
-  require("plugins.coding.treesitter"),    -- TreeSitter for nvim
+  require("plugins.coding.mason"),           -- LSP/DAP/Linter/Formatter manager
+  require("plugins.coding.lspconfig"),       -- general LSP servers configuration
+  require("plugins.coding.mason-lspconfig"), -- LSP/DAP/Linter/Formatter manager
+  require("plugins.coding.nvim-dap"),        -- general DAP debug configuration
+  require("plugins.coding.none-ls"),         -- general Formatter/Linter configuration
+  require("plugins.coding.LuaSnip"),         -- Snippets
+  require("plugins.coding.nvim-cmp"),        -- Autocompletion
+  require("plugins.coding.Comment"),         -- quick Comment
+  require("plugins.coding.todo-comments"),   -- highlight TODO-like Comment
+  require("plugins.coding.treesitter"),      -- TreeSitter for nvim
   require("plugins.coding.nvim-ts-autotag"),
   -- require("plugins.coding.lsp-signature"),    -- Show function signature when you type
   -- require("plugins.coding.navigator"),        -- code Analysis & Navigation tool
@@ -48,7 +49,8 @@ local plugins = {
   require("plugins.tools.diffview"),       -- Git diffview/mergetool
   require("plugins.tools.floaterm"),       -- floating terminal
   require("plugins.tools.flash"),          -- Navigation in search/fFtT/treesitter
-  require("plugins.tools.snacks"),         -- 
+  require("plugins.tools.avante"),
+  -- require("plugins.tools.snacks"),         --
   -- require("plugins.tools.auto-session"),   -- save/restore Session
 }
 

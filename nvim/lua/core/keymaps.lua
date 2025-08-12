@@ -28,10 +28,11 @@ M.general = function()
   map_wrap("n", "=", ":resize +2<cr>", "Increase window height")
   map_wrap("n", "_", ":vertical resize -2<cr>", "Decrease window width")
   map_wrap("n", "+", ":vertical resize +2<cr>", "Increase window width")
-  map_wrap("n", "<leader>bw", ":w<CR>", "Save current buffer")
-  map_wrap("n", "<leader>bW", ":w !sudo tee %<CR>", "Save current buffer with super priv")
-  map_wrap("n", "<leader>wq", ":q<CR>", "Close current window")
-  map_wrap("n", "<leader>wQ", ":qa<CR>", "Close all windows")
+  map_wrap("n", "<leader>w", ":w<CR>", "Save current buffer")
+  map_wrap("n", "<leader>W", ":w :lua require'utils'.sudo_write()<CR>", "Save current buffer with super priv")
+  map_wrap("n", "<leader>d", ":bd<CR>", "Delete current buffer")
+  map_wrap("n", "<leader>q", ":q<CR>", "Close current window")
+  map_wrap("n", "<leader>Q", ":qa<CR>", "Close all windows")
   map_wrap("n", "<leader>cc", ":call setreg('+', expand('%:.') . ':' . line('.'))<CR>",
     "Copy file/line position to clipboard")
   map_wrap("n", "<leader>cp", ":e <C-r>+<CR>", "jump position according register +")
@@ -94,7 +95,7 @@ M.neotest = {
 -------------- Coding --------------
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
 M.lspconfig = {
-  wrap_lazy("n", "K", vim.lsp.buf.hover, "show hover"),
+  wrap_lazy("n", "K", vim.lsp.buf.hover { buffer = 'rounded' }, "show hover"),
   wrap_lazy("n", "gd", ":Telescope lsp_definitions<CR>", "goto definition"),
   wrap_lazy("n", "gD", vim.lsp.buf.declaration, "goto declaration"),
   wrap_lazy("n", "gt", ":Telescope lsp_type_definitions<CR>", "goto definition type"),
@@ -375,7 +376,7 @@ M.snacks = {
 }
 
 M.which_key = {
-  { "<leader>b",  group = "Buffer" },
+  { "<leader>a",  group = "AI" },
   { "<leader>c",  group = "Clipboard" },
   { "<leader>D",  group = "Debug Tool" },
   { "<leader>e",  group = "File Explorer" },
@@ -389,7 +390,6 @@ M.which_key = {
   { "<leader>r",  group = "Search/Replace" },
   { "<leader>s",  group = "Session" },
   { "<leader>u",  group = "UI" },
-  { "<leader>w",  group = "Window" },
   { "<leader>x",  group = "Database Tool" },
 
   { "<leader>g",  group = "Git",           mode = "v" },

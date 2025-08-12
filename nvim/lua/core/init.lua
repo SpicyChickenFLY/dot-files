@@ -51,6 +51,7 @@ autocmd("FileType", {
         "neo-tree-preview",
         "neotest-output",
         "sqls_output",
+        "rest_nvim_result",
     },
     callback = function(event)
         -- :help api-autocmd
@@ -58,5 +59,17 @@ autocmd("FileType", {
         -- event = {id,event,group?,match,buf,file,data(arbituary data)}
         vim.bo[event.buf].buflisted = false
         vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+})
+autocmd("FileType", {
+    pattern = {
+        "Avante*",
+    },
+    callback = function(event)
+        -- :help api-autocmd
+        -- nvim_create_autocmd's callback receives a table argument with fields
+        -- event = {id,event,group?,match,buf,file,data(arbituary data)}
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>AvanteToggle<cr>", { buffer = event.buf, silent = true })
     end,
 })

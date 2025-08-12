@@ -1,8 +1,9 @@
 local jdk8_path = "/usr/local/jdk8"
 local jdk17_path = "/usr/local/jdk17"
+local jdk21_path = "/usr/local/jdk21"
 
 local jdtls_path = "/usr/local/jdtls"
-local jdtls_launcher_jar = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar", 1)
+local jdtls_launcher_jar = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
 local jdtls_lombok_jar = jdtls_path .. "/plugins/lombok.jar"
 local jdtls_cache_path = "/home/chow/.cache/jdtls"
 local jdtls_cache_data = jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -10,17 +11,17 @@ local jdtls_config_path = jdtls_path .. "/config_linux"
 
 local debugger_path = "/usr/local/java-debug"
 local debugger_jar = vim.fn.glob(
-	debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", 1)
+	debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
 
 local decompiler_path = "/usr/local/java-decompiler"
-local decompiler_jars = vim.split(vim.fn.glob(decompiler_path .. "/server/*.jar", 1), "\n")
+local decompiler_jars = vim.split(vim.fn.glob(decompiler_path .. "/server/*.jar"), "\n")
 
 local bundles = { debugger_jar }
 vim.list_extend(bundles, decompiler_jars)
 
 local config = {
 	cmd = {
-		jdk17_path .. "/bin/java",
+		jdk21_path .. "/bin/java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -46,8 +47,9 @@ local config = {
 	settings = {
 		java = {
 			runtimes = {
-				{ name = "javaSE-8",  path = jdk8_path },
+				-- { name = "javaSE-8",  path = jdk8_path },
 				{ name = "javaSE-17", path = jdk17_path },
+				{ name = "javaSE-21", path = jdk21_path },
 			},
 			contentProvider = { preferred = "fernflower" },
 			signatureHelp = { enabled = true },
@@ -96,7 +98,7 @@ local config = {
 	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 	--
 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-	init_options = { bundles = bundles, },
+	-- init_options = { bundles = bundles, },
 }
 
 config["on_attach"] = function(client, bufnr)
@@ -108,25 +110,25 @@ config["on_attach"] = function(client, bufnr)
 		hotcodereplace = "auto",
 		config_overrides = {},
 	})
-	vim.cmd([[ command! JdtRefresh lua require('jdtls.dap').setup_dap_main_class_configs() ]])
-	vim.cmd([[ JdtRefresh ]])
+	-- vim.cmd([[ command! JdtRefresh lua require('jdtls.dap').setup_dap_main_class_configs() ]])
+	-- vim.cmd([[ JdtRefresh ]])
 	-- vim.cmd([[ JdtUpdateDebugConfig ]])
 
-	if client.server_capabilities.documentHighlightProvider then
-		local augroup = "lsp_document_highlight"
-		vim.api.nvim_create_augroup(augroup, { clear = true })
-		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
-		vim.api.nvim_create_autocmd("CursorHold", {
-			callback = vim.lsp.buf.document_highlight,
-			buffer = bufnr,
-			group = augroup,
-		})
-		vim.api.nvim_create_autocmd("CursorMoved", {
-			callback = vim.lsp.buf.clear_references,
-			buffer = bufnr,
-			group = augroup,
-		})
-	end
+	-- if client.server_capabilities.documentHighlightProvider then
+	-- 	local augroup = "lsp_document_highlight"
+	-- 	vim.api.nvim_create_augroup(augroup, { clear = true })
+	-- 	vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
+	-- 	vim.api.nvim_create_autocmd("CursorHold", {
+	-- 		callback = vim.lsp.buf.document_highlight,
+	-- 		buffer = bufnr,
+	-- 		group = augroup,
+	-- 	})
+	-- 	vim.api.nvim_create_autocmd("CursorMoved", {
+	-- 		callback = vim.lsp.buf.clear_references,
+	-- 		buffer = bufnr,
+	-- 		group = augroup,
+	-- 	})
+	-- end
 end
 
 -- This starts a new client & server,
