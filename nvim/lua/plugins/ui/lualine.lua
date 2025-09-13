@@ -36,7 +36,7 @@ local function dbInfo()
   local info = ""
   -- 获取当前 buffer 的 LSP 客户端
   local bufnr = vim.api.nvim_get_current_buf()
-  local buf_clients = vim.lsp.buf_get_clients(bufnr)
+  local buf_clients = vim.lsp.get_clients({bufnr = bufnr})
   for _, buf_client in ipairs(buf_clients) do
     if buf_client.name == "sqls" then
       info = icons.db_icons[vim.g.sqls_driver_type] or vim.g.sqls_driver_type
