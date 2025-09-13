@@ -87,6 +87,7 @@ local config = {
   defaults = { lazy = true, version = false },
   install = { colorscheme = { "catppuccin-latte" } },
   performance = { rtp = { disabled_plugins = disabled_builtin_plugins } },
+  rocks = { enabled = false },
 }
 
 require("lazy").setup(plugins, config)
