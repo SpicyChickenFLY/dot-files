@@ -4,7 +4,7 @@ return {
     cmd = { "FloatermNew", "FloatermToggle" },
     config = function()
         local g = vim.g
-        local title = vim.env.SHELL
+        local title = vim.env.SHELL or "TERM"
 
         g.floaterm_width = 0.99
         g.floaterm_height = 0.99
