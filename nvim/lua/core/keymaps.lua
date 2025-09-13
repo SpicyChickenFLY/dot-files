@@ -343,7 +343,7 @@ M.flash = {
 M.floaterm = {
   wrap_lazy("n", "<leader>ef", ":FloatermNew ranger<CR>", "Open ranger"),
   wrap_lazy("n", "<leader>ee", ":FloatermNew ranger $pwd<CR>", "Open ranger"),
-  -- wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
+  wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
   wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open Terminal"),
   wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),
   wrap_lazy("t", "<C-,>", [[<C-\><C-n>:FloatermPrev<CR>]]),
