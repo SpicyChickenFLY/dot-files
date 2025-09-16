@@ -104,36 +104,9 @@ return {
         json = { schemas = require("schemastore").json.schemas() },
       },
     })
-    -- -- Java
-    -- local jdk8_path = "/usr/local/jdk8"
-    -- local jdk17_path = "/usr/local/jdk17"
-    -- local java_debug_path = "/usr/local/java-debug"
-    -- local java_decompiler_path = "/usr/local/java-decompiler"
-    -- local bundles = {
-      -- vim.fn.glob(java_debug_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar", false),
-    -- }
-    -- vim.list_extend(bundles, vim.split(vim.fn.glob(java_decompiler_path .. "/server/*.jar", 1), "\n"))
-    --
-    -- require('lspconfig').jdtls.setup({
-    --   -- Here you can configure eclipse.jdt.ls specific settings
-    --   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    --   -- for a list of options
-    --   settings = {
-    --     java = {
-    --       runtimes = {
-    --         { name = "javaSE-8",  path = jdk8_path },
-    --         { name = "javaSE-17", path = jdk17_path },
-    --       },
-    --       contentProvider = { preferred = "fernflower" },
-    --     },
-    --   },
-    --
-    --   -- Language server `initializationOptions`
-    --   -- You need to extend the `bundles` with paths to jar files
-    --   -- init_options = { bundles = bundles },
-    --   -- command = "vscode.java.startDebugSession",
-    --   on_attach = on_attach
-    -- })
+    -- NOTE: Java
+    -- Use jdtls.nvim
+
     -- C/C++
     require("lspconfig").clangd.setup({ })
     -- Python
@@ -151,7 +124,6 @@ return {
     -- XML
     require("lspconfig").lemminx.setup({ })
     -- SQL
-    -- require("lspconfig").sqlls.setup({ })
     local on_sql_attach = function(client, bufnr)
       vim.api.nvim_create_autocmd('User', {
         pattern = 'SqlsConnectionChoice',
