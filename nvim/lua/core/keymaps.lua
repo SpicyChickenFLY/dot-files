@@ -200,6 +200,7 @@ M.telescope = {
   wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "command"),
   wrap_lazy("n", "<leader>fC", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
     "colorscheme with Preview"),
+  wrap_lazy("n", "<leader>fe", ":Telescope file_browser<CR>", "file explorer"),
   wrap_lazy("n", "<leader>ff", ":Telescope find_files<CR>", "file"),
   wrap_lazy("n", "<leader>fh", ":Telescope help_tags<CR>", "help"),
   wrap_lazy("n", "<leader>fH", ":Telescope highlights<CR>", "Highlight groups"),
@@ -317,6 +318,42 @@ M.telescope_mapping = function(actions)
     },
   }
 end
+M.telescope_file_browser_mapping = function(fb_actions)
+  return {
+    ["i"] = {
+      ["<A-c>"] = fb_actions.create,
+      ["<S-CR>"] = fb_actions.create_from_prompt,
+      ["<A-r>"] = fb_actions.rename,
+      ["<A-m>"] = fb_actions.move,
+      ["<A-y>"] = fb_actions.copy,
+      ["<A-d>"] = fb_actions.remove,
+      ["<C-o>"] = fb_actions.open,
+      ["<C-g>"] = fb_actions.goto_parent_dir,
+      ["<C-e>"] = fb_actions.goto_home_dir,
+      ["<C-w>"] = fb_actions.goto_cwd,
+      ["<C-t>"] = fb_actions.change_cwd,
+      ["<C-f>"] = fb_actions.toggle_browser,
+      ["<C-h>"] = fb_actions.toggle_hidden,
+      ["<C-s>"] = fb_actions.toggle_all,
+      ["<bs>"] = fb_actions.backspace,
+    },
+    ["n"] = {
+      ["c"] = fb_actions.create,
+      ["r"] = fb_actions.rename,
+      ["m"] = fb_actions.move,
+      ["y"] = fb_actions.copy,
+      ["d"] = fb_actions.remove,
+      ["o"] = fb_actions.open,
+      ["g"] = fb_actions.goto_parent_dir,
+      ["e"] = fb_actions.goto_home_dir,
+      ["w"] = fb_actions.goto_cwd,
+      ["t"] = fb_actions.change_cwd,
+      ["f"] = fb_actions.toggle_browser,
+      ["h"] = fb_actions.toggle_hidden,
+      ["s"] = fb_actions.toggle_all,
+    },
+  }
+end
 M.todo_comments = { wrap_lazy("n", "<leader>ft", ":TodoTelescope<CR>", "Find todo comments"), }
 
 -------------- Tools --------------
@@ -341,8 +378,8 @@ M.flash = {
   wrap_lazy({ "o", "x" }, "R", function() require("flash").treesitter_search() end, "Treesitter Search"),
   wrap_lazy({ "c" }, "<c-s>", function() require("flash").toggle() end, "Toggle Flash Search"), }
 M.floaterm = {
-  wrap_lazy("n", "<leader>ef", ":FloatermNew ranger<CR>", "Open ranger"),
-  wrap_lazy("n", "<leader>ee", ":FloatermNew ranger $pwd<CR>", "Open ranger"),
+  -- wrap_lazy("n", "<leader>ef", ":FloatermNew ranger<CR>", "Open ranger"),
+  -- wrap_lazy("n", "<leader>ee", ":FloatermNew ranger $pwd<CR>", "Open ranger"),
   wrap_lazy("n", "<leader>gl", ":FloatermNew lazygit<CR>", "Open Lazygit"),
   wrap_lazy("n", "<leader>`", ":FloatermNew<CR>", "Open Terminal"),
   wrap_lazy("n", "<C-\\>", ":FloatermToggle<CR>"),

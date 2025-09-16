@@ -3,23 +3,21 @@ return {
   dependencies = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
-    -- {
-    --   "nvim-telescope/telescope-fzf-native.nvim",
-    --   build =
-    --   "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && cmake --build build --config Release && cmake --install build --prefix build",
-    -- },
-    -- "natecraddock/telescope-zf-native.nvim",
+    "natecraddock/telescope-zf-native.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
   },
   event = "VeryLazy",
   keys = require('core.keymaps')["telescope"],
   cmd = "Telescope",
   config = function()
-    local actions = require('telescope.actions')
     local icons = require('core.icons')
     local u = require('core.utils')
 
+    local actions = require('telescope.actions')
     local mappings = require('core.keymaps').telescope_mapping(actions)
+    local fb_actions = require("telescope._extensions.file_browser.actions")
+    local fb_mappings = require('core.keymaps').telescope_file_browser_mapping(fb_actions)
 
     local opts_cursor = {
       initial_mode = 'normal',
@@ -76,13 +74,6 @@ return {
         mappings = mappings,
       },
       extensions = {
-        -- fzf = {
-        --   fuzzy = true,                   -- false will only do exact matching
-        --   override_generic_sorter = true, -- override the generic sorter
-        --   override_file_sorter = true,    -- override the file sorter
-        --   case_mode = 'smart_case',       -- or "ignore_case" or "respect_case"
-        --   -- the default case_mode is "smart_case"
-        -- },
         ["zf-native"] = {
           -- options for sorting file-like items
           file = {
@@ -112,6 +103,34 @@ return {
             smart_case = true,
           },
         },
+        ['file_browser'] = {
+          path = vim.loop.cwd(),
+          cwd = vim.loop.cwd(),
+          cwd_to_path = false,
+          grouped = false,
+          files = true,
+          add_dirs = true,
+          depth = 1,
+          auto_depth = false,
+          select_buffer = false,
+          hidden = { file_browser = false, folder_browser = false },
+          respect_gitignore = vim.fn.executable "fd" == 1,
+          no_ignore = false,
+          follow_symlinks = false,
+          browse_files = require("telescope._extensions.file_browser.finders").browse_files,
+          browse_folders = require("telescope._extensions.file_browser.finders").browse_folders,
+          hide_parent_dir = false,
+          collapse_dirs = false,
+          prompt_path = false,
+          quiet = false,
+          dir_icon = "",
+          dir_icon_hl = "Default",
+          display_stat = { date = true, size = true, mode = true },
+          hijack_netrw = false,
+          use_fd = false,
+          git_status = true,
+          mappings = fb_mappings ,
+        },
         ['ui-select'] = {
           require('telescope.themes').get_dropdown { }
         }
@@ -133,6 +152,7 @@ return {
         lsp_definitions = u.merge(opts_cursor, { prompt_title = 'Definitions', }),
         lsp_references = u.merge(opts_flex, { prompt_title = 'References', }),
         find_files = u.merge(opts_flex, { prompt_title = 'Search Project', hidden = true, }),
+        file_browser = u.merge(opts_flex, { prompt_title = 'File Browser', hidden = true, }),
         diagnostics = u.merge(opts_flex, { }),
         git_files = u.merge(opts_flex, { prompt_title = 'Search Git Project', hidden = true, }),
         live_grep = u.merge(opts_flex, { prompt_title = 'Live Grep', }),
@@ -140,8 +160,8 @@ return {
       },
     })
 
-    -- require('telescope').load_extension('fzf')
-    -- require("telescope").load_extension("zf-native")
+    require("telescope").load_extension("zf-native")
+    require('telescope').load_extension('file_browser')
     require('telescope').load_extension('ui-select')
   end,
 }
