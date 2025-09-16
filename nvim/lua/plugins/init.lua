@@ -36,6 +36,7 @@ local plugins = {
   { "mfussenegger/nvim-jdtls" },                -- Java LSP Tool
   { "nanotee/sqls.nvim" },                      -- SQL LSP Tool
   require("plugins.language.markdown-preview"), -- Markdown preview
+  require("plugins.language.render-markdown"), -- Markdown preview
   require("plugins.language.rest"),             -- HTTP request client
   -- require("plugins.language.nvim-java"),         -- general DAP debug configuration
   -------------- Finder --------------
@@ -49,7 +50,7 @@ local plugins = {
   require("plugins.tools.diffview"),       -- Git diffview/mergetool
   require("plugins.tools.floaterm"),       -- floating terminal
   require("plugins.tools.flash"),          -- Navigation in search/fFtT/treesitter
-  require("plugins.tools.avante"),
+  -- require("plugins.tools.avante"),
   -- require("plugins.tools.snacks"),         --
   -- require("plugins.tools.auto-session"),   -- save/restore Session
 }
