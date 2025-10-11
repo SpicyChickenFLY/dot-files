@@ -7,6 +7,6 @@ for dir in ${create_dir_arr[@]}; do
     ln -s "${dot_files_dir}/${dir}" "$HOME/.config/${dir}"
 done
 
-cp "${dot_files_dir}/xprofile" "$HOME/.xprofile"
+#cp "${dot_files_dir}/xprofile" "$HOME/.xprofile"
 cp "${dot_files_dir}/zshrc" "$HOME/.zshrc"
-sed -i '/^export http/d' "$HOME/.zshrc"
+#sed -i '/^export http/d' "$HOME/.zshrc"
