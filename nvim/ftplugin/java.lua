@@ -3,17 +3,18 @@ local jdk17_path = vim.env.JDK17
 local jdk21_path = vim.env.JDK21
 local jdk24_path = vim.env.JDK24
 
+-- JDTLS
 local jdtls_path = vim.env.JDTLS_PATH
 local jdtls_launcher_jar = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
 local jdtls_lombok_jar = jdtls_path .. "/plugins/lombok.jar"
 local jdtls_cache_path = jdtls_path .. "/cache"
 local jdtls_cache_data = jdtls_cache_path .. "/jdtls-" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local jdtls_config_path = jdtls_path .. "/config_win"
-
+-- Debugger
 local debugger_path = vim.env.JAVA_DEBUG_PATH
 local debugger_jar = vim.fn.glob(
 	debugger_path .. "/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
-
+-- Decompiler
 local decompiler_path = vim.env.JAVA_DECOMPILER_PATH
 local decompiler_jars = vim.split(vim.fn.glob(decompiler_path .. "/server/*.jar"), "\n")
 
@@ -92,27 +93,16 @@ local config = {
 		},
 	},
 
-	-- Language server `initializationOptions`
-	-- You need to extend the `bundles` with paths to jar files
-	-- if you want to use additional eclipse.jdt.ls plugins.
-	--
-	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
-	--
-	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
 	init_options = { bundles = bundles, },
+
+	on_attach = function(client, bufnr)
+		-- 'auto'  try to apply code changes
+		-- You can use the `JdtHotcodeReplace` command to trigger it manually
+		require("jdtls").setup_dap({
+			hotcodereplace = "auto",
+			config_overrides = {},
+		})
+	end
 }
 
-config["on_attach"] = function(client, bufnr)
-	-- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
-	-- you make during a debug session immediately.
-	-- Remove the option if you do not want that.
-	-- You can use the `JdtHotcodeReplace` command to trigger it manually
-	require("jdtls").setup_dap({
-		hotcodereplace = "auto",
-		config_overrides = {},
-	})
-end
-
--- This starts a new client & server,
--- or attaches to an existing client & server depending on the `root_dir`.
 require("jdtls").start_or_attach(config)

@@ -107,23 +107,33 @@ return {
           }
         }
 
-        -- `DapBreakpoint` for breakpoints (default: `B`)
-        -- `DapBreakpointCondition` for conditional breakpoints (default: `C`)
-        -- `DapLogPoint` for log points (default: `L`)
-        -- `DapStopped` to indicate where the debugee is stopped (default: `→`)
-        -- `DapBreakpointRejected` to indicate breakpoints rejected by the debug adapter (default: `R`)
-
-        -- You can customize the signs by setting them with the |sign_define()| function.
-        -- For example:
-
         vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapUIStop' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapUIStop' })
         vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapUIStop' })
         vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapUIStop' })
         vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'DapUIStop' })
 
-        local dapui = require("dapui")
-        dapui.setup({
+        dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open({}) end
+        dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close({}) end
+        dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
+
+      end,
+    }, -- DAP client
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      config = function() require("nvim-dap-virtual-text").setup({}) end,
+    }, -- DAP virtual text
+    {
+      'leoluz/nvim-dap-go',
+      config = function() require('dap-go').setup() end,
+      ft = "go",
+      keys = require("core.keymaps")["dap_go"],
+    }
+  },
+  keys = require("core.keymaps")["dap"],
+
+  config = function()
+    require("dapui").setup({
           icons = { expanded = "", collapsed = "", current_frame = "" },
           mappings = {
             -- Use a table to apply multiple mappings
@@ -205,24 +215,5 @@ return {
             max_value_lines = 100, -- Can be integer or nil.
           },
         })
-
-        dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open({}) end
-        dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close({}) end
-        dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
-
-        require("nvim-dap-virtual-text").setup({})
-      end,
-    }, -- DAP client
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      config = function() require("nvim-dap-virtual-text").setup({}) end,
-    }, -- DAP virtual text
-    {
-      'leoluz/nvim-dap-go',
-      config = function() require('dap-go').setup() end,
-      ft = "go",
-      keys = require("core.keymaps")["dap_go"],
-    }
-  },
-  keys = require("core.keymaps")["dap"],
+        end
 } -- DAP UI

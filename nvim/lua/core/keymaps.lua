@@ -95,14 +95,16 @@ M.neotest = {
 -------------- Coding --------------
 M.mason = { wrap_lazy("n", "<leader>lm", ":Mason<CR>", "Open Manager(Mason)"), }
 M.lspconfig = {
-  wrap_lazy("n", "K", vim.lsp.buf.hover { buffer = 'rounded' }, "show hover"),
+  wrap_lazy("n", "K",  function() vim.lsp.buf.hover { border = 'rounded' } end, "show hover"),
   wrap_lazy("n", "gd", ":Telescope lsp_definitions<CR>", "goto definition"),
   wrap_lazy("n", "gD", vim.lsp.buf.declaration, "goto declaration"),
   wrap_lazy("n", "gt", ":Telescope lsp_type_definitions<CR>", "goto definition type"),
   wrap_lazy("n", "gr", ":Telescope lsp_references<CR>", "goto references"),
+  wrap_lazy("n", "gh", ":Telescope hierarchy incoming_calls<CR>", "incoming"),
+  wrap_lazy("n", "gH", ":Telescope hierarchy outgoing_calls<CR>", "outgoing"),
   wrap_lazy("n", "gi", ":Telescope lsp_implementations<CR>", "goto implementation"),
   wrap_lazy("n", "gs", ":Telescope lsp_document_symbols<CR>", "show document symbol "),
-  wrap_lazy("n", "gh", vim.lsp.buf.signature_help, "show signature help"),
+  -- wrap_lazy("n", "gh", vim.lsp.buf.signature_help, "show signature help"),
   wrap_lazy("n", "<leader>la", vim.lsp.buf.code_action, "code action"),
   wrap_lazy("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "formatting"),
   wrap_lazy("n", "<leader>ll", ":LspLog<CR>", "Lsp server log"),
@@ -114,10 +116,10 @@ M.lspconfig = {
   wrap_lazy("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
     "List workspace folders"),
 
-  wrap_lazy("n", "[d", function() vim.diagnostic.goto_prev {} end, "Prev diagnostic"),
-  wrap_lazy("n", "]d", function() vim.diagnostic.goto_next {} end, "Next diagnostic"),
-  wrap_lazy("n", "[e", function() vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR } end, "Prev error"),
-  wrap_lazy("n", "]e", function() vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR } end, "Next error"),
+  wrap_lazy("n", "[d", function() vim.diagnostic.jump {count = 1, float = true} end, "Prev diagnostic"),
+  wrap_lazy("n", "[d", function() vim.diagnostic.jump {count = -1, float = true} end, "Prev diagnostic"),
+  wrap_lazy("n", "[e", function() vim.diagnostic.jump {count = 1, float = true, severity = vim.diagnostic.severity.ERROR } end, "Prev error"),
+  wrap_lazy("n", "]e", function() vim.diagnostic.jump {count = -1, float = true, severity = vim.diagnostic.severity.ERROR } end, "Next error"),
 }
 M.dap = {
   wrap_lazy("n", "<leader>Db", ":lua require'dap'.step_back()<CR>", "step back"),
@@ -188,19 +190,20 @@ M.sqls = function(bufnr)
   map_buf_wrap(bufnr, 'v', '<leader>lc', "<Plug>(sqls-execute-query)", 'Execute Query')
   map_buf_wrap(bufnr, 'v', '<leader>lc', "<Plug>(sqls-execute-query-vertical)", 'Execute Query vertical')
 end
-M.flutter_tools = function() map_wrap("n", "<leader>lc", ":Telescope flutter commands<CR>", "Flutter commands") end
 M.markdown_preview = function() map_wrap("n", "<leader>lc", ":MarkdownPreviewToggle<CR>", "Toggle MarkdownPreview") end
 M.rest = {
   wrap_lazy("n", "<leader>lcc", ":Rest run<CR>", "run the request under the cursor"),
   wrap_lazy("n", "<leader>lcl", ":Rest run last<CR>", "run latest request"), }
 -------------- Finder --------------
 M.telescope = {
+  wrap_lazy("n", "<leader>ee", ":Telescope file_browser<CR>", "file explorer"),
+  wrap_lazy("n", "<leader>ef", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "file explorer"),
+
   wrap_lazy("n", "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"),
   wrap_lazy("n", "<leader>fb", ":Telescope buffers<CR>", "buffer"),
   wrap_lazy("n", "<leader>fc", ":Telescope commands<CR>", "command"),
   wrap_lazy("n", "<leader>fC", ":lua require('telescope.builtin').colorscheme {enable_preview=true}<CR>",
     "colorscheme with Preview"),
-  wrap_lazy("n", "<leader>fe", ":Telescope file_browser<CR>", "file explorer"),
   wrap_lazy("n", "<leader>ff", ":Telescope find_files<CR>", "file"),
   wrap_lazy("n", "<leader>fh", ":Telescope help_tags<CR>", "help"),
   wrap_lazy("n", "<leader>fH", ":Telescope highlights<CR>", "Highlight groups"),
@@ -213,6 +216,8 @@ M.telescope = {
   wrap_lazy("n", "<leader>fz", ":Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer"),
   wrap_lazy("n", "<leader>gc", ":Telescope git_commits<CR>", "Open changed file"),
   wrap_lazy("n", "<leader>gs", ":Telescope git_status<CR>", "Open changed file"),
+
+  wrap_lazy("n", "<leader>;", ":Telescope cmdline<CR>", "cmd line"),
 }
 M.telescope_mapping = function(actions)
   return {
@@ -321,26 +326,27 @@ end
 M.telescope_file_browser_mapping = function(fb_actions)
   return {
     ["i"] = {
-      ["<A-c>"] = fb_actions.create,
-      ["<S-CR>"] = fb_actions.create_from_prompt,
-      ["<A-r>"] = fb_actions.rename,
-      ["<A-m>"] = fb_actions.move,
-      ["<A-y>"] = fb_actions.copy,
-      ["<A-d>"] = fb_actions.remove,
+      -- ["<S-CR>"] = fb_actions.create_from_prompt,
+      ["<C-a>"] = fb_actions.create,
+      ["<C-r>"] = fb_actions.rename,
+      ["<C-x>"] = fb_actions.move,
+      ["<C-y>"] = fb_actions.copy,
+      ["<C-d>"] = fb_actions.remove,
+      ["<C-h>"] = fb_actions.goto_parent_dir,
       ["<C-o>"] = fb_actions.open,
-      ["<C-g>"] = fb_actions.goto_parent_dir,
       ["<C-e>"] = fb_actions.goto_home_dir,
       ["<C-w>"] = fb_actions.goto_cwd,
       ["<C-t>"] = fb_actions.change_cwd,
-      ["<C-f>"] = fb_actions.toggle_browser,
-      ["<C-h>"] = fb_actions.toggle_hidden,
+      ["<C-f>"] = fb_actions.toggle_browser, -- ?
+      ["<C-g>"] = fb_actions.toggle_hidden,
       ["<C-s>"] = fb_actions.toggle_all,
-      ["<bs>"] = fb_actions.backspace,
+      -- ["<bs>"] = fb_actions.backspace,
+      ["<bs>"] = nil,
     },
     ["n"] = {
       ["c"] = fb_actions.create,
       ["r"] = fb_actions.rename,
-      ["m"] = fb_actions.move,
+      ["x"] = fb_actions.move,
       ["y"] = fb_actions.copy,
       ["d"] = fb_actions.remove,
       ["o"] = fb_actions.open,
@@ -358,9 +364,9 @@ M.todo_comments = { wrap_lazy("n", "<leader>ft", ":TodoTelescope<CR>", "Find tod
 
 -------------- Tools --------------
 M.autosession = {
-  wrap_lazy("n", "<leader>ss", ":SessionSave<CR>", "save session"),
-  wrap_lazy("n", "<leader>sl", ":SessionRestore<CR>", "load session"),
-  wrap_lazy("n", "<leader>sf", ":SessionSearch<CR>", "find Session"), }
+  wrap_lazy("n", "<leader>ss", ":AutoSession save<CR>", "save session"),
+  wrap_lazy("n", "<leader>sl", ":AutoSession restore<CR>", "load session"),
+  wrap_lazy("n", "<leader>sf", ":AutoSession search<CR>", "find Session"), }
 M.diffview = {
   wrap_lazy("n", "<leader>gd", ":DiffviewOpen<CR>", "Git diff"),
   wrap_lazy("n", "<leader>gh", ":DiffviewFileHistory %<CR>", "Show file history"), }

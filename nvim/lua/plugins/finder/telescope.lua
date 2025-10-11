@@ -6,6 +6,8 @@ return {
     "natecraddock/telescope-zf-native.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
+    "jonarrien/telescope-cmdline.nvim",
+    "jmacadie/telescope-hierarchy.nvim",
   },
   event = "VeryLazy",
   keys = require('core.keymaps')["telescope"],
@@ -13,11 +15,12 @@ return {
   config = function()
     local icons = require('core.icons')
     local u = require('core.utils')
+    local km = require('core.keymaps')
 
     local actions = require('telescope.actions')
-    local mappings = require('core.keymaps').telescope_mapping(actions)
+    local mappings = km.telescope_mapping(actions)
     local fb_actions = require("telescope._extensions.file_browser.actions")
-    local fb_mappings = require('core.keymaps').telescope_file_browser_mapping(fb_actions)
+    local fb_mappings = km.telescope_file_browser_mapping(fb_actions)
 
     local opts_cursor = {
       initial_mode = 'normal',
@@ -55,7 +58,7 @@ return {
     require('telescope').setup({
       defaults = {
         prompt_prefix = icons.search .. ' ',
-        selection_caret = icons.folder.arrow_closed,
+        selection_caret = icons.folder.arrow_closed .. ' ',
         path_display = { "smart" },
         file_ignore_patterns = {
           '%.git/',
@@ -107,7 +110,7 @@ return {
           path = vim.loop.cwd(),
           cwd = vim.loop.cwd(),
           cwd_to_path = false,
-          grouped = false,
+          grouped = true,
           files = true,
           add_dirs = true,
           depth = 1,
@@ -125,15 +128,14 @@ return {
           quiet = false,
           dir_icon = "",
           dir_icon_hl = "Default",
-          display_stat = { date = true, size = true, mode = true },
+          -- display_stat = { date = true, size = true, mode = true },
+          display_stat = false,
           hijack_netrw = false,
           use_fd = false,
           git_status = true,
           mappings = fb_mappings ,
         },
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown { }
-        }
+        ['ui-select'] = { require('telescope.themes').get_dropdown { } }
       },
       pickers = {
         -- ['ui-select'] = u.merge(opts_cursor,
@@ -148,9 +150,10 @@ return {
         -- lsp_code_actions = u.merge(opts_vertical, { prompt_title = 'Code Actions' }),
         -- lsp_range_code_actions = u.merge(opts_vertical, { prompt_title = 'Code Actions' }),
         lsp_document_diagnostics = u.merge(opts_vertical, { prompt_title = 'Document Diagnostics' }),
-        lsp_implementations = u.merge(opts_cursor, { prompt_title = 'Implementations', }),
+        lsp_document_symbols = u.merge(opts_vertical, { prompt_title = 'LSP Doc Symbols' }),
+        lsp_implementations = u.merge(opts_vertical, { prompt_title = 'Implementations', }),
         lsp_definitions = u.merge(opts_cursor, { prompt_title = 'Definitions', }),
-        lsp_references = u.merge(opts_flex, { prompt_title = 'References', }),
+        lsp_references = u.merge(opts_vertical, { prompt_title = 'References', }),
         find_files = u.merge(opts_flex, { prompt_title = 'Search Project', hidden = true, }),
         file_browser = u.merge(opts_flex, { prompt_title = 'File Browser', hidden = true, }),
         diagnostics = u.merge(opts_flex, { }),
@@ -163,5 +166,7 @@ return {
     require("telescope").load_extension("zf-native")
     require('telescope').load_extension('file_browser')
     require('telescope').load_extension('ui-select')
+    require('telescope').load_extension('cmdline')
+    require("telescope").load_extension("hierarchy")
   end,
 }

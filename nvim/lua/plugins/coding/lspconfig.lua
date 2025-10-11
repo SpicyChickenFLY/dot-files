@@ -13,15 +13,16 @@ return {
     end
 
     -- set highlight and icon for diagnostic
-    -- local statusline_colors = vim.api.nvim_command_output(('hi %s'):format("StatusLine"))
-    local diagnostic_type = { "Error", "Warn", "Info", "Hint" }
+    local config = { signs = { text = {}, texthl = {}, numhl = {} }, }
     local diagnostic_icon_map = { Error = icons.error, Warn = icons.warn, Info = icons.info, Hint = icons.hint }
-    for _, value in ipairs(diagnostic_type) do
-
-      local diag_sign_key = "DiagnosticSign" .. value
-      local icon = diagnostic_icon_map[value]
-      vim.fn.sign_define(diag_sign_key, { text = icon, texthl = diag_sign_key, numhl = diag_sign_key })
+    for _, value in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+      local key = "vim.diagnostic.severity." .. value
+      config.signs.text[key] = diagnostic_icon_map[value]
+      config.signs.texthl[key] = "DiagnosticSign" .. value
+      config.signs.numhl[key] = "DiagnosticSign" .. value
     end
+
+    vim.diagnostic.config({})
 
     -- set lsp-config
     local border = "rounded"
@@ -33,9 +34,9 @@ return {
       virtual_lines = false,
       -- ["my/notify"] = {log_level = vim.log.levels.HINT}
     })
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    --   border = "rounded",
-    -- })
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = border,
+    })
     require("lspconfig.ui.windows").default_options = { border = border }
 
     local kinds = vim.lsp.protocol.CompletionItemKind
@@ -44,11 +45,15 @@ return {
     end
 
     -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
-    local on_attach = function(client, bufnr)
+    local on_attach_default = function(client, bufnr)
+      local autocmd = vim.api.nvim_create_autocmd
+      autocmd("CursorHold",  { callback = function(_) vim.lsp.buf.document_highlight() end})
+      autocmd("CursorHoldI", { callback = function(_) vim.lsp.buf.document_highlight() end})
+      autocmd("CursorMoved", { callback = function(_) vim.lsp.buf.clear_references() end})
     end
 
-    -- go lsp
-    require("lspconfig")["gopls"].setup({
+    -- Golang
+    vim.lsp.config.gopls = {
       init_options = {
         gofumpt = true,
         usePlaceholders = true,
@@ -65,9 +70,10 @@ return {
         },
         codelenses = { gc_details = true, tidy = true },
       },
-    })
-    -- lua lsp
-    require("lspconfig")["lua_ls"].setup({
+    }
+    -- Lua
+    vim.lsp.config.lua_ls = {
+      on_attach = on_attach_default,
       settings = {
         Lua = {
           runtime = { version = "LuaJIT" },
@@ -84,9 +90,9 @@ return {
           telemetry = { enable = false },
         },
       },
-    })
+    }
     -- javascript/typescript/html/css lsp
-    require("lspconfig")["eslint"].setup({
+    vim.lsp.config.eslint = {
       on_attach = function(client, bufnr)
         local group = vim.api.nvim_create_augroup("Eslint", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -96,21 +102,20 @@ return {
           desc = "Run eslint when saving buffer.",
         })
       end,
-    })
-    require("lspconfig").stylelint_lsp.setup({})
-    -- json lsp
-    require("lspconfig")["jsonls"].setup({
+    }
+    vim.lsp.config.stylelint_lsp = {}
+    -- JSON
+    vim.lsp.config.jsonls = {
       settings = {
         json = { schemas = require("schemastore").json.schemas() },
       },
-    })
-    -- NOTE: Java
-    -- Use jdtls.nvim
-
+    }
+    -- Java - Use jdtls.nvim
     -- C/C++
-    require("lspconfig").clangd.setup({ })
+    vim.lsp.config.clangd = { on_attach = on_attach_default }
     -- Python
-    require("lspconfig").pyright.setup({
+    vim.lsp.config.pyright = {
+      on_attach = on_attach_default,
       settings = {
         python = {
           -- venv = "venv",
@@ -118,12 +123,12 @@ return {
           pythonPath = "/mnt/Mine/Code/python/venv/bin/python"
         }
       }
-    })
+    }
     -- Bash
-    require("lspconfig").bashls.setup({ })
+    vim.lsp.config.bashls = { on_attach = on_attach_default }
     -- XML
-    require("lspconfig").lemminx.setup({ })
-    -- SQL
+    vim.lsp.config.lemminx = { on_attach = on_attach_default }
+    -- SQL local on_sql_attach = function(client, bufnr)
     local on_sql_attach = function(client, bufnr)
       vim.api.nvim_create_autocmd('User', {
         pattern = 'SqlsConnectionChoice',
@@ -155,6 +160,12 @@ return {
       require('sqls').on_attach(client, bufnr)
       vim.cmd([[ SqlsSwitchConnection ]])
     end
-    require("lspconfig").sqls.setup({ on_attach = on_sql_attach })
+    vim.lsp.config.sqls = { on_attach = on_sql_attach }
+
+    vim.lsp.enable("lua_ls")
+    vim.lsp.enable("bashls")
+    vim.lsp.enable("pyright")
+    vim.lsp.enable("lemminx")
+    vim.lsp.enable("sqls")
   end,
 }

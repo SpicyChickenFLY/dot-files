@@ -15,8 +15,6 @@ return {
                 null_ls.builtins.formatting.black,
                 -- golang
                 null_ls.builtins.formatting.goimports,
-                -- golang
-                null_ls.builtins.formatting.goimports,
                 -- shell
                 null_ls.builtins.formatting.shfmt,
                 null_ls.builtins.diagnostics.zsh.with({ filetypes = { "zsh" }, }),

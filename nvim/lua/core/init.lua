@@ -16,7 +16,6 @@ g.mapleader = " "
 
 require("core.options")
 
-
 ---------------------------- Commands ------------------------------
 local cmd = vim.cmd
 cmd([[filetype plugin indent on]])
@@ -26,16 +25,12 @@ local autocmd = vim.api.nvim_create_autocmd
 -- 打开新Buffer时把i3.config结尾的文件看作i3config文件类型
 autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
     pattern = "*.i3.config",
-    callback = function()
-        cmd([[set filetype=i3config]])
-    end,
+    callback = function() cmd([[set filetype=i3config]]) end,
 })
 -- 打开新Buffer时把http结尾的文件看作rest测试文件类型
 autocmd({ "BufRead", "BufEnter", "BufNewFile" }, {
     pattern = "*.http",
-    callback = function()
-        cmd([[set filetype=http]])
-    end,
+    callback = function() cmd([[set filetype=http]]) end,
 })
 -- close some filetypes with <q>
 autocmd("FileType", {
@@ -62,14 +57,10 @@ autocmd("FileType", {
     end,
 })
 autocmd("FileType", {
-    pattern = {
-        "Avante*",
-    },
+    pattern = { "Avante*", },
     callback = function(event)
-        -- :help api-autocmd
-        -- nvim_create_autocmd's callback receives a table argument with fields
-        -- event = {id,event,group?,match,buf,file,data(arbituary data)}
         vim.bo[event.buf].buflisted = false
         vim.keymap.set("n", "q", "<cmd>AvanteToggle<cr>", { buffer = event.buf, silent = true })
     end,
 })
+
