@@ -192,8 +192,10 @@ M.sqls = function(bufnr)
 end
 M.markdown_preview = function() map_wrap("n", "<leader>lc", ":MarkdownPreviewToggle<CR>", "Toggle MarkdownPreview") end
 M.rest = {
-  wrap_lazy("n", "<leader>lcc", ":Rest run<CR>", "run the request under the cursor"),
-  wrap_lazy("n", "<leader>lcl", ":Rest run last<CR>", "run latest request"), }
+  wrap_lazy("n", "<leader>lcc", ":Resty run<CR>", "run the request under the cursor"),
+  wrap_lazy("n", "<leader>lcl", ":Resty last<CR>", "run latest request"),
+  wrap_lazy("n", "<leader>lcf", ":Resty favorite<CR>", "run latest request"),
+}
 -------------- Finder --------------
 M.telescope = {
   wrap_lazy("n", "<leader>ee", ":Telescope file_browser<CR>", "file explorer"),

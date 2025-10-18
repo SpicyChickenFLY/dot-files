@@ -49,9 +49,10 @@ local config = {
 	settings = {
 		java = {
 			runtimes = {
-				-- { name = "javaSE-8",  path = jdk8_path },
+				{ name = "javaSE-8",  path = jdk8_path },
 				{ name = "javaSE-17", path = jdk17_path },
 				{ name = "javaSE-21", path = jdk21_path },
+				{ name = "javaSE-24", path = jdk24_path },
 			},
 			contentProvider = { preferred = "fernflower" },
 			signatureHelp = { enabled = true },

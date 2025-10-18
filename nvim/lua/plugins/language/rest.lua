@@ -95,9 +95,9 @@ return {
         ---@class rest.Config.UI.Keybinds
         keybinds = {
           ---@type string Mapping for cycle to previous result pane
-          prev = "H",
+          prev = ",",
           ---@type string Mapping for cycle to next result pane
-          next = "L",
+          next = ".",
         },
       },
       ---@class rest.Config.Highlight
