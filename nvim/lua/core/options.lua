@@ -14,7 +14,7 @@ opt.shortmess:append("sI") -- 禁用开头介绍
 -- UI
 opt.background = "light"
 opt.termguicolors = true
-opt.syntax = "off"
+opt.syntax = "on"
 -- opt.showmode = false
 opt.laststatus = 3 -- global statusline
 opt.cursorline = true
@@ -27,7 +27,7 @@ opt.wrap = true                -- 开启折行显示
 opt.whichwrap:append("<>[]hl") -- 允许hl移动换行
 
 -- Numbers
-opt.number = false
+opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = false
 opt.ruler = false

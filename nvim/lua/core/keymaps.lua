@@ -369,9 +369,9 @@ M.autosession = {
   wrap_lazy("n", "<leader>ss", ":AutoSession save<CR>", "save session"),
   wrap_lazy("n", "<leader>sl", ":AutoSession restore<CR>", "load session"),
   wrap_lazy("n", "<leader>sf", ":AutoSession search<CR>", "find Session"), }
-M.diffview = {
-  wrap_lazy("n", "<leader>gd", ":DiffviewOpen<CR>", "Git diff"),
-  wrap_lazy("n", "<leader>gh", ":DiffviewFileHistory %<CR>", "Show file history"), }
+-- M.diffview = {
+--   wrap_lazy("n", "<leader>gd", ":DiffviewOpen<CR>", "Git diff"),
+--   wrap_lazy("n", "<leader>gh", ":DiffviewFileHistory %<CR>", "Show file history"), }
 
 M.autosession_mapping = function()
   return {

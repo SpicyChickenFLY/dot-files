@@ -3,7 +3,6 @@
 -- 加载基本键位配置
 vim.schedule(require("core.keymaps").general)
 
-local icons = require("core.icons")
 ---------------------------- Path ------------------------------
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
@@ -56,11 +55,11 @@ autocmd("FileType", {
         vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
-autocmd("FileType", {
-    pattern = { "Avante*", },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>AvanteToggle<cr>", { buffer = event.buf, silent = true })
-    end,
-})
+-- autocmd("FileType", {
+--     pattern = { "Avante*", },
+--     callback = function(event)
+--         vim.bo[event.buf].buflisted = false
+--         vim.keymap.set("n", "q", "<cmd>AvanteToggle<cr>", { buffer = event.buf, silent = true })
+--     end,
+-- })
 

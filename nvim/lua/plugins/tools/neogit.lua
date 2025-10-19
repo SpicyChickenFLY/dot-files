@@ -5,5 +5,5 @@ return {
     "sindrets/diffview.nvim",        -- optional - Diff integration
     "nvim-telescope/telescope.nvim", -- optional
   },
-  cmd = {"NeoGit"},
+  cmd = {"Neogit"},
 }

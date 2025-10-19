@@ -1,3 +1,30 @@
+### example
+# variable for the hostname
+@hostname = httpbin.org          # variable with value
+@hostname = {{$HOSTNAME}}        # from environment variable (start symbol: '$')
+@hostname = {{>  ./myscript.sh}} # from script (start symbol: '>')
+@hostname = {{>> ./myscript.sh}} # from script (start symbol: '>>'), the result will be cached
+@hostname = {{:hostname}}        # with input prompt (start symbol: ':')
+
+# prefix: @cfg. means configuration from curl and/or resty
+@cfg.timeout = 1000              # curl configuration for timeout 
+@cfg.check_json_body = true      # resty configuration to validate the json body
+
+###  #my favorite
+GET https://{{hostname}}/get?id=7
+# you can click (set the cursor) on {{hostname}} and get displayed the current value
+accept: application/json  
+# id = 7 this equivalent to ?id=7
+
 ### 
+# local variable overwrites global variable
+@hostname = jsonplaceholder.typicode.com
+
+POST https://{{hostname}}/comments
+accept: application/json  
+
+{ "comment": "my comment" }
+
+### WWW test
 GET https://baidu.com
 
